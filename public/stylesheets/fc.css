@@ -1,0 +1,526 @@
+body {
+	background: #874;
+}
+body, td {
+	font-family: Helvetica, sans-serif;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+img {
+	border: none;
+}
+
+div.header {
+	background: #333;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#444), to(#222));
+	background-image: -moz-linear-gradient(#444, #222)
+	text-shadow: black 0 0 0.2em;
+	border-bottom: solid 1px #888;
+	font-size: 130%;
+	color: white;
+	font-weight: bold;
+	text-align: center;
+	padding: 0.5em 1em;
+	margin: 0;
+}
+
+div#wrapper div.header {
+	font-size: 120%;
+	text-align: left;
+}
+div#wrapper div.header div.buttons {
+  float: right;
+}
+
+
+div.content {
+	padding: 1em 3%;
+	background: #653;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#653), to(#fff));
+	background-image: -moz-linear-gradient(#653, #fff)
+}
+
+div.container1 {
+	background: #e7e4ae;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#e7e4ae), to(#f7f4ce));
+	background-image: -moz-linear-gradient(#e7e4ae, #f7f4ce)
+	-moz-border-radius: 0.3em;
+	-webkit-border-radius: 0.3em;
+	-webkit-box-shadow: 0 0.2em 0.3em rgba(0, 0, 0, .3);
+	-moz-box-shadow: 0 0.2em 0.3em rgba(0, 0, 0, .3);
+	padding: 0.8em 3% 2em 3%;
+	margin: 0.5em 0;
+}
+
+#sidebar {
+	float: left;
+	width: 30%;
+	height: 100%;
+	background: #fff;
+}
+
+#sidebar div.container {
+	-moz-border-radius: 0.3em;
+	-webkit-border-radius: 0.3em;
+	-webkit-box-shadow: 0 0.2em 0.3em rgba(0, 0, 0, .3);
+	-moz-box-shadow: 0 0.2em 0.3em rgba(0, 0, 0, .3);
+	height: 100%;
+	border-right: solid 1px #888;
+}
+
+.hidden {
+	display: none;
+}
+
+#editor {
+	float: left;
+	width: 70%;
+}
+
+#title {
+  zpadding: 5px;
+  font-size: 120%;
+  color: #fff;
+  background: #000;
+}
+
+#title .buttons {
+  float: right;
+}
+
+#title .buttons a {
+  zmargin-left: 10px;
+}
+
+/*========================*/
+#notesContainer {
+float: left;
+width: 25%;
+}
+#notesHeader { 
+zpadding: 0.8em;
+border: 2px solid #ddd;
+}
+#notesComponent {
+zmargin-top: 4em;
+zpadding: 0.8em;
+border: 2px solid #ddd;
+text-align: center;
+}
+
+#backchat {
+	height: 100%;
+	background: #eef;
+}
+#backchatHeader {
+font-weight: bold;
+zpadding: 0.5em 0.8em;
+background-color: #DDD;
+border-bottom: 2px solid #aaa;
+}
+#backchatHeader input { font-size: 0.7em; }
+#backchatHeaderInstructions {
+display: none;
+
+background-color: #EEE;
+zpadding: 1em;
+}
+#backchatHeaderInstructions p {
+text-indent: 1em;
+zmargin-top: 0.2em;
+}
+
+#sidebar div.container .userBox {
+	position: relative; /* allow position absolute for charsLeftMsg and submit btn */
+	padding: 0.5em 1em;
+	border-bottom: 1px solid #aaa;
+	background-color: #ddb;
+}
+#userHeader {
+	zmargin: 0 0 0.5em 0;
+}
+#loginBox {
+	zpadding: 0.5em 1em;
+	border-bottom: 1px solid #aaa;
+	background: #ddd;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#ddf), to(#cce));
+	background-image: -moz-linear-gradient(#ddf, #cce)
+}
+#userHeader .userName { 
+	font-weight: bold;
+	font-size: 110%;
+	width: 10em;
+}
+#userHeader .userAffil {
+	font-style: italic;
+}
+#userButtons {
+float: right;
+}
+#enterPostTextarea {
+	width: 98%;
+	zpadding: 0.3em 0.4em;
+}
+#charsLeftMsg {
+position: absolute;
+left: 3em;
+bottom: 1.5em;
+color: red; 
+}
+#submitPost {
+	/*position: absolute;
+	right: 1.5em;
+	bottom: 1.5em;*/
+}
+#enterUser { display: none; }
+#enterAdmin { display: none; }
+#posts {
+	background: #eec;
+	padding: 1em 1.5em;
+  overflow-y: auto;
+}
+#postsHeader {
+padding-bottom: 0.5em;
+}
+.postsHeaderTitle {
+font-weight: bold;
+}
+.showpostsButton {
+/* this doesn't work in Firefox; may be impossible on OS X */
+font-size: 70%;
+}
+#postsHeaderInstructions {
+background-color: #ffc3c3;
+}
+#recentPosts {
+min-height: 6em;
+ padding: 1em 1.5em;
+}
+#posts .postContainer {
+	min-height: 5.3em;
+
+	-moz-border-radius: 0.3em;
+	-webkit-border-radius: 0.3em;
+
+	-webkit-box-shadow: 0 0.2em 0.3em rgba(0, 0, 0, .3);
+	-moz-box-shadow: 0 0.2em 0.3em rgba(0, 0, 0, .3);
+
+	margin: 0.8em 0;
+	padding: 0.5em 1em;
+	background: #fff;
+}
+#posts .postVoteContainer {
+	float: left;
+}
+.unvoted {
+	background-color: #afa;
+}
+#posts .postVoteContainer .vote-tally-rect {
+	width: 1.6em;
+	height: 1em;
+	border: 1px solid #aaa;
+	-moz-border-radius: 0.2em;
+	-webkit-border-radius: 0.2em;
+	padding: 0.2em;
+	background-color: #fff;
+	text-align: right;
+	cursor: pointer; cursor: hand;
+	font-size: 120%;
+	font-weight: bold;
+	margin: 0.2em;
+	-webkit-box-shadow: 0 0.1em 0.1em rgba(0, 0, 0, .3);
+	-moz-box-shadow: 0 0.1em 0.1em rgba(0, 0, 0, .3);
+}
+.postVoteContainer .vote-up {
+background: transparent url(/images/arrow_up.png) no-repeat scroll 10% 50%;
+}
+.postVoteContainer .voteFlag {
+	cursor: pointer; cursor: hand;
+	font-size: 80%;
+	color: #fff;
+	background: #f00;
+	font-weight: bold;
+	text-align: center;
+	-moz-border-radius: 0.3em;
+	-webkit-border-radius: 0.3em;
+	-webkit-box-shadow: 0 0.1em 0.1em rgba(0, 0, 0, .3);
+	-moz-box-shadow: 0 0.1em 0.1em rgba(0, 0, 0, .3);
+}
+#posts .postDisplayContainer {
+ margin: 0.3em 0.3em 0.3em 4em;
+}
+#posts .postBody {
+	min-height: 4.0em;
+	overflow: auto;
+}
+#posts .postFooter {
+	border-top: solid 1px #ccc;
+	color: #888;
+	padding: 0.2em 0em;
+	font-style: italic;
+	font-size: 90%;
+	text-align:right;
+}
+#posts .commentFooter {
+	border-top: solid 1px #ccc;
+	color: #666;
+	padding: 0.2em 0em;
+	font-style: italic;
+	font-size: 80%;
+}
+#posts .postFooter .postid {
+	float: right;
+	font-size: 70%;
+	color: #ccc;
+}
+#posts .userName {
+}
+#posts .userAffil {
+}
+
+#posts .commentAmt {
+  cursor: pointer; cursor: hand;
+}
+
+#loginForm .label {
+	width: 50%;
+	text-align: right;
+	display: table-cell;
+}
+#loginForm .data {
+	display: table-cell;
+}
+#loginBox h1 {
+	font-size: 105%;
+}
+
+#commentText {
+	width: 100%;
+}
+#posts .flagged {
+  opacity: 0.3;
+  background: #eca;
+}
+#posts .flagged .commentForm {
+  display: none;
+}
+#posts .instructor {
+  background: #EDDA74;
+}
+
+/*.button {
+
+	background: #fff;
+	color: black;
+
+	-moz-border-radius: 0.2em;
+	-webkit-border-radius: 0.2em;
+
+	-webkit-box-shadow: 0 0.2em 0.3em rgba(0, 0, 0, .2);
+	-moz-box-shadow: 0 0.2em 0.3em rgba(0, 0, 0, .2);
+
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#edc), to(#dcb));
+	background-image: -moz-linear-gradient(#edc, #dcb)
+
+	zpadding: 0.1em 1em;
+	font-size: 80%;
+	display: table-cell;
+	zmargin: 0.5em 1em;
+	cursor: pointer; cursor: hand;
+} */
+
+
+.page a {
+	color:#917139;
+}
+
+a {
+  color:#970;
+  font-weight: bold;
+  text-decoration: none;
+}
+span.sub_menu{
+	zfloat:right;
+	border-top:  solid 1px #a98;
+	border-bottom:  solid 1px #000;
+	background-color:#917139;
+	-moz-border-radius: 0.3em;
+	-webkit-border-radius: 0.3em;
+	padding: 0.3em 1em;
+	color:#fff;
+	text-align: right;
+	-webkit-box-shadow: 0 0.1em 0.1em rgba(0, 0, 0, .3);
+	-moz-box-shadow: 0 0.1em 0.1em rgba(0, 0, 0, .3);
+}
+span.sub_menu a{
+	color:#fff;
+	text-decoration:none;
+	font-size: 90%;
+}
+span.sub_menu a:hover {
+	color:#fff;
+	text-decoration:underline;
+}
+
+
+h1 {
+	zmargin: 0.3em 0;
+	text-align: center;
+	color:#fff;
+	ztext-shadow: black 0 0 0.2em;
+	font-size: 120%;
+}
+h2 {
+	zmargin: 0.5em 0;
+	clear:both;
+	font-size: 110%;
+}
+
+h3 {
+	font-size: 105%;
+}
+ul{
+	zmargin:8px 15px;
+}
+
+
+#sidebar h3 {
+	margin: 0;
+	font-size: 105%;
+}
+.rnd {
+	-moz-border-radius: 0.3em;
+	-webkit-border-radius: 0.3em;
+	-webkit-box-shadow: 0 0.2em 0.3em rgba(0, 0, 0, .3);
+	-moz-box-shadow: 0 0.2em 0.3em rgba(0, 0, 0, .3);
+}
+
+.ylw{
+	background:#F7F4CE;
+}
+
+.blu{
+	background: #def;
+}
+.frm_login{
+	width:275px;
+	zmargin:0 auto;
+}
+
+.row {
+	display: table-row;
+}
+.row .label {
+	width: 50%;
+	text-align: right;
+	display: table-cell;
+	padding: 0.8em 3% 0.8em 0%;
+	white-space: nowrap;
+}
+.row .field {
+	display: table-cell;
+	padding: 0.2em 0;
+}
+.row .field input {
+	width: 90%;
+}
+
+.commentContainer {
+	background: #eee;
+	padding: 0.5em;
+}
+
+div.school {
+	border:  solid 1px #876;
+	-moz-border-radius: 0.2em;
+	-webkit-border-radius: 0.2em;
+	margin: 1.0em 0;
+	padding: 1em 2%;
+	background: #FaF6d3;
+	-webkit-box-shadow: 0 0.1em 0.1em rgba(0, 0, 0, .3);
+	-moz-box-shadow: 0 0.1em 0.1em rgba(0, 0, 0, .3);
+}
+div.menubar {
+	text-align: right;
+}
+
+div.school h2 {
+	font-size: 120%;
+	margin: 0 0;
+}
+
+#messages {
+	background: #900;
+	padding: 0.5em;
+}
+.error {
+	color: #fff;
+}
+.anonpost {
+	font-size: 70%;
+}
+
+li {
+	padding: 0.2em 0; 
+}
+
+a.readonlylink {
+	font-weight: normal;
+	color: #bbb;
+	font-size: 80%;
+	margin: 0 2em;
+}
+
+div#editor div.readonly {
+	background: #fff;
+	min-height: 100%;
+	padding: 1.5em 3%;
+}
+
+div#reportedContainer h1 {
+	margin: 0;
+	padding: 0.3em 1em;
+	font-weight: bold;
+	font-size: 100%;
+	color:#442;
+	text-align: left;
+	background-color:#ddb;
+	-moz-border-radius: 0.3em;
+	-webkit-border-radius: 0.3em;
+	-webkit-box-shadow: 0 0.1em 0.1em rgba(0, 0, 0, .3);
+	-moz-box-shadow: 0 0.1em 0.1em rgba(0, 0, 0, .3);
+	letter-spacing: 0.1em;
+	cursor: pointer; cursor: hand;
+}
+
+div#postsHeader h1 {
+	margin: 0;
+	padding: 0.3em 1em;
+	font-weight: bold;
+	font-size: 100%;
+	color:#442;
+	text-align: left;
+	background-color:#ddb;
+	-moz-border-radius: 0.3em;
+	-webkit-border-radius: 0.3em;
+	-webkit-box-shadow: 0 0.1em 0.1em rgba(0, 0, 0, .3);
+	-moz-box-shadow: 0 0.1em 0.1em rgba(0, 0, 0, .3);
+	letter-spacing: 0.1em;
+}
+
+#sortPosts {
+	float: right;
+}
+
+div.postContainer div.privacy {
+	background: #00f;
+	font-size: 75%;
+	color: #eef;
+	text-align: center;
+}
+
+

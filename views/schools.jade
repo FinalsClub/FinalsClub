@@ -1,0 +1,32 @@
+div.content
+	div.container1
+		h1 Universities
+		p
+			| Please pardon our appearance as we actively develop this free and open source project to help students learn better.  This is where you can create courses or lectures and begin to take notes together for the following schools.  If you don't see your school here and would like to help raise the requisite interest to get started at your campus, please
+			a(href="/contact") contact us.
+			
+		
+	
+		- if ( schools.length > 0 )
+			- each school in schools
+				div(class='school')
+					- if ( school.url )
+						h2
+							a( href = school.url, target = '_blank' )= school.name
+					- else
+						h2= school.name
+					ul
+						- if ( school.courses.length > 0 )
+							- each course in school.courses
+								li
+									a( href = 'course/#{ course._id }' ) #{ course.displayName }
+
+						- else
+							li No courses found.
+					- if ( school.authorized )
+						div
+							span(class='sub_menu')
+								a( href = '/#{ school._id }/course/new' ) New Course
+		- else
+			p
+				| You do not belong to any school networks.

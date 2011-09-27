@@ -1,0 +1,12 @@
+{ 'name' : 'University of Texas', 'description' : 'The University of Texas', 'url' : 'http://www.utexas.edu', 'hostnames' : [ 'utexas.edu' ] }
+{ 'name' : 'Berkeley', 'description' : 'The University of California, Berkeley', 'url' : 'http://www.berkeley.edu', 'hostnames' : [ 'berkeley.edu' ] }
+{ 'name' : 'MIT', 'description' : 'The Massachusetts Institute of Technology', 'url' : 'http://www.mit.edu', 'hostnames' : [ 'mit.edu', 'alum.mit.edu' ] }
+{ 'name' : 'Stanford', 'description' : 'Stanford University', 'url' : 'http://www.stanford.edu', 'hostnames' : [ 'stanford.edu', 'stanfordalumni.org' ] }
+{ 'name' : 'Yale', 'description' : 'Yale University', 'url' : 'http://www.yale.edu', 'hostnames' : [ 'yale.edu', 'aya.yale.edu' ] }
+{ 'name' : 'Columbia', 'description' : 'Columbia University', 'url' : 'http://www.columbia.edu', 'hostnames' : [ 'columbia.edu', 'caa.columbia.edu' ] }
+{ 'name' : 'Cornell', 'description' : 'Cornell University', 'url' : 'http://www.cornell.edu', 'hostnames' : [ 'cornell.edu' ] }
+{ 'name' : 'Princeton', 'description' : 'Princeton University', 'url' : 'http://www.princeton.edu', 'hostnames' : [ 'princeton.edu', 'alumni.princeton.edu' ] }
+{ 'name' : 'Brown', 'description' : 'Brown University', 'url' : 'http://www.brown.edu', 'hostnames' : [ 'brown.edu', 'alumni.brown.edu' ] }
+{ 'name' : 'Dartmouth', 'description' : 'Dartmouth College', 'url' : 'http://www.dartmouth.edu', 'hostnames' : [ 'dartmouth.edu', 'alum.dartmouth.org' ] }
+{ 'name' : 'Harvard', 'description' : 'Harvard University', 'url' : 'http://www.harvard.edu', 'hostnames' : [ 'college.harvard.edu', 'fas.harvard.edu', 'post.harvard.edu', 'harvard.edu', 'mail.harvard.edu' ] }
+{ 'name' : 'UPenn', 'description' : 'The University of Pennsylvania', 'url' : 'http://www.upenn.edu', 'hostnames' : [ 'sas.upenn.edu', 'seas.upenn.edu', 'nursing.upenn.edu', 'wharton.upenn.edu', 'alumni.upenn.edu' ] }

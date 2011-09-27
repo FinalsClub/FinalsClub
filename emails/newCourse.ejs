@@ -1,0 +1,13 @@
+<p>The following user created new course: <%= course.name %></p>
+
+<p>Name: <%= user.name %></p>
+<p>Email: <%= user.email %></p>
+
+<p>Course instructor listed as: <%= instructor.name %></p>
+<p>With email: <%= instructor.email %></p>
+
+<p>If you wish to remove this course manually, you can do so by using this link:</p>
+
+<p><a href="http://<%- serverHost %>/course/<%= course._id %>/delete">http://<%- serverHost %>/course/<%= course._id %>/delete</a></p>
+
+<p>This does not have any confirmation, if you are logged in, it will delete it. Only admins can deleted courses.</p>

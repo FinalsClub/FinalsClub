@@ -1,0 +1,48 @@
+div.content
+	div.container1
+		h1 Password Reset
+		- url = "/resetpw";
+		- if ( typeof(verify) != 'undefined' && verify ) { url += "/" + resetPassCode; }
+
+
+		form#resetpw( action = '#{ url }', method = 'POST' )
+			div.zarea 
+				span.text
+				- if ( typeof(verify) != 'undefined' && verify )  	
+					P To verify and reset your password, type the full email address and your new password twice, then click submit. 
+				- else 
+					P To reset your password, enter your email address click "Reset". An email will be sent to you with the new password.
+
+				div( class = 'row')
+					div( class = 'label')
+						label( for = 'email' ) Email
+					div( class = 'field')
+						input( type = 'text', name = 'email', size='15', value = session.email )
+
+				- if ( typeof(verify) != 'undefined' && verify )  	
+					div( class = 'row')
+						div( class = 'label')
+							label( for = 'pass1' ) New Password
+						div( class = 'field')
+							input( type = 'password', name = 'pass1', size='15' )
+					div( class = 'row')
+						div( class = 'label')
+							label( for = 'pass2' ) Repeat Password
+						div( class = 'field')
+							input( type = 'password', name = 'pass2', size='15' )
+
+				div( class = 'row')
+					div( class = 'label')
+						&nbsp;
+					div( class = 'field', style = 'min-width: 200px' )
+						button Reset
+				
+
+script
+	$( document ).ready( function() {
+		if( $( 'input[name=email]' ).val() ) {
+			$( 'input[name=password]' ).focus();
+		} else {
+			$( 'input[name=email]' ).focus();
+		}
+	});

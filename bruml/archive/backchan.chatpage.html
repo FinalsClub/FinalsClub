@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />	<title>
+		backchan.nl -- Meetings	</title>
+	
+	<link rel="stylesheet" type="text/css" href="/css/yui/build/fonts/fonts-min.css" />
+	<link rel="stylesheet" type="text/css" href="/css/yui/build/container/assets/skins/sam/container.css" />
+	<link rel="stylesheet" type="text/css" href="/css/yui/build/button/assets/skins/sam/button.css" />
+
+	<script type="text/javascript" src="/js/yui/build/utilities/utilities.js"></script>
+	<script type="text/javascript" src="/js/yui/build/container/container-min.js"></script>
+	<script type="text/javascript" src="/js/yui/build/button/button-min.js"></script>
+	<script type="text/javascript" src="/js/yui/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+	<script type="text/javascript" src="/js/yui/build/container/container_core-min.js"></script>
+	<script type="text/javascript" src="/js/yui/build/yahoo/yahoo-min.js"></script>
+	<script type="text/javascript" src="/js/yui/build/dom/dom-min.js"></script>
+	<script type="text/javascript" src="/js/yui/build/event/event-min.js"></script>
+	<script type="text/javascript" src="/js/yui/build/element/element-min.js"></script>
+	<script type="text/javascript" src="/js/yui/build/connection/connection-min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="/css/cake.generic.css" />
+	<link rel="stylesheet" type="text/css" href="/css/backchannl.generic.css" />
+<script type="text/javascript">
+//<![CDATA[
+var initialPosts={"Post":[]};
+var showAdmin=true;
+var showIdentityDialog=false;
+
+//]]>
+</script>
+	<link rel="stylesheet" type="text/css" href="/css/yui/build/datatable/assets/skins/sam/datatable.css" />
+	<link rel="stylesheet" type="text/css" href="/css/backchannl.generic.css" />
+	<link rel="stylesheet" type="text/css" href="/css/top.posts.css" />
+	<script type="text/javascript" src="/js/yui/build/datasource/datasource-beta-min.js"></script>
+	<script type="text/javascript" src="/js/yui/build/json/json-min.js"></script>
+	<script type="text/javascript" src="/js/yui/build/dragdrop/dragdrop-min.js"></script>
+	<script type="text/javascript" src="/js/yui/build/calendar/calendar-min.js"></script>
+	<script type="text/javascript" src="/js/yui/build/datatable/datatable-beta.js"></script>
+	<script type="text/javascript" src="/js/identity.js"></script>
+	<script type="text/javascript" src="/js/posting.js"></script>
+	<script type="text/javascript" src="/js/datatable.js"></script>
+	<script type="text/javascript" src="/js/top_posts.js"></script>
+	<script type="text/javascript" src="/js/voting.js"></script>
+	<script type="text/javascript" src="/js/util.js"></script>
+	<script type="text/javascript" src="/js/meetings_view.js"></script></head>
+<body class="yui-skin-sam">
+	<div id="container">
+		<div id="header">
+			<h2>
+				<a href="http://backchan.nl/">backchan.nl</a>			</h2>
+		</div>
+		<div id="content">
+			<!-- TODO: for production, delete following hidden div -->
+<div style="visibility:hidden; position:absolute; left:-1000px;">
+</div>
+
+
+
+
+<div id="MeetingHeader">
+<h1>Demo Conference</h1>
+<h2>First meeting (13:00 — 17:00)</h2>
+
+Welcome to backchan.nl! This tool is a way for people in the audience to <strong>post responses to the panel live</strong>, and in a <strong>publicly visible</strong> venue. These responses can be <strong>questions</strong>, <strong>comments</strong>, <strong>links to related resources</strong>, or whatever else you think other people might be interested in.
+
+Even if you don't have anything to say, you can <strong>vote posts up or down</strong> that you think are useful or problematic. Highly ranked and comments will get brought up during the discussion section of the panel.
+</div>
+<br />
+
+
+<div id="UserBox">
+
+	<div id="UserInfoHeader">
+		<div id="UserInfo">
+		<span id="UserInfoName">
+			b		</span><br />
+		<span id="UserInfoAffiliation">
+			student		</span>
+		</div>
+		<div id="UserButtons">
+		<input type="button" id="AdminPassword" value="" />
+		<input type="button" id="EditUser" value="Edit User" />
+		</div>
+	</div>
+
+	<div id="EnterUser">
+		<div class="hd">Who are you?</div>
+		<div class="bd">
+			<form id="UserAddForm" method="POST" action="/users/add">
+				<table>
+				<tr>
+					<td><label for="name">Name:</label></td>
+					<td>
+						<input type="text" id="UserName"
+							name="data[User][name]" value=""
+							maxlength="28" size="20" />
+					</td>
+				</tr>
+				<tr>
+					<td><label for="affiliation">Affiliation:</label></td>
+					<td>
+						<input type="text" id="UserAffiliation"
+							name="data[User][affiliation]" value=""
+							maxlength="48" size="20" />
+					</td>
+				</tr>
+				</table>
+			</form>
+		</div>
+	</div>
+
+	<div id="AdminUser">
+		<div class="hd">Conference Administration Password</div>
+		<div class="bd">
+			<form id="AdminUserForm" method="POST" action="/conferences/admin/346">
+				<table>
+				<tr>
+					<td><label for="conference">Conference:</label></td>
+					<td>
+						Demo Conference					</td>
+				</tr>
+				<tr>
+					<td><label for="AdminPassword">Password:</label></td>
+					<td>
+						<input type="password" id="AdminPassword"
+							name="data[adminPassword]" value=""
+							maxlength="48" size="20" />
+					</td>
+				</tr>
+				</table>
+			</form>
+		</div>
+	</div>
+
+	<div id="EnterPost">
+		<form id="PostAddForm">
+			<!-- onkeyup for cut or copy&paste, onkeypress for hold key down -->
+			<textarea id="PostBody" name="data[Post][body]"
+				onkeyup="updatePostCharCount();"
+				onkeypress="updatePostCharCount();"></textarea>
+			characters left: <span id="CharCount" class="char-count-good"></span>
+			<input type="hidden" id="PostMeetingId"
+				name="data[Post][meeting_id]"
+				value="926" />
+			<input type="button" id="SubmitPost"
+				name="SubmitPost" value="Submit Post" />
+		</form>
+	</div>
+
+</div>
+<br class="clear"/>
+
+<div id="alert" class="empty"></div>
+
+<br class="clear"/>
+<div class="hr"></div>
+<img class="label" src="/img/top_posts.png"/>
+<div id="TopPosts">
+</div>
+
+<br class="clear"/>
+<div class="hr"></div>
+<img class="label" src="/img/recent_posts.png"/>
+<div id="DataTable">
+</div>
+<br class="clear"/>
+		</div>
+		<div id="footer">
+						<a href="http://backchan.nl">backchan.nl</a> is an <a href="http://github.com/drewww/backchan.nl" title="The backchan.nl project is hosted at Github">open source project</a> from the <a href="http://media.mit.edu">MIT Media Lab</a>, designed by <a href="http://web.media.mit.edu/~dharry">Drew Harry</a> with <a href="http://trevorfilter.com/">Trevor Filter</a>, Cherrie Yang, and Joshua Green.
+		</div>
+	</div>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-841537-4");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+</body>
+</html>

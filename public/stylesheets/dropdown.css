@@ -1,0 +1,142 @@
+#zheader {
+	width: 100%;
+	position: relative;
+	
+	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(68, 68, 68)), to(rgb(34, 34, 34)));
+	
+	height: 42px;
+	padding: 4px;
+}
+
+#header a {
+	color: white;
+
+	font-weight: normal;
+
+	text-decoration: none;
+}
+		
+#header .emboss {
+	text-shadow: 0px -1px 0px #374683;
+}
+
+#buttons {
+	position: absolute;
+	top: 50%;
+	right: 1em;
+
+	margin-top: -10px;
+
+	height: 20px;
+}
+
+		
+#breadcrumb {
+	float: left;
+	
+	height: 42px;
+}
+		
+#breadcrumb div.crumb {
+
+	color: white;
+	
+	padding: 0px;
+}
+			
+#breadcrumb div.crumb > strong.label {
+	float: left;
+
+	text-align: left;
+
+	width: 90px;
+}
+
+ul.dropdown {
+	position: relative;
+				
+	display: inline;
+	font-size: 90%;
+}
+			
+ul.dropdown > li {
+	background: #889;
+	-moz-border-radius: 0.2em;
+	-webkit-border-radius: 0.2em;
+	padding: 8px;
+
+	position: relative;
+	list-style-type: none;
+	float: left;
+				
+	background-image: url('/images/dropdown_arrow.png');
+	background-position: 100% -20px;
+	background-repeat: no-repeat;
+	
+	border: 1px solid #aaa;
+			
+	padding-right: 40px;
+	padding-left: 4px;
+
+	padding-top: 0px;
+	padding-bottom: 0px;
+
+	font-weight: bold;
+	font-size: 90%;
+	padding: 0.2em 2em 0.2em 1em;
+}
+		
+ul.dropdown > li > ul {
+	display: none;
+	position: absolute;
+	left: -1px;
+	max-height: 275px;
+	
+	border: 1px solid #245;
+	
+	padding: 0px;
+		
+	width: auto;
+	min-width: 135px;
+
+	z-index: 4;
+				
+	background-color: rgb( 34, 34, 34 );
+}
+			
+ul.dropdown > li > ul > li {
+	list-style-type: none;
+	margin: 0;
+
+	display: block;
+	background: #99a;
+		
+	padding-left: 4px;
+	padding-right: 4px;
+
+	padding-top: 0px;
+	padding-bottom: 0px;
+				
+	white-space: nowrap;
+	font-weight: bold;
+	padding: 0.2em 1em;
+}
+			
+ul.dropdown > li > ul > li > div {
+	width: 100%;
+		
+	position: relative;
+}
+			
+ul.dropdown > li > ul > li > div > span.count {
+	position: absolute;
+	right: 0px;
+}
+			
+ul.dropdown > li > ul > li > div > a {
+	color: white;
+		
+	padding-right: 16px;
+							
+	text-decoration: none;
+}

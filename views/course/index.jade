@@ -1,0 +1,29 @@
+div.content
+	div.container1
+
+		h1 #{ course.displayName }
+		- if ( course.authorized )
+			p Instructor: 
+				a( href = 'mailto:#{ instructor.email }' ) #{ instructor.name }
+		- else
+			p Instructor: #{ instructor.name }
+
+		hr
+
+		h2 Existing Lectures 
+
+		ul
+			- if ( lectures.length > 0 )
+				- each lecture in lectures
+					li
+						a( href = '/lecture/#{ lecture._id }' ) #{ lecture.name }
+			- else
+				p No lectures have been created for this course yet.
+
+		hr
+
+		- if ( course.authorized )
+			div
+				span(class='sub_menu')
+					a( href = '/course/#{ course._id }/lecture/new' ) New Lecture
+

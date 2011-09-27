@@ -1,0 +1,13 @@
+div.contenthome
+	div.tagline
+		p
+			| Welcome to FinalsClub.org, a 501(c)(3) non-profit open education project dedicated to helping college students collaborate, learn, and share their knowledge freely online.
+		p
+			| Please create an account with your school email address to try our tools or browse our course archive to learn something new.  Thank you for helping us improve access to education, one lecture at a time.
+		p
+			div.button.green#learnsomething Learn something >> 
+
+script.
+	$("#learnsomething").click(function() {
+		document.location = "/learn/random";
+	});

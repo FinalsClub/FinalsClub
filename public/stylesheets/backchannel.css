@@ -1,0 +1,259 @@
+body {
+	font-family: helvetica;
+	margin: 0;
+}
+.hidden {
+	display: none;
+}
+
+#container {
+}
+
+#sidebar {
+	float: left;
+
+	width: 30%;
+	height: 100%;
+}
+
+#editor {
+	float: left;
+
+	width: 70%;
+	height: 100%;
+}
+
+#title {
+  padding: 5px;
+  font-size: 120%;
+  color: #fff;
+  background: #000;
+}
+
+#title .buttons {
+  float: right;
+}
+
+#title .buttons a {
+  margin-left: 10px;
+}
+
+/*========================*/
+#notesContainer {
+min-height: 30em;
+float: left;
+width: 25%;
+}
+#notesHeader { 
+padding: 0.8em;
+border: 2px solid #ddd;
+}
+#notesComponent {
+margin-top: 4em;
+padding: 0.8em;
+border: 2px solid #ddd;
+text-align: center;
+}
+/*========================*/
+#backchat {
+	height: 100%;
+	background: #eef;
+}
+#backchatHeader {
+font-weight: bold;
+padding: 0.5em 0.8em;
+background-color: #DDD;
+border-bottom: 2px solid #aaa;
+}
+#backchatHeader input { font-size: 0.7em; }
+#backchatHeaderInstructions {
+display: none;
+
+background-color: #EEE;
+padding: 1em;
+}
+#backchatHeaderInstructions p {
+text-indent: 1em;
+margin-top: 0.2em;
+}
+/*========================*/
+#userBox {
+	position: relative; /* allow position absolute for charsLeftMsg and submit btn */
+	padding: 1em 2em;
+	border-bottom: 1px solid #aaa;
+	background-color: #ddf;
+}
+#userHeader {
+	margin: 0 0 0.5em 0;
+}
+#loginBox {
+	padding: 0.5em 1em;
+	border-bottom: 1px solid #aaa;
+	background: #ddd;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#ddf), to(#cce));
+	background-image: -moz-linear-gradient(#ddf, #cce)
+}
+#userHeader .userName { 
+	font-weight: bold;
+	font-size: 110%;
+	width: 10em;
+}
+#userHeader .userAffil {
+	font-style: italic;
+}
+#userButtons {
+float: right;
+}
+#enterPostTextarea {
+	width: 98%;
+	padding: 0.3em 0.4em;
+}
+#charsLeftMsg {
+position: absolute;
+left: 3em;
+bottom: 1.5em;
+color: red; 
+}
+#submitPost {
+	/*position: absolute;
+	right: 1.5em;
+	bottom: 1.5em;*/
+}
+#enterUser { display: none; }
+#enterAdmin { display: none; }
+#posts {
+	background: #eef;
+	min-height: 6em;
+	padding: 1em 1.5em;
+}
+#postsHeader {
+padding-bottom: 0.5em;
+}
+.postsHeaderTitle {
+font-weight: bold;
+}
+.showpostsButton {
+/* this doesn't work in Firefox; may be impossible on OS X */
+font-size: 70%;
+}
+#postsHeaderInstructions {
+background-color: #ffc3c3;
+}
+#recentPosts {
+min-height: 6em;
+padding: 1em 1.5em;
+}
+#posts .postContainer {
+	min-height: 5.3em;
+
+	-moz-border-radius: 0.3em;
+	-webkit-border-radius: 0.3em;
+
+	-webkit-box-shadow: 0 0.2em 0.3em rgba(0, 0, 0, .3);
+	-moz-box-shadow: 0 0.2em 0.3em rgba(0, 0, 0, .3);
+
+	margin: 0.8em 0;
+	padding: 0.5em 1em;
+	background: #fff;
+}
+#posts .postVoteContainer {
+	float: left;
+}
+.unvoted {
+	background-color: #afa;
+}
+#posts .postVoteContainer .vote-tally-rect {
+	width: 1.6em;
+	height: 1em;
+	border: 1px solid #444;
+	-moz-border-radius: 6px;
+	margin: 0.3em;
+	padding: 0.2em;
+	background-color: #fff;
+	font-size: 120%;
+	text-align: right;
+	cursor: pointer; cursor: hand;
+}
+.postVoteContainer .vote-up {
+background: transparent url(/images/arrow_up.png) no-repeat scroll 10% 50%;
+}
+.postVoteContainer .voteFlag {
+	cursor: pointer; cursor: hand;
+}
+#posts .postDisplayContainer {
+margin: 0.3em 0.3em 0.3em 4em;
+}
+#posts .postBody {
+	min-height: 3.0em;
+	overflow: auto;
+}
+#posts .postFooter {
+	border-top: solid 1px #ccc;
+	color: #888;
+	padding: 0.2em 0em;
+	font-style: italic;
+	font-size: 90%;
+}
+#posts .commentFooter {
+	border-top: solid 1px #ccc;
+	color: #888;
+	padding: 0.2em 0em;
+	font-style: italic;
+	font-size: 90%;
+}
+#posts .postFooter .postid {
+	float: right;
+	font-size: 70%;
+	color: #ccc;
+}
+#posts .userName {
+}
+#posts .userAffil {
+}
+
+#posts .comments {
+  cursor: pointer; cursor: hand;
+}
+
+#loginForm .label {
+	width: 5em;
+	text-align: right;
+	display: table-cell;
+}
+#loginForm .data {
+	display: table-cell;
+}
+#loginBox h1 {
+	font-size: 105%;
+	margin: 0 0 0.5em 0;
+	padding: 0;
+}
+
+#commentText {
+	width: 100%;
+}
+#posts .flagged {
+  background: #ff0000;
+}
+
+/*.button {
+
+	background: #fff;
+	color: black;
+
+	-moz-border-radius: 0.2em;
+	-webkit-border-radius: 0.2em;
+
+	-webkit-box-shadow: 0 0.2em 0.3em rgba(0, 0, 0, .2);
+	-moz-box-shadow: 0 0.2em 0.3em rgba(0, 0, 0, .2);
+
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#edc), to(#dcb));
+	background-image: -moz-linear-gradient(#edc, #dcb)
+
+	padding: 0.1em 1em;
+	font-size: 80%;
+	display: table-cell;
+	margin: 0.5em 1em;
+	cursor: pointer; cursor: hand;
+} */
+

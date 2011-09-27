@@ -1,0 +1,17 @@
+<p>Dear <%= user.name %>,</p>
+
+<p>We are pleased to inform you that your students have chosen to participate in a unique 501(c)3 non-profit, open education, free and open source project.  The project is hosted at <a href="http://finalsclub.org">finalsclub.org</a>, a website which allows students to collaborate, learn, and share knowledge freely online.</p>
+
+<p>Since the launch of <a href="http://ocw.mit.edu">ocw.mit.edu</a> and <a href="http://oyc.yale.edu">oyc.yale.edu</a>, the internet has facilitated a new paradigm of open access to education.  Although <a href="http://finalsclub.org">finalsclub.org</a> and its users are committed to expanding common knowledge, we will never sacrifice the rights of students or faculty to do so.  Therefore, we secure the identity of every user, respond to all inquiries, and share all of our content under a <a href="http://creativecommons.org/licenses/by-sa/3.0/us/">Creative-Commons Attribution Share-Alike</a> license.</p>
+
+<p>Once again, <a href="http://finalsclub.org">finalsclub.org</a> is a non-profit, open source, open education project that invites contributions from all members of the academic community.  If you are interested in contributing or managing the content your students generate, please follow this link to create your account:</p>
+
+<p><a href="http://<%- serverHost %>/activate/<%- user._id %>">http://<%- serverHost %>/activate/<%- user._id %></a></p>
+
+<p>Of course, if you have any questions, comments, or concerns, please do not hesitate to email us at <a href="mailto:info@finalsclub.org">info@finalsclub.org</a> and we will reply as quickly as possible.  Thank you for your helping us improve educational access, one lecture at a time.</p>
+
+<p>
+Sincerest Regards,<br>
+Andrew Magliozzi<br>
+Founder, <a href="http://finalsclub.org">FinalsClub.org</a>
+</p>

@@ -1,0 +1,15 @@
+ul.dropdown
+	li
+		| #{ note.name }
+
+		ul
+			- each otherNote in otherNotes
+				li
+					div( note-id = otherNote._id )
+						a( href = '/note/#{ otherNote._id }' ) #{ otherNote.name }
+						span.count( note-id = otherNote._id )
+
+						div.clear
+			li
+				div
+					a( href = '/lecture/#{ lecture._id }/notes/new' ) + New Note
