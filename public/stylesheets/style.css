@@ -1,89 +1,89 @@
 * {
-	margin:0;
-	padding:0;
+  margin:0;
+  padding:0;
 }
 
 body {
-	background:#eee url(../images/bg.png) repeat-x;
-	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background:#eee url(../images/bg.png) repeat-x;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 .header{
-	    margin: 0 0 30px;
+  margin: 0 0 30px;
 
 }
 
 .page a {
-	color:#917139;
+  color:#917139;
 }
 
 a {
   color:#3a5b8d;
 }
 span.sub_menu{
-	float:right;
-	background-color:#917139;
-	-moz-border-radius: 0.3em;
-	-webkit-border-radius: 0.3em;
-	padding:2px 10px;
-	color:#fff;
+  float:right;
+  background-color:#917139;
+  -moz-border-radius: 0.3em;
+  -webkit-border-radius: 0.3em;
+  padding:2px 10px;
+  color:#fff;
 }
 span.sub_menu a{
-	color:#fff;
-	text-decoration:none;
+  color:#fff;
+  text-decoration:none;
 }
 span.sub_menu a:hover {
-	color:#fff;
-	text-decoration:underline;
+  color:#fff;
+  text-decoration:underline;
 }
 
 
 h1 {
-	margin: 0.3em 0;
-	text-align: center;
-	color:#fff;
-	text-shadow: black 0 0 0.2em;
+  margin: 0.3em 0;
+  text-align: center;
+  color:#fff;
+  text-shadow: black 0 0 0.2em;
 }
 h2 {
-	margin: 0.5em 0;
-	clear:both;
+  margin: 0.5em 0;
+  clear:both;
 }
 ul{
-	margin:8px 15px;
+  margin:8px 15px;
 }
 
 .content {
-	margin: 15px;
-	padding: 1em;
+  margin: 15px;
+  padding: 1em;
 }
 
 .rnd {
-	-moz-border-radius: 0.3em;
-	-webkit-border-radius: 0.3em;
-	-webkit-box-shadow: 0 0.2em 0.3em rgba(0, 0, 0, .3);
-	-moz-box-shadow: 0 0.2em 0.3em rgba(0, 0, 0, .3);
+  -moz-border-radius: 0.3em;
+  -webkit-border-radius: 0.3em;
+  -webkit-box-shadow: 0 0.2em 0.3em rgba(0, 0, 0, .3);
+  -moz-box-shadow: 0 0.2em 0.3em rgba(0, 0, 0, .3);
 }
 
 .ylw{
-	background:#F7F4CE;
+  background:#F7F4CE;
 }
 
 .blu{
-	background: #def;
+  background: #def;
 }
 .frm_login{
-	width:275px;
-	margin:0 auto;
+  width:275px;
+  margin:0 auto;
 }
 
 #credentials .row .label {
-	width: 8em;
-	text-align: right;
-	display: table-cell;
-	padding: 0.8em 1em 0.8em 0em;
+  width: 8em;
+  text-align: right;
+  display: table-cell;
+  padding: 0.8em 1em 0.8em 0em;
 }
 #credentials .row .field {
-	display: table-cell;
-	padding: 0.8em 0;
+  display: table-cell;
+  padding: 0.8em 0;
 }
 
