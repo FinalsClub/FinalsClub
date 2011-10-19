@@ -1,9 +1,19 @@
 {
-    "name": "application-name"
-  , "version": "0.0.1"
-  , "private": true
-  , "dependencies": {
-      "express": "2.4.3"
-    , "jade": ">= 0.0.1"
+    "name": "FinalsClub",
+    "version": "1.0.0",
+    "private": true,
+    "dependencies": {
+      "async": "0.1.x",
+      "aws-lib": "0.0.5",
+      "connect-mongo": "0.1.5",
+      "connect": "1.7.1",
+      "ejs": "0.4.3",
+      "express-messages": "0.0.2",
+      "express": "2.4.3",
+      "jade": "0.13.0",
+      "hat": "0.0.3",
+      "mongodb": "0.9.6-22",
+      "mongoose": "1.7.4",
+      "socket.io": "0.8.5"
   }
 }
