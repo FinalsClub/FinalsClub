@@ -1,38 +1,76 @@
 div.content
 	div.container1
 		form( method = 'POST' )
-			h1 Create New Course
-			p
-				| Use this form to create a new course.
-				| After creating the course, you can create a lecture with in it.
+			- var course = course || false;
+			- if (course)
+				h1 Edit Course
+				p
+					| Use this form to edit a course.
 
-			div.row
-				div.label Course number
-				div.field
-					input( type = 'text', name = 'number' )
+				div.row
+					div.label Course number
+					div.field
+						input( type = 'text', name = 'number', value = course.number )
 
-			div.row
-				div.label Course name
-				div.field
-					input( type = 'text', name = 'name' )
-			div.row
-				div.label Course subject
-				div.field
-					input( type = 'text', name = 'subject' )
-			div.row
-				div.label Course department
-				div.field
-					input( type = 'text', name = 'department' )
-			div.row
-				div.label Instructor's Name
-				div.field
-					input( type = 'text', name = 'instructorName' )
-			div.row
-				div.label Instructor's Email
-				div.field
-					input( type = 'text', name = 'email' )
-			div.row
-				div( class = 'label')
-					&nbsp;
-				div( class = 'field')
-					button Create Course
+				div.row
+					div.label Course name
+					div.field
+						input( type = 'text', name = 'name', value = course.name )
+				div.row
+					div.label Course subject
+					div.field
+						input( type = 'text', name = 'subject', value = course.subject )
+				div.row
+					div.label Course department
+					div.field
+						input( type = 'text', name = 'department', value = course.department )
+				//
+					div.row
+						div.label Instructor's Name
+						div.field
+							input( type = 'text', name = 'instructorName' )
+					div.row
+						div.label Instructor's Email
+						div.field
+							input( type = 'text', name = 'email' )
+				div.row
+					div( class = 'label')
+						&nbsp;
+					div( class = 'field')
+						button Save Course
+			- else
+				h1 Create New Course
+				p
+					| Use this form to create a new course.
+					| After creating the course, you can create a lecture with in it.
+
+				div.row
+					div.label Course number
+					div.field
+						input( type = 'text', name = 'number' )
+
+				div.row
+					div.label Course name
+					div.field
+						input( type = 'text', name = 'name' )
+				div.row
+					div.label Course subject
+					div.field
+						input( type = 'text', name = 'subject' )
+				div.row
+					div.label Course department
+					div.field
+						input( type = 'text', name = 'department' )
+				div.row
+					div.label Instructor's Name
+					div.field
+						input( type = 'text', name = 'instructorName' )
+				div.row
+					div.label Instructor's Email
+					div.field
+						input( type = 'text', name = 'email' )
+				div.row
+					div( class = 'label')
+						&nbsp;
+					div( class = 'field')
+						button Create Course

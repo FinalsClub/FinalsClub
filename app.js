@@ -336,7 +336,7 @@ function loadCourse( req, res, next ) {
   var courseId	= req.params.id;
 
   Course.findById( courseId, function( err, course ) {
-    if( course ) {
+    if( course && !course.deleted ) {
       req.course = course;
 
       // If a course is found, the user is checked to see if they are
@@ -362,7 +362,7 @@ function loadLecture( req, res, next ) {
   var lectureId	= req.params.id;
 
   Lecture.findById( lectureId, function( err, lecture ) {
-    if( lecture ) {
+    if( lecture && !lecture.deleted ) {
       req.lecture = lecture;
 
       // If a lecture is found, the user is checked to see if they are
@@ -392,7 +392,7 @@ function loadNote( req, res, next ) {
   Note.findById( noteId, function( err, note ) {
     // If a note is found, and user is set, check if
     // user is authorized to interact with that note.
-    if( note && user ) {
+    if( note && user && !note.deleted ) {
       note.authorize( user, function( auth ) {
         if( auth ) {
           // If authorzied, then set req.note to be used later
@@ -414,7 +414,7 @@ function loadNote( req, res, next ) {
           res.redirect( '/' );
         }
       })
-    } else if ( note && note.public ) {
+    } else if ( note && note.public && !note.deleted ) {
       // If note is found, but user is not set because they are not
       // logged in, and the note is public, set the note to read only
       // and store the note for later.
@@ -422,7 +422,7 @@ function loadNote( req, res, next ) {
       req.RO = true;
 
       next();
-    } else if ( note && !note.public ) {
+    } else if ( note && !note.public && !note.deleted ) {
       // If the note is found, but user is not logged in and the note is
       // not public, then ask them to login to view the note. Once logged
       // in they will be redirected to the note, at which time authorization
@@ -434,7 +434,7 @@ function loadNote( req, res, next ) {
       // No note was found
       req.flash( 'error', 'Invalid note specified!' );
 
-      res.redirect( '/login' );
+      res.redirect( '/schools' );
     }
   });
 }
@@ -497,7 +497,9 @@ app.get( '/schools', loadUser, function( req, res ) {
               // If any courses are found, set them to the appropriate school, otherwise
               // leave empty.
               if( courses.length > 0 ) {
-                school.courses = courses;
+                school.courses = courses.filter(function(course) {
+                  if (!course.deleted) return course;
+                });
               } else {
                 school.courses = [];
               }
@@ -726,10 +728,44 @@ app.get( '/course/:id', loadUser, loadCourse, function( req, res ) {
   });
 });
 
+// Edit Course
+app.get( '/course/:id/edit', loadUser, loadCourse, function( req, res) {
+  var course = req.course;
+  var user = req.user;
+
+  if ( user.admin ) {
+    res.render( 'course/new', {course: course} )
+  } else {
+    req.flash( 'error', 'You don\'t have permission to do that' )
+    res.redirect( '/schools' );
+  }
+})
+
+// Recieve Course Edit Form
+app.post( '/course/:id/edit', loadUser, loadCourse, function( req, res ) {
+  var course = req.course;
+  var user = req.user;
+
+  if (user.admin) {
+    var courseChanges = req.body;
+    course.number = courseChanges.number;
+    course.name = courseChanges.name;
+    course.description = courseChanges.description;
+    course.department = courseChanges.department;
+
+    course.save(function(err) {
+      if (err) {
+        req.flash( 'error', 'There was an error saving the course' );
+      }
+      res.redirect( '/course/'+ course._id.toString());
+    })
+  } else {
+    req.flash( 'error', 'You don\'t have permission to do that' )
+    res.redirect( '/schools' );
+  }
+});
+
 // Delete Course
-// XXX Non functioning 
-// Will be used as apart of a larger admin interface for managing courses and
-// lectures on the site.
 app.get( '/course/:id/delete', loadUser, loadCourse, function( req, res) {
   var course = req.course;
   var user = req.user;
@@ -737,8 +773,8 @@ app.get( '/course/:id/delete', loadUser, loadCourse, function( req, res) {
   if ( user.admin ) {
     course.delete(function( err ) {
       if ( err ) req.flash( 'info', 'There was a problem removing course: ' + err )
-        else req.flash( 'info', 'Successfully removed course' )
-          res.redirect( '/schools' );
+      else req.flash( 'info', 'Successfully removed course' )
+      res.redirect( '/schools' );
     });
   } else {
     req.flash( 'error', 'You don\'t have permission to do that' )

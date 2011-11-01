@@ -153,6 +153,7 @@ var CourseSchema = new Schema( {
 	// XXX: room for additional resources
   created     : { type : Date, default : Date.now },
   creator     : ObjectId,
+  deleted     : Boolean,
 
 	// many users may subscribe to a course
 	users				: Array
@@ -203,7 +204,14 @@ CourseSchema.method( 'delete', function( callback ) {
   var id = this._id;
 
   Course.collection.update( { '_id' : id }, { '$set' : { 'deleted' : true } }, function( err ) {
-    callback( err );
+    if (callback) callback( err );
+    Lecture.find( { course: id }, function( err, lectures) {
+      if (lectures.length > 0) {
+        lectures.forEach(function(lecture) {
+          lecture.delete();
+        })
+      }
+    })
   })
 });
 
@@ -216,6 +224,7 @@ var LectureSchema	= new Schema( {
 	date					: { type : Date, default: Date.now },
 	live					: Boolean,
   creator       : ObjectId,
+  deleted       : Boolean,
 
 	course				: ObjectId
 });
@@ -232,6 +241,24 @@ LectureSchema.method( 'authorize', function( user, cb ) {
 	});
 });
 
+LectureSchema.method( 'delete', function( callback ) {
+  var id = this._id;
+
+  Lecture.collection.update( { '_id' : id }, { '$set' : { 'deleted' : true } }, function( err ) {
+    if (callback) callback( err );
+    Note.find( { lecture : id }, function(err, notes) {
+      notes.forEach(function(note) {
+        note.delete();
+      })
+    })
+    Post.find( { lecture : id }, function(err, posts) {
+      posts.forEach(function(post) {
+        post.delete();
+      })
+    })
+  })
+});
+
 var Lecture = mongoose.model( 'Lecture', LectureSchema );
 
 // notes
@@ -244,6 +271,7 @@ var NoteSchema = new Schema( {
 	visits				: Number,
   created         : { type : Date, default : Date.now },
   creator       : ObjectId,
+  deleted       : Boolean,
 
 	lecture				: ObjectId,
 
@@ -268,6 +296,14 @@ NoteSchema.method( 'addVisit', function() {
 	Note.collection.update( { '_id' : id }, { '$inc' : { 'visits' : 1 } } );
 });
 
+NoteSchema.method( 'delete', function( callback ) {
+  var id = this._id;
+
+  Note.collection.update( { '_id' : id }, { '$set' : { 'deleted' : true } }, function( err ) {
+    if (callback) callback( err );
+  })
+});
+
 var Note = mongoose.model( 'Note', NoteSchema );
 
 // comments
@@ -285,81 +321,19 @@ var PostSchema = new Schema({
 
   comments   : Array,
 
-  lecture   : String // ObjectId
+  lecture   : String, // ObjectId
+  deleted   : Boolean
 })
+
+PostSchema.method( 'delete', function( callback ) {
+  var id = this._id;
+
+  Post.collection.update( { '_id' : id }, { '$set' : { 'deleted' : true } }, function( err ) {
+    if (callback) callback( err );
+  })
+});
 
 mongoose.model( 'Post', PostSchema );
-
-
-// Deleted documents
-
-var DeletedCourse = new Schema( {
-	name				: { type : String, required : true },
-	number			: String,
-	description	: String,
-  instructor  : ObjectId,
-	// courses are tied to one school
-	school			: ObjectId,
-
-	// XXX: room for additional resources
-  created     : { type : Date, default : Date.now },
-  creator     : ObjectId,
-
-	// many users may subscribe to a course
-	users				: Array
-});
-
-
-mongoose.model( 'DeletedCourse', DeletedCourse )
-
-var DeletedLecture = new Schema( {
-	name					: { type : String, required : true },
-	date					: { type : Date, default: Date.now },
-	live					: Boolean,
-  creator       : ObjectId,
-
-	course				: ObjectId
-});
-
-
-mongoose.model( 'DeletedLecture', DeletedLecture )
-
-var DeletedNote = new Schema( {
-	name					: { type : String, required : true },
-	path					: String,
-  public        : Boolean,
-  roID          : String,
-	visits				: Number,
-  created         : { type : Date, default : Date.now },
-  creator       : ObjectId,
-
-	lecture				: ObjectId,
-
-	collaborators : [String]
-});
-
-
-mongoose.model( 'DeletedNote', DeletedNote )
-
-var DeletedPost = new Schema({
-  date      : { type : Date, default : Date.now },
-  body      : String,
-  votes     : [String],
-  reports   : [String],
-  public    : Boolean,
-
-  userid    : String, // ObjectId,
-  userName  : String,
-  userAffil : String,
-
-  comments   : Array,
-
-  lecture   : String // ObjectId
-})
-
-
-mongoose.model( 'DeletedPost', DeletedPost )
-
 
 var ArchivedCourse = new Schema({
   id: Number,

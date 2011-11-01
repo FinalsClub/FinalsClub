@@ -26,4 +26,11 @@ div.content
 			div
 				span(class='sub_menu')
 					a( href = '/course/#{ course._id }/lecture/new' ) New Lecture
+		- if ( user.admin )
+			div
+				span(class='sub_menu')
+					a( href = '/course/#{ course._id }/edit' ) Edit Course
+			div
+				span(class='sub_menu')
+					a( href = '/course/#{ course._id }/delete' ) Delete Course
 
