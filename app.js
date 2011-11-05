@@ -1638,6 +1638,83 @@ app.get( '/archive/note/:id', loadUser, function( req, res ) {
 
 // socket.io server
 
+// The finalsclub backchannel server uses socket.io to handle communication between the server and
+// the browser which facilitates near realtime interaction. This allows the user to post questions
+// and comments and other users to get those almost immediately after they are posted, without
+// reloading the page or pressing a button to refresh.
+//
+// The server code itself is fairly simple, mainly taking incomming messages from client browsers,
+// saving the data to the database, and then sending it out to everyone else connected. 
+//
+// Data types:
+// Posts -  Posts are the main items in backchannel, useful for questions or discussion points
+// Comments - Comments are replies to posts, for clarification or answering questions
+// Votes - Votes signifyg a users approval of a post
+// Flags - Flagging a post signifies that it is against the rules, 2 flags moves it to the bottomw
+//
+//
+// Post Schema
+// body - Main content of the post
+// userId - Not currently used, but would contain the users id that made the post
+// userName - Users name that made post
+// userAffil - Users affiliation to their school
+// public - Boolean which denotes if the post is public to everyone, or private to school users only
+// date - Date post was made, updates when any comments are made for the post
+// comments - An array of comments which contain a body, userName, and userAffil
+// votes - An array of user ids which are the users that voted
+// reports - An array of user ids which are the users that reported the post
+//
+// Posts and comments can be made anonymously. When a post is anonymous, the users info is stripped
+// from the post and the userName is set to Anonymous and the userAffil to N/A. This is to allow
+// users the ability to make posts or comments that they might not otherwise due to not wanting
+// the content of the post/comment to be attributed to them.
+//
+// Each time a user connects to the server, it passes through authorization which checks for a cookie
+// that is set by Express. If a session exists and it is for a valid logged in user, then handshake.user
+// is set to the users data, otherwise it is set to false. handshake.user is used later on to check if a
+// user is logged in, and if so display information that otherwise might not be visible to them if they
+// aren't apart of a particular school.
+//
+// After the authorization step, the client browser sends the lecture id which is rendered into the html
+// page on page load from Express. This is then used to assign a 'room' for the user which is grouped
+// by lecture. All posts are grouped by lecture, and only exist for that lecture. After the user is
+// grouped into a 'room', they are sent a payload of all existing posts for that lecture, which are then
+// rendered in the browser.
+//
+// Everything else from this point on is handled in an event form and requires a user initiating it. The
+// events are as follows.
+//
+// Post event
+// A user makes a new post. A payload of data containing the post and lecture id is sent to the server.
+// The server recieves the data, assembles a new post object for the database and then fills it with
+// the appropriate data. If a user selected for the post to be anonymous, the userName and userAffil are
+// replaced. If the user chose for the post to be private, then public will be set to false and it
+// will be filtered from being sent to users not logged into and not having access to the school. Once
+// the post has been created and saved into the database, it is sent to all connected users to that
+// particular lecture, unless it is private, than only logged in users will get it.
+//
+// Vote event
+// A user votes for a post. A payload of data containing the post id and lecture id are sent along with
+// the user id. A new vote is created by first fetching the parent post, then adding the user id to the
+// votes array, and then the post is subsequently saved back to the database and sent to all connected
+// users unless the post is private, which then it will be only sent to logged in users.
+//
+// Report event
+// Similar to the vote event, reports are sent as a payload of a post id, lecture id, and user id, which
+// are then used to fetch the parent post, add the user id to the reports array, and then saved to the db.
+// Then the report is sent out to all connected users unless it is a private post, which will be only sent
+// to logged in users. On the client, once a post has more two (2) or more reports, it will be moved to the
+// bottom of the interface.
+//
+// Comment event
+// A user posts a comment to a post. A payload of data containing the post id, lecture id, comment body,
+// user name, and user affiliation are sent to the server, which are then used to find the parent post
+// and then a new comment object is assembled. When new comments are made, it updates the posts date
+// which allows the post to be sorted by date and the posts with the freshest comments would be pushed
+// to the top of the interface. The comment can be anonymous, which then will have the user
+// name and affiliation stripped before saving to the database. The comment then will be sent out to all
+// connected users unless the post is private, then only logged in users will recieve the comment.
+
 var io = require( 'socket.io' ).listen( app );
 
 var Post = mongoose.model( 'Post' );
