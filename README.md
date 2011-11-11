@@ -76,6 +76,8 @@ The real-time editor is an embedded editor called
 It provides the ability for multiple people to simultaneously edit a single document.
 The documents in FC are the notes for a specific lecture.
 
+EPL is installed as a git submodule to the main FC source tree with the name "etherpad-lite".
+
 
 ## The Back Channel (BC)
 
@@ -87,6 +89,8 @@ It also allows people to post commentary.
 Although the actual BC code was written for FC, it has been extracted from the original
 FC source and turned into an independent open source project.
 
+BC is installed as a git submodule to the main FC source tree with the name "bc".
+
 
 ## The Surrounding Website
 
@@ -95,6 +99,23 @@ a single website that serves it's stated purpose (above).
 This would be the home page, privacy policy page, the page that lists the participating
 schools, the sub pages containing lists of lectures and note taking sessions, and the
 core page where EPL and BC are both found along side each other. 
+
+Several node modules are leveraged to to make the basic website work:
+
+- (async)[URL]
+- (aws-lib)[URL]
+- (connect)[URL]
+- (connect-mongo)[URL]
+- (ejs)[URL]
+- (express)[URL]
+- (express-messages)[URL]
+- (hat)[URL]
+- (hooks)[URL]
+- (init)[URL]
+- (jade)[URL]
+- (mongodb)[URL]
+- (mongoose)[URL]
+- (socket.io)[URL]
 
 
 
