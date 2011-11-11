@@ -25,34 +25,24 @@
 
 
 
+
 		<div class="content">
 			<div class="container1">
 				<h1>Universities</h1>
 
 				<div class="school" id=schoolproto>
-
 					<h2><a href="courses.html?school=__name__">__name__</a></h2>
-					<!-- ul>
-						<li id=course_proto><a href="course/__courseid__">__coursename__</a></li>
-					</ul -->
 				</div>
-
 
 			</div>
 			<script>
 
-// this will actually come from an AJAX call to a REST interface at "/api?..."
-var schools = [
-	{
-		name: "Berkeley",
-		courses: [
-			{ id: "4e6d1e9b42bbef522c000a8f", name: "History 12: Introduction to the Middle East" },
-			{ id: "4e8aa3f62e4b97e67b001f47", name: "ANTH160AC/ISF 160: The Forms of Folklorek" }
-		]
-	}
-]
-			ProtoDiv.replicate("schoolproto", schools);
+			// this will actually come from an AJAX call to a REST interface at "/api?..."
+			var schools = [
+				{ name: "Berkeley" }
+			]
 
+			ProtoDiv.replicate("schoolproto", schools);
 
 			</script>
 		</div>
