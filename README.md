@@ -12,8 +12,8 @@ helping college students collaborate, learn, and share their knowledge freely on
 Requirements:
 
 - Linux server (circa 2011)
-- Node.js (Version 0.4.10 or later) (More ...)[http://nodejs.org]
-- MongoDB (Version  1.8.2 or later) (More ...)[http://mongodb.org]
+- Node.js (Version 0.4.10 or later) [More ...](http://nodejs.org)
+- MongoDB (Version  1.8.2 or later) [More ...](http://mongodb.org)
 
 ## Quick start for a single server installation
 
@@ -112,20 +112,20 @@ core page where EPL and BC are both found along side each other.
 
 Several node modules are leveraged to to make the basic website work:
 
-- (async)[http:npmjs.org]
-- (aws-lib)[http:npmjs.org]
-- (connect)[http:npmjs.org]
-- (connect-mongo)[http:npmjs.org]
-- (ejs)[http:npmjs.org]
-- (express)[http:npmjs.org]
-- (express-messages)[http:npmjs.org]
-- (hat)[http:npmjs.org]
-- (hooks)[http:npmjs.org]
-- (init)[http:npmjs.org]
-- (jade)[http:npmjs.org]
-- (mongodb)[http:npmjs.org]
-- (mongoose)[http:npmjs.org]
-- (socket.io)[http:npmjs.org]
+- [async](http:npmjs.org)
+- [aws-lib](http:npmjs.org)
+- [connect](http:npmjs.org)
+- [connect-mongo](http:npmjs.org)
+- [ejs](http:npmjs.org)
+- [express](http:npmjs.org)
+- [express-messages](http:npmjs.org)
+- [hat](http:npmjs.org)
+- [hooks](http:npmjs.org)
+- [init](http:npmjs.org)
+- [jade](http:npmjs.org)
+- [mongodb](http:npmjs.org)
+- [mongoose](http:npmjs.org)
+- [socket.io](http:npmjs.org)
 
 
 [[ more detail about website generally, then defer to src comments ]]
