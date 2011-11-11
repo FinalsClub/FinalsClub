@@ -18,7 +18,7 @@
 	<body>
 
 
-		<!-- masthead will be included dynamically -->
+		<!-- This is the masthead - include dynamically -->
 		<div class="masthead"><div class="logbar"><div class="loginstatus">&nbsp;
 				</div></div><div class="navbar"><table><tr><td><a href="/"><img src="/images/finals-club-wht.png" class="logo"/></a></td><td class="menu"><a href="/schools">Courses</a><a href="http://blog.finalsclub.org">Blog</a><a href="/archive">Archive</a><a href="/press">Press</a><a href="/register">Create an Account</a><!-- span(class='sub_menu')--><a href="/login" class="special">Login</a></td></tr></table></div><div class="logbar">&nbsp;
 		</div></div>
@@ -33,19 +33,34 @@
 
 				<!-- This is the prototype div -->
 				<div class="school" id=schoolproto>
-					<h2><a href="courses.html?school=__name__">__name__</a></h2>
+					<div class=name>
+						<a href="courses.html?school=__name__">__name__</a>
+						(__numCourses__ courses)
+					</div>
 				</div>
 
 
 			</div>
 			<script>
 
-			// this will actually come from an AJAX call to a REST interface at "/api?..."
-			var schools = [
-				{ name: "Berkeley" }
-			]
+			var schools = []
 
-			ProtoDiv.replicate("schoolproto", schools);
+			if(false) {
+				// this is what will really happen when we're done
+				$.get("/api", { act: "getSchools" }, function(r) {
+					schools = JSON.parse(r)
+					ProtoDiv.replicate("schoolproto", schools);
+				});
+			} else {
+				// this is just to demonstrate
+				schools = [
+					{ name: "Berkeley", numCourses: 2 },
+					{ name: "Brown", numCourses: 5 },
+					{ name: "Columbia", numCourses: 0 },
+				];
+				ProtoDiv.replicate("schoolproto", schools);
+			}
+
 
 			</script>
 		</div>
@@ -53,7 +68,7 @@
 
 
 
-		<!-- This is the footer - will be included dynamically -->
+		<!-- This is the footer - include dynamically -->
 		<div class="footer"><table><tr><td class="col1"><div class="logo"><img src="/images/finals-club-wht.png" title="FinalsClub.org" class="lilogo"/></div><div>Copyright 2011</div><div>All Rights Reserved</div></td><td class="col2"><a href="/conduct">Code of Conduct</a><a href="http://blog.finalsclub.org/about.html">About</a><a href="http://blog.finalsclub.org/contact.html">Contact</a><a href="http://blog.finalsclub.org/legal.html">Legal</a><a href="http://blog.finalsclub.org/team.html">Team</a></td></tr></table></div><div class="footerer"><p>This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 United States License
 			</p><p><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/us/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/us/88x31.png"/></a><a href="http://mixpanel.com/f/partner"><img alt="Real Time Web Analytics" src="http://mixpanel.com/site_media/images/partner/badge_blue.png" style="border-width:0;margin:2px;"/></a></p></div>
 
