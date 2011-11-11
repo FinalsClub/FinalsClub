@@ -15,32 +15,16 @@ Requirements:
 - Node.js (Version 0.4.10 or later)
 - MongoDB (Version  1.8.2 or later)
 
+## Quick start for a single server installation
 
+	$ pwd
+	/home/you
+	$ git clone git@github.com:/finalsclubdev/FinalsClub fc
+	$ cd fc
+	$ git submodule init
+	$ git submodule update
 
-# Infrastructure
-
-The FC servers run in the cloud on Linux servers, using Amazon Web Services (AWS).
-Scaling is accomplished by adding additional servers to a load balancer.
-
-NOTE: The scaling system is automatic; new servers have to be added manually, but it it's very easy.
-NOTE: Automatic fail-over of the database is not yet in place.
-
-NOTE: There are currently 2 running server instances.  One for the live server and one for testing.
-
-Data is stored in a MongoDB server running on the same AWS instance as the website.
-Data is backed up daily to the durable AWS S3 system.
-One backup of the database is kept for the most recent 30 days, one for each of the most
-recent 12 months, and one for every year.
-
-AWS Cloudwatch is used to monitor the servers.
-When the configured conditions warrant attention, notices are sent to "info@finalsclub.org".
-
-NOTE: There are currently 2 monitors set up:
-
-- available disk space
-- CPU utilization
-
-NOTE: We still have an ongoing issue with the EPL server hanging up.  This is being worked on.
+	[[ flesh this out with correct commands - reference util scripts - fix util scripts ]]
 
 
 # Database
@@ -95,10 +79,13 @@ The documents in FC are the notes for a specific lecture.
 
 ## The Back Channel (BC)
 
-The back channel portion of FC utilizes ["BC"](https://github.com/FinalsClubDev/BC).
+The back channel portion of FC is implemented with ["BC"](https://github.com/FinalsClubDev/bc).
 BC allows the note takers, or anyone else who is just observing,
 to suggest questions for the lecturer, and vote on each other's questions.
 It also allows people to post commentary.
+
+Although the actual BC code was written for FC, it has been extracted from the original
+FC source and turned into an independent open source project.
 
 
 ## The Surrounding Website
@@ -110,6 +97,31 @@ schools, the sub pages containing lists of lectures and note taking sessions, an
 core page where EPL and BC are both found along side each other. 
 
 
+
+# AWS Infrastructure
+
+The actual finalsclub.org servers run in the cloud on Linux servers, using Amazon Web Services (AWS).
+Scaling is accomplished by adding additional servers to a load balancer.
+
+NOTE: The scaling system is automatic; new servers have to be added manually, but it it's very easy.
+NOTE: Automatic fail-over of the database is not yet in place.
+
+NOTE: There are currently 2 running server instances.  One for the live server and one for testing.
+
+Data is stored in a MongoDB server running on the same AWS instance as the website.
+Data is backed up daily to the durable AWS S3 system.
+One backup of the database is kept for the most recent 30 days, one for each of the most
+recent 12 months, and one for every year.
+
+AWS Cloudwatch is used to monitor the servers.
+When the configured conditions warrant attention, notices are sent to "info@finalsclub.org".
+
+NOTE: There are currently 2 monitors set up:
+
+- available disk space
+- CPU utilization
+
+NOTE: We still have an ongoing issue with the EPL server hanging up.  This is being worked on.
 
 
 
