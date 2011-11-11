@@ -6,7 +6,7 @@
 
 		<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js'></script>
 		<script type='text/javascript' src='/javascripts/es5-shim.min.js'></script>
-		<script type='text/javascript' src='/javascripts/protodiv.js'></script>
+		<script type='text/javascript' src='javascripts/protodiv.js'></script>
 		<script type='text/javascript' src='/socket.io/socket.io.js'></script>
 
     	<meta name="viewport" content="width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0">
@@ -31,7 +31,7 @@
 
 				<div class="school" id=schoolproto>
 
-					<h2><a href="">__name__</a></h2>
+					<h2><a href="courses.html?school=__name__">__name__</a></h2>
 					<!-- ul>
 						<li id=course_proto><a href="course/__courseid__">__coursename__</a></li>
 					</ul -->
@@ -45,11 +45,10 @@
 var schools = [
 	{
 		name: "Berkeley",
-		ref: "http://www.berkeley.edu/"
 		courses: [
 			{ id: "4e6d1e9b42bbef522c000a8f", name: "History 12: Introduction to the Middle East" },
 			{ id: "4e8aa3f62e4b97e67b001f47", name: "ANTH160AC/ISF 160: The Forms of Folklorek" }
-		}
+		]
 	}
 ]
 			ProtoDiv.replicate("schoolproto", schools);
