@@ -12,8 +12,8 @@ helping college students collaborate, learn, and share their knowledge freely on
 Requirements:
 
 - Linux server (circa 2011)
-- Node.js (Version 0.4.10 or later)
-- MongoDB (Version  1.8.2 or later)
+- Node.js (Version 0.4.10 or later) (More ...)[http://nodejs.org]
+- MongoDB (Version  1.8.2 or later) (More ...)[http://mongodb.org]
 
 ## Quick start for a single server installation
 
@@ -27,14 +27,19 @@ Requirements:
 	[[ flesh this out with correct commands - reference util scripts - fix util scripts ]]
 
 
+# Resources
+
+[[ discussion groups, chat rooms, etc. related to FC and FC sources ]]
+
+
 # Database
 
 The database is MongoDB.
-MongoDB is not a relational database, but rather a noSQL or "document/object" based database.
+MongoDB is not a relational database, but rather a noSQL or "document/object" database.
 Data is stored as structured objects versus tables and rows.
 (More about MongoDB)[http://mongodb.org].
 
-## Collections
+## Collections in the database
 
 - archivedcourses
 	[[ schema needed ]]
@@ -58,6 +63,10 @@ Data is stored as structured objects versus tables and rows.
 	[[ schema needed ]]
 
 
+## [[ stuff ]]
+
+[[ notes about scaling/replication/etc. ]]
+
 
 # Source Code
 
@@ -67,7 +76,8 @@ The source code for the website itself consists of these main parts:
 - The back channel
 - The surrounding website
 
-These 3 pieces are written in Javascript for Node.js.
+These pieces are written in Javascript for Node.js.
+
 
 ## The Collaborative Real-time Editor 
 
@@ -102,21 +112,23 @@ core page where EPL and BC are both found along side each other.
 
 Several node modules are leveraged to to make the basic website work:
 
-- (async)[URL]
-- (aws-lib)[URL]
-- (connect)[URL]
-- (connect-mongo)[URL]
-- (ejs)[URL]
-- (express)[URL]
-- (express-messages)[URL]
-- (hat)[URL]
-- (hooks)[URL]
-- (init)[URL]
-- (jade)[URL]
-- (mongodb)[URL]
-- (mongoose)[URL]
-- (socket.io)[URL]
+- (async)[http:npmjs.org]
+- (aws-lib)[http:npmjs.org]
+- (connect)[http:npmjs.org]
+- (connect-mongo)[http:npmjs.org]
+- (ejs)[http:npmjs.org]
+- (express)[http:npmjs.org]
+- (express-messages)[http:npmjs.org]
+- (hat)[http:npmjs.org]
+- (hooks)[http:npmjs.org]
+- (init)[http:npmjs.org]
+- (jade)[http:npmjs.org]
+- (mongodb)[http:npmjs.org]
+- (mongoose)[http:npmjs.org]
+- (socket.io)[http:npmjs.org]
 
+
+[[ more detail about website generally, then defer to src comments ]]
 
 
 # AWS Infrastructure
