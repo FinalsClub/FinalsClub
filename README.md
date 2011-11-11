@@ -43,6 +43,38 @@ NOTE: There are currently 2 monitors set up:
 NOTE: We still have an ongoing issue with the EPL server hanging up.  This is being worked on.
 
 
+# Database
+
+The database is MongoDB.
+MongoDB is not a relational database, but rather a noSQL or "document/object" based database.
+Data is stored as structured objects versus tables and rows.
+(More about MongoDB)[http://mongodb.org].
+
+## Collections
+
+- archivedcourses
+	[[ schema needed ]]
+- archivednotes
+	[[ schema needed ]]
+- archivedsubjects
+	[[ schema needed ]]
+- courses
+	[[ schema needed ]]
+- lectures
+	[[ schema needed ]]
+- notes
+	[[ schema needed ]]
+- posts
+	[[ schema needed ]]
+- schools
+	[[ schema needed ]]
+- sessions
+	[[ schema needed ]]
+- users
+	[[ schema needed ]]
+
+
+
 # Source Code
 
 The source code for the website itself consists of these main parts:
