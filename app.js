@@ -22,6 +22,7 @@ var hat					= require('hat');
 var connect			= require( 'connect' );
 var Session			= connect.middleware.session.Session;
 var parseCookie = connect.utils.parseCookie;
+var Backchannel = require('../bc/backchannel');
 
 // Depracated
 // Used for initial testing
@@ -1752,146 +1753,32 @@ io.set('authorization', function ( handshake, next ) {
   }
 });
 
-
-var backchannel = io
-.of( '/backchannel' )
-.on( 'connection', function( socket ) {
-
-  socket.on('subscribe', function(lecture, cb) {
-    socket.join(lecture);
+var backchannel = new Backchannel(app, io.of('/backchannel'), {
+  subscribe: function(lecture, send) {
     Post.find({'lecture': lecture}, function(err, posts) {
-      if (socket.handshake.user) {
-        cb(posts);
-      } else {
-        var posts = posts.filter(
-          function(post) {
-          if (post.public)
-            return post;
-        }
-        )
-        cb(posts)
-      }
+      send(posts);
     });
-  });
-
-  socket.on('post', function(res) {
+  },
+  post: function(fillPost) {
     var post = new Post;
-    var _post = res.post;
-    var lecture = res.lecture;
-    post.lecture = lecture;
-    if ( _post.anonymous ) {
-      post.userid		= 0;
-      post.userName	= 'Anonymous';
-      post.userAffil = 'N/A';
-    } else {
-      post.userName = _post.userName;
-      post.userAffil = _post.userAffil;
-    }
-
-    post.public = _post.public;
-    post.date = new Date();
-    post.body = _post.body;
-    post.votes = [];
-    post.reports = [];
-    post.save(function(err) {
-      if (err) {
-        // XXX some error handling
-        console.log(err);
-      } else {
-        if (post.public) {
-          backchannel.in(lecture).emit('post', post);
-        } else {
-          privateEmit(lecture, 'post', post);
-        }
-      }
+    fillPost(post, function(send) {
+      post.save(function(err) {
+        send();
+      });
     });
-  });
-
-  socket.on('vote', function(res) {
-    var vote = res.vote;
-    var lecture = res.lecture;
-    Post.findById(vote.parentid, function( err, post ) {
-      if (!err) {
-        if (post.votes.indexOf(vote.userid) == -1) {
-          post.votes.push(vote.userid);
-          post.save(function(err) {
-            if (err) {
-              // XXX error handling
-            } else {
-              if (post.public) {
-                backchannel.in(lecture).emit('vote', vote);
-              } else {
-                privteEmit(lecture, 'vote', vote);
-              }
-            }
-          });
-        }
-      }
-    })
-  });
-
-  socket.on('report', function(res) {
-    var report = res.report;
-    var lecture = res.lecture;
-    Post.findById(report.parentid, function( err, post ){
-      if (!err) {
-        if (post.reports.indexOf(report.userid) == -1) {
-          post.reports.push(report.userid);
-          post.save(function(err) {
-            if (err) {
-              // XXX error handling
-            } else {
-              if (post.public) {
-                backchannel.in(lecture).emit('report', report);
-              } else {
-                privateEmit(lecture, 'report', report);
-              }
-            }
-          });
-        }
-      }
-    })
-  });
-
-  socket.on('comment', function(res) {
-    var comment = res.comment;
-    var lecture = res.lecture;
-    console.log('anon', comment.anonymous);
-    if ( comment.anonymous ) {
-      comment.userid		= 0;
-      comment.userName	= 'Anonymous';
-      comment.userAffil = 'N/A';
-    }
-    Post.findById(comment.parentid, function( err, post ) {
-      if (!err) {
-        post.comments.push(comment);
-        post.date = new Date();
+  },
+  items: function(postId, addItem) {
+    Post.findById(postId, function( err, post ) {
+      addItem(post, function(send) {
         post.save(function(err) {
-          if (err) {
-            console.log(err);
-          } else {
-            if (post.public) {
-              backchannel.in(lecture).emit('comment', comment);
-            } else {
-              privateEmit(lecture, 'comment', comment);
-            }
-          }
-        })
-      }
-    })
-  });
-
-  function privateEmit(lecture, event, data) {
-    backchannel.clients(lecture).forEach(function(socket) {
-      if (socket.handshake.user)
-        socket.emit(event, data);
+          send();
+        });
+      })
     })
   }
-
-  socket.on('disconnect', function() {
-    //delete clients[socket.id];
-  });
 });
+
+
 
 
 var counters = {};
