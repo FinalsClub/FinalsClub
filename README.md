@@ -7,6 +7,16 @@ FC is a 501(c)(3) non-profit open education project dedicated to
 helping college students collaborate, learn, and share their knowledge freely online.
 
 
+# Installing
+
+Requirements:
+
+- Linux server (circa 2011)
+- Node.js (Version 0.4.10 or later)
+- MongoDB (Version  1.8.2 or later)
+
+
+
 # Infrastructure
 
 The FC servers run in the cloud on Linux servers, using Amazon Web Services (AWS).
@@ -30,6 +40,8 @@ NOTE: There are currently 2 monitors set up:
 - available disk space
 - CPU utilization
 
+NOTE: We still have an ongoing issue with the EPL server hanging up.  This is being worked on.
+
 
 # Source Code
 
@@ -51,7 +63,7 @@ The documents in FC are the notes for a specific lecture.
 
 ## The Back Channel (BC)
 
-The back channel portion of FC is called ["BC"](https://github.com/FinalsClubDev/BC).
+The back channel portion of FC utilizes ["BC"](https://github.com/FinalsClubDev/BC).
 BC allows the note takers, or anyone else who is just observing,
 to suggest questions for the lecturer, and vote on each other's questions.
 It also allows people to post commentary.
