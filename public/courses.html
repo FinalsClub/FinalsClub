@@ -25,42 +25,39 @@
 
 
 
-
 		<div class="content">
 			<div class="container1">
-				<h1>Universities</h1>
 
+				<h1>Courses for <span id=school_name>Berkeley</span></h1>
 
-				<!-- This is the prototype div -->
-				<div class="school" id=schoolproto>
-					<div class=name>
-						<a href="courses.html?school=__name__">__name__</a>
-						(__numCourses__ courses)
-					</div>
-				</div>
-
+				<ul>
+					<li id=course_proto><a href="course/__id__">__name__</a></li>
+				</ul>
 
 			</div>
 			<script>
 
-			var schools = []
 
+			var school = document.location.search.match(/school=([^&]+)/)[1]
+			$("#school_name").html(school);
+
+
+			var courses = []
 			if(false) {
-				// this is what will really happen when we're done
-				$.get("/api", { act: "getSchools" }, function(r) {
-					schools = JSON.parse(r)
-					ProtoDiv.replicate("schoolproto", schools);
-				});
-			} else {
-				// this is just to demonstrate
-				schools = [
-					{ name: "Berkeley", numCourses: 2 },
-					{ name: "Brown", numCourses: 5 },
-					{ name: "Columbia", numCourses: 0 },
-				];
-				ProtoDiv.replicate("schoolproto", schools);
+				/*
+				$.get("/api", { act: "getCourses", school: school }, function(r) {
+					courses = JSON.parse(r)
+					ProtoDiv.replicate("course_proto", courses);
+				})
+				*/
 			}
-
+			else {
+				var courses = [
+					{ id: "4e6d1e9b42bbef522c000a8f", name: "History 12: Introduction to the Middle East" },
+					{ id: "4e8aa3f62e4b97e67b001f47", name: "ANTH160AC/ISF 160: The Forms of Folklorek" }
+				]
+				ProtoDiv.replicate("course_proto", courses);
+			}
 
 			</script>
 		</div>
