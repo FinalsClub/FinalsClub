@@ -1,0 +1,362 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+	<head>
+		<title>FinalsClub.org</title>
+
+		<!-- XXX Some SEO here would be nice -->
+
+		<link rel='stylesheet' href='stylesheets/fc2.css'>
+
+		<script type='text/javascript' src='javascripts/jquery.min.js'></script>
+		<script type='text/javascript' src='javascripts/es5-shim.min.js'></script>
+		<script type='text/javascript' src='javascripts/protodiv.js'></script>
+		<script type='text/javascript' src='socket.io/socket.io.js'></script>
+
+		<meta name="viewport" content="width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0">
+		<meta name="apple-touch-icon" href=""> <!-- XXX -->
+		<meta name="icon" href="">
+
+	</head>
+
+	<body>
+
+		<div class="masthead">
+			<div class="logbar">
+				<div class="loginstatus">&nbsp;</div>
+			</div>
+			<div class="navbar">
+				<table>
+					<tr>
+						<td>
+							<a href="/"><img src="/images/finals-club-wht.png" class="logo"/></a>
+						</td>
+						<td class="menu">
+							<a href="javascript:goSchools()">Courses</a>
+							<a href="http://blog.finalsclub.org">Blog</a>
+							<a href="/archive">Archive</a>
+							<a href="javascript:goPress()">Press</a>
+							<a href="javascript:goRegister()">Create an Account</a>
+							<a href="/login" class="special">Login</a>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="logbar">&nbsp;</div>
+		</div>
+
+
+
+		<div class="content">
+			<style>
+				/* The is here is because it's related less to "styling" and more to UI "behavior" */
+				.page { display: none; }
+			</style>
+
+
+
+
+			<div class=page id=pg_home>
+				<div class="contenthome">
+					<div class="tagline">
+						<p>
+						Welcome to FinalsClub.org, a 501(c)(3) non-profit
+						open education project dedicated to helping college
+						students collaborate, learn, and share their
+						knowledge freely online.
+						</p>
+						<p>
+						Please create an account with your school email address
+						to try our tools or browse our course archive to learn
+						something new.
+						Thank you for helping us improve access to education,
+						one lecture at a time.
+						</p>
+						<p></p>
+						<div id="learnsomething" class="button green">Learn something &gt;&gt; </div>
+						<p></p>
+						<iframe src="http://player.vimeo.com/video/30647271?title=0&amp;byline=0&amp;portrait=0" width="350" height="250" frameborder="0" webkitallowfullscreen="webkitAllowFullScreen" allowfullscreen="allowFullScreen"></iframe>
+					</div>
+				</div>
+				
+			</div>
+
+
+
+			<div class=page id=pg_schools>
+				<h1>Universities</h1>
+				<div class="school" id=PROTO_school>
+					<div class=name>
+						<a href="javascript:goCourses('__name__')">__name__</a>
+						(__numCourses__ courses)
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class=page id=pg_courses>
+				<h1>Courses for <span id=school_name></span></h1>
+
+				<ul>
+					<li id=PROTO_course><a href="course/__id__">__name__</a></li>
+				</ul>
+			</div>
+
+
+
+
+			<div class=page id=pg_register>
+				<h1>Create an Account</h1>
+				<form id="credentials" action="/register" method="POST">
+					<div class="zarea">
+						<div class="row">
+							<div class="label">
+								<label for="email">Email</label>
+							</div>
+							<div class="field">
+								<input type="text" name="email">
+							</div>
+						</div>
+						<div class="row">
+							<div class="label">
+								<label for="password">Password</label>
+							</div>
+							<div class="field">
+								<input type="password" name="password">
+							</div>
+						</div>
+						<div class="row">
+							<div class="label">
+								<label for="school">School</label>
+							</div>
+							<div class="field">
+								<select name="school">
+									<option value="Berkeley">Berkeley</option>
+									<option value="Brown">Brown</option>
+									<option value="Columbia">Columbia</option>
+									<option value="Cornell">Cornell</option>
+									<option value="Dartmouth">Dartmouth</option>
+									<option value="Harvard">Harvard</option>
+									<option value="MIT">MIT</option>
+									<option value="Princeton">Princeton</option>
+									<option value="Stanford">Stanford</option>
+									<option value="UPenn">UPenn</option>
+									<option value="University of Texas">University of Texas</option>
+									<option value="Yale">Yale</option>
+									<option value="Other">Other</option>
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="label">
+								<label for="name">Name</label>
+							</div>
+							<div class="field">
+								<input type="text" name="name">
+							</div>
+						</div>
+						<div class="row">
+							<div class="label">
+								<label for="affil">Affiliation</label>
+							</div>
+							<div class="field">
+								<select name="affil">
+									<option value="Student">Student</option>
+									<option value="Teachers Assistant">Teachers Assistant</option>
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="label">
+								&nbsp;
+							</div>
+							<div class="field">
+								<button>Register</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+
+
+
+			<div class=page id=pg_conduct>
+				<div class="conduct">
+					<h1>Code of Conduct</h1>
+					<p class="academic">
+						<img src="/images/keep-it-academic.png" alt="Keep it academic.">
+					</p>
+					<p class="vague">
+						This directive is deliberately vague to
+						accommodate creative humor, insight, and exploration.<br>
+						Disruptive or irrelevant material, however,
+						will be subject to removal.<br>
+						Just keep it academic, and we'll all be better off.<br>
+					</p>
+				</div>
+			</div>
+
+
+
+
+			<div class=page id=pg_press>
+				<h1>FinalsClub in the Press</h1>
+				<div class="press">
+					<img src="/images/boston.com.png" class="press">
+					<p class="date">December 13, 2009</p>
+					<p>Plenty of Harvard graduates have traded on the fame and prestige of their alma mater, but few have done so the way Andrew Magliozzi has. The year he graduated, 2005, he started a tutoring company located steps from Harvard Yard, with a name, Veritas, that is the motto of his storied alma mater.</p>
+					<p>Then, two years ago, Magliozzi started up a side project called Finalsclub.org.</p>
+					<p class="readmore">
+					<a href="http://www.boston.com/bostonglobe/ideas/articles/2009/12/13/freeharvardeducationcom">Read more ...</a>
+					</p>
+				</div>
+				<hr>
+				<div class="press">
+					<img src="/images/harvard-crimson.jpg" class="press">
+					<p class="date">Wednesday, February 18, 2009</p>
+					<p>A rapidly growing course preparatory Web site, FinalsClub.org, is moving forward with a plan to expand its site in spite of controversy over the legality of the venture. </p>
+					<p>The Web site, which allows students to share notes, create study groups, and blog about lectures and sections, recently hired 10 Harvard College students to serve as BETA testers for the site. </p>
+					<p class="readmore">
+					<a href="http://www.thecrimson.com/article/2009/2/18/finalscluborg-passes-punch-span-stylefont-weight-boldcorrection">Read more ...</a>
+					</p>
+				</div>
+				<hr>
+				<div class="press">
+					<img src="/images/blown-to-bits.png" class="press">
+					<p class="date">September 27th, 2009</p>
+					<p>Computer Science professor and former Dean of Harvard, Harry Lewis, embraces FinalsClub's work and its guiding principle of open education.  Even as Harvard University has not been wholly sympathetic to the FinalsClub mission, invoking the Copyright Act of 1976, assuming a similar position to other major institutions such as University of Texas, Lewis supports working towards the proverbial "temple of the free exchange of ideas."  A course he taught in the Harvard Extension School was also shared freely online.  </p>
+					<p class="readmore">
+					<a href="http://www.bitsbook.com/2009/09/a-harvard-skirmish-in-the-copyright-wars">Read more ...</a>
+					</p>
+				</div>
+			</div>
+
+
+
+
+<script>
+
+	/* This is the core logic for the main page. */
+
+
+	/* Convert a JSON string to an object, or null if unparseable */
+	function j2o(json) { try { return JSON.parse(json); } catch(e) { return null; } }
+
+	/* Convert an object to a JSON string (just easier to type than "JSON.stringify" */
+	function o2j(obj) { return JSON.stringify(obj); }
+
+
+	// hide all page divs, then show just the one with the given id
+	function hideAllPages() {
+		$(".page").fadeOut(100);
+	}
+	function showPage(id) {
+		$("#pg_"+id).fadeIn(100);
+	}
+
+
+
+	var schools = []
+
+	function goSchools() {
+		hideAllPages();
+		$.get("/schools", {}, function(response) {
+			if(typeof response == 'object')
+				schools = response.schools
+			ProtoDiv.reset("PROTO_school");
+			ProtoDiv.replicate("PROTO_school", schools);
+			showPage("schools")
+		});
+	}
+
+
+
+	var courses = []
+
+	function goCourses(name) {
+		hideAllPages();
+		$("#school_name").html(name);
+//		$.get("/courses", {}, function(response) {
+//			if(typeof response == 'object')
+//				courses = response.courses
+var courses = [
+	{ id: "4e6d1e9b42bbef522c000a8f", name: "History 12: Introduction to the Middle East" },
+	{ id: "4e8aa3f62e4b97e67b001f47", name: "ANTH160AC/ISF 160: The Forms of Folklorek" }
+]
+			ProtoDiv.reset("PROTO_course");
+			ProtoDiv.replicate("PROTO_course", courses);
+			showPage("courses")
+//		});
+	}
+
+
+	function goRegister() {
+		hideAllPages();
+		// xxx clear fields?
+		// xxx change FORM to use AJAX
+		showPage("register");
+	}
+
+
+	function goPress() {
+		hideAllPages();
+		showPage("press");
+	}
+
+
+	function goConduct() {
+		hideAllPages();
+		showPage("conduct");
+	}
+
+
+
+	showPage("home");
+
+
+</script>
+
+
+		</div>
+
+
+
+
+		<div class="footer">
+			<table>
+				<tr>
+					<td class="col1">
+						<div class="logo">
+							<img src="/images/finals-club-wht.png" title="FinalsClub.org" class="lilogo"/>
+						</div>
+						<div>Copyright 2011</div>
+						<div>All Rights Reserved</div>
+					</td>
+					<td class="col2">
+						<a href="javascript:goConduct()">Code of Conduct</a>
+						<a href="http://blog.finalsclub.org/about.html">About</a>
+						<a href="http://blog.finalsclub.org/contact.html">Contact</a>
+						<a href="http://blog.finalsclub.org/legal.html">Legal</a>
+						<a href="http://blog.finalsclub.org/team.html">Team</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="footerer">
+			<p>
+				This work is licensed under a
+				Creative Commons Attribution-ShareAlike 3.0
+				United States License
+			</p>
+			<p>
+				<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/us/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/us/88x31.png"/></a>
+				<a href="http://mixpanel.com/f/partner"><img alt="Real Time Web Analytics" src="http://mixpanel.com/site_media/images/partner/badge_blue.png" style="border-width:0;margin:2px;"/></a>
+			</p>
+		</div>
+
+
+
+
+	</body>
+</html>
