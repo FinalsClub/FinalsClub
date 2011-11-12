@@ -7,18 +7,25 @@ FC is a 501(c)(3) non-profit open education project dedicated to
 helping college students collaborate, learn, and share their knowledge freely online.
 
 
-# Installing
+## Additional resources
+
+[[ discussion groups, chat rooms, etc. related to FC and FC sources ]]
+
+
+
+# Quick install
 
 Requirements:
 
-- Linux server (circa 2011)
+- A typical Linux server (circa 2011)
 - Node.js (Version 0.4.10 or later) [More ...](http://nodejs.org)
 - MongoDB (Version  1.8.2 or later) [More ...](http://mongodb.org)
-
-## Quick start for a single server installation
+- forever 
 
 	$ pwd
 	/home/you
+	$ install git
+	$ install node
 	$ git clone git@github.com:/finalsclubdev/FinalsClub fc
 	$ cd fc
 	$ git submodule init
@@ -27,62 +34,24 @@ Requirements:
 	[[ flesh this out with correct commands - reference util scripts - fix util scripts ]]
 
 
-# Resources
+# System components
 
-[[ discussion groups, chat rooms, etc. related to FC and FC sources ]]
+The system consists of these main parts:
 
+- The website
+- The collaborative, real-time editor
+- The back channel
 
-# Database
+Most of the system is written in Javascript and executed by the Node.js runtime.
 
-The database is MongoDB.
-MongoDB is not a relational database, but rather a noSQL or "document/object" database.
-Data is stored as structured objects versus tables and rows.
-(More about MongoDB)[http://mongodb.org].
-
-## Collections in the database
-
-- archivedcourses
-	[[ schema needed ]]
-- archivednotes
-	[[ schema needed ]]
-- archivedsubjects
-	[[ schema needed ]]
-- courses
-	[[ schema needed ]]
-- lectures
-	[[ schema needed ]]
-- notes
-	[[ schema needed ]]
-- posts
-	[[ schema needed ]]
-- schools
-	[[ schema needed ]]
-- sessions
-	[[ schema needed ]]
-- users
-	[[ schema needed ]]
-
-
-## [[ stuff ]]
-
-[[ notes about scaling/replication/etc. ]]
 
 
 # Source Code
 
-The source code for the website itself consists of these main parts:
-
-- The collaborative, real-time editor
-- The back channel
-- The surrounding website
-
-These pieces are written in Javascript for Node.js.
-
 
 ## The Collaborative Real-time Editor 
 
-The real-time editor is an embedded editor called
-[Etherpad-Lite](https://github.com/Pita/etherpad-lite) (EPL).
+The editor is an embedded editor called [Etherpad-Lite](https://github.com/Pita/etherpad-lite) (EPL).
 It provides the ability for multiple people to simultaneously edit a single document.
 The documents in FC are the notes for a specific lecture.
 
@@ -131,6 +100,43 @@ Several node modules are leveraged to to make the basic website work:
 [[ more detail about website generally, then defer to src comments ]]
 
 
+# Database
+
+The database is MongoDB.
+MongoDB is not a relational database, but rather a noSQL or "document/object" database.
+Data is stored as structured objects versus tables and rows.
+(More about MongoDB)[http://mongodb.org].
+
+## Collections in the database
+
+- archivedcourses
+	[[ schema needed ]]
+- archivednotes
+	[[ schema needed ]]
+- archivedsubjects
+	[[ schema needed ]]
+- courses
+	[[ schema needed ]]
+- lectures
+	[[ schema needed ]]
+- notes
+	[[ schema needed ]]
+- posts
+	[[ schema needed ]]
+- schools
+	[[ schema needed ]]
+- sessions
+	[[ schema needed ]]
+- users
+	[[ schema needed ]]
+
+
+## [[ stuff ]]
+
+[[ notes about scaling/replication/etc. ]]
+
+
+
 # AWS Infrastructure
 
 The actual finalsclub.org servers run in the cloud on Linux servers, using Amazon Web Services (AWS).
@@ -155,6 +161,7 @@ NOTE: There are currently 2 monitors set up:
 - CPU utilization
 
 NOTE: We still have an ongoing issue with the EPL server hanging up.  This is being worked on.
+
 
 
 

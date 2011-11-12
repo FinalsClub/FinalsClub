@@ -1648,7 +1648,25 @@ app.get( '/archive/note/:id', loadUser, function( req, res ) {
 //
 // Data types:
 // Posts -  Posts are the main items in backchannel, useful for questions or discussion points
-// 		[[ example object needed]]
+// 		[[ example object needed with explanation E.G: 
+/*
+		Post: { postID: '999-1',
+				  userID: '1234',
+				  userName: 'Bob Jones',
+				  userAffil: 'Instructor',
+				  body: 'This is the text content of the post.',
+				  comments: { {<commentObj>, <commentObj>, ...},
+				  public: true,
+				  votes:   [ <userID>, <userID>, ...],
+				  reports: [ <userID>, <userID>, ...]
+				}
+		  Comment: { body: 'foo bar', userName: 'Bob Jones', userAffil: 'Instructor' }
+		
+		  if anonymous: userName => 'Anonymous', userAffil => 'N/A'
+*/
+//
+//
+//
 // Comments - Comments are replies to posts, for clarification or answering questions
 // 		[[ example object needed]]
 // Votes - Votes signifyg a users approval of a post
@@ -1669,6 +1687,7 @@ app.get( '/archive/note/:id', loadUser, function( req, res ) {
 // 		[[ example needed ]]
 // reports - An array of user ids which are the users that reported the post
 //		[[ reports would be "this post is flagged as inappropriate"? ]]
+//		[[ bruml: consistent terminology needed ]]
 //
 // Posts and comments can be made anonymously. When a post is anonymous, the users info is stripped
 // from the post and the userName is set to Anonymous and the userAffil to N/A. This is to allow
