@@ -132,6 +132,16 @@ var SchoolSchema = new Schema( {
 	users				: Array
 });
 
+SchoolSchema.virtual( 'sanitized' ).get(function() {
+  var school = {
+    name: this.name,
+    description: this.description,
+    url: this.url
+  }
+
+  return school;
+})
+
 SchoolSchema.method( 'authorize', function( user, cb ) {
 	return cb(user.admin || ( this.users.indexOf( user._id ) !== -1 ));
 });

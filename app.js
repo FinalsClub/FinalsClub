@@ -486,6 +486,7 @@ app.get( '/', loadUser, function( req, res ) {
 app.get( '/schools', checkAjax, loadUser, function( req, res ) {
   var user = req.user;
 
+  var schoolList = [];
   // Find all schools and sort by name
   // XXX mongoose's documentation on sort is extremely poor, tread carefully
   School.find( {} ).sort( 'name', '1' ).run( function( err, schools ) {
@@ -499,19 +500,20 @@ app.get( '/schools', checkAjax, loadUser, function( req, res ) {
           school.authorize( user, function( authorized ) {
             // This is used to display interface elements for those users
             // that are are allowed to see them, for instance a 'New Course' button.
-            school.authorized = authorized;
-
+            var sanitizedSchool = school.sanitized;
+            sanitizedSchool.authorized = authorized;
             // Find all courses for school by it's id and sort by name
             Course.find( { 'school' : school._id } ).sort( 'name', '1' ).run( function( err, courses ) {
               // If any courses are found, set them to the appropriate school, otherwise
               // leave empty.
               if( courses.length > 0 ) {
-                school.courses = courses.filter(function(course) {
+                sanitizedSchool.courses = courses.filter(function(course) {
                   if (!course.deleted) return course;
                 });
               } else {
-                school.courses = [];
+                sanitizedSchool.courses = [];
               }
+              schoolList.push(sanitizedSchool);
               // This tells async (the module) that each iteration of forEach is
               // done and will continue to call the rest until they have all been
               // completed, at which time the last function below will be called.
@@ -522,7 +524,7 @@ app.get( '/schools', checkAjax, loadUser, function( req, res ) {
         // After all schools and courses have been found, render them
         function( err ) {
           //res.render( 'schools', { 'schools' : schools } );
-          res.json({ 'schools' : schools });
+          res.json({ 'schools' : schoolList });
         }
       );
     } else {
