@@ -440,6 +440,14 @@ function loadNote( req, res, next ) {
   });
 }
 
+function checkAjax( req, res, next ) {
+  if ( req.xhr ) {
+    next();
+  } else {
+    res.redirect( '/' );
+  }
+}
+
 // Dynamic Helpers are loaded automatically into views
 app.dynamicHelpers( {
   // express-messages is for flash messages for easy
@@ -475,7 +483,7 @@ app.get( '/', loadUser, function( req, res ) {
 // Used to display all available schools and any courses
 // in those schools.
 // Public with some private information
-app.get( '/schools', loadUser, function( req, res ) {
+app.get( '/schools', checkAjax, loadUser, function( req, res ) {
   var user = req.user;
 
   // Find all schools and sort by name
@@ -513,12 +521,14 @@ app.get( '/schools', loadUser, function( req, res ) {
         },
         // After all schools and courses have been found, render them
         function( err ) {
-          res.render( 'schools', { 'schools' : schools } );
+          //res.render( 'schools', { 'schools' : schools } );
+          res.json({ 'schools' : schools });
         }
       );
     } else {
       // If no schools have been found, display none
-      res.render( 'schools', { 'schools' : [] } );
+      //res.render( 'schools', { 'schools' : [] } );
+      res.json({ 'schools' : [] });
     }
   });
 });
