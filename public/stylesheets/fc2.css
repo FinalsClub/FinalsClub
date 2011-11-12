@@ -250,20 +250,6 @@ div#wrapper div#header .rcol a {
 	text-decoration: underline;
 }
 
-div.container1 {
-	/*
-	background: #eee;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#f4f4f4), to(#eee));
-	background-image: -moz-linear-gradient(#eee, #eee)
-	-moz-border-radius: 0.20em;
-	-webkit-border-radius: 0.20em;
-	-webkit-box-shadow: 0 0.2em 0.3em rgba(0, 0, 0, .3);
-	-moz-box-shadow: 0 0.2em 0.3em rgba(0, 0, 0, .3);
-	padding: 0.8em 3% 2em 3%;
-	margin: 0.2em 0;
-	*/
-}
-
 div.area {
 	-moz-border-radius: 0.20em;
 	-webkit-border-radius: 0.20em;
