@@ -641,7 +641,7 @@ div.school {
 	-moz-box-shadow: 0 0.1em 0.1em rgba(0, 0, 0, .3);
 }
 */
-.content .container1 h1 {
+.content h1 {
 	border-bottom: 2px solid #5c6572;
 	background: transparent url("/images/bg_main-heading.gif") 0 100% repeat-x;
 	font-family: Georgia, helvetica;
