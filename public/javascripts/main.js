@@ -105,31 +105,21 @@ function showLectures(matches, cb) {
 
 
 
+// go to the page that lists the note taking sessions for a specific lecture
+function showNotes(matches, cb) {
 
-// go to the page that lists the lectures for a specific course
-var pads = []
-function goPads(lectureId) {
-	ProtoDiv.reset("PROTO_pad");
-	hideAllPages();
+	var lectureId = matches[1]
+
+	ProtoDiv.reset("PROTO_note");
+	
 	$.get("/lecture/"+lectureId, {}, function(response) {
 
-response = {
-	lecture: {
-		name: "Foo Lecture",
-		pads: [
-			{ _id: 1, name: "pad 1" },
-			{ _id: 2, name: "pad 2" },
-		]
-	}
-}
-		pads = []
+		var notes = []
 		if(typeof response == 'object') {
-			var lecture = response.lecture
-			$("#lecture_name").html(lecture.name);
-			pads = course.pads
+			notes = course.notes
 		}
-		ProtoDiv.replicate("PROTO_pad", lectures);
-		goPage("pads")
+		ProtoDiv.replicate("PROTO_note", lectures);
+		cb("notes")
 	});
 }
 
@@ -196,6 +186,7 @@ var pageVectors = [
 	{ regex: /^\/schools/, func: showSchools },
 	{ regex: /^\/school\/([a-f0-9]{24})/, func: showCourses },
 	{ regex: /^\/course\/([a-f0-9]{24})/, func: showLectures },
+	{ regex: /^\/lecture\/([a-f0-9]{24})/, func: showNotes },
 	{ regex: /^\/login/, func: showLogin },
 	{ regex: /^\/register/, func: showRegister },
 	{ regex: /^\/press/, func: showPress },
