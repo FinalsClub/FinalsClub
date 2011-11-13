@@ -493,45 +493,44 @@ app.get( '/schools', checkAjax, loadUser, function( req, res ) {
     if( schools ) {
       // If schools are found, loop through them gathering any courses that are
       // associated with them and then render the page with that information.
-      async.forEach(
-        schools,
-        function( school, callback ) {
-          // Check if user is authorized with each school
-          school.authorize( user, function( authorized ) {
-            // This is used to display interface elements for those users
-            // that are are allowed to see them, for instance a 'New Course' button.
-            var sanitizedSchool = school.sanitized;
-            sanitizedSchool.authorized = authorized;
-            // Find all courses for school by it's id and sort by name
-            Course.find( { 'school' : school._id } ).sort( 'name', '1' ).run( function( err, courses ) {
-              // If any courses are found, set them to the appropriate school, otherwise
-              // leave empty.
-              if( courses.length > 0 ) {
-                sanitizedSchool.courses = courses.filter(function(course) {
-                  if (!course.deleted) return course;
-                });
-              } else {
-                sanitizedSchool.courses = [];
-              }
-              schoolList.push(sanitizedSchool);
-              // This tells async (the module) that each iteration of forEach is
-              // done and will continue to call the rest until they have all been
-              // completed, at which time the last function below will be called.
-              callback();
-            });
-          });
-        },
-        // After all schools and courses have been found, render them
-        function( err ) {
-          //res.render( 'schools', { 'schools' : schools } );
-          res.json({ 'schools' : schoolList });
-        }
-      );
+      res.json({ 'schools' : schools.map(function(school) {
+        return school.sanitized;
+      })})
     } else {
       // If no schools have been found, display none
       //res.render( 'schools', { 'schools' : [] } );
       res.json({ 'schools' : [] });
     }
+  });
+});
+
+app.get( '/school/:id', checkAjax, loadUser, loadSchool, function( req, res ) {
+  var school = req.school;
+  var user = req.user;
+
+  school.authorize( user, function( authorized ) {
+    // This is used to display interface elements for those users
+    // that are are allowed to see th)m, for instance a 'New Course' button.
+    var sanitizedSchool = school.sanitized;
+    sanitizedSchool.authorized = authorized;
+    // Find all courses for school by it's id and sort by name
+    Course.find( { 'school' : school._id } ).sort( 'name', '1' ).run( function( err, courses ) {
+      // If any courses are found, set them to the appropriate school, otherwise
+      // leave empty.
+      if( courses.length > 0 ) {
+        sanitizedSchool.courses = courses.filter(function(course) {
+          if (!course.deleted) return course;
+        }).map(function(course) {
+          return course.sanitized;
+        });
+      } else {
+        sanitizedSchool.courses = [];
+      }
+      // This tells async (the module) that each iteration of forEach is
+      // done and will continue to call the rest until they have all been
+      // completed, at which time the last function below will be called.
+      res.json({ 'school': sanitizedSchool })
+    });
   });
 });
 
