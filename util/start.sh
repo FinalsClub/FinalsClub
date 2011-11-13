@@ -6,6 +6,7 @@ export PATH="/usr/local/bin:$PATH"
 
 rm -rf fc
 git clone git@github.com:finalsclubdev/FinalsClub.git
+ln -sf FinalsClub fc
 cd fc
 git checkout master
 git submodule init && git submodule update
