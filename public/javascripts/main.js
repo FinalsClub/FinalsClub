@@ -114,11 +114,26 @@ function showNotes(matches, cb) {
 	
 	$.get("/lecture/"+lectureId, {}, function(response) {
 
-		var notes = []
 		if(typeof response == 'object') {
-			notes = course.notes
+
+			var course = response.course
+			//if(course)
+			//	ProtoDiv.replicate("PROTO_lectures_head", [course])
+
+			var instructor = response.instructor
+			//if(instructor)
+			//	ProtoDiv.replicate("PROTO_lectures_instructor", [instructor])
+
+			var lecture = response.lecture
+			//if(lecture)
+			//	ProtoDiv.replicate("PROTO_lecture", lectures);
+
+			var notes = response.notes
+			if(notes)
+				ProtoDiv.replicate("PROTO_note", notes);
+
 		}
-		ProtoDiv.replicate("PROTO_note", lectures);
+
 		cb("notes")
 	});
 }
