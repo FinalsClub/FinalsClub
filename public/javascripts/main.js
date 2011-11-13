@@ -71,29 +71,35 @@ function showCourses(matches, cb) {
 
 
 // go to the page that lists the lectures for a specific course
-var lectures = []
-function goLectures(courseId) {
+function showLectures(matches, cb) {
+
+	var courseId = matches[1]
+
 	ProtoDiv.reset("PROTO_lecture");
-	hideAllPages();
+	
 	$.get("/course/"+courseId, {}, function(response) {
 
-response = {
-	course: {
-		name: "FooCourse",
-		lectures: [
-			{ _id: 1, name: "lecture 1" },
-			{ _id: 2, name: "lecture 2" },
-		]
-	}
-}
-		lectures = []
+		ProtoDiv.reset("PROTO_lectures_head")
+		ProtoDiv.reset("PROTO_lectures_instructor")
+		ProtoDiv.reset("PROTO_lecture")
+
 		if(typeof response == 'object') {
+
 			var course = response.course
-			$("#course_name").html(course.name);
-			lectures = course.lectures
+			if(course)
+				ProtoDiv.replicate("PROTO_lectures_head", [course])
+
+			var instructor = response.instructor
+			if(instructor)
+				ProtoDiv.replicate("PROTO_lectures_instructor", [instructor])
+
+			var lectures = response.lectures
+			if(lectures)
+				ProtoDiv.replicate("PROTO_lecture", lectures);
+
 		}
-		ProtoDiv.replicate("PROTO_lecture", lectures);
-		goPage("lectures")
+
+		cb("lectures")
 	});
 }
 
@@ -189,6 +195,7 @@ var pageVectors = [
 	{ regex: /^\/(index.html)?$/, func: showHome },
 	{ regex: /^\/schools/, func: showSchools },
 	{ regex: /^\/school\/([a-f0-9]{24})/, func: showCourses },
+	{ regex: /^\/course\/([a-f0-9]{24})/, func: showLectures },
 	{ regex: /^\/login/, func: showLogin },
 	{ regex: /^\/register/, func: showRegister },
 	{ regex: /^\/press/, func: showPress },

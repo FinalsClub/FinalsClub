@@ -872,5 +872,15 @@ div.conduct p.vague {
 	color: #888;
 }
 
+.lectures_instructor, .lectures_head {
+}
+
+.lecture {
+	margin: 0.5em 0;
+	padding: 0.5em 1em;
+	border: solid 1px #888;
+	-moz-border-radius: 0.20em;
+	-webkit-border-radius: 0.20em;
+}
 
 

@@ -101,7 +101,7 @@
 				<div class=course id=PROTO_course>
 					<div class=dept>__department__</div>
 					<div class=name>
-						<a href="javascript:goLectures('___id__')">__number__: __name__</a>
+						<a href="javascript:goPage('/course/___id__')">__number__: __name__</a>
 					</div>
 				</div>
 			</div>
@@ -109,10 +109,18 @@
 
 
 			<div class=page id=pg_lectures>
-				<h1>Lectures for <span id=course_name></span></h1>
+				<div class=lectures_head id=PROTO_lectures_head>
+					<h1>Lectures for Course __number__ : __name__</h1>
+					Subject: __subject__<br>
+					Department: __department__<br>
+				</div>
+				<div class=lectures_instructor id=PROTO_lectures_instructor>
+					Instructor: __name__ (__email__)<br>
+				</div>
 				<div class=lecture id=PROTO_lecture>
 					<div class=name>
-						<a href="javascript:goPads('___id__')">__name__</a>
+						<a href="javascript:goPage('/note/___id__')">__name__</a><br>
+						Created: __date__<br>
 					</div>
 				</div>
 			</div>
