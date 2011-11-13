@@ -198,7 +198,7 @@ var pageVectors = [
 
 
 /* Do and show the appropriate thing, based on the pages current URL */
-function showPage() {
+function showPage(y) {
 
 	var path = document.location.pathname
 
@@ -211,7 +211,13 @@ function showPage() {
 			vector.func(matches, function(pageId) {
 
 				$("#pg_"+pageId).fadeIn(100);
-				$('html, body').animate({ scrollTop: 0 }, 100);
+
+				//alert(backTop)
+				//if(!backFlag)
+					//$('html, body').animate({ scrollTop: backTop }, 100);
+				//if(y !== undefined)
+					window.scroll(0, y)
+				//backFlag = false
 
 			})
 			break
@@ -239,44 +245,27 @@ function showPage() {
 	Based on what path looks like, an appropriate DIV is shown, and action taken
 */
 function goPage(path) {
-	history.pushState({prev:path}, path, path);
-	showPage();
+	var y = 0 + window.pageYOffset
+	var o = {py:(path+"|"+y)}
+	history.pushState(o, path, path);
+	showPage(0);
 }
 
 
-/* Simulates a "back" browser navigation.
-*/
+/* Simulates a "back" browser navigation.  */
+var backTop = 0
 function goBack(event) {
-	var state = event.state; //alert("pop: "+o2j(state));
-
-	showPage()
-
-	/*hideAllPages();
-
-	if(!state) {
-
-		history.replaceState(null, "", "/index.html");
-		showPage("home");
-
-	}
-	else {
-		//alert("location: " + document.location + ", state: " + JSON.stringify(event.state));  
-		//history.replaceState(null, "", state.prev);
-		showPage(state.prev);
-		// showPage(state.prev);
-		//alert("location: " + document.location + ", state: " + JSON.stringify(event.state));  
-	}
-	*/
+	// alert("pop: "+o2j(event.state));
+	//backTop = window.pageYOffset; //$("html, body").offset().top
+	showPage( event.state ? event.state.y : 0 )
 }
 
 
 $(document).ready(function() {
 
-	// This executes after the page has been fully loaded
+	// This code executes after the page has been fully loaded
 
 	window.onpopstate = goBack
-
-	//showPage("home");
 
 })
 
