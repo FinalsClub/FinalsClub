@@ -27,7 +27,7 @@ function showSchools(matches, cb) {
 
 	ProtoDiv.reset("PROTO_school");
 
-	$.get("/schools", {}, function(response) {
+	$.get("/schools", { cache: false }, function(response) {
 
 		var schools = []
 		if(typeof response == 'object') {
@@ -51,7 +51,7 @@ function showCourses(matches, cb) {
 
 	ProtoDiv.reset("PROTO_course");
 
-	$.get("/school/"+schoolId, {}, function(response) {
+	$.get("/school/"+schoolId, { cache: false }, function(response) {
 
 		var courses = []
 		if(typeof response == 'object') {
@@ -77,7 +77,7 @@ function showLectures(matches, cb) {
 
 	ProtoDiv.reset("PROTO_lecture");
 	
-	$.get("/course/"+courseId, {}, function(response) {
+	$.get("/course/"+courseId, { cache: false }, function(response) {
 
 		ProtoDiv.reset("PROTO_lectures_head")
 		ProtoDiv.reset("PROTO_lectures_instructor")
@@ -112,7 +112,7 @@ function showNotes(matches, cb) {
 
 	ProtoDiv.reset("PROTO_note");
 	
-	$.get("/lecture/"+lectureId, {}, function(response) {
+	$.get("/lecture/"+lectureId, { cache: false }, function(response) {
 
 		if(typeof response == 'object') {
 
@@ -147,7 +147,7 @@ function showArchiveSubjects(matches, cb) {
 
 	ProtoDiv.reset("PROTO_archive_subject")
 
-	$.get("/archive", { }, function(response) {
+	$.get("/archive", { cache: false }, function(response) {
 
 		var subjects = response.subjects
 
@@ -166,7 +166,7 @@ function showArchiveCourses(matches, cb) {
 
 	ProtoDiv.reset("PROTO_archive_course")
 
-	$.get("/archive/subject/"+subjectId, { }, function(response) {
+	$.get("/archive/subject/"+subjectId, { cache: false }, function(response) {
 
 		var courses = response.courses
 
@@ -185,7 +185,7 @@ function showArchiveNotes(matches, cb) {
 
 	ProtoDiv.reset("PROTO_archive_note")
 
-	$.get("/archive/course/"+courseId, { }, function(response) {
+	$.get("/archive/course/"+courseId, { cache: false }, function(response) {
 
 		var notes = response.notes
 		$.each(notes, function(i, note) {

@@ -157,6 +157,7 @@ app.configure(function(){
   app.use( express.methodOverride() );
   // Sets the routers middleware to load after everything set
   // before it, but before static files.
+  app.use(express.logger({ format: ':method :url' }));
   app.use( app.router );
   // Static files are loaded when no dynamic views match.
   app.use( express.static( __dirname + '/public' ) );
@@ -1591,7 +1592,7 @@ app.get( '/archive/course/:id', checkAjax, loadUser, loadOldCourse, function( re
   })
 })
 
-app.get( '/archive/note/:id', loadUser, function( req, res ) {
+app.get( '/archive/note/:id', checkAjax, loadUser, function( req, res ) {
   ArchivedNote.findById(req.params.id, function(err, note) {
     if ( err ) {
       res.json( {status: 'error', message: 'This is not a valid id for a note'} );
