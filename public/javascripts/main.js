@@ -318,7 +318,8 @@ $(document).ready(function() {
 
 	window.onpopstate = goBack
 
-	showPage( 0 );		// needed for some older browsers, redundant for chrome
+	// xxx older FF browsers don't fire a page load/reload - deal with it somehow.
+	// showPage( 0 );		// needed for some older browsers, redundant for chrome
 
 })
 
