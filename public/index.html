@@ -33,7 +33,7 @@
 							<a href="/"><img src="/images/finals-club-wht.png" class="logo"/></a>
 						</td>
 						<td class="menu">
-							<a href="javascript:goSchools()">Courses</a>
+							<a href="javascript:goSchools()">Start Here!</a>
 							<a href="http://blog.finalsclub.org">Blog</a>
 							<a href="javascript:goArchivedSubjects()">Archive</a>
 							<a href="javascript:goPress()">Press</a>
@@ -45,6 +45,8 @@
 			</div>
 			<div class="logbar">&nbsp;</div>
 		</div>
+
+		<div id="topofcontent"></div>
 
 
 
@@ -86,14 +88,9 @@
 
 			<div class=page id=pg_schools>
 				<h1>Universities</h1>
-				<div class="school" id=PROTO_school>
+				<div class="school" id=PROTO_school onclick="goCourses('__name__', '___id__', __i__)">
 					<div class=name>__name__</div>
 					<div class=desc>__description__</div>
-					<div class=tocourses>
-						<a href="javascript:goCourses('__name__', '___id__', __i__)">
-						Click for courses ...
-						</a>
-					</div>
 				</div>
 			</div>
 
@@ -113,9 +110,20 @@
 
 			<div class=page id=pg_lectures>
 				<h1>Lectures for <span id=course_name></span></h1>
-				<div class=course id=PROTO_lecture>
+				<div class=lecture id=PROTO_lecture>
 					<div class=name>
-						<a href="goPads('___id__')">__name__</a>
+						<a href="javascript:goPads('___id__')">__name__</a>
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class=page id=pg_pads>
+				<h1>Notepads for <span id=lecture_name></span></h1>
+				<div class=pad id=PROTO_pad>
+					<div class=name>
+						<a href="">__name__</a>
 					</div>
 				</div>
 			</div>

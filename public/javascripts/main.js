@@ -20,7 +20,25 @@ function hideAllPages() {
 	$(".page").fadeOut(100);
 }
 function showPage(id) {
+	//alert("showPage "+id);
 	$("#pg_"+id).fadeIn(100);
+
+	$('html, body').animate({ scrollTop: 0 }, 10);
+	/*$('html, body').animate({
+		scrollTop: $("#topofcontent").offset().top
+	}, 100);*/
+
+}
+
+function goPage(id) {
+
+	showPage(id)
+
+	//if(id == 'home')
+	//	id = 'index.html'
+	//history.pushState({prev:document.location.pathname.substr(1)}, "Page "+id, "/"+id);
+	history.pushState({prev:id}, "Page "+id, "/"+id);
+
 }
 
 
@@ -36,7 +54,7 @@ function goSchools() {
 			schools = response.schools
 		}
 		ProtoDiv.replicate("PROTO_school", schools);
-		showPage("schools")
+		goPage("schools")
 	});
 }
 
@@ -55,7 +73,7 @@ function goCourses(schoolName, schoolId, a) {
 			courses = school.courses
 		}
 		ProtoDiv.replicate("PROTO_course", courses);
-		showPage("courses")
+		goPage("courses", "/courses/"+schoolId)
 	});
 }
 
@@ -85,7 +103,37 @@ response = {
 			lectures = course.lectures
 		}
 		ProtoDiv.replicate("PROTO_lecture", lectures);
-		showPage("lectures")
+		goPage("lectures")
+	});
+}
+
+
+
+
+// go to the page that lists the lectures for a specific course
+var pads = []
+function goPads(lectureId) {
+	ProtoDiv.reset("PROTO_pad");
+	hideAllPages();
+	$.get("/lecture/"+lectureId, {}, function(response) {
+
+response = {
+	lecture: {
+		name: "Foo Lecture",
+		pads: [
+			{ _id: 1, name: "pad 1" },
+			{ _id: 2, name: "pad 2" },
+		]
+	}
+}
+		pads = []
+		if(typeof response == 'object') {
+			var lecture = response.lecture
+			$("#lecture_name").html(lecture.name);
+			pads = course.pads
+		}
+		ProtoDiv.replicate("PROTO_pad", lectures);
+		goPage("pads")
 	});
 }
 
@@ -108,7 +156,7 @@ function goArchivedSubjects() {
 	ProtoDiv.reset("PROTO_archived_subjects");
 	ProtoDiv.replicate("PROTO_archived_subjects", archivedSubjects);
 
-	showPage("archive");
+	goPage("archive");
 }
 
 
@@ -118,28 +166,51 @@ function goRegister() {
 	hideAllPages();
 	// xxx clear fields?
 	// xxx change FORM to use AJAX
-	showPage("register");
+	goPage("register");
 }
 
 
 // go to the press articles page
 function goPress() {
 	hideAllPages();
-	showPage("press");
+	goPage("press");
 }
 
 
 // go to the "code of conduct" page
 function goConduct() {
 	hideAllPages();
-	showPage("conduct");
+	goPage("conduct");
 }
 
 
 
 $(document).ready(function() {
 	// This executes after the page has been fully loaded
-	showPage("home");
+
+	window.onpopstate = function(event) {  
+
+		var state = event.state
+		//alert("pop: "+o2j(state));
+
+		hideAllPages();
+
+		if(!state) {
+
+			history.replaceState(null, "", "/index.html");
+			showPage("home");
+
+		}
+		else {
+			//alert("location: " + document.location + ", state: " + JSON.stringify(event.state));  
+			//history.replaceState(null, "", state.prev);
+			showPage(state.prev);
+			// showPage(state.prev);
+			//alert("location: " + document.location + ", state: " + JSON.stringify(event.state));  
+		}
+	}; 
+
+	//showPage("home");
 })
 
 

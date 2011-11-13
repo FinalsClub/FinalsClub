@@ -603,14 +603,15 @@ span.sub_menu a:hover {
 
 div.school {
 
+	cursor: pointer; cursor: hand;
 	margin: 1%; 
 	padding: 2%;
-	/*
 	border: solid 1px #888;
 	-moz-border-radius: 0.20em;
 	-webkit-border-radius: 0.20em;
 	-webkit-box-shadow: 0 0.2em 0.3em rgba(0, 0, 0, .1);
 	-moz-box-shadow: 0 0.2em 0.3em rgba(0, 0, 0, .1);
+	/*
 	*/
 
 
