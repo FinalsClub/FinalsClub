@@ -10,8 +10,9 @@
 
 		<script type='text/javascript' src='javascripts/jquery.min.js'></script>
 		<script type='text/javascript' src='javascripts/es5-shim.min.js'></script>
-		<script type='text/javascript' src='javascripts/protodiv.js'></script>
 		<script type='text/javascript' src='socket.io/socket.io.js'></script>
+		<script type='text/javascript' src='javascripts/protodiv.js'></script>
+		<script type='text/javascript' src='javascripts/main.js'></script>
 
 		<meta name="viewport" content="width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0">
 		<meta name="apple-touch-icon" href=""> <!-- XXX -->
@@ -32,18 +33,20 @@
 							<a href="/"><img src="/images/finals-club-wht.png" class="logo"/></a>
 						</td>
 						<td class="menu">
-							<a href="javascript:goSchools()">Courses</a>
+							<a href="javascript:goSchools()">Start Here!</a>
 							<a href="http://blog.finalsclub.org">Blog</a>
-							<a href="/archive">Archive</a>
+							<a href="javascript:goArchivedSubjects()">Archive</a>
 							<a href="javascript:goPress()">Press</a>
 							<a href="javascript:goRegister()">Create an Account</a>
-							<a href="/login" class="special">Login</a>
+							<a href="javascript:goLogin()" class="special">Login</a>
 						</td>
 					</tr>
 				</table>
 			</div>
 			<div class="logbar">&nbsp;</div>
 		</div>
+
+		<div id="topofcontent"></div>
 
 
 
@@ -85,11 +88,9 @@
 
 			<div class=page id=pg_schools>
 				<h1>Universities</h1>
-				<div class="school" id=PROTO_school>
-					<div class=name>
-						<a href="javascript:goCourses('__name__')">__name__</a>
-						(__numCourses__ courses)
-					</div>
+				<div class="school" id=PROTO_school onclick="goCourses('__name__', '___id__', __i__)">
+					<div class=name>__name__</div>
+					<div class=desc>__description__</div>
 				</div>
 			</div>
 
@@ -97,12 +98,51 @@
 
 			<div class=page id=pg_courses>
 				<h1>Courses for <span id=school_name></span></h1>
-
-				<ul>
-					<li id=PROTO_course><a href="course/__id__">__name__</a></li>
-				</ul>
+				<div class=course id=PROTO_course>
+					<div class=dept>__department__</div>
+					<div class=name>
+						<a href="javascript:goLectures('___id__')">__number__: __name__</a>
+					</div>
+				</div>
 			</div>
 
+
+
+			<div class=page id=pg_lectures>
+				<h1>Lectures for <span id=course_name></span></h1>
+				<div class=lecture id=PROTO_lecture>
+					<div class=name>
+						<a href="javascript:goPads('___id__')">__name__</a>
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class=page id=pg_pads>
+				<h1>Notepads for <span id=lecture_name></span></h1>
+				<div class=pad id=PROTO_pad>
+					<div class=name>
+						<a href="">__name__</a>
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class=page id=pg_archive>
+				<h1>Archived Subjects</h1>
+				<p>
+				Please browse our archive of past courses
+				covered at Harvard from 2008 through 2010.
+				</p>
+				<ul>
+					<li id=PROTO_archived_subjects>
+						<a href="/archive/subject/__id__">__title__</a>
+					</li>
+				</ul>
+
+			</div>
 
 
 
@@ -235,87 +275,6 @@
 
 
 
-<script>
-
-	/* This is the core logic for the main page. */
-
-
-	/* Convert a JSON string to an object, or null if unparseable */
-	function j2o(json) { try { return JSON.parse(json); } catch(e) { return null; } }
-
-	/* Convert an object to a JSON string (just easier to type than "JSON.stringify" */
-	function o2j(obj) { return JSON.stringify(obj); }
-
-
-	// hide all page divs, then show just the one with the given id
-	function hideAllPages() {
-		$(".page").fadeOut(100);
-	}
-	function showPage(id) {
-		$("#pg_"+id).fadeIn(100);
-	}
-
-
-
-	var schools = []
-
-	function goSchools() {
-		hideAllPages();
-		$.get("/schools", {}, function(response) {
-			if(typeof response == 'object')
-				schools = response.schools
-			ProtoDiv.reset("PROTO_school");
-			ProtoDiv.replicate("PROTO_school", schools);
-			showPage("schools")
-		});
-	}
-
-
-
-	var courses = []
-
-	function goCourses(name) {
-		hideAllPages();
-		$("#school_name").html(name);
-//		$.get("/courses", {}, function(response) {
-//			if(typeof response == 'object')
-//				courses = response.courses
-var courses = [
-	{ id: "4e6d1e9b42bbef522c000a8f", name: "History 12: Introduction to the Middle East" },
-	{ id: "4e8aa3f62e4b97e67b001f47", name: "ANTH160AC/ISF 160: The Forms of Folklorek" }
-]
-			ProtoDiv.reset("PROTO_course");
-			ProtoDiv.replicate("PROTO_course", courses);
-			showPage("courses")
-//		});
-	}
-
-
-	function goRegister() {
-		hideAllPages();
-		// xxx clear fields?
-		// xxx change FORM to use AJAX
-		showPage("register");
-	}
-
-
-	function goPress() {
-		hideAllPages();
-		showPage("press");
-	}
-
-
-	function goConduct() {
-		hideAllPages();
-		showPage("conduct");
-	}
-
-
-
-	showPage("home");
-
-
-</script>
 
 
 		</div>
