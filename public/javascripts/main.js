@@ -141,23 +141,65 @@ function showNotes(matches, cb) {
 
 
 
-var archivedSubjects = []
 
 // go to the page that lists the archived subject names
-function showArchive(matches, cb) {
+function showArchiveSubjects(matches, cb) {
 
-	// xxx fake data
-	archivedSubjects = [
-		{ id: 83, title: "Anthropology" },
-		{ id: 44, title: "CORE-Foreign Cultures" },
-		{ id: 80, title: "CORE-Historical Study" }
-	]
+	ProtoDiv.reset("PROTO_archive_subject")
 
-	ProtoDiv.reset("PROTO_archived_subjects")
-	ProtoDiv.replicate("PROTO_archived_subjects", archivedSubjects)
+	$.get("/archive", { }, function(response) {
 
-	cb("archive")
+		var subjects = response.subjects
+
+		ProtoDiv.replicate("PROTO_archive_subject", subjects)
+
+	})
+
+	cb("archive_subjects")
 }
+
+
+
+function showArchiveCourses(matches, cb) {
+
+	var subjectId = parseInt(matches[1])
+
+	ProtoDiv.reset("PROTO_archive_course")
+
+	$.get("/archive/subject/"+subjectId, { }, function(response) {
+
+		var courses = response.courses
+
+		ProtoDiv.replicate("PROTO_archive_course", courses)
+
+	})
+
+	cb("archive_courses")
+}
+
+
+
+function showArchiveNotes(matches, cb) {
+
+	var courseId = parseInt(matches[1])
+
+	ProtoDiv.reset("PROTO_archive_note")
+
+	$.get("/archive/course/"+courseId, { }, function(response) {
+
+		var notes = response.notes
+		$.each(notes, function(i, note) {
+			if(!note.topic)
+				note.topic = note.text.substr(0, 15)+" ..."
+		})
+
+		ProtoDiv.replicate("PROTO_archive_note", notes)
+
+	})
+
+	cb("archive_notes")
+}
+
 
 
 // go to the account registration page
@@ -202,10 +244,12 @@ var pageVectors = [
 	{ regex: /^\/school\/([a-f0-9]{24})/, func: showCourses },
 	{ regex: /^\/course\/([a-f0-9]{24})/, func: showLectures },
 	{ regex: /^\/lecture\/([a-f0-9]{24})/, func: showNotes },
+	{ regex: /^\/archive\/?$/, func: showArchiveSubjects },
+	{ regex: /^\/archive\/subject\/([0-9]+)/, func: showArchiveCourses },
+	{ regex: /^\/archive\/course\/([0-9]+)/, func: showArchiveNotes },
 	{ regex: /^\/login/, func: showLogin },
 	{ regex: /^\/register/, func: showRegister },
 	{ regex: /^\/press/, func: showPress },
-	{ regex: /^\/archive/, func: showArchive },
 	{ regex: /^\/conduct/, func: showConduct },
 ];
 

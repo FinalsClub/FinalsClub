@@ -138,15 +138,39 @@
 
 
 
-			<div class=page id=pg_archive>
+			<div class=page id=pg_archive_subjects>
 				<h1>Archived Subjects</h1>
 				<p>
 				Please browse our archive of past courses
 				covered at Harvard from 2008 through 2010.
 				</p>
 				<ul>
-					<li id=PROTO_archived_subjects>
-						<a href="/archive/subject/__id__">__title__</a>
+					<li id=PROTO_archive_subject>
+						<a href="javascript:goPage('/archive/subject/__id__')">__name__</a>
+					</li>
+				</ul>
+
+			</div>
+
+
+
+			<div class=page id=pg_archive_courses>
+				<h1>Archived Courses</h1>
+				<ul>
+					<li id=PROTO_archive_course>
+						<a href="javascript:goPage('/archive/course/__id__')">__name__</a>
+					</li>
+				</ul>
+
+			</div>
+
+
+
+			<div class=page id=pg_archive_notes>
+				<h1>Archived Notes</h1>
+				<ul>
+					<li id=PROTO_archive_note>
+						<a href="/archive/note/___id__">__topic__</a>
 					</li>
 				</ul>
 
