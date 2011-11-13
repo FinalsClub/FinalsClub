@@ -36,6 +36,18 @@ var UserSchema = new Schema( {
 	admin						: { 'type' : Boolean, 'default' : false }
 });
 
+UserSchema.virtual( 'sanitized' ).get(function() {
+  var user = {
+    email: this.email,
+    name: this.name,
+    affil: this.affil,
+    showName: this.showName,
+    admin: this.admin
+  }
+
+  return user;
+});
+
 UserSchema.virtual( 'displayName' )
 	.get( function() {
 		if( this.showName ) {
@@ -253,6 +265,17 @@ var LectureSchema	= new Schema( {
 	course				: ObjectId
 });
 
+LectureSchema.virtual( 'sanitized' ).get(function() {
+  var lecture = {
+    _id: this._id,
+    name: this.name,
+    date: this.date,
+    live: this.live
+  }
+
+  return lecture;
+})
+
 LectureSchema.method( 'authorize', function( user, cb ) {
 	Course.findById( this.course, function( err, course ) {
 		if (course) {
@@ -300,6 +323,19 @@ var NoteSchema = new Schema( {
 	lecture				: ObjectId,
 
 	collaborators : [String]
+});
+
+NoteSchema.virtual( 'sanitized').get(function() {
+  var note = {
+    _id: this._id,
+    name: this.name,
+    path: this.path,
+    public: this.public,
+    roID: this.roID,
+    visits: this.visits
+  }
+
+  return note;
 });
 
 NoteSchema.method( 'authorize', function( user, cb ) {

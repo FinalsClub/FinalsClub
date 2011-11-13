@@ -324,9 +324,7 @@ function loadSchool( req, res, next ) {
       });
     } else {
       // If no school is found, display an appropriate error.
-      req.flash( 'error', 'Invalid school specified!' );
-
-      res.redirect( '/' );
+      res.json( {status: 'error', message: 'Invalid school specified!'} );
     }
   });
 }
@@ -350,9 +348,7 @@ function loadCourse( req, res, next ) {
       });
     } else {
       // If no course is found, display an appropriate error.
-      req.flash( 'error', 'Invalid course specified!' );
-
-      res.redirect( '/' );
+      res.json( {status: 'error', message: 'Invalid course specified!'} );
     }
   });
 }
@@ -376,9 +372,7 @@ function loadLecture( req, res, next ) {
       });
     } else {
       // If no lecture is found, display an appropriate error.
-      req.flash( 'error', 'Invalid lecture specified!' );
-
-      res.redirect( '/' );
+      res.json( {status: 'error', message: 'Invalid lecture specified!'} );
     }
   });
 }
@@ -410,9 +404,7 @@ function loadNote( req, res, next ) {
         } else {
           // If the user is not authorized and the note is private
           // then display and error.
-          req.flash( 'error', 'You do not have permission to access that note.' );
-
-          res.redirect( '/' );
+          res.json( {status: 'error', message: 'You do not have permission to access that note.'} );
         }
       })
     } else if ( note && note.public && !note.deleted ) {
@@ -428,14 +420,11 @@ function loadNote( req, res, next ) {
       // not public, then ask them to login to view the note. Once logged
       // in they will be redirected to the note, at which time authorization
       // handling will be put in effect above.
-      req.session.redirect = '/note/' + note._id;
-      req.flash( 'error', 'You must be logged in to view that note.' );
-      res.redirect( '/login' );
+      //req.session.redirect = '/note/' + note._id;
+      res.json( {status: 'error', message: 'You must be logged in to view that note.'} );
     } else {
       // No note was found
-      req.flash( 'error', 'Invalid note specified!' );
-
-      res.redirect( '/schools' );
+      res.json( {status: 'error', message: 'Invalid note specified!'} );
     }
   });
 }
@@ -722,7 +711,7 @@ app.post( '/:id/course/new', loadUser, loadSchool, function( req, res ) {
 
 // Individual Course Listing
 // Public with private information
-app.get( '/course/:id', loadUser, loadCourse, function( req, res ) {
+app.get( '/course/:id', checkAjax, loadUser, loadCourse, function( req, res ) {
   var userId = req.user._id;
   var course = req.course;
 
@@ -735,7 +724,7 @@ app.get( '/course/:id', loadUser, loadCourse, function( req, res ) {
     // Get course instructor information using their id
     User.findById( course.instructor, function( err, instructor ) {
       // Render course and lectures
-      res.render( 'course/index', { 'course' : course, 'instructor': instructor, 'subscribed' : subscribed, 'lectures' : lectures } );
+      res.json( { 'course' : course.sanitized, 'instructor': instructor.sanitized, 'subscribed' : subscribed, 'lectures' : lectures.map(function(lecture) { return lecture.sanitized })} );
     })
   });
 });
@@ -874,7 +863,7 @@ app.post( '/course/:id/lecture/new', loadUser, loadCourse, function( req, res ) 
 
 
 // Display individual lecture and related notes
-app.get( '/lecture/:id', loadUser, loadLecture, function( req, res ) {
+app.get( '/lecture/:id', checkAjax, loadUser, loadLecture, function( req, res ) {
   var lecture	= req.lecture;
 
   // Grab the associated course
@@ -892,24 +881,18 @@ app.get( '/lecture/:id', loadUser, loadLecture, function( req, res ) {
               if ( note.public ) return note;
             })
           }
-          // Render lecture and notes
-          res.render( 'lecture/index', {
-            'lecture'			: lecture,
-            'course'			: course,
-            'instructor'  : instructor,
-            'notes'				: notes,
-            'counts'			: counts,
-
-            'javascripts'	: [ 'counts.js' ]
+          res.json( {
+            'lecture'			: lecture.sanitized,
+            'course'			: course.sanitized,
+            'instructor'  : instructor.sanitized,
+            'notes'				: notes.map(function(note) {
+              return note.sanitized;
+            })
           });
         });
       })
     } else {
-      // XXX with DBRefs we will be able to reassign orphaned courses/lecture/pads
-
-      req.flash( 'error', 'That lecture is orphaned!' );
-
-      res.redirect( '/' );
+      res.json( { status: 'error', msg: 'This course is orphaned' })
     }
   });
 });
@@ -966,7 +949,7 @@ app.post( '/lecture/:id/notes/new', loadUser, loadLecture, function( req, res ) 
 
 
 // Display individual note page
-app.get( '/note/:id', loadUser, loadNote, function( req, res ) {
+app.get( '/note/:id', checkAjax, loadUser, loadNote, function( req, res ) {
   var note = req.note;
   // Set read only id for etherpad-lite or false for later check
   var roID = note.roID || false;
@@ -1016,33 +999,16 @@ app.get( '/note/:id', loadUser, loadNote, function( req, res ) {
       // Find notes based on lecture id, which will be displayed in a dropdown
       // on the page
       Note.find( { 'lecture' : lecture._id }, function( err, otherNotes ) {
-        if( !req.RO ) {
-          // User is logged in and sees full notepad
-
-          res.render( 'notes/index', {
-            'layout'			: 'noteLayout',
-            'host'				: serverHost,
-            'note'				: note,
-            'lecture'			: lecture,
-            'otherNotes'	: otherNotes,
-            'RO'					: false,
-            'roID'				: roID,
-            'stylesheets' : [ 'dropdown.css', 'fc2.css' ],
-            'javascripts'	: [ 'dropdown.js', 'counts.js', 'backchannel.js', 'jquery.tmpl.min.js' ]
-          });
-        } else {
-          // User is not logged in and sees notepad that is public
-          res.render( 'notes/public', {
-            'layout'			: 'noteLayout',
-            'host'				: serverHost,
-            'note'				: note,
-            'otherNotes'	: otherNotes,
-            'roID'				: roID,
-            'lecture'			: lecture,
-            'stylesheets' : [ 'dropdown.css', 'fc2.css' ],
-            'javascripts'	: [ 'dropdown.js', 'counts.js', 'backchannel.js', 'jquery.tmpl.min.js' ]
-          });
-        }
+        res.json({
+          'host'				: serverHost,
+          'note'				: note.sanitized,
+          'lecture'			: lecture.sanitized,
+          'otherNotes'	: otherNotes.map(function(note) {
+            return note.sanitized;
+          }),
+          'RO'					: req.RO,
+          'roID'				: roID,
+        });
       });
     });
   }
@@ -1543,8 +1509,7 @@ function loadSubject( req, res, next ) {
   if( url.parse( req.url ).pathname.match(/subject/) ) {
     ArchivedSubject.findOne({id: req.params.id }, function(err, subject) {
       if ( err ) {
-        req.flash( 'error', 'Subject with this ID does not exist' )
-        res.redirect( '/archive' );
+        res.json( {status: 'error', message: 'Subject with this ID does not exist'} )
       } else {
         req.subject = subject;
         next()
@@ -1559,8 +1524,7 @@ function loadOldCourse( req, res, next ) {
   if( url.parse( req.url ).pathname.match(/course/) ) {
     ArchivedCourse.findOne({id: req.params.id }, function(err, course) {
       if ( err ) {
-        req.flash( 'error', 'Course with this ID does not exist' )
-        res.redirect( '/archive' );
+        res.json( {status: 'error', message: 'Course with this ID does not exist'} )
       } else {
         req.course = course;
         next()
@@ -1597,35 +1561,32 @@ app.get( '/learn/random', loadUser, function( req, res ) {
   res.redirect( '/archive/course/'+ featuredCourses[Math.floor(Math.random()*featuredCourses.length)].id);
 })
 
-app.get( '/archive', loadUser, function( req, res ) {
+app.get( '/archive', checkAjax, loadUser, function( req, res ) {
   ArchivedSubject.find({}).sort( 'name', '1' ).run( function( err, subjects ) {
     if ( err ) {
-      req.flash( 'error', 'There was a problem gathering the archived courses, please try again later.' );
-      res.redirect( '/' );
+      res.json( {status: 'error', message: 'There was a problem gathering the archived courses, please try again later.'} );
     } else {
-      res.render( 'archive/index', { 'subjects' : subjects } );
+      res.json( { 'subjects' : subjects } );
     }
   })
 })
 
-app.get( '/archive/subject/:id', loadUser, loadSubject, function( req, res ) {
+app.get( '/archive/subject/:id', checkAjax, loadUser, loadSubject, function( req, res ) {
   ArchivedCourse.find({subject_id: req.params.id}).sort('name', '1').run(function(err, courses) {
     if ( err ) {
-      req.flash( 'error', 'There are no archived courses' );
-      res.redirect( '/' );
+      res.json( {status: 'error', message: 'There are no archived courses'} );
     } else {
-      res.render( 'archive/courses', { 'courses' : courses, 'subject': req.subject } );
+      res.json( { 'courses' : courses, 'subject': req.subject } );
     }
   })
 })
 
-app.get( '/archive/course/:id', loadUser, loadOldCourse, function( req, res ) {
+app.get( '/archive/course/:id', checkAjax, loadUser, loadOldCourse, function( req, res ) {
   ArchivedNote.find({course_id: req.params.id}).sort('name', '1').run(function(err, notes) {
     if ( err ) {
-      req.flash( 'error', 'There are no notes in this course' );
-      res.redirect( '/archive' );
+      res.json( {status: 'error', message: 'There are no notes in this course'} );
     } else {
-      res.render( 'archive/notes', { 'notes' : notes, 'course' : req.course } );
+      res.json( { 'notes' : notes, 'course' : req.course } );
     }
   })
 })
@@ -1633,15 +1594,13 @@ app.get( '/archive/course/:id', loadUser, loadOldCourse, function( req, res ) {
 app.get( '/archive/note/:id', loadUser, function( req, res ) {
   ArchivedNote.findById(req.params.id, function(err, note) {
     if ( err ) {
-      req.flash( 'error', 'This is not a valid id for a note' );
-      res.redirect( '/archive' );
+      res.json( {status: 'error', message: 'This is not a valid id for a note'} );
     } else {
       ArchivedCourse.findOne({id: note.course_id}, function(err, course) {
         if ( err ) {
-          req.flash( 'error', 'There is no course for this note' )
-          res.redirect( '/archive' )
+          res.json( {status: 'error', message: 'There is no course for this note'} )
         } else {
-          res.render( 'archive/note', { 'layout' : 'notesLayout', 'note' : note, 'course': course } );
+          res.json( { 'layout' : 'notesLayout', 'note' : note, 'course': course } );
         }
       })
     }
