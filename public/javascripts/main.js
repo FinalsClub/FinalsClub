@@ -15,47 +15,30 @@ function j2o(json) { try { return JSON.parse(json); } catch(e) { return null; } 
 function o2j(obj) { return JSON.stringify(obj); }
 
 
-// hide all page divs, then show just the one with the given id
-function hideAllPages() {
-	$(".page").fadeOut(100);
+
+function showHome(matches, cb) {
+	cb("home");
 }
-function showPage(id) {
-	//alert("showPage "+id);
-	$("#pg_"+id).fadeIn(100);
-
-	$('html, body').animate({ scrollTop: 0 }, 10);
-	/*$('html, body').animate({
-		scrollTop: $("#topofcontent").offset().top
-	}, 100);*/
-
-}
-
-function goPage(id) {
-
-	showPage(id)
-
-	//if(id == 'home')
-	//	id = 'index.html'
-	//history.pushState({prev:document.location.pathname.substr(1)}, "Page "+id, "/"+id);
-	history.pushState({prev:id}, "Page "+id, "/"+id);
-
-}
-
 
 
 
 // go to the page that lists the schools
-var schools = []
-function goSchools() {
+function showSchools(matches, cb) {
+
 	ProtoDiv.reset("PROTO_school");
-	hideAllPages();
+
 	$.get("/schools", {}, function(response) {
-		if(typeof response == 'object') {
+
+		var schools = []
+		if(typeof response == 'object') 
 			schools = response.schools
-		}
+
 		ProtoDiv.replicate("PROTO_school", schools);
-		goPage("schools")
+
+		cb("schools");
+
 	});
+
 }
 
 
@@ -185,32 +168,97 @@ function goConduct() {
 
 
 
+
+function hideAllPages() {
+
+	$(".page").fadeOut(100);
+
+}
+
+
+var pageVectors = [
+	{ regex: /^\/(index.html)?$/, func: showHome },
+	{ regex: /^\/schools/, func: showSchools },
+];
+
+
+/* Do and show the appropriate thing, based on the pages current URL */
+function showPage() {
+
+	var path = document.location.pathname
+
+	$(".page").fadeOut(100);		// hide all pseudo pages
+
+	for(var i = 0; i < pageVectors.length; i++) {
+		var vector = pageVectors[i]
+		var matches = path.match(vector.regex)
+		if(matches) {
+			vector.func(matches, function(pageId) {
+
+				$("#pg_"+pageId).fadeIn(100);
+				$('html, body').animate({ scrollTop: 0 }, 100);
+
+			})
+			break
+		}
+	}
+
+	// scroll to top of page (as if we'd done a real page fetch)
+	//$('html, body').animate({ scrollTop: 0 }, 100);
+	/*$('html, body').animate({
+		scrollTop: $("#topofcontent").offset().top
+	}, 100);*/
+
+}
+
+
+
+
+/* Simulates a page load.
+	'path' is something like "/schools", etc.
+	A page fetch doesn't really happen.
+	Based on what path looks like, an appropriate DIV is shown, and action taken
+*/
+function goPage(path) {
+	history.pushState({prev:path}, path, path);
+	showPage();
+}
+
+
+/* Simulates a "back" browser navigation.
+*/
+function goBack(event) {
+	var state = event.state; alert("pop: "+o2j(state));
+
+	showPage()
+
+	/*hideAllPages();
+
+	if(!state) {
+
+		history.replaceState(null, "", "/index.html");
+		showPage("home");
+
+	}
+	else {
+		//alert("location: " + document.location + ", state: " + JSON.stringify(event.state));  
+		//history.replaceState(null, "", state.prev);
+		showPage(state.prev);
+		// showPage(state.prev);
+		//alert("location: " + document.location + ", state: " + JSON.stringify(event.state));  
+	}
+	*/
+}
+
+
 $(document).ready(function() {
+
 	// This executes after the page has been fully loaded
 
-	window.onpopstate = function(event) {  
-
-		var state = event.state
-		//alert("pop: "+o2j(state));
-
-		hideAllPages();
-
-		if(!state) {
-
-			history.replaceState(null, "", "/index.html");
-			showPage("home");
-
-		}
-		else {
-			//alert("location: " + document.location + ", state: " + JSON.stringify(event.state));  
-			//history.replaceState(null, "", state.prev);
-			showPage(state.prev);
-			// showPage(state.prev);
-			//alert("location: " + document.location + ", state: " + JSON.stringify(event.state));  
-		}
-	}; 
+	window.onpopstate = goBack
 
 	//showPage("home");
+
 })
 
 
