@@ -35,10 +35,10 @@
 						<td class="menu">
 							<a href="javascript:goPage('/schools')">Start Here!</a>
 							<a href="http://blog.finalsclub.org">Blog</a>
-							<a href="javascript:goArchivedSubjects()">Archive</a>
-							<a href="javascript:goPress()">Press</a>
-							<a href="javascript:goRegister()">Create an Account</a>
-							<a href="javascript:goLogin()" class="special">Login</a>
+							<a href="javascript:goPage('/archive')">Archive</a>
+							<a href="javascript:goPage('/press')">Press</a>
+							<a href="javascript:goPage('/register')">Create an Account</a>
+							<a href="javascript:goPage('/login')" class="special">Login</a>
 						</td>
 					</tr>
 				</table>
@@ -88,7 +88,7 @@
 
 			<div class=page id=pg_schools>
 				<h1>Universities</h1>
-				<div class="school" id=PROTO_school onclick="goCourses('__name__', '___id__', __i__)">
+				<div class="school" id=PROTO_school onclick="goPage('/school/___id__')">
 					<div class=name>__name__</div>
 					<div class=desc>__description__</div>
 				</div>
@@ -221,6 +221,50 @@
 
 
 
+			<div class=page id=pg_login>
+				<h1>Login</h1>
+				<form id="credentials" action="/login" method="POST">
+					<div class="zarea">
+						<div class="row">
+							<div class="label">
+								<label for="email">Email</label>
+							</div>
+							<div class="field">
+								<input type="text" name="email" size="15" value="joe@sleepless.com">
+							</div>
+						</div>
+						<div class="row">
+							<div class="label">
+								<label for="password">Password</label>
+							</div>
+							<div class="field">
+								<input type="password" name="password" size="15">
+							</div>
+						</div>
+						<div class="row">
+							<div class="label">&nbsp;
+							</div>
+							<div class="field">
+								<button class="major">Login</button>
+								<span class="reglink">
+									<a href="/resetpw">Forgot password?</a>
+								</span>
+							</div>
+						</div>
+						<div class="row">
+							<div class="label">&nbsp;
+							</div>
+							<div class="field">
+								<span class="reglink">
+									<a href="/register">Create an Account</a>
+								</span>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+
+
 			<div class=page id=pg_conduct>
 				<div class="conduct">
 					<h1>Code of Conduct</h1>
@@ -275,6 +319,12 @@
 
 
 
+			<div class=page id=pg_notfound>
+				<h1>Page Not Found</h1>
+				Sorry, there is no content for this page.
+			</div>
+
+
 
 
 		</div>
@@ -293,7 +343,7 @@
 						<div>All Rights Reserved</div>
 					</td>
 					<td class="col2">
-						<a href="javascript:goConduct()">Code of Conduct</a>
+						<a href="javascript:goPage('/conduct')">Code of Conduct</a>
 						<a href="http://blog.finalsclub.org/about.html">About</a>
 						<a href="http://blog.finalsclub.org/contact.html">Contact</a>
 						<a href="http://blog.finalsclub.org/legal.html">Legal</a>

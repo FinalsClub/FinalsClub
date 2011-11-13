@@ -30,8 +30,9 @@ function showSchools(matches, cb) {
 	$.get("/schools", {}, function(response) {
 
 		var schools = []
-		if(typeof response == 'object') 
+		if(typeof response == 'object') {
 			schools = response.schools
+		}
 
 		ProtoDiv.replicate("PROTO_school", schools);
 
@@ -44,19 +45,25 @@ function showSchools(matches, cb) {
 
 
 // go to the page that lists the courses for a specific school
-var courses = []
-function goCourses(schoolName, schoolId, a) {
+function showCourses(matches, cb) {
+
+	var schoolId = matches[1]
+
 	ProtoDiv.reset("PROTO_course");
-	hideAllPages();
+
 	$.get("/school/"+schoolId, {}, function(response) {
-		courses = []
+
+		var courses = []
 		if(typeof response == 'object') {
 			var school = response.school
 			$("#school_name").html(school.name);
 			courses = school.courses
 		}
+
 		ProtoDiv.replicate("PROTO_course", courses);
-		goPage("courses", "/courses/"+schoolId)
+
+		cb("courses")
+
 	});
 }
 
@@ -126,44 +133,46 @@ response = {
 var archivedSubjects = []
 
 // go to the page that lists the archived subject names
-function goArchivedSubjects() {
-	hideAllPages();
+function showArchive(matches, cb) {
 
-	// fake data
+	// xxx fake data
 	archivedSubjects = [
 		{ id: 83, title: "Anthropology" },
 		{ id: 44, title: "CORE-Foreign Cultures" },
 		{ id: 80, title: "CORE-Historical Study" }
 	]
 
-	ProtoDiv.reset("PROTO_archived_subjects");
-	ProtoDiv.replicate("PROTO_archived_subjects", archivedSubjects);
+	ProtoDiv.reset("PROTO_archived_subjects")
+	ProtoDiv.replicate("PROTO_archived_subjects", archivedSubjects)
 
-	goPage("archive");
+	cb("archive")
 }
-
 
 
 // go to the account registration page
-function goRegister() {
-	hideAllPages();
+function showRegister(matches, cb) {
 	// xxx clear fields?
 	// xxx change FORM to use AJAX
-	goPage("register");
+	cb("register");
 }
 
 
+function showLogin(matches, cb) {
+	cb("login");
+}
+
+
+
+
 // go to the press articles page
-function goPress() {
-	hideAllPages();
-	goPage("press");
+function showPress(matches, cb) {
+	cb("press");
 }
 
 
 // go to the "code of conduct" page
-function goConduct() {
-	hideAllPages();
-	goPage("conduct");
+function showConduct(matches, cb) {
+	cb("conduct");
 }
 
 
@@ -179,6 +188,12 @@ function hideAllPages() {
 var pageVectors = [
 	{ regex: /^\/(index.html)?$/, func: showHome },
 	{ regex: /^\/schools/, func: showSchools },
+	{ regex: /^\/school\/([a-f0-9]{24})/, func: showCourses },
+	{ regex: /^\/login/, func: showLogin },
+	{ regex: /^\/register/, func: showRegister },
+	{ regex: /^\/press/, func: showPress },
+	{ regex: /^\/archive/, func: showArchive },
+	{ regex: /^\/conduct/, func: showConduct },
 ];
 
 
@@ -203,6 +218,10 @@ function showPage() {
 		}
 	}
 
+	if(i == pageVectors.length) {
+		$("#pg_notfound").fadeIn(100);
+		$('html, body').animate({ scrollTop: 0 }, 100);
+	}
 	// scroll to top of page (as if we'd done a real page fetch)
 	//$('html, body').animate({ scrollTop: 0 }, 100);
 	/*$('html, body').animate({
@@ -228,7 +247,7 @@ function goPage(path) {
 /* Simulates a "back" browser navigation.
 */
 function goBack(event) {
-	var state = event.state; alert("pop: "+o2j(state));
+	var state = event.state; //alert("pop: "+o2j(state));
 
 	showPage()
 
