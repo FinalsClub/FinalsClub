@@ -318,6 +318,8 @@ $(document).ready(function() {
 
 	window.onpopstate = goBack
 
+	showPage( 0 );		// needed for some older browsers, redundant for chrome
+
 })
 
 
