@@ -1,0 +1,22 @@
+
+
+## added by jsnow on 8/31/2011
+## this does a staggerd restart of the server each night 
+15 1 * * * /home/ec2-user/fc/util/nightly-restart.sh > /tmp/cron.nightly-restart.log
+
+## added by jsnow on 8/26/2011
+## this script handles the daily rotating mongodb backup task for the finalsclub project
+30 0 * * * /home/ec2-user/fc/fcbackups/fc_rotating_db_backup.sh > /home/ec2-user/fc/fcbackups/cron_log.txt
+
+## added by jsnow on 11/9/2011
+## this script checks if EPL is up and running. if not, it sends an alert email
+5,20,35,50 * * * * /home/ec2-user/fc/util/fc_monitor_epl_cron.sh > /home/ec2-user/fc/util/fc_monitor_epl_cron.log.txt
+
+## added by jsnow on 11/10/2011
+## this script updates custom disk space stats to AWS cloudwatch. this script should be run every 5 minutes
+*/5 * * * * /home/ec2-user/fc/util/mon-disk-space.sh > /home/ec2-user/fc/util/mon-disk-space.log.txt
+
+
+
+
+
