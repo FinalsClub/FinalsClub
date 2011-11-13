@@ -212,12 +212,7 @@ function showPage(y) {
 
 				$("#pg_"+pageId).fadeIn(100);
 
-				//alert(backTop)
-				//if(!backFlag)
-					//$('html, body').animate({ scrollTop: backTop }, 100);
-				//if(y !== undefined)
-					window.scroll(0, y)
-				//backFlag = false
+				window.scroll(0, y)
 
 			})
 			break
@@ -226,10 +221,9 @@ function showPage(y) {
 
 	if(i == pageVectors.length) {
 		$("#pg_notfound").fadeIn(100);
-		$('html, body').animate({ scrollTop: 0 }, 100);
+		window.scroll(0, 0)
 	}
 	// scroll to top of page (as if we'd done a real page fetch)
-	//$('html, body').animate({ scrollTop: 0 }, 100);
 	/*$('html, body').animate({
 		scrollTop: $("#topofcontent").offset().top
 	}, 100);*/
@@ -244,8 +238,10 @@ function showPage(y) {
 	A page fetch doesn't really happen.
 	Based on what path looks like, an appropriate DIV is shown, and action taken
 */
+var topQueue = [0]
 function goPage(path) {
 	var y = 0 + window.pageYOffset
+	topQueue.push(y)
 	var o = {py:(path+"|"+y)}
 	history.pushState(o, path, path);
 	showPage(0);
@@ -253,11 +249,9 @@ function goPage(path) {
 
 
 /* Simulates a "back" browser navigation.  */
-var backTop = 0
 function goBack(event) {
-	// alert("pop: "+o2j(event.state));
-	//backTop = window.pageYOffset; //$("html, body").offset().top
-	showPage( event.state ? event.state.y : 0 )
+	var y = topQueue.pop()
+	showPage( y );
 }
 
 
