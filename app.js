@@ -433,7 +433,7 @@ function checkAjax( req, res, next ) {
   if ( req.xhr ) {
     next();
   } else {
-    res.redirect( '/' );
+    res.sendfile( 'public/index.html' );
   }
 }
 
