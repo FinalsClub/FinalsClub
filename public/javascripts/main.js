@@ -25,15 +25,16 @@ function showPage(id) {
 
 
 
-var schools = []
 
 // go to the page that lists the schools
+var schools = []
 function goSchools() {
+	ProtoDiv.reset("PROTO_school");
 	hideAllPages();
 	$.get("/schools", {}, function(response) {
-		if(typeof response == 'object')
+		if(typeof response == 'object') {
 			schools = response.schools
-		ProtoDiv.reset("PROTO_school");
+		}
 		ProtoDiv.replicate("PROTO_school", schools);
 		showPage("schools")
 	});
@@ -41,23 +42,51 @@ function goSchools() {
 
 
 
-var courses = []
-
 // go to the page that lists the courses for a specific school
-function goCourses(name) {
+var courses = []
+function goCourses(schoolName, schoolId, a) {
+	ProtoDiv.reset("PROTO_course");
 	hideAllPages();
-	$("#school_name").html(name);
-//		$.get("/courses", {}, function(response) {
-//			if(typeof response == 'object')
-//				courses = response.courses
-var courses = [
-{ id: "4e6d1e9b42bbef522c000a8f", name: "History 12: Introduction to the Middle East" },
-{ id: "4e8aa3f62e4b97e67b001f47", name: "ANTH160AC/ISF 160: The Forms of Folklorek" }
-]
-		ProtoDiv.reset("PROTO_course");
+	$.get("/school/"+schoolId, {}, function(response) {
+		courses = []
+		if(typeof response == 'object') {
+			var school = response.school
+			$("#school_name").html(school.name);
+			courses = school.courses
+		}
 		ProtoDiv.replicate("PROTO_course", courses);
 		showPage("courses")
-//		});
+	});
+}
+
+
+
+
+// go to the page that lists the lectures for a specific course
+var lectures = []
+function goLectures(courseId) {
+	ProtoDiv.reset("PROTO_lecture");
+	hideAllPages();
+	$.get("/course/"+courseId, {}, function(response) {
+
+response = {
+	course: {
+		name: "FooCourse",
+		lectures: [
+			{ _id: 1, name: "lecture 1" },
+			{ _id: 2, name: "lecture 2" },
+		]
+	}
+}
+		lectures = []
+		if(typeof response == 'object') {
+			var course = response.course
+			$("#course_name").html(course.name);
+			lectures = course.lectures
+		}
+		ProtoDiv.replicate("PROTO_lecture", lectures);
+		showPage("lectures")
+	});
 }
 
 

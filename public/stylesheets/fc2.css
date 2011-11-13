@@ -616,9 +616,6 @@ div.school {
 
 }
 
-.school h2 {
-}
-
 /*
 .content .container1 h1 {
 	background: #778899;
@@ -654,9 +651,21 @@ div.menubar {
 	text-align: right;
 }
 
-div.school h2 {
+div.school div.name {
+	font-weight: bold;
 	font-size: 120%;
 	margin: 0 0;
+}
+
+div.school div.desc {
+	font-size: 90%;
+	color: #888;
+	font-style: italic;
+	margin: 0 0;
+}
+
+div.course {
+	margin: 1em 0;
 }
 
 #messages {

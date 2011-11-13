@@ -87,9 +87,12 @@
 			<div class=page id=pg_schools>
 				<h1>Universities</h1>
 				<div class="school" id=PROTO_school>
-					<div class=name>
-						<a href="javascript:goCourses('__name__')">__name__</a>
-						(__numCourses__ courses)
+					<div class=name>__name__</div>
+					<div class=desc>__description__</div>
+					<div class=tocourses>
+						<a href="javascript:goCourses('__name__', '___id__', __i__)">
+						Click for courses ...
+						</a>
 					</div>
 				</div>
 			</div>
@@ -98,10 +101,23 @@
 
 			<div class=page id=pg_courses>
 				<h1>Courses for <span id=school_name></span></h1>
+				<div class=course id=PROTO_course>
+					<div class=dept>__department__</div>
+					<div class=name>
+						<a href="javascript:goLectures('___id__')">__number__: __name__</a>
+					</div>
+				</div>
+			</div>
 
-				<ul>
-					<li id=PROTO_course><a href="course/__id__">__name__</a></li>
-				</ul>
+
+
+			<div class=page id=pg_lectures>
+				<h1>Lectures for <span id=course_name></span></h1>
+				<div class=course id=PROTO_lecture>
+					<div class=name>
+						<a href="goPads('___id__')">__name__</a>
+					</div>
+				</div>
 			</div>
 
 
