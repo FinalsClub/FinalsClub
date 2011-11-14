@@ -300,7 +300,9 @@ function loadUser( req, res, next ) {
 
       // Set req.user to an empty object so it doesn't throw errors
       // later on that it isn't defined.
-      req.user = {};
+      req.user = {
+        sanitized: {}
+      };
 
       next();
     }
@@ -485,13 +487,13 @@ app.get( '/schools', checkAjax, loadUser, function( req, res ) {
     if( schools ) {
       // If schools are found, loop through them gathering any courses that are
       // associated with them and then render the page with that information.
-      res.json({ 'schools' : schools.map(function(school) {
+      res.json({ 'user': user.sanitized, 'schools' : schools.map(function(school) {
         return school.sanitized;
       })})
     } else {
       // If no schools have been found, display none
       //res.render( 'schools', { 'schools' : [] } );
-      res.json({ 'schools' : [] });
+      res.json({ 'schools' : [] , 'user': user.sanitized });
     }
   });
 });
@@ -521,7 +523,7 @@ app.get( '/school/:id', checkAjax, loadUser, loadSchool, function( req, res ) {
       // This tells async (the module) that each iteration of forEach is
       // done and will continue to call the rest until they have all been
       // completed, at which time the last function below will be called.
-      res.json({ 'school': sanitizedSchool })
+      res.json({ 'school': sanitizedSchool, 'user': user.sanitized })
     });
   });
 });
@@ -727,7 +729,7 @@ app.get( '/course/:id', checkAjax, loadUser, loadCourse, function( req, res ) {
     // Get course instructor information using their id
     User.findById( course.instructor, function( err, instructor ) {
       // Render course and lectures
-      res.json( { 'course' : course.sanitized, 'instructor': instructor.sanitized, 'subscribed' : subscribed, 'lectures' : lectures.map(function(lecture) { return lecture.sanitized })} );
+      res.json( { 'user': req.user.sanitized, 'course' : course.sanitized, 'instructor': instructor.sanitized, 'subscribed' : subscribed, 'lectures' : lectures.map(function(lecture) { return lecture.sanitized })} );
     })
   });
 });
@@ -888,6 +890,7 @@ app.get( '/lecture/:id', checkAjax, loadUser, loadLecture, function( req, res ) 
             'lecture'			: lecture.sanitized,
             'course'			: course.sanitized,
             'instructor'  : instructor.sanitized,
+            'user'        : req.user.sanitized,
             'notes'				: notes.map(function(note) {
               return note.sanitized;
             })
@@ -1598,7 +1601,7 @@ app.get( '/archive', checkAjax, loadUser, function( req, res ) {
     if ( err ) {
       res.json( {status: 'error', message: 'There was a problem gathering the archived courses, please try again later.'} );
     } else {
-      res.json( { 'subjects' : subjects } );
+      res.json( { 'subjects' : subjects, 'user': req.user.sanitized } );
     }
   })
 })
@@ -1608,7 +1611,7 @@ app.get( '/archive/subject/:id', checkAjax, loadUser, loadSubject, function( req
     if ( err ) {
       res.json( {status: 'error', message: 'There are no archived courses'} );
     } else {
-      res.json( { 'courses' : courses, 'subject': req.subject } );
+      res.json( { 'courses' : courses, 'subject': req.subject, 'user': req.user.sanitized } );
     }
   })
 })
@@ -1618,7 +1621,7 @@ app.get( '/archive/course/:id', checkAjax, loadUser, loadOldCourse, function( re
     if ( err ) {
       res.json( {status: 'error', message: 'There are no notes in this course'} );
     } else {
-      res.json( { 'notes' : notes, 'course' : req.course } );
+      res.json( { 'notes' : notes, 'course' : req.course, 'user': req.user.sanitized } );
     }
   })
 })
@@ -1632,7 +1635,7 @@ app.get( '/archive/note/:id', checkAjax, loadUser, function( req, res ) {
         if ( err ) {
           res.json( {status: 'error', message: 'There is no course for this note'} )
         } else {
-          res.json( { 'layout' : 'notesLayout', 'note' : note, 'course': course } );
+          res.json( { 'layout' : 'notesLayout', 'note' : note, 'course': course, 'user': req.user.sanitized } );
         }
       })
     }
