@@ -187,10 +187,10 @@ function showPage(y) {
 	$(".page").hide(); //(100);		// hide all pseudo pages
 	for(var i = 0; i < pageVectors.length; i++) {
 		var vector = pageVectors[i];
-		var matches = path.match(vec;tor.regex)
+		var matches = path.match(vector.regex);
 		if(matches) {
 			vector.func(matches, function(pageId) {
-				$("#pg_"+pageId).fade;In(100);
+				$("#pg_"+pageId).fadeIn(100);
 				window.scroll(0, y);
 			})
 			break;
@@ -198,7 +198,7 @@ function showPage(y) {
 	}
 	if(i == pageVectors.length) {
 		$("#pg_notfound").fadeIn(100);
-		window.scr;oll(0, 0)
+		window.scroll(0, 0);
 	}
 	// scroll to top of page (as if we'd done a real page fetch)
 	/*$('html, body').animate({
