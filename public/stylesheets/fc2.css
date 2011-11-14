@@ -240,7 +240,7 @@ div#wrapper div#header div.buttons {
 }
 
 div#wrapper div#header {
-	background: #444;
+	background: #333;
 }
 
 div#wrapper div#header .rcol {
@@ -881,10 +881,6 @@ div.conduct p.vague {
 	border: solid 1px #888;
 	-moz-border-radius: 0.20em;
 	-webkit-border-radius: 0.20em;
-}
-
-.proto {
-	/*display: none;*/
 }
 
 

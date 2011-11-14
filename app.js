@@ -1633,6 +1633,7 @@ app.get( '/archive/course/:id', checkAjax, loadUser, loadOldCourse, function( re
 })
 
 app.get( '/archive/note/:id', checkAjax, loadUser, function( req, res ) {
+  console.log( "id="+req.params.id)
   ArchivedNote.findById(req.params.id, function(err, note) {
     if ( err || !note ) {
       sendJson(res,  {status: 'error', message: 'This is not a valid id for a note'} );

@@ -112,6 +112,8 @@ ProtoDiv.replicate = function(id, arr, keep) {
 		delete e.id
 		mom.insertBefore(e, sib)
 		ProtoDiv.inject(e, obj, i)
+		if(ProtoDiv.each)
+			ProtoDiv.each(e, i, obj, mom)
 	}
 
 	if(!keep)

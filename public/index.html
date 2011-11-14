@@ -1,11 +1,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
+	<!-- 
+		 Currently tested with:
+						Mac		Windows
+					 ______________________
+		 	Chrome 	|	15		-
+			Safari	|	5		-
+			FF		|	8		8
+			IE		|	N/A		9
+	-->
 
 	<head>
 		<title>FinalsClub.org</title>
 
 		<!-- XXX Some SEO here would be nice -->
-
 		<link rel='stylesheet' href='/stylesheets/fc2.css'>
 
 		<script type='text/javascript' src='/javascripts/jquery.min.js'></script>
@@ -19,9 +27,7 @@
 		<meta name="icon" href="">
 
 	</head>
-
 	<body>
-
 		<div class="masthead">
 			<div class="logbar">
 				<div class="loginstatus">&nbsp;</div>
@@ -48,17 +54,11 @@
 
 		<div id="topofcontent"></div>
 
-
-
 		<div class="content">
 			<style>
 				/* The is here is because it's related less to "styling" and more to UI "behavior" */
 				.page { display: none; }
 			</style>
-
-
-
-
 			<div class=page id=pg_home>
 				<div class="contenthome">
 					<div class="tagline">
@@ -81,10 +81,7 @@
 						<iframe src="http://player.vimeo.com/video/30647271?title=0&amp;byline=0&amp;portrait=0" width="350" height="250" frameborder="0" webkitallowfullscreen="webkitAllowFullScreen" allowfullscreen="allowFullScreen"></iframe>
 					</div>
 				</div>
-				
 			</div>
-
-
 
 			<div class=page id=pg_schools>
 				<h1>Universities</h1>
@@ -93,8 +90,6 @@
 					<div class=desc>__description__</div>
 				</div>
 			</div>
-
-
 
 			<div class=page id=pg_courses>
 				<h1>Courses for <span id=school_name></span></h1>
@@ -105,8 +100,6 @@
 					</div>
 				</div>
 			</div>
-
-
 
 			<div class=page id=pg_lectures>
 				<div class="proto lectures_head" id=PROTO_lectures_head>
@@ -125,8 +118,6 @@
 				</div>
 			</div>
 
-
-
 			<div class=page id=pg_notes>
 				<h1>Notepads </h1>
 				<div class="proto note" id=PROTO_note>
@@ -135,8 +126,6 @@
 					</div>
 				</div>
 			</div>
-
-
 
 			<div class=page id=pg_archive_subjects>
 				<h1>Archived Subjects</h1>
@@ -149,10 +138,7 @@
 						<a href="javascript:goPage('/archive/subject/__id__')">__name__</a>
 					</li>
 				</ul>
-
 			</div>
-
-
 
 			<div class=page id=pg_archive_courses>
 				<h1>Archived Courses</h1>
@@ -161,10 +147,7 @@
 						<a href="javascript:goPage('/archive/course/__id__')">__name__</a>
 					</li>
 				</ul>
-
 			</div>
-
-
 
 			<div class=page id=pg_archive_notes>
 				<h1>Archived Notes</h1>
@@ -175,16 +158,13 @@
 				</ul>
 			</div>
 
-
-
 			<div class=page id=pg_archive_note_display>
 				<div id=PROTO_archive_note_display>
 					<h1>__topic__</h1>
 					<div>__text__</div>
+<pre>__err__</pre>
 				</div>
 			</div>
-
-
 
 			<div class=page id=pg_register>
 				<h1>Create an Account</h1>
@@ -259,8 +239,6 @@
 				</form>
 			</div>
 
-
-
 			<div class=page id=pg_login>
 				<h1>Login</h1>
 				<form id="credentials" action="/login" method="POST">
@@ -304,7 +282,6 @@
 				</form>
 			</div>
 
-
 			<div class=page id=pg_conduct>
 				<div class="conduct">
 					<h1>Code of Conduct</h1>
@@ -320,9 +297,6 @@
 					</p>
 				</div>
 			</div>
-
-
-
 
 			<div class=page id=pg_press>
 				<h1>FinalsClub in the Press</h1>
@@ -355,22 +329,11 @@
 					</p>
 				</div>
 			</div>
-
-
-
-
 			<div class=page id=pg_notfound>
 				<h1>Page Not Found</h1>
 				Sorry, there is no content for this page.
 			</div>
-
-
-
-
 		</div>
-
-
-
 
 		<div class="footer">
 			<table>
@@ -403,9 +366,6 @@
 				<a href="http://mixpanel.com/f/partner"><img alt="Real Time Web Analytics" src="http://mixpanel.com/site_media/images/partner/badge_blue.png" style="border-width:0;margin:2px;"/></a>
 			</p>
 		</div>
-
-
-
 
 	</body>
 </html>
