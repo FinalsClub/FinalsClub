@@ -1548,7 +1548,7 @@ app.post( '/profile', loadUser, loggedIn, function( req, res ) {
 function loadSubject( req, res, next ) {
   if( url.parse( req.url ).pathname.match(/subject/) ) {
     ArchivedSubject.findOne({id: req.params.id }, function(err, subject) {
-      if ( err ) {
+      if ( err || !subject) {
         sendJson(res,  {status: 'error', message: 'Subject with this ID does not exist'} )
       } else {
         req.subject = subject;
@@ -1563,7 +1563,7 @@ function loadSubject( req, res, next ) {
 function loadOldCourse( req, res, next ) {
   if( url.parse( req.url ).pathname.match(/course/) ) {
     ArchivedCourse.findOne({id: req.params.id }, function(err, course) {
-      if ( err ) {
+      if ( err || !course ) {
         sendJson(res,  {status: 'error', message: 'Course with this ID does not exist'} )
       } else {
         req.course = course;
@@ -1603,7 +1603,7 @@ app.get( '/learn/random', loadUser, function( req, res ) {
 
 app.get( '/archive', checkAjax, loadUser, function( req, res ) {
   ArchivedSubject.find({}).sort( 'name', '1' ).run( function( err, subjects ) {
-    if ( err ) {
+    if ( err || subjects.length === 0) {
       sendJson(res,  {status: 'error', message: 'There was a problem gathering the archived courses, please try again later.'} );
     } else {
       sendJson(res,  { 'subjects' : subjects, 'user': req.user.sanitized } );
@@ -1613,7 +1613,7 @@ app.get( '/archive', checkAjax, loadUser, function( req, res ) {
 
 app.get( '/archive/subject/:id', checkAjax, loadUser, loadSubject, function( req, res ) {
   ArchivedCourse.find({subject_id: req.params.id}).sort('name', '1').run(function(err, courses) {
-    if ( err ) {
+    if ( err || courses.length === 0 ) {
       sendJson(res,  {status: 'error', message: 'There are no archived courses'} );
     } else {
       sendJson(res,  { 'courses' : courses, 'subject': req.subject, 'user': req.user.sanitized } );
@@ -1623,21 +1623,22 @@ app.get( '/archive/subject/:id', checkAjax, loadUser, loadSubject, function( req
 
 app.get( '/archive/course/:id', checkAjax, loadUser, loadOldCourse, function( req, res ) {
   ArchivedNote.find({course_id: req.params.id}).sort('name', '1').run(function(err, notes) {
-    if ( err ) {
+    if ( err || notes.length === 0) {
       sendJson(res,  {status: 'error', message: 'There are no notes in this course'} );
     } else {
-      sendJson(res,  { 'notes' : notes, 'course' : req.course, 'user': req.user.sanitized } );
+      notes = notes.map(function(note) { return note.sanitized });
+      sendJson(res,  { 'notes': notes, 'course' : req.course, 'user': req.user.sanitized } );
     }
   })
 })
 
 app.get( '/archive/note/:id', checkAjax, loadUser, function( req, res ) {
   ArchivedNote.findById(req.params.id, function(err, note) {
-    if ( err ) {
+    if ( err || !note ) {
       sendJson(res,  {status: 'error', message: 'This is not a valid id for a note'} );
     } else {
       ArchivedCourse.findOne({id: note.course_id}, function(err, course) {
-        if ( err ) {
+        if ( err || !course ) {
           sendJson(res,  {status: 'error', message: 'There is no course for this note'} )
         } else {
           sendJson(res,  { 'layout' : 'notesLayout', 'note' : note, 'course': course, 'user': req.user.sanitized } );

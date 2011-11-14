@@ -412,6 +412,14 @@ var ArchivedNote = new Schema({
   text: String
 })
 
+ArchivedNote.virtual( 'sanitized' ).get(function() {
+  var note = {
+    _id: this._id,
+    topic: this.topic
+  }
+  return note;
+})
+
 mongoose.model( 'ArchivedNote', ArchivedNote )
 
 var ArchivedSubject = new Schema({
