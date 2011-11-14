@@ -313,25 +313,41 @@ function showPage(y) {
 */
 var topQueue = [0]
 function goPage(path) {
-	var y = 0 + window.pageYOffset
-	topQueue.push(y)
-	history.pushState({}, path, path);
-	showPage(0);
+	if(history.pushState !== undefined) {
+		topQueue.push(window.pageYOffset)
+		history.pushState({}, path, path);
+		showPage(0);
+	}
+	else {
+		document.location = path;
+	}
 }
 
 
 /* Simulates a "back" browser navigation.  */
+var popped = false;
 function goBack(event) {
-	var y = topQueue.pop()
-	showPage( y );
+	popped = true;
+	showPage( topQueue.pop() );
 }
+
 
 
 $(document).ready(function() {
 
 	// This code executes after the page has been fully loaded
 
+	$(".proto").css("display", "none");		// make all the prototypes invisible
+
+	//$("body").get(0).onunload = function() { }	// fires when leaving the page proper
+
+	ProtoDiv.each = function(e) { $(e).show() }
+
 	window.onpopstate = goBack
+	setTimeout(function() {
+		if(!popped)
+			showPage(0)
+	}, 2000);
 
 	// xxx older FF browsers don't fire a page load/reload - deal with it somehow.
 	// showPage( 0 );		// needed for some older browsers, redundant for chrome
