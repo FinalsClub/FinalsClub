@@ -18,9 +18,9 @@ function showHome(matches, cb) {
 function showSchools(matches, cb) {
 	ProtoDiv.reset("PROTO_school");
 	$.get("/schools", { cache: false }, function(response) {
-		var schools = []
+		var schools = [];
 		if(typeof response == 'object') {
-			schools = response.schools
+			schools = response.schools;
 		}
 		ProtoDiv.replicate("PROTO_school", schools);
 		cb("schools");
@@ -29,119 +29,119 @@ function showSchools(matches, cb) {
 
 // go to the page that lists the courses for a specific school
 function showCourses(matches, cb) {
-	var schoolId = matches[1]
+	var schoolId = matches[1];
 	ProtoDiv.reset("PROTO_course");
 	$.get("/school/"+schoolId, { cache: false }, function(response) {
-		var courses = []
+		var courses = [];
 		if(typeof response == 'object') {
-			var school = response.school
+			var school = response.school;
 			$("#school_name").html(school.name);
-			courses = school.courses
+			courses = school.courses;
 		}
 		ProtoDiv.replicate("PROTO_course", courses);
-		cb("courses")
+		cb("courses");
 	});
 }
 
 // go to the page that lists the lectures for a specific course
 function showLectures(matches, cb) {
-	var courseId = matches[1]
+	var courseId = matches[1];
 	ProtoDiv.reset("PROTO_lecture");
 	$.get("/course/"+courseId, { cache: false }, function(response) {
-		ProtoDiv.reset("PROTO_lectures_head")
-		ProtoDiv.reset("PROTO_lectures_instructor")
-		ProtoDiv.reset("PROTO_lecture")
+		ProtoDiv.reset("PROTO_lectures_head");
+		ProtoDiv.reset("PROTO_lectures_instructor");
+		ProtoDiv.reset("PROTO_lecture");
 		if(typeof response == 'object') {
-			var course = response.course
+			var course = response.course;
 			if(course)
-				ProtoDiv.replicate("PROTO_lectures_head", [course])
-			var instructor = response.instructor
+				ProtoDiv.replicate("PROTO_lectures_head", [course]);
+			var instructor = response.instructor;
 			if(instructor)
-				ProtoDiv.replicate("PROTO_lectures_instructor", [instructor])
-			var lectures = response.lectures
+				ProtoDiv.replicate("PROTO_lectures_instructor", [instructor]);
+			var lectures = response.lectures;
 			if(lectures)
 				ProtoDiv.replicate("PROTO_lecture", lectures);
 		}
-		cb("lectures")
+		cb("lectures");
 	});
 }
 
 // go to the page that lists the note taking sessions for a specific lecture
 function showNotes(matches, cb) {
-	var lectureId = matches[1]
+	var lectureId = matches[1];
 	ProtoDiv.reset("PROTO_note");
 	$.get("/lecture/"+lectureId, { cache: false }, function(response) {
 		if(typeof response == 'object') {
-			var course = response.course
+			var course = response.course;
 			//if(course)
 			//	ProtoDiv.replicate("PROTO_lectures_head", [course])
-			var instructor = response.instructor
+			var instructor = response.instructor;
 			//if(instructor)
 			//	ProtoDiv.replicate("PROTO_lectures_instructor", [instructor])
-			var lecture = response.lecture
+			var lecture = response.lecture;
 			//if(lecture)
 			//	ProtoDiv.replicate("PROTO_lecture", lectures);
-			var notes = response.notes
+			var notes = response.notes;
 			if(notes)
 				ProtoDiv.replicate("PROTO_note", notes);
 		}
-		cb("notes")
+		cb("notes");
 	});
 }
 
 // go to the page that lists the archived subject names
 function showArchiveSubjects(matches, cb) {
-	ProtoDiv.reset("PROTO_archive_subject")
+	ProtoDiv.reset("PROTO_archive_subject");
 	$.get("/archive", { cache: false }, function(response) {
-		var subjects = response.subjects
-		ProtoDiv.replicate("PROTO_archive_subject", subjects)
+		var subjects = response.subjects;
+		ProtoDiv.replicate("PROTO_archive_subject", subjects);
 	})
-	cb("archive_subjects")
+	cb("archive_subjects");
 }
 
 function showArchiveCourses(matches, cb) {
-	var subjectId = parseInt(matches[1])
-	ProtoDiv.reset("PROTO_archive_course")
+	var subjectId = parseInt(matches[1]);
+	ProtoDiv.reset("PROTO_archive_course");
 	$.get("/archive/subject/"+subjectId, { cache: false }, function(response) {
-		var courses = response.courses
-		ProtoDiv.replicate("PROTO_archive_course", courses)
+		var courses = response.courses;
+		ProtoDiv.replicate("PROTO_archive_course", courses);
 	})
-	cb("archive_courses")
+	cb("archive_courses");
 }
 
 function showArchiveNotes(matches, cb) {
-	var courseId = parseInt(matches[1])
-	ProtoDiv.reset("PROTO_archive_note")
+	var courseId = parseInt(matches[1]);
+	ProtoDiv.reset("PROTO_archive_note");
 	$.get("/archive/course/"+courseId, { cache: false }, function(response) {
-		var notes = response.notes
+		var notes = response.notes;
 		$.each(notes, function(i, note) {
 			if(!note.topic)
-				note.topic = note.text.substr(0, 15)+" ..."
+				note.topic = note.text.substr(0, 15)+" ...";
 		})
-		ProtoDiv.replicate("PROTO_archive_note", notes)
+		ProtoDiv.replicate("PROTO_archive_note", notes);
 	})
-	cb("archive_notes")
+	cb("archive_notes");
 }
 
 
 
 function showArchiveNote(matches, cb) {
-	var noteId = matches[1]
-	ProtoDiv.reset("PROTO_archive_note_display")
+	var noteId = matches[1];
+	ProtoDiv.reset("PROTO_archive_note_display");
 	$.get("/archive/note/"+noteId, { cache: false }, function(response) {
-		var note = response.note
+		var note = response.note;
 //note = { text: "Hi <i>Mom!</i>", topic: "21st Century Greetings" }
 //		note.text = note.text || ""
 		if(!note.topic)
-			note.topic = note.text.substr(0, 15)+" ..."
+			note.topic = note.text.substr(0, 15)+" ...";
 //		if(note.err) {
 //			note.topic = note.message
 //			note.err = note.err.stack
 //		}
 //
-		ProtoDiv.replicate("PROTO_archive_note_display", note)
+		ProtoDiv.replicate("PROTO_archive_note_display", note);
 	})
-	cb("archive_note_display")
+	cb("archive_note_display");
 }
 
 // go to the account registration page
@@ -178,27 +178,27 @@ var pageVectors = [
 	{ regex: /^\/login/, func: showLogin },
 	{ regex: /^\/register/, func: showRegister },
 	{ regex: /^\/press/, func: showPress },
-	{ regex: /^\/conduct/, func: showConduct },
+	{ regex: /^\/conduct/, func: showConduct }
 ];
 
 /* Do and show the appropriate thing, based on the pages current URL */
 function showPage(y) {
-	var path = document.location.pathname
+	var path = document.location.pathname;
 	$(".page").hide(); //(100);		// hide all pseudo pages
 	for(var i = 0; i < pageVectors.length; i++) {
-		var vector = pageVectors[i]
-		var matches = path.match(vector.regex)
+		var vector = pageVectors[i];
+		var matches = path.match(vec;tor.regex)
 		if(matches) {
 			vector.func(matches, function(pageId) {
-				$("#pg_"+pageId).fadeIn(100);
-				window.scroll(0, y)
+				$("#pg_"+pageId).fade;In(100);
+				window.scroll(0, y);
 			})
-			break
+			break;
 		}
 	}
 	if(i == pageVectors.length) {
 		$("#pg_notfound").fadeIn(100);
-		window.scroll(0, 0)
+		window.scr;oll(0, 0)
 	}
 	// scroll to top of page (as if we'd done a real page fetch)
 	/*$('html, body').animate({
@@ -211,10 +211,10 @@ function showPage(y) {
 	A page fetch doesn't really happen.
 	Based on what path looks like, an appropriate DIV is shown, and action taken
 */
-var topQueue = [0]
+var topQueue = [0];
 function goPage(path) {
 	if(history.pushState !== undefined) {
-		topQueue.push(window.pageYOffset)
+		topQueue.push(window.pageYOffset);
 		history.pushState({}, path, path);
 		showPage(0);
 	}
@@ -234,8 +234,8 @@ $(document).ready(function() {
 	// This code executes after the page has been fully loaded
 	$(".proto").css("display", "none");		// make all the prototypes invisible
 	//$("body").get(0).onunload = function() { }	// fires when leaving the page proper
-	ProtoDiv.each = function(e) { $(e).show() }
-	window.onpopstate = goBack
+	ProtoDiv.each = function(e) { $(e).show() };
+	window.onpopstate = goBack;
 	/*setTimeout(function() {
 		if(!popped)
 			showPage(0)
