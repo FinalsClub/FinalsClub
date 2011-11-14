@@ -202,6 +202,28 @@ function showArchiveNotes(matches, cb) {
 
 
 
+function showArchiveNote(matches, cb) {
+
+	var noteId = parseInt(matches[1])
+
+	ProtoDiv.reset("PROTO_archive_note_display")
+
+	$.get("/archive/note/"+noteId, { cache: false }, function(response) {
+
+		var note = response.note
+note = { text: "Hi <i>Mom!</i>", topic: "21st Century Greetings" }
+		if(!note.topic)
+			note.topic = note.text.substr(0, 15)+" ..."
+
+		ProtoDiv.replicate("PROTO_archive_note_display", note)
+
+	})
+
+	cb("archive_note_display")
+}
+
+
+
 // go to the account registration page
 function showRegister(matches, cb) {
 	// xxx clear fields?
@@ -231,13 +253,6 @@ function showConduct(matches, cb) {
 
 
 
-function hideAllPages() {
-
-	$(".page").fadeOut(100);
-
-}
-
-
 var pageVectors = [
 	{ regex: /^\/(index.html)?$/, func: showHome },
 	{ regex: /^\/schools/, func: showSchools },
@@ -247,6 +262,7 @@ var pageVectors = [
 	{ regex: /^\/archive\/?$/, func: showArchiveSubjects },
 	{ regex: /^\/archive\/subject\/([0-9]+)/, func: showArchiveCourses },
 	{ regex: /^\/archive\/course\/([0-9]+)/, func: showArchiveNotes },
+	{ regex: /^\/archive\/note\/([0-9]+)/, func: showArchiveNote },
 	{ regex: /^\/login/, func: showLogin },
 	{ regex: /^\/register/, func: showRegister },
 	{ regex: /^\/press/, func: showPress },
@@ -259,7 +275,7 @@ function showPage(y) {
 
 	var path = document.location.pathname
 
-	$(".page").fadeOut(100);		// hide all pseudo pages
+	$(".page").hide(); //(100);		// hide all pseudo pages
 
 	for(var i = 0; i < pageVectors.length; i++) {
 		var vector = pageVectors[i]
@@ -299,8 +315,7 @@ var topQueue = [0]
 function goPage(path) {
 	var y = 0 + window.pageYOffset
 	topQueue.push(y)
-	var o = {py:(path+"|"+y)}
-	history.pushState(o, path, path);
+	history.pushState({}, path, path);
 	showPage(0);
 }
 
