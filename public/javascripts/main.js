@@ -318,6 +318,9 @@ $(document).ready(function() {
 
 	window.onpopstate = goBack
 
+	// xxx older FF browsers don't fire a page load/reload - deal with it somehow.
+	// showPage( 0 );		// needed for some older browsers, redundant for chrome
+
 })
 
 
