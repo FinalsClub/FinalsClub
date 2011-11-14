@@ -155,13 +155,13 @@ app.configure(function(){
   // methodOverride is used to handle PUT and DELETE HTTP
   // requests that otherwise aren't handled by default.
   app.use( express.methodOverride() );
-  // Sets the routers middleware to load after everything set
-  // before it, but before static files.
-  app.use(express.logger({ format: ':method :url' }));
-  app.use( app.router );
   // Static files are loaded when no dynamic views match.
   app.use( express.static( __dirname + '/public' ) );
+  // Sets the routers middleware to load after everything set
+  // before it, but before static files.
+  app.use( app.router );
 
+  app.use(express.logger({ format: ':method :url' }));
   // This is the errorHandler set in configuration earlier
   // being set to a variable to be used after all other
   // middleware is loaded. Error handling should always
@@ -463,11 +463,13 @@ app.dynamicHelpers( {
 
 // Homepage
 // Public
+/*
 app.get( '/', loadUser, function( req, res ) {
   log3("get / page");
 
   res.render( 'index' );
 });
+*/
 
 // Schools list
 // Used to display all available schools and any courses
@@ -950,7 +952,7 @@ app.post( '/lecture/:id/notes/new', loadUser, loadLecture, function( req, res ) 
 
 
 // Display individual note page
-app.get( '/note/:id', checkAjax, loadUser, loadNote, function( req, res ) {
+app.get( '/note/:id', /*checkAjax,*/ loadUser, loadNote, function( req, res ) {
   var note = req.note;
   // Set read only id for etherpad-lite or false for later check
   var roID = note.roID || false;
@@ -1000,6 +1002,7 @@ app.get( '/note/:id', checkAjax, loadUser, loadNote, function( req, res ) {
       // Find notes based on lecture id, which will be displayed in a dropdown
       // on the page
       Note.find( { 'lecture' : lecture._id }, function( err, otherNotes ) {
+        /*
         res.json({
           'host'				: serverHost,
           'note'				: note.sanitized,
@@ -1010,6 +1013,34 @@ app.get( '/note/:id', checkAjax, loadUser, loadNote, function( req, res ) {
           'RO'					: req.RO,
           'roID'				: roID,
         });
+        */
+        if( !req.RO ) {
+          // User is logged in and sees full notepad
+
+          res.render( 'notes/index', {
+            'layout'			: 'noteLayout',
+            'host'				: serverHost,
+            'note'				: note,
+            'lecture'			: lecture,
+            'otherNotes'	: otherNotes,
+            'RO'					: false,
+            'roID'				: roID,
+            'stylesheets' : [ 'dropdown.css', 'fc2.css' ],
+            'javascripts'	: [ 'dropdown.js', 'counts.js', 'backchannel.js', 'jquery.tmpl.min.js' ]
+          });
+        } else {
+          // User is not logged in and sees notepad that is public
+          res.render( 'notes/public', {
+            'layout'			: 'noteLayout',
+            'host'				: serverHost,
+            'note'				: note,
+            'otherNotes'	: otherNotes,
+            'roID'				: roID,
+            'lecture'			: lecture,
+            'stylesheets' : [ 'dropdown.css', 'fc2.css' ],
+            'javascripts'	: [ 'dropdown.js', 'counts.js', 'backchannel.js', 'jquery.tmpl.min.js' ]
+          });
+        }
       });
     });
   }
@@ -1607,6 +1638,11 @@ app.get( '/archive/note/:id', checkAjax, loadUser, function( req, res ) {
     }
   })
 })
+
+
+app.get( '*', function(req, res) {
+  res.sendfile('public/index.html');
+});
 
 // socket.io server
 
