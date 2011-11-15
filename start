@@ -3,9 +3,13 @@
 ps waux | grep node | grep -v grep
 
 echo "starting ..."
-## note: start as root, pass env vars to sudo param, this app will downgrade itself once it has initialized
-sudo -E forever app.js &> log.txt &
 
+if [ "$(id -u)" != "0" ]; then
+	## note: start as root, pass env vars to sudo param, this app will downgrade itself once it has initialized
+	sudo -E forever app.js &> log.txt &
+else
+	forever app.js &> log.txt &
+fi
 
 cd etherpad-lite/node
 forever server.js &> log.txt &

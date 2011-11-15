@@ -12,6 +12,6 @@ rm /data/db/mongod.lock
 
 pushd .
 cd /home/ec2-user/fc
-cat restart | sudo -u ec2-user sh
+./restart
 popd
 
