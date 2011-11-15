@@ -1,9 +1,8 @@
 #!/bin/bash
 
-cd ~
-
 export PATH="/usr/local/bin:$PATH"
 
+cd ~
 rm -rf bc
 git clone git@github.com:finalsclubdev/bc
 cd ~/bc
@@ -12,7 +11,7 @@ npm install socket.io
 npm install express-messages
 npm install jade
 
-
+cd ~
 rm -rf fc
 git clone git@github.com:finalsclubdev/FinalsClub.git
 ln -sf FinalsClub fc
@@ -40,7 +39,7 @@ chmod 775 fcbackup_init.sh
 
 ## start the server
 cd ~/fc
-./restart.sh
+./restart
 
 
 

@@ -32,7 +32,6 @@ if test ! -e mongodb.tgz ; then
 	chmod a+rx *
 	chmod uo-w *
 	cp -f * /usr/local/bin
-	echo "/usr/local/bin &> /var/log/mongod.log &" >> /etc/rc.local
 	mkdir -p /data/db
 	/usr/local/bin/mongod -v --rest --replSet finalsclubset &> /var/log/mongod.log &
 
@@ -86,6 +85,12 @@ chmod 660 haproxy.cfg
 #  sudo /usr/local/haproxy/haproxy -f /usr/local/haproxy/haproxy.cfg -p /var/run/haproxy.pid &
 
 
+## init the reboot-restart.sh script, but don't run it.
+cd ~
+wget https://s3.amazonaws.com/finalsclub.org/reboot-restart.sh
+chmod 755 reboot-restart.sh
+echo "/root/reboot-restart.sh &> /var/log/fc-reboot-restart.log.txt &" >> /etc/rc.local
+	
 
 curl https://s3.amazonaws.com/finalsclub.org/start.sh | sudo -u ec2-user sh
 
