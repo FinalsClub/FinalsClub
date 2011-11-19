@@ -193,8 +193,19 @@ router.add('course', function(data, cb) {
   if (data.lectures) {
     response.push({
       id: 'lecture',
-      data: data.lectures
+      data: data.lectures.map(function(lecture) {
+        var date = new Date(lecture.date);
+        lecture.date = date.toDateString();
+        return lecture;
+      })
     })
+  }
+  cb('lectures', response);
+
+  if (!data.instructor.email) {
+    $('.instructor_email').hide();
+  } else {
+    $('.instructor_email').show();
   }
 
   if (data.course.authorized) {
@@ -222,7 +233,6 @@ router.add('course', function(data, cb) {
     });
   }
 
-  cb('lectures', response);
 });
 
 
@@ -234,11 +244,33 @@ router.add('lecture', function(data, cb) {
 
   var response = [];
 
+  if (data.course) {
+    response.push({
+      id: 'notes_head',
+      data: data.course
+    })
+  }
+
+  if (data.instructor) {
+    response.push({
+      id: 'notes_instructor',
+      data: data.instructor
+    })
+  }
+
   if (data.notes) {
     response.push({
       id: 'note',
       data: data.notes
     })
+  }
+  
+  cb("notes", response);
+
+  if (!data.instructor.email) {
+    $('.instructor_email').hide();
+  } else {
+    $('.instructor_email').show();
   }
   
   if (data.lecture.authorized) {
@@ -265,7 +297,6 @@ router.add('lecture', function(data, cb) {
       })
     });
   }
-  cb("notes", response);
 });
 
 
@@ -484,21 +515,25 @@ function showPage(y) {
 */
 var topQueue = [0]
 function goPage(path) {
-	var y = 0 + window.pageYOffset
-	topQueue.push(y)
-	history.pushState({}, path, path);
-	showPage(0);
+  if (history.pushState !== undefined) {
+    topQueue.push(window.pageYOffset)
+    history.pushState({}, path, path);
+    showPage(0);
+  } else {
+    document.location = path;
+  }
 }
 
 
 /* Simulates a "back" browser navigation.  */
+var popped = false;
 function goBack(event) {
-	var y = topQueue.pop()
-	showPage( y );
+  popped = true;
+	showPage( topQueue.pop() );
 }
 
 
-	window.onpopstate = goBack
+window.onpopstate = goBack
 
 $(document).ready(function() {
 
@@ -518,7 +553,11 @@ $(document).ready(function() {
   })
 
 	// xxx older FF browsers don't fire a page load/reload - deal with it somehow.
-	// showPage( 0 );		// needed for some older browsers, redundant for chrome
+  setTimeout(function() {
+    if (!popped) {
+      showPage( 0 );		// needed for some older browsers, redundant for chrome
+    }
+  }, 200)
 
 })
 
