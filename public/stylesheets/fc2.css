@@ -891,7 +891,62 @@ div.conduct p.vague {
 	color: #888;
 }
 
+#vimeo-screencast {
+	margin-top: 2em;
+	-webkit-box-shadow: 0 1.2em 1.3em rgba(0, 0, 0, .3);
+	-moz-box-shadow: 0 1.2em 1.3em rgba(0, 0, 0, .3);
+}
+
+
+.note, .notes_instructor, .notes_head {
+	margin: 1.0em 0;
+}
+
+.notes_head {
+	font-weight: bold;
+}
+
+.notes_instructor, .notes_head {
+	color: #888;
+}
+
+.notes_instructor {
+	padding-bottom: 1.0em;
+	border-bottom: solid 1px #aaa;
+}
+
+.note .name {
+	font-size: 110%;
+}
+.note .visits {
+	font-style: italic;
+	color: #aaa;
+}
+
+
+.lecture, .lectures_instructor, .lectures_head {
+	margin: 1.0em 0;
+}
+
+.lectures_head {
+	font-weight: bold;
+}
+
 .lectures_instructor, .lectures_head {
+	color: #888;
+}
+
+.lectures_instructor {
+	padding-bottom: 1.0em;
+	border-bottom: solid 1px #aaa;
+}
+
+.lecture .name {
+	font-size: 110%;
+}
+.lecture .created {
+	font-style: italic;
+	color: #aaa;
 }
 
 .lecture {
@@ -900,11 +955,5 @@ div.conduct p.vague {
 	border: solid 1px #888;
 	-moz-border-radius: 0.20em;
 	-webkit-border-radius: 0.20em;
-}
-
-#vimeo-screencast {
-	margin-top: 2em;
-	-webkit-box-shadow: 0 1.2em 1.3em rgba(0, 0, 0, .3);
-	-moz-box-shadow: 0 1.2em 1.3em rgba(0, 0, 0, .3);
 }
 
