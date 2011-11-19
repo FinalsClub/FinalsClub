@@ -113,6 +113,24 @@ span.hint {
 	font-weight: normal;
 }
 
+div.error {
+	font-weight: bold;
+	font-size: 110%;
+	padding: 0.5em 1%;
+	color: #f00;
+	background: #fdd;
+	border: solid 2px #f00;
+}
+
+div.info {
+	font-weight: bold;
+	font-size: 110%;
+	padding: 0.5em 1%;
+	color: #028;
+	background: #bef;
+	border: solid 2px #8cf;
+}
+
 span.text p {
 }
 
@@ -670,7 +688,8 @@ div.course {
 }
 
 #messages {
-	margin: 0em 5%;
+	text-align:  center;
+	margin: 0 5%;
 }
 #messages ul {
 	padding: 0.5em 1em 0.5em 3em;
