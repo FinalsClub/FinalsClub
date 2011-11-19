@@ -36,6 +36,18 @@ var UserSchema = new Schema( {
 	admin						: { 'type' : Boolean, 'default' : false }
 });
 
+UserSchema.virtual( 'sanitized' ).get(function() {
+  var user = {
+    email: this.email,
+    name: this.name,
+    affil: this.affil,
+    showName: this.showName,
+    admin: this.admin
+  }
+
+  return user;
+});
+
 UserSchema.virtual( 'displayName' )
 	.get( function() {
 		if( this.showName ) {
@@ -132,6 +144,17 @@ var SchoolSchema = new Schema( {
 	users				: Array
 });
 
+SchoolSchema.virtual( 'sanitized' ).get(function() {
+  var school = {
+    _id: this._id,
+    name: this.name,
+    description: this.description,
+    url: this.url
+  }
+
+  return school;
+})
+
 SchoolSchema.method( 'authorize', function( user, cb ) {
 	return cb(user.admin || ( this.users.indexOf( user._id ) !== -1 ));
 });
@@ -157,6 +180,19 @@ var CourseSchema = new Schema( {
 
 	// many users may subscribe to a course
 	users				: Array
+});
+
+CourseSchema.virtual( 'sanitized' ).get(function() {
+  var course = {
+    _id: this._id,
+    name: this.name,
+    number: this.number,
+    description: this.description,
+    subject: this.subject,
+    department: this.department
+  }
+
+  return course;
 });
 
 CourseSchema.virtual( 'displayName' )
@@ -229,6 +265,17 @@ var LectureSchema	= new Schema( {
 	course				: ObjectId
 });
 
+LectureSchema.virtual( 'sanitized' ).get(function() {
+  var lecture = {
+    _id: this._id,
+    name: this.name,
+    date: this.date,
+    live: this.live
+  }
+
+  return lecture;
+})
+
 LectureSchema.method( 'authorize', function( user, cb ) {
 	Course.findById( this.course, function( err, course ) {
 		if (course) {
@@ -276,6 +323,19 @@ var NoteSchema = new Schema( {
 	lecture				: ObjectId,
 
 	collaborators : [String]
+});
+
+NoteSchema.virtual( 'sanitized').get(function() {
+  var note = {
+    _id: this._id,
+    name: this.name,
+    path: this.path,
+    public: this.public,
+    roID: this.roID,
+    visits: this.visits
+  }
+
+  return note;
 });
 
 NoteSchema.method( 'authorize', function( user, cb ) {
@@ -350,6 +410,14 @@ var ArchivedNote = new Schema({
   course_id: Number,
   topic: String,
   text: String
+})
+
+ArchivedNote.virtual( 'sanitized' ).get(function() {
+  var note = {
+    _id: this._id,
+    topic: this.topic === '' ? (this.text.replace(/(<(.|\n)*?>)|[\r\n\t]*/g, '')).substr(0, 15) + '...' : this.topic
+  }
+  return note;
 })
 
 mongoose.model( 'ArchivedNote', ArchivedNote )

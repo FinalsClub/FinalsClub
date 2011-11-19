@@ -46,7 +46,9 @@ ProtoDiv.map = function(node, list, cb) {
 	}
 }
 
-ProtoDiv.substitute = function(s, obj) {
+ProtoDiv.substitute = function(s, obj, i) {
+	if(i !== undefined)
+		s = s.replace(/__i__/g, i);
 	for(var key in obj) {
 		re = new RegExp("__"+key+"__", "g")
 		s = s.replace(re, obj[key])
@@ -54,14 +56,14 @@ ProtoDiv.substitute = function(s, obj) {
 	return s
 }
 
-ProtoDiv.inject = function(id, obj) {
+ProtoDiv.inject = function(id, obj, n) {
 	var proto = ProtoDiv.elem(id)
 
-	proto.innerHTML = ProtoDiv.substitute(proto.innerHTML, obj)
+	proto.innerHTML = ProtoDiv.substitute(proto.innerHTML, obj, n)
 
 	for(var i = 0; i < proto.attributes.length; i++) {
 		var a = proto.attributes[i]
-		a.textContent = ProtoDiv.substitute(a.textContent, obj)
+		a.textContent = ProtoDiv.substitute(a.textContent, obj, n)
 	}
 
 	for(var key in obj) {
@@ -109,7 +111,9 @@ ProtoDiv.replicate = function(id, arr, keep) {
 		var e = proto.cloneNode(true)
 		delete e.id
 		mom.insertBefore(e, sib)
-		ProtoDiv.inject(e, obj)
+		ProtoDiv.inject(e, obj, i)
+		if(ProtoDiv.each)
+			ProtoDiv.each(e, i, obj, mom)
 	}
 
 	if(!keep)
