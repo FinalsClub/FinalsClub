@@ -415,7 +415,7 @@ var ArchivedNote = new Schema({
 ArchivedNote.virtual( 'sanitized' ).get(function() {
   var note = {
     _id: this._id,
-    topic: this.topic
+    topic: this.topic === '' ? (this.text.replace(/(<(.|\n)*?>)|[\r\n\t]*/g, '')).substr(0, 15) + '...' : this.topic
   }
   return note;
 })

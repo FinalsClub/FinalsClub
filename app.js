@@ -460,7 +460,7 @@ app.dynamicHelpers( {
 });
 
 function sendJson( res, obj ) {
-  res.header('Cache-Control', 'no-cache');
+  res.header('Cache-Control', 'no-cache, no-store');
   res.json(obj);
 }
 
@@ -533,25 +533,9 @@ app.get( '/school/:id', checkAjax, loadUser, loadSchool, function( req, res ) {
   });
 });
 
-// New course page
-// Displays form to create new course
-// Private, requires user to be authorized
-app.get( '/:id/course/new', loadUser, loadSchool, function( req, res ) {
-  // Load school from middleware
-  var school = req.school;
-
-  // If school was not loaded for whatever reason, or the user is not authorized
-  // then redirect to the main schools page.
-  if( ( ! school ) || ( ! school.authorized ) ) {
-    return res.redirect( '/schools' );
-  }
-
-  // If they are authorized and the school exists, then render the page
-  res.render( 'course/new', { 'school': school } );
-});
 
 // Recieves new course form
-app.post( '/:id/course/new', loadUser, loadSchool, function( req, res ) {
+app.post( '/school/:id', checkAjax, loadUser, loadSchool, function( req, res ) {
   var school = req.school;
   // Creates new course from Course Schema
   var course = new Course;
@@ -559,15 +543,16 @@ app.post( '/:id/course/new', loadUser, loadSchool, function( req, res ) {
   var instructorEmail = req.body.email.toLowerCase();
   var instructorName = req.body.instructorName;
 
-  // If school doesn't exist or user is not authorized redirect to main schools page
   if( ( ! school ) || ( ! school.authorized ) ) {
-    res.redirect( '/schools' );
+    return sendJson(res, {status: 'error', message: 'There was a problem trying to create a course'})
   }
 
-  // If instructorEmail isn't set, or name isn't set, display error and re-render the page.
-  if ( !instructorEmail || !instructorName ) {
-    req.flash( 'error', 'Invalid parameters!' )
-    return res.render( 'course/new' );
+  if ( !instructorName ) {
+    return sendJson(res, {status: 'error', message: 'Invalid parameters!'} )
+  }
+  
+  if ( ( instructorEmail === '' ) || ( !isValidEmail( instructorEmail ) ) ) {
+    return sendJson(res, {status: 'error', message:'Please enter a valid email'} );
   }
 
   // Fill out the course with information from the form
@@ -592,21 +577,13 @@ app.post( '/:id/course/new', loadUser, loadSchool, function( req, res ) {
 
       user.activated    = false;
 
-      // Validate instructorEmail
-      // XXX Probably could be done before checking db
-      if ( ( user.email === '' ) || ( !isValidEmail( user.email ) ) ) {
-        req.flash( 'error', 'Please enter a valid email' );
-        // XXX This needs to be fixed, this is not the proper flow
-        return res.redirect( '/register' );
-      }
       // Once the new user information has been completed, save the user
       // to the database then email them the instructor welcome email.
       user.save(function( err ) {
         // If there was an error saving the instructor, prompt the user to fill out
         // the information again.
         if ( err ) {
-          req.flash( 'error', 'Invalid parameters!' )
-          return res.render( 'course/new' );
+          return sendJson(res, {status: 'error', message: 'Invalid parameters!'} )
         } else {
           var message = {
             to					: user.email,
@@ -635,10 +612,7 @@ app.post( '/:id/course/new', loadUser, loadSchool, function( req, res ) {
           course.instructor = user._id;
           course.save( function( err ) {
             if( err ) {
-              // XXX better validation
-              req.flash( 'error', 'Invalid parameters!' );
-
-              return res.render( 'course/new' );
+              return sendJson(res, {status: 'error', message: 'Invalid parameters!'} )
             } else {
               // Once the course has been completed email the admin with information
               // on the course and new instructor
@@ -666,7 +640,7 @@ app.post( '/:id/course/new', loadUser, loadSchool, function( req, res ) {
               // Redirect the user to the schools page where they can see
               // their new course.
               // XXX Redirect to the new course instead
-              res.redirect( '/schools' );
+              return sendJson(res, {status: 'ok', message: 'Course created'} )
             }
           });
         }
@@ -680,9 +654,7 @@ app.post( '/:id/course/new', loadUser, loadSchool, function( req, res ) {
         course.save( function( err ) {
           if( err ) {
             // XXX better validation
-            req.flash( 'error', 'Invalid parameters!' );
-
-            return res.render( 'course/new' );
+            return sendJson(res, {status: 'error', message: 'Invalid parameters!'} )
           } else {
             var message = {
               to					: ADMIN_EMAIL,
@@ -706,14 +678,13 @@ app.post( '/:id/course/new', loadUser, loadSchool, function( req, res ) {
               }
             })
             // XXX Redirect to the new course instead
-            res.redirect( '/schools' );
+            return sendJson(res, {status: 'ok', message: 'Course created'} )
           }
         });
       } else {
         // The existing user isn't an instructor, so the user is notified of the error
         // and the course isn't created.
-        req.flash( 'error', 'The existing user\'s email you entered is not an instructor' );
-        res.render( 'course/new' );
+        sendJson(res, {status: 'error', message: 'The existing user\'s email you entered is not an instructor'} )
       }
     }
   })
@@ -727,15 +698,49 @@ app.get( '/course/:id', checkAjax, loadUser, loadCourse, function( req, res ) {
 
   // Check if the user is subscribed to the course
   // XXX Not currently used for anything
-  var subscribed = course.subscribed( userId );
+  //var subscribed = course.subscribed( userId );
 
   // Find lectures associated with this course and sort by name
   Lecture.find( { 'course' : course._id } ).sort( 'name', '1' ).run( function( err, lectures ) {
     // Get course instructor information using their id
     User.findById( course.instructor, function( err, instructor ) {
       // Render course and lectures
-      sendJson(res,  { 'user': req.user.sanitized, 'course' : course.sanitized, 'instructor': instructor.sanitized, 'subscribed' : subscribed, 'lectures' : lectures.map(function(lecture) { return lecture.sanitized })} );
+      var sanitizedInstructor = instructor.sanitized;
+      var sanitizedCourse = course.sanitized;
+      if (!course.authorized) {
+        delete sanitizedInstructor.email;
+      } else {
+        sanitizedCourse.authorized = course.authorized;
+      }
+      sendJson(res,  { 'course' : sanitizedCourse, 'instructor': sanitizedInstructor, 'lectures' : lectures.map(function(lecture) { return lecture.sanitized })} );
     })
+  });
+});
+
+// Recieve New Lecture Form
+app.post( '/course/:id', checkAjax, loadUser, loadCourse, function( req, res ) {
+  var course		= req.course;
+  // Create new lecture from Lecture schema
+  var lecture		= new Lecture;
+
+  if( ( ! course ) || ( ! course.authorized ) ) {
+    return sendJson(res, {status: 'error', message: 'There was a problem trying to create a lecture'})
+  }
+
+  // Populate lecture with form data
+  lecture.name		= req.body.name;
+  lecture.date		= req.body.date;
+  lecture.course	= course._id;
+  lecture.creator = req.user._id;
+
+  // Save lecture to database
+  lecture.save( function( err ) {
+    if( err ) {
+      // XXX better validation
+      sendJson(res, {status: 'error', message: 'Invalid parameters!'} );
+    } else {
+      sendJson(res, {status: 'ok', message: 'Created new lecture'} );
+    }
   });
 });
 
@@ -823,53 +828,7 @@ app.get( '/course/:id/unsubscribe', loadUser, loadCourse, function( req, res ) {
   });
 });
 
-// Create new lecture
-app.get( '/course/:id/lecture/new', loadUser, loadCourse, function( req, res ) {
-  var courseId	= req.params.id;
-  var course		= req.course;
-  var lecture		= {};
 
-  // If course isn't valid or user isn't authorized for course, redirect
-  if( ( ! course ) || ( ! course.authorized ) ) {
-    return res.redirect( '/course/' + courseId );
-  }
-
-  // Render new lecture form
-  res.render( 'lecture/new', { 'lecture' : lecture } );
-});
-
-// Recieve New Lecture Form
-app.post( '/course/:id/lecture/new', loadUser, loadCourse, function( req, res ) {
-  var courseId	= req.params.id;
-  var course		= req.course;
-  // Create new lecture from Lecture schema
-  var lecture		= new Lecture;
-
-  if( ( ! course ) || ( ! course.authorized ) ) {
-    res.redirect( '/course/' + courseId );
-
-    return;
-  }
-
-  // Populate lecture with form data
-  lecture.name		= req.body.name;
-  lecture.date		= req.body.date;
-  lecture.course	= course._id;
-  lecture.creator = req.user._id;
-
-  // Save lecture to database
-  lecture.save( function( err ) {
-    if( err ) {
-      // XXX better validation
-      req.flash( 'error', 'Invalid parameters!' );
-
-      res.render( 'lecture/new', { 'lecture' : lecture } );
-    } else {
-      // XXX Redirect to new lecture instead
-      res.redirect( '/course/' + course._id );
-    }
-  });
-});
 
 
 // Display individual lecture and related notes
@@ -891,11 +850,17 @@ app.get( '/lecture/:id', checkAjax, loadUser, loadLecture, function( req, res ) 
               if ( note.public ) return note;
             })
           }
+          var sanitizedInstructor = instructor.sanitized;
+          var sanitizedLecture = lecture.sanitized;
+          if (!lecture.authorized) {
+            delete sanitizedInstructor.email;
+          } else {
+            sanitizedLecture.authorized = lecture.authorized;
+          }
           sendJson(res,  {
-            'lecture'			: lecture.sanitized,
+            'lecture'			: sanitizedLecture,
             'course'			: course.sanitized,
-            'instructor'  : instructor.sanitized,
-            'user'        : req.user.sanitized,
+            'instructor'  : sanitizedInstructor,
             'notes'				: notes.map(function(note) {
               return note.sanitized;
             })
@@ -903,35 +868,18 @@ app.get( '/lecture/:id', checkAjax, loadUser, loadLecture, function( req, res ) 
         });
       })
     } else {
-      sendJson(res,  { status: 'error', msg: 'This course is orphaned' })
+      sendJson(res,  { status: 'not_found', msg: 'This course is orphaned' })
     }
   });
 });
 
-// Display new note form
-app.get( '/lecture/:id/notes/new', loadUser, loadLecture, function( req, res ) {
-  var lectureId	= req.params.id;
-  var lecture		= req.lecture;
-  var note			= {};
-
-  if( ( ! lecture ) || ( ! lecture.authorized ) ) {
-    res.redirect( '/lecture/' + lectureId );
-
-    return;
-  }
-
-  res.render( 'notes/new', { 'note' : note } );
-});
 
 // Recieve new note form
-app.post( '/lecture/:id/notes/new', loadUser, loadLecture, function( req, res ) {
-  var lectureId	= req.params.id;
+app.post( '/lecture/:id', checkAjax, loadUser, loadLecture, function( req, res ) {
   var lecture		= req.lecture;
 
   if( ( ! lecture ) || ( ! lecture.authorized ) ) {
-    res.redirect( '/lecture/' + lectureId );
-
-    return;
+    return sendJson(res, {status: 'error', message: 'There was a problem trying to create a note pad'})
   }
 
   // Create note from Note schema
@@ -948,12 +896,9 @@ app.post( '/lecture/:id/notes/new', loadUser, loadLecture, function( req, res ) 
   note.save( function( err ) {
     if( err ) {
       // XXX better validation
-      req.flash( 'error', 'Invalid parameters!' );
-
-      res.render( 'notes/new', { 'note' : note } );
+      sendJson(res, {status: 'error', message: 'There was a problem trying to create a note pad'})
     } else {
-      // XXX Redirect to new note instead
-      res.redirect( '/lecture/' + lecture._id );
+      sendJson(res, {status: 'ok', message: 'Successfully created a new note pad'})
     }
   });
 });
@@ -1055,6 +1000,7 @@ app.get( '/note/:id', /*checkAjax,*/ loadUser, loadNote, function( req, res ) {
 });
 
 // Static pages and redirects
+/*
 app.get( '/about', loadUser, function( req, res ) {
   res.redirect( 'http://blog.finalsclub.org/about.html' );
 });
@@ -1078,6 +1024,7 @@ app.get( '/contact', loadUser, function( req, res ) {
 app.get( '/privacy', loadUser, function( req, res ) {
   res.render( 'static/privacy' );
 });
+*/
 
 
 // Authentication routes
@@ -1085,14 +1032,20 @@ app.get( '/privacy', loadUser, function( req, res ) {
 // and other user authentication purposes
 
 // Render login page
+/*
 app.get( '/login', function( req, res ) {
   log3("get login page")
 
   res.render( 'login' );	
 });
+*/
+
+app.get( '/checkuser', checkAjax, loadUser, function( req, res ) {
+  sendJson(res, {user: req.user.sanitized});
+});
 
 // Recieve login form
-app.post( '/login', function( req, res ) {
+app.post( '/login', checkAjax, function( req, res ) {
   var email		 = req.body.email;
   var password = req.body.password;
   log3("post login ...")
@@ -1107,11 +1060,9 @@ app.post( '/login', function( req, res ) {
     if( user ) {
       if( ! user.activated ) {
         // (undocumented) markdown-esque link functionality in req.flash
-        req.flash( 'error', 'This account isn\'t activated. Check your inbox or [click here](/resendActivation) to resend the activation email.' );
-
         req.session.activateCode = user._id;
+        sendJson(res, {status: 'error', message: 'This account isn\'t activated.'} );
 
-        res.render( 'login' );
       } else {
         // If user is activated, check if their password is correct
         if( user.authenticate( password ) ) {
@@ -1129,42 +1080,30 @@ app.post( '/login', function( req, res ) {
             req.session.email = email;
 
             // alert the successful login
-            req.flash( 'info', 'Successfully logged in!' );
+            sendJson(res, {status: 'ok', message:'Successfully logged in!'} );
 
             // redirect to profile if we don't have a stashed request
-            res.redirect( redirect || '/profile' );
+            //res.redirect( redirect || '/profile' );
           });
         } else {
           // Notify user of bad login
-          req.flash( 'error', 'Invalid login!' );
+          sendJson(res,  {status: 'error', message: 'Invalid login!'} );
 
-          res.render( 'login' );
+          //res.render( 'login' );
         }
       }
     } else {
       // Notify user of bad login
       log3("bad login")
-      req.flash( 'error', 'Invalid login!' );
+      sendJson(res, {status: 'error', message: 'Invalid login!'} );
 
-      res.render( 'login' );
+      //res.render( 'login' );
     }
   });
 });
 
-// Request reset password
-app.get( '/resetpw', function( req, res ) {
-  log3("get resetpw page");
-  res.render( 'resetpw' );
-});
-
-// Display reset password from requested email
-app.get( '/resetpw/:id', function( req, res ) {
-  var resetPassCode = req.params.id
-  res.render( 'resetpw', { 'verify': true, 'resetPassCode' : resetPassCode } );
-});
-
 // Recieve reset password request form
-app.post( '/resetpw', function( req, res ) {
+app.post( '/resetpass', checkAjax, function( req, res ) {
   log3("post resetpw");
   var email = req.body.email
 
@@ -1209,17 +1148,17 @@ app.post( '/resetpw', function( req, res ) {
         }); 
 
         // Render request success page
-        res.render( 'resetpw-success', { 'email' : email } );
+        sendJson(res, {status: 'ok', message: 'Your password has been reset.  An email has been sent to ' + email })
       });			
     } else {
       // Notify of error
-      res.render( 'resetpw-error', { 'email' : email } );
+      sendJson(res, {status: 'error', message: 'We were unable to reset the password using that email address.  Please try again.' })
     }
   });
 });
 
 // Recieve reset password form
-app.post( '/resetpw/:id', function( req, res ) {
+app.post( '/resetpw/:id', checkAjax, function( req, res ) {
   log3("post resetpw.code");
   var resetPassCode = req.params.id
   var email = req.body.email
@@ -1235,19 +1174,19 @@ app.post( '/resetpw/:id', function( req, res ) {
       var valid = user.resetPassword(resetPassCode, pass1, pass2);
       if (valid) {
         user.save( function( err ) {
-          res.render( 'resetpw-success', { 'verify' : true, 'email' : email, 'resetPassCode' : resetPassCode } );		
+          sendJson(res, {status: 'ok', message: 'Your password has been reset. You can now login with your the new password you just created.'})
         });			
       }
     } 
-
     // If there was a problem, notify user
     if (!valid) {
-      res.render( 'resetpw-error', { 'verify' : true, 'email' : email } );
+      sendJson(res, {status: 'error', message: 'We were unable to reset the password. Please try again.' })
     }
   });
 });
 
 // Display registration page
+/*
 app.get( '/register', function( req, res ) {
   log3("get reg page");
 
@@ -1256,9 +1195,10 @@ app.get( '/register', function( req, res ) {
     res.render( 'register', { 'schools' : schools } );
   })
 });
+*/
 
 // Recieve registration form
-app.post( '/register', function( req, res ) {
+app.post( '/register', checkAjax, function( req, res ) {
   var sid = req.sessionId;
 
   // Create new user from User schema
@@ -1277,14 +1217,12 @@ app.post( '/register', function( req, res ) {
 
   // Validate email
   if ( ( user.email === '' ) || ( !isValidEmail( user.email ) ) ) {
-    req.flash( 'error', 'Please enter a valid email' );
-    return res.redirect( '/register' );
+    return sendJson(res, {status: 'error', message: 'Please enter a valid email'} );
   }
 
   // Check if password is greater than 6 characters, otherwise notify user
   if ( req.body.password.length < 6 ) {
-    req.flash( 'error', 'Please enter a password longer than eight characters' );
-    return res.redirect( '/register' );
+    return sendJson(res, {status: 'error', message: 'Please enter a password longer than eight characters'} );
   }
 
   // Pull out hostname from email
@@ -1305,19 +1243,15 @@ app.post( '/register', function( req, res ) {
         User.findOne({ 'email' : user.email }, function(err, result ) {
           if (result.activated) {
             // If activated, make sure they know how to contact the admin
-            req.flash( 'error', 'There is already someone registered with this email, if this is in error contact info@finalsclub.org for help' )
-            return res.redirect( '/register' )
+            return sendJson(res, {status: 'error', message: 'There is already someone registered with this email, if this is in error contact info@finalsclub.org for help'} );
           } else {
             // If not activated, direct them to the resendActivation page
-            req.flash( 'error', 'There is already someone registered with this email, if this is you, please check your email for the activation code' )
-            return res.redirect( '/resendActivation' )
+            return sendJson(res, {status: 'error', message: 'There is already someone registered with this email, if this is you, please check your email for the activation code'} );
           }
         });
       } else {
         // If any other type of error, prompt them to enter the registration again
-        req.flash( 'error', 'An error occurred during registration.' );
-
-        return res.redirect( '/register' );
+        return sendJson(res, {status: 'error', message: 'An error occurred during registration.'} );
       }
     } else {
       // send user activation email
@@ -1338,8 +1272,7 @@ app.post( '/register', function( req, res ) {
           school.save( function( err ) {
             log3('school.save() done');
             // Notify user that they have been added to the school
-            req.flash( 'info', 'You have automatically been added to the ' + school.name + ' network. Please check your email for the activation link' );
-            res.redirect( '/' );
+            sendJson(res, {status: 'ok', message: 'You have automatically been added to the ' + school.name + ' network. Please check your email for the activation link'} );
           });
           // Construct admin email about user registration
           var message = {
@@ -1356,8 +1289,7 @@ app.post( '/register', function( req, res ) {
           // If there isn't a match, send associated welcome message
           sendUserWelcome( user, false );
           // Tell user to check for activation link
-          req.flash( 'info', 'Your account has been created, please check your email for the activation link' )
-          res.redirect( '/' );
+          sendJson(res, {status: 'ok', message: 'Your account has been created, please check your email for the activation link'} );
           // Construct admin email about user registration
           var message = {
             'to'       : ADMIN_EMAIL,
@@ -1406,21 +1338,19 @@ app.get( '/resendActivation', function( req, res ) {
 });
 
 // Display activation page
-app.get( '/activate/:code', function( req, res ) {
+app.get( '/activate/:code', checkAjax, function( req, res ) {
   var code = req.params.code;
 
   // XXX could break this out into a middleware
   if( ! code ) {
-    res.redirect( '/' );
+    return sendJson(res, {status:'error', message: 'Invalid activation code!'} );
   }
 
   // Find user by activation code
   User.findById( code, function( err, user ) {
     if( err || ! user ) {
       // If not found, notify user of invalid code
-      req.flash( 'error', 'Invalid activation code!' );
-
-      res.redirect( '/' );
+      sendJson(res, {status:'error', message:'Invalid activation code!'} );
     } else {
       // If valid, then activate user
       user.activated = true;
@@ -1432,13 +1362,9 @@ app.get( '/activate/:code', function( req, res ) {
         // Save user to database
         user.save( function( err ) {
           if( err ) {
-            req.flash( 'error', 'Unable to activate account.' );
-
-            res.redirect( '/' );
+            sendJson(res, {status: 'error', message: 'Unable to activate account.'} );
           } else {
-            req.flash( 'info', 'Account successfully activated. Please complete your profile.' );
-
-            res.redirect( '/profile' );
+            sendJson(res, {status: 'info', message: 'Account successfully activated. Please complete your profile.'} );
           }
         });
       });
@@ -1447,7 +1373,7 @@ app.get( '/activate/:code', function( req, res ) {
 });
 
 // Logut user
-app.get( '/logout', function( req, res ) {
+app.get( '/logout', checkAjax, function( req, res ) {
   var sid = req.sessionID;
 
   // Find user by session id
@@ -1458,23 +1384,16 @@ app.get( '/logout', function( req, res ) {
 
       // Save user to database
       user.save( function( err ) {
-        res.redirect( '/' );
+        sendJson(res, {status: 'ok', message: 'Successfully logged out'});
       });
     } else {
-      res.redirect( '/' );
+      sendJson(res, {status: 'ok', message: ''});
     }
   });
 });
 
-// Display users profile page
-app.get( '/profile', loadUser, loggedIn, function( req, res ) {
-  var user = req.user;
-
-  res.render( 'profile/index', { 'user' : user } );
-});
-
 // Recieve profile edit page form
-app.post( '/profile', loadUser, loggedIn, function( req, res ) {
+app.post( '/profile', checkAjax, loadUser, loggedIn, function( req, res ) {
   var user		= req.user;
   var fields	= req.body;
 
@@ -1482,17 +1401,13 @@ app.post( '/profile', loadUser, loggedIn, function( req, res ) {
   var wasComplete	= user.isComplete;
 
   if( ! fields.name ) {
-    req.flash( 'error', 'Please enter a valid name!' );
-
-    error = true;
+    return sendJson(res, {status: 'error', message: 'Please enter a valid name!'} );
   } else {
     user.name = fields.name;
   }
 
   if( [ 'Student', 'Teachers Assistant' ].indexOf( fields.affiliation ) == -1 ) {
-    req.flash( 'error', 'Please select a valid affiliation!' );
-
-    error = true;
+    return sendJson(res, {status: 'error', message: 'Please select a valid affiliation!'} );
   } else {
     user.affil = fields.affiliation;
   }
@@ -1505,14 +1420,10 @@ app.post( '/profile', loadUser, loggedIn, function( req, res ) {
 
         user.password = fields.newPassword;
       } else {
-        req.flash( 'error', 'Mismatch in new password!' );
-
-        error = true;
+        return sendJson(res, {status: 'error', message: 'Mismatch in new password!'} );
       }
     } else {
-      req.flash( 'error', 'Please supply your existing password.' );
-
-      error = true;
+      return sendJson(res, {status: 'error', message: 'Please supply your existing password.'} );
     }
   }
 
@@ -1521,25 +1432,17 @@ app.post( '/profile', loadUser, loggedIn, function( req, res ) {
 
   user.showName	= ( fields.showName ? true : false );
 
-  if( ! error ) {
-    user.save( function( err ) {
-      if( err ) {
-        req.flash( 'error', 'Unable to save user profile!' );
+  user.save( function( err ) {
+    if( err ) {
+      sendJson(res, {status: 'error', message: 'Unable to save user profile!'} );
+    } else {
+      if( ( user.isComplete ) && ( ! wasComplete ) ) {
+        sendJson(res, {status: 'ok', message: 'Your account is now fully activated. Thank you for joining FinalsClub!'} );
       } else {
-        if( ( user.isComplete ) && ( ! wasComplete ) ) {
-          req.flash( 'info', 'Your account is now fully activated. Thank you for joining FinalsClub!' );
-
-          res.redirect( '/' );
-        } else {
-          res.render( 'info', 'Your profile was successfully updated!' );
-
-          res.render( 'profile/index', { 'user' : user } );
-        }
+        sendJson(res, {status:'ok', message:'Your profile was successfully updated!'} );
       }
-    });
-  } else {
-    res.render( 'profile/index', { 'user' : user } );
-  }
+    }
+  });
 });
 
 
@@ -1597,8 +1500,8 @@ app.get( '/learn', loadUser, function( req, res ) {
   res.render( 'archive/learn', { 'courses' : featuredCourses } );
 })
 
-app.get( '/learn/random', loadUser, function( req, res ) {
-  res.redirect( '/archive/course/'+ featuredCourses[Math.floor(Math.random()*featuredCourses.length)].id);
+app.get( '/learn/random', checkAjax, function( req, res ) {
+  sendJson(res, {status: 'ok', data: '/archive/course/'+ featuredCourses[Math.floor(Math.random()*featuredCourses.length)].id });
 })
 
 app.get( '/archive', checkAjax, loadUser, function( req, res ) {
@@ -1614,7 +1517,7 @@ app.get( '/archive', checkAjax, loadUser, function( req, res ) {
 app.get( '/archive/subject/:id', checkAjax, loadUser, loadSubject, function( req, res ) {
   ArchivedCourse.find({subject_id: req.params.id}).sort('name', '1').run(function(err, courses) {
     if ( err || courses.length === 0 ) {
-      sendJson(res,  {status: 'error', message: 'There are no archived courses'} );
+      sendJson(res,  {status: 'not_found', message: 'There are no archived courses'} );
     } else {
       sendJson(res,  { 'courses' : courses, 'subject': req.subject, 'user': req.user.sanitized } );
     }
@@ -1624,7 +1527,7 @@ app.get( '/archive/subject/:id', checkAjax, loadUser, loadSubject, function( req
 app.get( '/archive/course/:id', checkAjax, loadUser, loadOldCourse, function( req, res ) {
   ArchivedNote.find({course_id: req.params.id}).sort('name', '1').run(function(err, notes) {
     if ( err || notes.length === 0) {
-      sendJson(res,  {status: 'error', message: 'There are no notes in this course'} );
+      sendJson(res,  {status: 'not_found', message: 'There are no notes in this course'} );
     } else {
       notes = notes.map(function(note) { return note.sanitized });
       sendJson(res,  { 'notes': notes, 'course' : req.course, 'user': req.user.sanitized } );
@@ -1636,11 +1539,11 @@ app.get( '/archive/note/:id', checkAjax, loadUser, function( req, res ) {
   console.log( "id="+req.params.id)
   ArchivedNote.findById(req.params.id, function(err, note) {
     if ( err || !note ) {
-      sendJson(res,  {status: 'error', message: 'This is not a valid id for a note'} );
+      sendJson(res,  {status: 'not_found', message: 'This is not a valid id for a note'} );
     } else {
       ArchivedCourse.findOne({id: note.course_id}, function(err, course) {
         if ( err || !course ) {
-          sendJson(res,  {status: 'error', message: 'There is no course for this note'} )
+          sendJson(res,  {status: 'not_found', message: 'There is no course for this note'} )
         } else {
           sendJson(res,  { 'layout' : 'notesLayout', 'note' : note, 'course': course, 'user': req.user.sanitized } );
         }
