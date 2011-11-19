@@ -327,7 +327,7 @@ function loadSchool( req, res, next ) {
       });
     } else {
       // If no school is found, display an appropriate error.
-      sendJson(res,  {status: 'error', message: 'Invalid school specified!'} );
+      sendJson(res,  {status: 'not_found', message: 'Invalid school specified!'} );
     }
   });
 }
@@ -351,7 +351,7 @@ function loadCourse( req, res, next ) {
       });
     } else {
       // If no course is found, display an appropriate error.
-      sendJson(res,  {status: 'error', message: 'Invalid course specified!'} );
+      sendJson(res,  {status: 'not_found', message: 'Invalid course specified!'} );
     }
   });
 }
@@ -375,7 +375,7 @@ function loadLecture( req, res, next ) {
       });
     } else {
       // If no lecture is found, display an appropriate error.
-      sendJson(res,  {status: 'error', message: 'Invalid lecture specified!'} );
+      sendJson(res,  {status: 'not_found', message: 'Invalid lecture specified!'} );
     }
   });
 }
