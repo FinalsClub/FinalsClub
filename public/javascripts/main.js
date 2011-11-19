@@ -46,13 +46,13 @@ var router = {
 
 function render(pageId, response) {
   if (user.name) {
-    ProtoDiv.inject("PROTO_login_info", user)
+    $('.username').text(user.name);
     $("#login_status").show();
     $('#login_link').text('Logout').attr('href', '/logout');
     $('#register_link').hide();
     $('#profile_link').show();
   } else {
-    ProtoDiv.reset("PROTO_login_info");
+    $('.username').text('');
     $("#login_status").hide();
     $('#login_link').text('Login').attr('href', '/login');
     $('#register_link').show();
@@ -61,7 +61,6 @@ function render(pageId, response) {
   if (response) {
     if (response instanceof Array) {
       $.each(response, function() {
-        console.log(this.id, this.data)
         ProtoDiv.reset("PROTO_" + this.id)
         ProtoDiv.replicate("PROTO_" + this.id, this.data)
       })
@@ -130,7 +129,8 @@ router.add('schools', function(data, cb) {
 
 // go to the page that lists the courses for a specific school
 router.add('school', function(data, cb) {
-  $('#new_course').hide().unbind();
+  $('.sub_menu').hide();
+  $('#new_course').unbind();
   $('#form_course').hide().unbind();
   var response = {
     id: 'course',
@@ -140,7 +140,7 @@ router.add('school', function(data, cb) {
   $("#school_name").html(data.school.name);
 
   if (data.school.authorized) {
-    $('#new_course').show();
+    $('.sub_menu').show();
     $('#new_course').click(function(e) {
       e.preventDefault();
 
@@ -171,7 +171,8 @@ router.add('school', function(data, cb) {
 
 // go to the page that lists the lectures for a specific course
 router.add('course', function(data, cb) {
-  $('#new_lecture').hide().unbind();
+  $('.sub_menu').hide();
+  $('#new_lecture').unbind();
   $('#form_lecture').hide().unbind();;
 
   var response = [];
@@ -209,7 +210,7 @@ router.add('course', function(data, cb) {
   }
 
   if (data.course.authorized) {
-    $('#new_lecture').show();
+    $('.sub_menu').show();
     $('#new_lecture').click(function(e) {
       e.preventDefault();
 
@@ -239,7 +240,8 @@ router.add('course', function(data, cb) {
 
 // go to the page that lists the note taking sessions for a specific lecture
 router.add('lecture', function(data, cb) {
-  $('#new_note').hide().unbind();
+  $('.sub_menu').hide();
+  $('#new_note').unbind();
   $('#form_note').hide().unbind();;
 
   var response = [];
@@ -274,7 +276,7 @@ router.add('lecture', function(data, cb) {
   }
   
   if (data.lecture.authorized) {
-    $('#new_note').show();
+    $('.sub_menu').show();
     $('#new_note').click(function(e) {
       e.preventDefault();
 
@@ -354,7 +356,6 @@ router.add('register', false, function(cb) {
   $('#form_register').submit(function(e) {
     e.preventDefault();
 
-    console.log('register')
     var form = $(this);
 
     $.post(window.location.pathname, form.serialize(), function(data) {
@@ -383,7 +384,6 @@ router.add('profile', false, function(cb) {
   form.find('.email').text(user.email);
   form.find('input[name=name]').val(user.name);
   form.submit(function(e) {
-    console.log('test')
     e.preventDefault();
 
     $.post(window.location.pathname, form.serialize(), function(data) {
