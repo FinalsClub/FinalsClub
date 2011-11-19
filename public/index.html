@@ -167,7 +167,7 @@
 					Department: __department__<br>
 				</div>
 				<div class="proto lectures_instructor" id=PROTO_lectures_instructor>
-					Instructor: __name__ (__email__)<br>
+          Instructor: __name__ <span class="instructor_email">(__email__)</span><br>
 				</div>
 				<div class="proto lecture" id=PROTO_lecture>
 					<div class=name>
@@ -201,10 +201,17 @@
 
 
 			<div class=page id=pg_notes>
-				<h1>Notepads </h1>
+				<div class="proto notes_head" id=PROTO_notes_head>
+					<h1>Note pads for Course __number__ : __name__</h1>
+					Subject: __subject__<br>
+					Department: __department__<br>
+				</div>
+				<div class="proto notes_instructor" id=PROTO_notes_instructor>
+          Instructor: __name__ <span class="instructor_email">(__email__)</span><br>
+				</div>
 				<div class="proto note" id=PROTO_note>
 					<div class=name>
-						<a href="/note/___id__">__name__</a>
+						<a href="/note/___id__">__name__</a> Visits: __visits__
 					</div>
 				</div>
         <div>
