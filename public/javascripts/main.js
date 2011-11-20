@@ -46,7 +46,7 @@ var router = {
 
 function render(pageId, response) {
   if (user.name) {
-    $('.username').text(user.name);
+    $('.username').text("Hi, "+user.name+"!");
     $("#login_status").show();
     $('#login_link').text('Logout').attr('href', '/logout');
     $('#register_link').hide();
