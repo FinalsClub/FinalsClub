@@ -186,10 +186,10 @@ CourseSchema.virtual( 'sanitized' ).get(function() {
   var course = {
     _id: this._id,
     name: this.name,
-    number: this.number,
-    description: this.description,
-    subject: this.subject,
-    department: this.department
+    number: this.number || 'None',
+    description: this.description || 'None',
+    subject: this.subject || 'None',
+    department: this.department || 'None'
   }
 
   return course;
