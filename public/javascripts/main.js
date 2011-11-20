@@ -29,6 +29,7 @@ var router = {
     }
   },
   run: function(name, path) {
+    $('.nav').removeClass('active');
     checkUser(function() {
       if (router.routes[name].useAjax) {
         $.get(path, {cache: false}, function(data) {
@@ -99,6 +100,7 @@ router.add('404', false, function() {
 
 router.add('home', false, function(cb) {
   $('#learnsomething').unbind();
+  $('.nav').removeClass('active');
 	cb("home");
   $('#learnsomething').click(function(e) {
     $.get('/learn/random', function(data) {
@@ -116,7 +118,7 @@ router.add('home', false, function(cb) {
 
 // go to the page that lists the schools
 router.add('schools', function(data, cb) {
-
+  $('#school_link').addClass('active');
   var response = {
     id: 'school',
     data: data.schools
@@ -129,6 +131,7 @@ router.add('schools', function(data, cb) {
 
 // go to the page that lists the courses for a specific school
 router.add('school', function(data, cb) {
+  $('#school_link').addClass('active');
   $('.sub_menu').hide();
   $('#new_course').unbind();
   $('#form_course').hide().unbind();
@@ -171,6 +174,7 @@ router.add('school', function(data, cb) {
 
 // go to the page that lists the lectures for a specific course
 router.add('course', function(data, cb) {
+  $('#school_link').addClass('active');
   $('.sub_menu').hide();
   $('#new_lecture').unbind();
   $('#form_lecture').hide().unbind();;
@@ -240,6 +244,7 @@ router.add('course', function(data, cb) {
 
 // go to the page that lists the note taking sessions for a specific lecture
 router.add('lecture', function(data, cb) {
+  $('#school_link').addClass('active');
   $('.sub_menu').hide();
   $('#new_note').unbind();
   $('#form_note').hide().unbind();;
@@ -304,6 +309,7 @@ router.add('lecture', function(data, cb) {
 
 // go to the page that lists the archived subject names
 router.add('archive', function(data, cb) {
+  $('#archive_link').addClass('active');
 
   var response = {
     id: 'archive_subject',
@@ -316,6 +322,8 @@ router.add('archive', function(data, cb) {
 
 
 router.add('archivesubject', function(data, cb) {
+  $('.nav').removeClass('active');
+  $('#archive_link').addClass('active');
 
   var response = {
     id: 'archive_course',
@@ -328,6 +336,7 @@ router.add('archivesubject', function(data, cb) {
 
 
 router.add('archivecourse', function(data, cb) {
+  $('#archive_link').addClass('active');
 
   var response = {
     id: 'archive_note',
@@ -340,6 +349,7 @@ router.add('archivecourse', function(data, cb) {
 
 
 router.add('archivenote', function(data, cb) {
+  $('#archive_link').addClass('active');
 
   var response = {
     id: 'archive_note_display',
@@ -353,6 +363,7 @@ router.add('archivenote', function(data, cb) {
 
 // go to the account registration page
 router.add('register', false, function(cb) {
+  $('#register_link').addClass('active');
   $('#form_register').submit(function(e) {
     e.preventDefault();
 
@@ -377,6 +388,7 @@ router.add('activate', function(data, cb) {
 });
 
 router.add('profile', false, function(cb) {
+  $('#profile_link').addClass('active');
   var form = $('#form_profile');
   $('input[type=password]','#form_profile').val('');
   $('#affiliation').attr('value', user.affil);
@@ -466,6 +478,7 @@ router.add('resetpw', false, function(cb) {
 
 // go to the press articles page
 router.add('press', false, function(cb) {
+  $('#press_link').addClass('active');
 	cb("press");
 });
 
