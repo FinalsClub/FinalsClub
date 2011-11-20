@@ -52,7 +52,7 @@ function render(pageId, response) {
     $('#register_link').hide();
     $('#profile_link').show();
   } else {
-    $('.username').text('');
+    $('.username').text('Guest');
     $("#login_status").hide();
     $('#login_link').text('Login').attr('href', '/login');
     $('#register_link').show();
