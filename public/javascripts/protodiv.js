@@ -47,7 +47,7 @@ ProtoDiv.map = function(node, list, cb) {
 }
 
 ProtoDiv.substitute = function(s, obj) {
-	for(var key in obj) {
+	for(key in obj) {
 		re = new RegExp("__"+key+"__", "g")
 		s = s.replace(re, obj[key])
 	}
@@ -56,17 +56,19 @@ ProtoDiv.substitute = function(s, obj) {
 
 ProtoDiv.inject = function(id, obj) {
 	var proto = ProtoDiv.elem(id)
+	var i
 
 	proto.innerHTML = ProtoDiv.substitute(proto.innerHTML, obj)
 
-	for(var i = 0; i < proto.attributes.length; i++) {
-		var a = proto.attributes[i]
-		a.textContent = ProtoDiv.substitute(a.textContent, obj)
+	for(i = 0; i < proto.attributes.length; i++) {
+		a = proto.attributes[i]
+    var x = a.textContent ? 'textContent' : 'value';
+		a[x] = ProtoDiv.substitute(a[x], obj)
 	}
 
-	for(var key in obj) {
-		var c = key.substring(1)
-		var list = []
+	for(key in obj) {
+		c = key.substring(1)
+		list = []
 		switch(key.substring(0,1)) {
 		case "#":
 			ProtoDiv.map(proto, list, function(e) {
@@ -104,9 +106,9 @@ ProtoDiv.replicate = function(id, arr, keep) {
 		proto.origDisplay = proto.style.display
 	}
 
-	for(var i = 0; i < l; i++) {
+	for(i = 0; i < l; i++) {
 		obj = arr[i]
-		var e = proto.cloneNode(true)
+		e = proto.cloneNode(true)
 		delete e.id
 		mom.insertBefore(e, sib)
 		ProtoDiv.inject(e, obj)
@@ -130,5 +132,3 @@ ProtoDiv.reset = function(id) {
 	}
 	return proto
 }
-
-
