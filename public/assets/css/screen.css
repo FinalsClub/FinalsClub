@@ -315,7 +315,8 @@ body {
 
 .content {
   background-color: #fff;
-  padding: 1em 3%; }
+  padding: 1em 3%;
+  min-height: 25em; }
 
 /* 2.`navigation
 ============================================== */
@@ -609,4 +610,156 @@ div.school div.desc {
 	margin: 0 0;
 }
 
+
+div.course {
+	margin: 1em 0;
+}
+
+
+div.press {
+	margin: 2em 0;
+}
+img.press {
+	height: 2.5em;
+	float: left;
+	zborder: solid 1px #aaa;
+	margin: 0 2em 1em 0;
+}
+
+div.press p.date {
+	font-size: 90%;
+	color: #68a;
+}
+
+div.press p.readmore {
+	font-size: 90%;
+	font-style: italic;
+}
+
+div.press p.readmore a {
+	color: #48c;
+}
+
+div.conduct { text-align: center; }
+div.conduct p.academic {
+	padding: 2em 0;
+}
+div.conduct img {
+	display: inline;
+	padding: 20px; 
+	border: solid 1px #888;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fdfdfd), to(#f8f8f8));
+	background: -moz-linear-gradient(top,  #fdfdfd,  #f8f8f8);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fcfcff', endColorstr='#f4f4ff');
+	-webkit-border-radius: .2em; 
+	-moz-border-radius: .2em;
+	border-radius: .2em;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.5);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.5);
+	box-shadow: 0 1px 2px rgba(0,0,0,.5);
+}
+div.conduct p.vague {
+	font-style: italic;
+	font-size: 80%;
+	color: #888;
+}
+
+
+
+.row {
+	display: table-row;
+}
+.row .label {
+	width: 50%;
+	text-align: right;
+	display: table-cell;
+	padding: 0.8em 3% 0.8em 0%;
+	white-space: nowrap;
+	font-weight: bold;
+}
+.row .field {
+	width: 300px;
+
+	display: table-cell;
+	padding: 0.2em 0;
+}
+.row .field input {
+	width: 90%;
+}
+
+div.content h1 {
+	color: #000;
+	text-align: left;
+	font-weight: bold;
+	font-family: Georgia, Helvetica;
+}
+
+.content h1 {
+	border-bottom: 2px solid #5c6572;
+	zbackground: transparent url("/images/bg_main-heading.gif") 0 100% repeat-x;
+	font-family: Georgia, helvetica;
+	font-weight: normal;
+	font-size: 140%;
+	padding: 0.2em 0;
+	margin-bottom: 1em;
+}
+
+.note, .notes_instructor, .notes_head {
+	margin: 1.0em 0;
+}
+
+.notes_head {
+	font-weight: bold;
+}
+
+.notes_instructor, .notes_head {
+	color: #888;
+}
+
+.notes_instructor {
+	padding-bottom: 1.0em;
+	border-bottom: solid 1px #aaa;
+}
+
+.note .name {
+	font-size: 110%;
+}
+.note .visits {
+	font-style: italic;
+	color: #aaa;
+}
+
+
+.lecture, .lectures_instructor, .lectures_head {
+	margin: 1.0em 0;
+}
+
+.lectures_head {
+	font-weight: bold;
+}
+
+.lectures_instructor, .lectures_head {
+	color: #888;
+}
+
+.lectures_instructor {
+	padding-bottom: 1.0em;
+	border-bottom: solid 1px #aaa;
+}
+
+.lecture .name {
+	font-size: 110%;
+}
+.lecture .created {
+	font-style: italic;
+	color: #aaa;
+}
+
+.lecture {
+	margin: 0.5em 0;
+	padding: 0.5em 1em;
+	border: solid 1px #888;
+	-moz-border-radius: 0.20em;
+	-webkit-border-radius: 0.20em;
+}
 
