@@ -314,7 +314,8 @@ body {
     margin-bottom: 0; }
 
 .content {
-  background-color: #fff; }
+  background-color: #fff;
+  padding: 1em 3%; }
 
 /* 2.`navigation
 ============================================== */
@@ -569,3 +570,43 @@ body {
 
 .centered-rt-parent {
   margin: 0 auto; }
+
+
+
+
+#messages {
+	text-align:  center;
+	background: #adf;
+	color: black;
+	font-weight: bold;
+	padding: 0.5em 0;
+}
+
+div.school {
+
+	cursor: pointer; cursor: hand;
+	margin: 1%; 
+	padding: 2%;
+	border: solid 1px #888;
+	-moz-border-radius: 0.20em;
+	-webkit-border-radius: 0.20em;
+	-webkit-box-shadow: 0 0.2em 0.3em rgba(0, 0, 0, .1);
+	-moz-box-shadow: 0 0.2em 0.3em rgba(0, 0, 0, .1);
+	/*
+	*/
+}
+
+div.school div.name {
+	font-weight: bold;
+	font-size: 120%;
+	margin: 0 0;
+}
+
+div.school div.desc {
+	font-size: 90%;
+	color: #888;
+	font-style: italic;
+	margin: 0 0;
+}
+
+
