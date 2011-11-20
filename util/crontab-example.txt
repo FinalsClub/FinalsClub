@@ -10,7 +10,7 @@
 
 ## added by jsnow on 11/9/2011
 ## this script checks if EPL is up and running. if not, it sends an alert email
-5,20,35,50 * * * * /home/ec2-user/fc/util/fc_monitor_epl_cron.sh > /home/ec2-user/fc/util/fc_monitor_epl_cron.log.txt
+#### 5,20,35,50 * * * * /home/ec2-user/fc/util/fc_monitor_epl_cron.sh > /home/ec2-user/fc/util/fc_monitor_epl_cron.log.txt
 
 ## added by jsnow on 11/10/2011
 ## this script updates custom disk space stats to AWS cloudwatch. this script should be run every 5 minutes

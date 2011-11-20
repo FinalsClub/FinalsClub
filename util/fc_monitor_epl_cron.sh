@@ -2,7 +2,7 @@
 
 ## cron example 
 ## ## this script checks if EPL is up and running. if not, it sends an alert email
-5,20,35,50 * * * * /home/ec2-user/fc/util/fc_monitor_epl_cron.sh > /home/ec2-user/fc/util/fc_monitor_epl_cron.log.txt
+## ## 5,20,35,50 * * * * /home/ec2-user/fc/util/fc_monitor_epl_cron.sh > /home/ec2-user/fc/util/fc_monitor_epl_cron.log.txt
 
 
 ## save the current working dir

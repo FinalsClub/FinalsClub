@@ -12,6 +12,13 @@ rm /data/db/mongod.lock
 
 pushd .
 cd /home/ec2-user/fc
+
+## start the node apps
 ./restart
+
+## run the EPL monitor 
+./util/start-fc-epl-monitor.sh &
+
 popd
+
 
