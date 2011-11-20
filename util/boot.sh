@@ -1,5 +1,28 @@
 #!/bin/bash
 
+
+################################################################
+##  Finals Club instance set up notes by Joe Snow 11/19/2011
+################################################################
+##  these are the steps I take to create a new fc instance
+##  log into aws, launch new AMI instance
+##  ssh into machine
+##  sudo to root
+##  download and run boot.sh (this file -- either from s3 or ssh), this can take 10 minutes
+##  NOTE: start.sh usually fails due to env vars, etc..
+##  as ec2-user, run start.sh
+##  add arbiter db config, and mongo replicated set config, import mongo data using mongorestore command
+##    I usually create and grab the latest mongodb backup from S3 (created from existing live server)
+##  add dev public keys to /home/ec2-user/.ssh/authorized_keys
+##  update /home/ec2-user/.bashrc with AWS env vars
+##  add /home/ec2-user/fc/fcbackup/.fcbackup.env (populated with AWS env vars)
+##  restart fc app
+##  add crontab, using fc/util/crontab-example.txt as example as needed.
+##  update cloudwatch monitors for cpu, disk, etc..
+##  as root, start epl monitor script in /home/ec2-user/fc/util/start-fc-epl-monitor.sh
+##  check app health and switch DNS as desired
+################################################################
+
 cd /root
 
 if test ! -e "reset.sh" ; then
@@ -38,26 +61,37 @@ if test ! -e mongodb.tgz ; then
 	## optional arbiter start command
 	## mkdir -p /data/arbiterdb
 	## /usr/local/bin/mongod -v --dbpath /data/arbiterdb --port 27021 --rest --replSet finalsclubset &> /var/log/mongod-arbiter.log &
+
+	#### NOTE: the replicated set name could change or increment, for example we might be using finalsclubset4 instead of finalsclubset
+
+	## example to set up new clean replicated set
+	## as ec2-user
+	## mongo									### start mongo cli util from bash prompt
+	## > rs.initiate()							## init the replicated set (assumes you are starting a new clean replicated set)
+	## > rs.addArb("ip-10-166-206-34:27021")	## assumes arbiter instance was started previously on specified port, IP for example only, use same machineID
+	## > rs.status()							## confirm both instances are in set
 fi
+
+
 
 
 # install node
 nodever="v0.4.10"
 if test ! -e node-$nodever ; then
-        curl http://nodejs.org/dist/node-$nodever.tar.gz > node-$nodever.tar.gz
-        tar xzvf node-$nodever.tar.gz
-        cd node-$nodever
-        ./configure
-        make
-        make install
+		curl http://nodejs.org/dist/node-$nodever.tar.gz > node-$nodever.tar.gz
+		tar xzvf node-$nodever.tar.gz
+		cd node-$nodever
+		./configure
+		make
+		make install
 fi
 
 # install npm
 if test ! -e npm ; then
-        git clone http://github.com/isaacs/npm.git
-        cd npm
-        sudo make install
-        cd ..
+		git clone http://github.com/isaacs/npm.git
+		cd npm
+		sudo make install
+		cd ..
 fi
 
 npm install nodemon -g
@@ -92,5 +126,7 @@ chmod 755 reboot-restart.sh
 echo "/root/reboot-restart.sh &> /var/log/fc-reboot-restart.log.txt &" >> /etc/rc.local
 	
 
+## NOTE: each time, I've had to run this step manually, as the ec2-user, after env vars have been set up
+cd /home/ec2-user
 curl https://s3.amazonaws.com/finalsclub.org/start.sh | sudo -u ec2-user sh
 

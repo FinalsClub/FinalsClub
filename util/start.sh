@@ -12,7 +12,7 @@ npm install express-messages
 npm install jade
 
 cd ~
-rm -rf fc
+rm -rf FinalsClub
 git clone git@github.com:finalsclubdev/FinalsClub.git
 ln -sf FinalsClub fc
 
