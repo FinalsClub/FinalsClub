@@ -1452,7 +1452,7 @@ function loadSubject( req, res, next ) {
   if( url.parse( req.url ).pathname.match(/subject/) ) {
     ArchivedSubject.findOne({id: req.params.id }, function(err, subject) {
       if ( err || !subject) {
-        sendJson(res,  {status: 'error', message: 'Subject with this ID does not exist'} )
+        sendJson(res,  {status: 'not_found', message: 'Subject with this ID does not exist'} )
       } else {
         req.subject = subject;
         next()
@@ -1467,7 +1467,7 @@ function loadOldCourse( req, res, next ) {
   if( url.parse( req.url ).pathname.match(/course/) ) {
     ArchivedCourse.findOne({id: req.params.id }, function(err, course) {
       if ( err || !course ) {
-        sendJson(res,  {status: 'error', message: 'Course with this ID does not exist'} )
+        sendJson(res,  {status: 'not_found', message: 'Course with this ID does not exist'} )
       } else {
         req.course = course;
         next()
