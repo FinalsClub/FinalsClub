@@ -108,7 +108,7 @@ router.add('home', false, function(cb) {
     })
   });
   if ($('#vimeo-screencast').length === 0) {
-    $('#screencast').html('<iframe id="vimeo-screencast" src="http://player.vimeo.com/video/30647271?title=0&amp;byline=0&amp;portrait=0" width="350" height="250" frameborder="0" webkitallowfullscreen="webkitAllowFullScreen" allowfullscreen="allowFullScreen"></iframe>');
+    $('.video-wrapper').html('<iframe id="vimeo-screencast" src="http://player.vimeo.com/video/30647271?title=0&amp;byline=0&amp;portrait=0&amp;color=367da9" width="460" height="259" frameborder="0" webkitAllowFullScreen allowFullScreen></iframe>');
   }
 });
 
@@ -529,10 +529,12 @@ function goPage(path) {
 var popped = false;
 function goBack(event) {
   popped = true;
+  console.timeEnd('pop')
 	showPage( topQueue.pop() );
 }
 
-
+console.time('pop')
+console.time('no-pop')
 window.onpopstate = goBack
 
 $(document).ready(function() {
@@ -554,6 +556,7 @@ $(document).ready(function() {
 
 	// xxx older FF browsers don't fire a page load/reload - deal with it somehow.
   setTimeout(function() {
+    console.timeEnd('no-pop')
     if (!popped) {
       showPage( 0 );		// needed for some older browsers, redundant for chrome
     }
