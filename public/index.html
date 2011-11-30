@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html class="no-js">
-
 	<head>
-		
 		<link rel="stylesheet" href="/assets/css/include.css" type="text/css" media="screen" />
 		<script type="text/javascript" src="/assets/js/modernizr.custom.js"></script>
 		<script type="text/javascript" src="/assets/js/load.js"></script>
@@ -14,9 +12,8 @@
 		<script type='text/javascript' src='/javascripts/protodiv.js'></script>
 		<script type='text/javascript' src='/javascripts/main.js'></script>
 		<script type='text/javascript' src='/socket.io/socket.io.js'></script>
-
 	</head>
-
+  <!--================================================================= -->
 	<body>
 		<div class="header">
 			<div class="container-12 highlight">
@@ -28,7 +25,7 @@
 					<div class="grid-9">
 						<nav id="user-nav" class="small">
 							<ul>
-								<li><span class="username">Guest</span></li>
+								<li><span class="username"></span></li>
 								<li><a id=login_link href="/login">Login</a></li>
 							</ul>
 						</nav>
@@ -37,7 +34,9 @@
 								<li><a href="/schools" id=school_link class="nav"><em class="icon"></em>Courses</a></li>
 								<li><a href="http://blog.finalsclub.org"><em class="icon"></em>Blog</a></li>
 								<li><a href="/archive" id=archive_link class="nav"><em class="icon"></em>Library</a></li>
+								<!--
 								<li><a href="/press" id=press_link class="nav"><em class="icon"></em>Press</a></li>
+								-->
 								<li><a href="/register" id=register_link class="nav"><em class="icon"></em>Register</a></li>
 								<li><a href="/profile" id=profile_link class="nav"><em class="icon"></em>Profile</a></li>
 								<!-- li><a href="#" class="donate"><em class="icon"></em><em class="lc yellow">Donate</em></a></li -->
@@ -63,41 +62,30 @@
 				or
 				<a href="http://firefox.com">Firefox</a>.
 			</noscript>
-
-
+      <!--================================================================= -->
 			<div class=page id=pg_home>
-
 				<div class="grid-12">
 					<div class="padded-loose">
 						<h1 class="large-huge spaced centered">Welcome to FinalsClub! <span class="small">Collaborate. Learn. Share.</span></h1>
 					</div>
 				</div>
-
 				<div class="grid-10 grid-centered">
 					<div class="padded-loose">
 						<p class="no-top-margin">
-							Thank you for visiting FinalsClub.org, a 501(c)(3) non-profit open education
-							project dedicated to helping college students share knowledge freely online.  While you learn better, faster, and smarter by using FinalsClub with your classmates,
-							we also encourage you to share your scholarship to benefit curious minds everywhere.
-						</p>
+							FinalsClub provides a tool to collaborate during class on realtime lecture notes <a style=“display: none;”>video</a> and to ask questions which are juried by your peers<a style=“display: none;”>video</a>.</p>
 						<p>
 							Getting started is easy.  Just register with your school email address and confirm
-							your account.  Then find your courses or add a new ones.  You can also browse our
-							Library to learn something new.  Thank you for helping us improve access to education,
-							one lecture at a time.
-						</p>
+							your account.  Then find your courses or add a new one.</p>
 					</div>
 				</div>
-
-
+      <!--================================================================= -->
 				<div class="grid-12">
 					<div class="button-set vertical half-width centered-rt-parent half-width-buttons">
 						<button id="signup" class="green">Sign Up</button>
 						<button id="learnsomething" class="blue">Learn Something</button>
 					</div>
 				</div>
-
-
+      <!--================================================================= -->
 				<div class="container-12 spacer">
 				  <hr class="stripes spacer" />
 
@@ -127,9 +115,7 @@
 					</div>
 				</div>
 			</div>
-
-
-
+      <!--================================================================= -->
 			<div class=page id=pg_schools>
 				<h1>Universities</h1>
 				<div class="proto school" id=PROTO_school onclick="goPage('/school/___id__')">
@@ -137,9 +123,7 @@
 					<div class=desc>__description__</div>
 				</div>
 			</div>
-
-
-
+      <!--================================================================= -->
 			<div class=page id=pg_courses>
 				<h1>Courses for <span id=school_name></span></h1>
 				<div class="proto course" id=PROTO_course>
@@ -200,9 +184,7 @@
           </form>
         </div>
 			</div>
-
-
-
+      <!--================================================================= -->
 			<div class=page id=pg_lectures>
 				<div class="proto lectures_head" id=PROTO_lectures_head>
 					<h1>Lectures for Course __number__ : __name__</h1>
@@ -240,9 +222,7 @@
           </form>
         </div>
 			</div>
-
-
-
+      <!--================================================================= -->
 			<div class=page id=pg_notes>
 				<div class="proto notes_head" id=PROTO_notes_head>
 					<h1>Note pads for Course __number__ : __name__</h1>
@@ -285,9 +265,7 @@
           </form>
         </div>
 			</div>
-
-
-
+      <!--================================================================= -->
 			<div class=page id=pg_archive_subjects>
 				<h1>Archived Subjects</h1>
 				<p>
@@ -301,9 +279,7 @@
 				</ul>
 
 			</div>
-
-
-
+      <!--================================================================= -->
 			<div class=page id=pg_archive_courses>
 				<h1>Archived Courses</h1>
 				<ul>
@@ -311,11 +287,8 @@
 						<a href="/archive/course/__id__">__name__</a>
 					</li>
 				</ul>
-
 			</div>
-
-
-
+      <!--================================================================= -->
 			<div class=page id=pg_archive_notes>
 				<h1>Archived Notes</h1>
 				<ul>
@@ -324,25 +297,21 @@
 					</li>
 				</ul>
 			</div>
-
-
-
+      <!--================================================================= -->
 			<div class=page id=pg_archive_note_display>
 				<div id=PROTO_archive_note_display>
 					<h1>__topic__</h1>
 					<div>__text__</div>
 				</div>
 			</div>
-
-
-
+      <!--================================================================= -->
 			<div class=page id=pg_register>
 				<h1>Create an Account</h1>
 				<form id="form_register" action="/register" method="POST">
 					<div class="zarea">
 						<div class="row">
 							<div class="label">
-								<label for="email">Email</label>
+								<label for="email">School email*</label>
 							</div>
 							<div class="field">
 								<input type="text" name="email">
@@ -350,7 +319,7 @@
 						</div>
 						<div class="row">
 							<div class="label">
-								<label for="password">Password</label>
+								<label for="password">Password*</label>
 							</div>
 							<div class="field">
 								<input type="password" name="password">
@@ -358,16 +327,17 @@
 						</div>
 						<div class="row">
 							<div class="label">
-								<label for="school">School</label>
+								<label for="school">School*</label>
 							</div>
 							<div class="field">
 								<select name="school">
+									<option value="Harvard">Harvard</option>
 									<option value="Berkeley">Berkeley</option>
 									<option value="Brown">Brown</option>
 									<option value="Columbia">Columbia</option>
+									<!--
 									<option value="Cornell">Cornell</option>
 									<option value="Dartmouth">Dartmouth</option>
-									<option value="Harvard">Harvard</option>
 									<option value="MIT">MIT</option>
 									<option value="Princeton">Princeton</option>
 									<option value="Stanford">Stanford</option>
@@ -375,12 +345,13 @@
 									<option value="University of Texas">University of Texas</option>
 									<option value="Yale">Yale</option>
 									<option value="Other">Other</option>
+									-->
 								</select>
 							</div>
 						</div>
 						<div class="row">
 							<div class="label">
-								<label for="name">Name</label>
+								<label for="name">Site Handle</label>
 							</div>
 							<div class="field">
 								<input type="text" name="name">
@@ -408,7 +379,7 @@
 					</div>
 				</form>
 			</div>
-
+      <!--================================================================= -->
       <div class="page" id="pg_profile">
         <h1>User Profile</h1>
         <form id="form_profile" action="/profile" method="POST">
@@ -507,15 +478,14 @@
           </div>
         </form>
       </div>
-
-
+      <!--================================================================= -->
 			<div class=page id=pg_login>
 				<h1>Login</h1>
 				<form id="form_login" action="/login" method="POST">
 					<div class="zarea">
 						<div class="row">
 							<div class="label">
-								<label for="email">Email</label>
+								<label for="email">School email</label>
 							</div>
 							<div class="field">
 								<input type="text" name="email" size="15" value="joe@sleepless.com">
@@ -551,7 +521,7 @@
 					</div>
 				</form>
 			</div>
-
+      <!--================================================================= -->
       <div class="page" id="pg_resetpass">
         <h1>Password Reset</h1>
         <form id="form_resetpass" action="/resetpass" method="POST">
@@ -559,7 +529,7 @@
             <p>To reset your password, enter your email address click "Reset". An email will be sent to you with a link to reset your password.</p>
             <div class="row">
               <div class="label">
-                <label for="email">Email</label>
+                <label for="email">School email</label>
               </div>
               <div class="field">
                 <input type="text" name="email" size="15" value="">
@@ -574,7 +544,7 @@
           </div>
         </form>
       </div>
-
+      <!--================================================================= -->
       <div class="page" id="pg_resetpw">
         <h1>Password Reset</h1>
         <form id="form_resetpw" action="/resetpw" method="POST">
@@ -629,10 +599,6 @@
 					</p>
 				</div>
 			</div>
-
-
-
-
 			<div class=page id=pg_press>
 				<h1>FinalsClub in the Press</h1>
 				<div class="press">
@@ -664,36 +630,26 @@
 					</p>
 				</div>
 			</div>
-
-
-
-
 			<div class=page id=pg_notfound>
 				<h1>Page Not Found</h1>
 				Sorry, there is no content for this page.
 			</div>
-
-
-
-
 		</div>
-
-
 		<hr class="stripes bordered" />
-
 		<div class="footer small">
 			<div class="container-12">
 				<div class="grid-12">
 					<nav id="footer-nav">
 						<ul>
-							<li><a href="/conduct">Code of Conduct</a></li>
+							<li><a href="/conduct">Conduct</a></li>
+							<li><a href="https://github.com/finalsclubdev/FinalsClub/">Code</a></li>
 							<li><a href="http://blog.finalsclub.org/about.html">About</a></li>
 							<li><a href="http://blog.finalsclub.org/contact.html">Contact</a></li>
 							<li><a href="http://blog.finalsclub.org/legal.html">Legal</a></li>
 							<li><a href="http://blog.finalsclub.org/team.html">Team</a></li>
 						</ul>
 					</nav>
-					<p>Copyright 2011 Finals Club.  All rights reserved.</p>
+					<p>Finals Club is a 501\(c\)(3) non-profit organization.</p>
 					<div class="creative_commons">
 						<div class="section">
 							<a rel="license" href="http://creativecommons.org/licenses/by/3.0/">
@@ -702,7 +658,7 @@
 							<br />
 						</div>
 						<div class="section">
-							This work is licensed under a
+							This site is licensed under a
 							<a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.
 						</div>
 					</div>
@@ -711,3 +667,4 @@
 		</div>
 	</body>
 </html>
+<html><body></body></html>
