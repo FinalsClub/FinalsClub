@@ -102,6 +102,9 @@ router.add('home', false, function(cb) {
   $('#learnsomething').unbind();
   $('.nav').removeClass('active');
 	cb("home");
+  $('#signup').click(function(e) {
+    goPage('/register');
+  });
   $('#learnsomething').click(function(e) {
     $.get('/learn/random', function(data) {
       if (data.status === 'ok') {
