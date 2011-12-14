@@ -3,7 +3,9 @@
 ps waux | grep node | grep -v grep
 
 echo "stopping ..."
-sudo forever stopall
+if [ "$(id -u)" != "0" ]; then
+	sudo forever stopall
+fi
 forever stopall
 
 sleep 3
