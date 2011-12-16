@@ -704,6 +704,14 @@ div.content h1 {
 	margin-bottom: 1em;
 }
 
+#pg_courses {
+  min-height:700px;
+}
+#pg_courses #right {
+  float:right;
+  width:500px;
+}
+
 .note, .notes_instructor, .notes_head {
 	margin: 1.0em 0;
 }
