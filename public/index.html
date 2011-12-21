@@ -12,7 +12,6 @@
 		<script type='text/javascript' src='/javascripts/es5-shim.min.js'></script>
 		<script type='text/javascript' src='/javascripts/protodiv.js'></script>
 		<script type='text/javascript' src='/javascripts/main.js'></script>
-		<script type='text/javascript' src='/socket.io/socket.io.js'></script>
 	</head>
   <!--================================================================= -->
 	<body>
@@ -128,15 +127,8 @@
       <!--================================================================= -->
 			<div class=page id=pg_courses>
 				<h1>Courses for <span id=school_name></span></h1>
-				<div class="proto course" id=PROTO_course>
-					<div class=dept>__department__</div>
-					<div class=name>
-						<a href="/course/___id__">__number__: __name__</a>
-					</div>
-				</div>
         <div>
           <span class="sub_menu" style="display:none;">
-            <a href="" id="new_course">New Course</a>
           </span>
           <form method="POST" id="form_course" style="display:none;">
             <h1>Create New Course</h1>
@@ -185,6 +177,12 @@
             </div>
           </form>
         </div>
+				<div class="proto course" id=PROTO_course>
+					<div class=dept>__department__</div>
+					<div class=name>
+						<a href="/course/___id__">__number__: __name__</a>
+					</div>
+				</div>
 			</div>
       <!--================================================================= -->
 			<div class=page id=pg_lectures>

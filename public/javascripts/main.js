@@ -136,7 +136,7 @@ router.add('schools', function(data, cb) {
 router.add('school', function(data, cb) {
   $('#school_link').addClass('active');
   $('.sub_menu').hide();
-  $('#new_course').unbind();
+  //$('#new_course').unbind();
   $('#form_course').hide().unbind();
   var response = {
     id: 'course',
@@ -147,27 +147,23 @@ router.add('school', function(data, cb) {
 
   if (data.school.authorized) {
     $('.sub_menu').show();
-    $('#new_course').click(function(e) {
+    var form = $('#form_course');
+
+    form.toggle();
+
+    form.submit(function(e) {
       e.preventDefault();
 
-      var form = $('#form_course');
-
-      form.toggle();
-
-      form.submit(function(e) {
-        e.preventDefault();
-
-        $.post(window.location.pathname, form.serialize(), function(data) {
-          if (data.status === 'error') {
-            message('error', data.message);
-          } else if (data.status === 'ok') {
-            form.hide();
-            goPage(window.location.pathname);
-            message('info', data.message);
-          }
-        });
-      })
-    });
+      $.post(window.location.pathname, form.serialize(), function(data) {
+        if (data.status === 'error') {
+          message('error', data.message);
+        } else if (data.status === 'ok') {
+          form.hide();
+          goPage(window.location.pathname);
+          message('info', data.message);
+        }
+      });
+    })
   }
   cb("courses", response)
 });
