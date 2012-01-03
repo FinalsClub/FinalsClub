@@ -1,19 +1,23 @@
 {
     "name": "FinalsClub",
-    "version": "1.0.0",
+    "version": "1.1.0-alpha",
     "private": true,
+    "repository" : {
+        "type" : "git"
+        , "url" : "http://github.com/finalsclubdev/FinalsClub"
+          }
     "dependencies": {
-      "async": "0.1.x",
+      "async": "0.1.15",
       "aws-lib": "0.0.5",
-      "connect-mongo": "0.1.5",
-      "connect": "1.7.1",
-      "ejs": "0.4.3",
+      "connect": "1.8.5",
+      "connect-mongo": "0.1.6",
+      "ejs": "0.6.1",
       "express-messages": "0.0.2",
-      "express": "2.4.3",
-      "jade": "0.13.0",
+      "express": "2.5.2",
+      "jade": "0.19.0",
       "hat": "0.0.3",
-      "mongodb": "0.9.6-22",
-      "mongoose": "1.7.4",
-      "socket.io": "0.8.5"
+      "mongodb": "0.9.7-2-5",
+      "mongoose": "2.4.8",
+      "socket.io": "0.8.7"
   }
 }
