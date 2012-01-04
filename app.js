@@ -134,6 +134,7 @@ app.configure(function(){
   // Sessions are stored in mongodb which allows them
   // to be persisted even between server restarts.
   app.set( 'sessionStore', new mongoStore( {
+    'db' : 'fc',
     'url' : app.set( 'dbUri' )
   }));
 
@@ -162,13 +163,8 @@ app.configure(function(){
   app.use( app.router );
 
   app.use(express.logger({ format: ':method :url' }));
-  // This is the errorHandler set in configuration earlier
-  // being set to a variable to be used after all other
-  // middleware is loaded. Error handling should always
-  // come last or near the bottom.
-  var errorHandler = app.set( 'errorHandler' );
-
-  app.use( errorHandler );
+  // This is the command to use the default express error logger/handler
+  app.use(express.errorHandler({ dumpExceptions: true }));
 });
 
 
@@ -1818,8 +1814,8 @@ process.on('uncaughtException', function (e) {
 
 // Launch
 
-mongoose.connect( app.set( 'dbUri' ) );
-mongoose.connection.db.serverConfig.connection.autoReconnect = true
+// mongoose now exepects a mongo url
+mongoose.connect( 'mongodb://localhost/fc' ); // FIXME: make relative to hostname
 
 var mailer = new Mailer( app.set('awsAccessKey'), app.set('awsSecretKey') );
 

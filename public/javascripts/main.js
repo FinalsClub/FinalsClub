@@ -59,6 +59,7 @@ function render(pageId, response) {
     $('#register_link').show();
     $('#profile_link').hide();
   }
+  //if (asdfasdfasdf){
   if (response) {
     if (response instanceof Array) {
       $.each(response, function() {
@@ -121,13 +122,17 @@ router.add('home', false, function(cb) {
 
 // go to the page that lists the schools
 router.add('schools', function(data, cb) {
+  console.log(data);
   $('#school_link').addClass('active');
-  var response = {
+  response = {
     id: 'school',
     data: data.schools
   }
-
-  cb("schools", response);
+  console.log('blanking html');
+  $('#pg_schools').html('');
+  console.log(data.schools);
+  $('#pg_schools').css('display', 'block');
+  $('#schoolTmpl').tmpl( data.schools ).appendTo("#pg_schools");
 });
 
 
