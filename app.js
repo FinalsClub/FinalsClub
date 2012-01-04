@@ -22,7 +22,7 @@ var hat					= require('hat');
 var connect			= require( 'connect' );
 var Session			= connect.middleware.session.Session;
 var parseCookie = connect.utils.parseCookie;
-var Backchannel = require('../bc/backchannel');
+var Backchannel = require('./bc/backchannel');
 
 // Depracated
 // Used for initial testing
