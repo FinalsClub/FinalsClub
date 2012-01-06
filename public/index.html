@@ -123,13 +123,17 @@
 				<h1>Universities</h1>
 			</div>
             <script id="schoolTmpl" type="text/x-jquery-tmpl">
-                ${name}<br/>
+                <div class="school">
+                    <div class="name">${name}</div>
+                    <div class="desc">${description}</div>
+                    <ul class="courses">
+                    {{tmpl(courses) "#course"}}
+
+                    </ul>
+                </div> <!-- .school -->
             </script>
             <script id="course" type="text/x-jquery-tmpl">
-				<div class="proto school" id="PROTO_school" onclick="goPage('/school/___id__')">
-					<div class=name>__name__</div>
-					<div class=desc>__description__</div>
-				</div>
+                <li>${dept}: ${name} (${number})</li>
             </script>
       <!--================================================================= -->
 			<div class=page id=pg_courses>

@@ -124,13 +124,11 @@ router.add('home', false, function(cb) {
 router.add('schools', function(data, cb) {
   console.log(data);
   $('#school_link').addClass('active');
-  response = {
+  var response = {
     id: 'school',
     data: data.schools
   }
-  console.log('blanking html');
-  $('#pg_schools').html('');
-  console.log(data.schools);
+  //$('#pg_schools').html('');
   $('#pg_schools').css('display', 'block');
   $('#schoolTmpl').tmpl( data.schools ).appendTo("#pg_schools");
 });

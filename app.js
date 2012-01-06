@@ -489,7 +489,11 @@ app.get( '/schools', checkAjax, loadUser, function( req, res ) {
       // If schools are found, loop through them gathering any courses that are
       // associated with them and then render the page with that information.
       sendJson(res, { 'user': user.sanitized, 'schools' : schools.map(function(school) {
-        return school.sanitized;
+        var s = school.sanitized;
+        s['courses'] = Course.find( { 'school' : s._id } ).sort( 'name', '1' ).run(function( err, courses) {
+            return courses.map( function(c) { return c.sanitized; } );
+        });
+        return s
       })})
     } else {
       // If no schools have been found, display none
