@@ -161,6 +161,39 @@ SchoolSchema.method( 'authorize', function( user, cb ) {
 
 var School = mongoose.model( 'School', SchoolSchema );
 
+// harvardcourses
+
+var HarvardCourses = new Schema( {
+    cat_num         : Number,   // Catalog numb, unique_togther w/ term
+    term            : String,   // FALL or SPRING
+    bracketed       : Boolean,
+    field           : String,   // TODO: Add docs
+    number          : Number,   // string, int, float, intStringFloat
+    title           : String,
+    faculty         : String,   // hash fk to faculty table
+    description     : String,
+    prerequisites   : String,
+    notes           : String,
+    meetings        : String,   // TODO: try to auto parse this
+    building        : String,   // FIXME: Most == '', this is why we have to update
+    room            : String
+});
+
+HarvardCourses.virtual( 'sanitized' ).get(function() {
+    var class = {
+        _id     : this._id,
+        title   : this.name,
+        field   : this.field,
+        number  : this.number,
+        desc    : this.description,
+        meetings: this.meetings,
+        building: this.building,
+        room    : this.room,
+        faculty : this.faculty
+        }
+    return class
+})
+
 // courses
 
 var CourseSchema = new Schema( {
