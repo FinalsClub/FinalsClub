@@ -1,5 +1,5 @@
 /*
-Title:	Master styles for screen media
+Title: Master styles for screen media
 Author: Jordan Cooperman, jordan@vectormediagroup.com
 Year: 2011
 
@@ -12,11 +12,9 @@ If you have any questions, Don't be shy. Send me a line!
 
  0.General
  1.Layout
- 2.Navigation
- 3.Header
- 4.Footer
+    a.Header
+    b.Footer
  5.Pages
-     i.
  6.Modules
  7.Forms
  8.Sprites
@@ -24,21 +22,20 @@ If you have any questions, Don't be shy. Send me a line!
 
 ----------------------------------------------------------------*/
 
-$gold: #f2b83b;
 $blue: #367da9;
 $dark-blue: #16567e;
 $green: #78b343;
 $dark-green: #4f901b;
 
-@import "includes/mixins.scss";
-@import "includes/grid.scss";
-@import "includes/type.scss";
+$dark: #1f1e1c;
+$yellow-gold: #ffcd58;
+$gold: #ffcd58;
 
-/*
- * media queries included
- * at end of document
- */
+@import "partials/mixins";
+@import "partials/grid";
+@import "partials/type";
 
+/* media queries included at end of document */
 
 /* 0.`general
 ============================================== */
@@ -46,28 +43,12 @@ $dark-green: #4f901b;
 ::-moz-selection { background: #44a1dd; color: #fff; text-shadow: none; }
 ::selection { background: #44a1dd; color: #fff; text-shadow: none; }
 
-
-hr {
-  &.stripes {
+h1, h2, h3, h4, h5, h6 {
     margin: 0;
-    height: 16px;
-    clear: both;
-    border-top: 1px solid #e5e5e5;
-    border-bottom: 1px solid #fff;
-    background-image: url("../img/bg-stripes.png");
-    background-repeat: repeat;
-    background-color: #fff;
-  }
-  &.spacer {
-    padding: 0;
-    margin : 10px 0 30px 0;
-  }
-  &.heading {
-    margin-bottom: 16px;
-  }
-  &.bordered {
-    border-bottom: 2px solid $gold;
-  }
+}
+
+p {
+    @extend .minion;
 }
 
 button {
@@ -96,135 +77,161 @@ button {
   }
 }
 
-h3.heading {
-  margin-bottom: 16px;
-  padding-left: 12px;
-}
 
-em {
-  font-family: "Georgia", "serif";
-}
+//*************************************
 
-/* 1.`layout
-============================================== */
+// 1.`Layout
+
+//*************************************
 
 html,
 body {
-  height : 100%;
+  height: 100%;
   margin: 0;
 }
 
 body {
-    background-image: url("../img/bg-black-noise.gif");
-    background-repeat: repeat;
+    background-image: url("../img/bg.gif");
+    background-position: 20% 0;
+    border-top: 3px solid $dark;
 }
 
-.header {
-  @include drop-shadow(0, 1px, 1px, #888);
-  border-top: 1px solid $gold;
-  position: relative;
-  z-index: 10;
-  border-bottom: 2px solid #333;
-
-  .container-#{$cols} {
-    > div {
-      margin-top: 0;
-      margin-bottom: 0;
-    }
-  }
-}
 .content { background-color: #fff; }
 
 
-/* 2.`navigation
-============================================== */
+//*********************
 
-#user-nav {
-  @include rounded-side("left", "bottom");
-  @include rounded-side("right", "bottom");
-  float: right;
-  background-color: $gold;
+// a.`Header
 
-  li {
-    display: inline-block;
-    vertical-align: middle;
-    float: none;
-    padding: 3px 12px;
-    color: #fff;
+//*********************
 
-    a {
-      display: block;
-      color: #fff;
-    }
-  }
+#masthead {
+    @extend .futura;
+    border-top: 1px solid #4c4a46;
+    border-top: 1px solid rgba( 255, 255, 255, 0.2 );
+    border-bottom: 3px solid $gold;
 }
 
-#main-nav {
+#site-logo {
+    @extend .grid-4;
+
+    a {
+        display: block;
+        padding: $base;
+    }
+}
+
+#nav-masthead {
+    @extend .grid-4;
+    margin-top: -1px;
+}
+
+#nav-user {
+    float: right;
+    padding: $base/4 $base/2 $base/2;
+    @extend .small;
+    background-color: $dark;
+    @include roundedSide('left', 'bottom', 8px);
+    @include roundedSide('right', 'bottom', 8px);
+
+    ul {
+        @extend .tight-line-height;
+    }
+
+    li {
+        @include inline-block( middle );
+        color: #818181;
+        border-left: 1px solid #222;
+        border-left: 1px solid rgba(0, 0, 0, 0.2);
+
+        &.first, &.first a {
+            border: 0;
+        }
+    }
+
+    a {
+        display: block;
+        padding: 0 $base/4;
+        color: #818181;
+        border-left: 1px solid #2a2a2a;
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+
+        &.username {
+            font-style: italic;
+        }
+    }
+}
+
+#nav-main {
     @include group;
     clear: both;
 
     ul {
-      float: right;
+        float: right;
+        padding: $base/4 0;
     }
+
     li {
         display: inline-block;
         vertical-align: middle;
         float: none;
 
         a {
-          @include transition(color);
-          display: block;
-          padding: 10px;
-          padding-left: 20px;
-          text-transform: uppercase;
-          color: #aaa;
-
-          &.active {
             position: relative;
+            display: block;
+            padding: $base/4;
+            margin-left: $base;
             color: #fff;
 
-            em {
-              position: absolute;
-              left: 0;
-              top: 50%;
-              margin-top: -8px;
-              background-position: 0 0;
-              width: 14px;
-              height: 14px;
-              background-repeat: no-repeat;
+            &:hover {
+                color: $gold;
             }
-          }
-          em {
-            text-transform: none;
-          }
 
-          &:hover {
-            color: #eee;
-          }
+            .icon {
+                position: absolute;
+                left: 0;
+            }
         }
+
+        #school_link {
+            padding-left: $base*1.4;
+
+            &:hover .icon { @extend .paperclip-active; }
+
+            .icon {
+                @extend .paperclip;
+                top: 50%;
+                margin-top: -10px;
+            }
+        }
+
+        #blog_link {
+            padding-left: $base*1.2;
+
+            &:hover .icon { @extend .align-lines-active; }
+
+            .icon {
+                top: 50%;
+                margin-top: -9px;
+                @extend .align-lines;
+            }
+        }
+
+        #archive_link {
+            padding-left: $base*1.2;
+
+            &:hover {
+
+                .icon { @extend .book-active; }
+            }
+
+            .icon { @extend .book; }
+        }
+
+
+
     }
 }
-
-
-
-/* 3.`header
-============================================== */
-
-#logo {
-  float: left;
-  padding: 5px;
-  margin-left: 10px;
-  margin-top: 5px;
-}
-#header {
-    margin-top: 20px;
-}
-.highlight {
-  background-image: url("../img/logo-bg.png");
-  background-position: left bottom;
-  background-repeat: no-repeat;
-}
-
 
 /* 4.`footer
 ============================================== */
@@ -329,6 +336,39 @@ body {
 .icon { background-image   : url('../img/finalsclub-sprite-icons.png'); }
 .sprite-school { background-image : url("../img/finalsclub-sprite-schools.gif"); }
 
+.paperclip {
+    background-position: 0 0;
+    width: 22px;
+    height: 20px;
+}
+
+.paperclip-active {
+    @extend .paperclip;
+    background-position: -24px 0;
+}
+
+.align-lines {
+    background-position: 0 -25px;
+    width: 24px;
+    height: 17px;
+}
+
+.align-lines-active {
+    @extend align-lines;
+    background-position: -27px -25px;
+}
+
+.book {
+    background-position: 0 -46px;
+    width: 19px;
+    height: 26px;
+}
+
+.book-active {
+    @extend .book;
+    background-position: -24px -46px;
+}
+
 .brown {
   background-position: 0 0;
   width: 61px;
@@ -391,7 +431,7 @@ body {
 }
 /* media queries */
 
-@import "includes/media.scss";
+@import "partials/media";
 
 /* *.`user defined
 ============================================== */
@@ -402,7 +442,6 @@ body {
   padding-top: 16px;
   padding-bottom: 32px;
 }
-.yellow { color: $gold; }
 .half-width { width: 50%; }
 .centered { text-align: center;}
 .centered-rt-parent { margin: 0 auto;}

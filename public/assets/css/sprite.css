@@ -1,0 +1,36 @@
+.book {
+  display: block;
+  background: url(../img/finalsclub-sprite-icons.png) no-repeat -26px 0px;
+  width: 24px;
+  height: 26px;
+}
+.book-yellow {
+  display: block;
+  background: url(../img/finalsclub-sprite-icons.png) no-repeat 0px 0px;
+  width: 24px;
+  height: 26px;
+}
+.lines {
+  display: block;
+  background: url(../img/finalsclub-sprite-icons.png) no-repeat -26px -28px;
+  width: 24px;
+  height: 17px;
+}
+.lines-yellow {
+  display: block;
+  background: url(../img/finalsclub-sprite-icons.png) no-repeat 0px -28px;
+  width: 24px;
+  height: 17px;
+}
+.paperclip {
+  display: block;
+  background: url(../img/finalsclub-sprite-icons.png) no-repeat -52px -22px;
+  width: 24px;
+  height: 20px;
+}
+.paperclip-yellow {
+  display: block;
+  background: url(../img/finalsclub-sprite-icons.png) no-repeat -52px 0px;
+  width: 24px;
+  height: 20px;
+}

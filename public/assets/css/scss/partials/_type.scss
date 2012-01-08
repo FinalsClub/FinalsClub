@@ -1,11 +1,44 @@
+.futura {
+    font-family: "futura-pt", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    font-weight: 500;
+    -webkit-font-smoothing: antialiased;
+}
+
+.futura-italic {
+    @extend .futura;
+    font-style: italic;
+}
+
+.futura-light {
+    @extend .futura;
+    font-weight: 300;
+}
+
+.futura-bold {
+    @extend .futura;
+    font-weight: 700;
+}
+
+.minion {
+    font-family: "minion-pro", "Georgia", serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+}
+
+.minion-italic {
+    @extend .minion;
+    font-style: italic;
+}
+
+.minion-bold {
+    font-weight: 700;
+}
+
 $line: 24;
 $column: 100% / 18;
 $font-size: 16;
 $em: $font-size * 1;
-
-* {
-  font-family: "Verdana", "Helvetica Neue", "Arial", "Sans-serif";
-}
+$base: ($line/$font-size*1em); 
 
 body {
     /* 16px / 24px */
@@ -14,9 +47,9 @@ body {
 }
 
 .small {
-    /* 13px / 18px */
-    font-size: #{($font-size*0.8125) / $em}em;
-    line-height: ($line*0.75) / ($font-size*0.8125) * 1em;
+    /* 14px / 18px */
+    font-size: #{($font-size*0.875) / $em}em;
+    line-height: ($line*0.75) / ($font-size*0.875) * 1em;
 }
 
 .normal, h3 {
@@ -25,26 +58,10 @@ body {
     line-height: #{$line / $em}em; /* 24 */
 }
 
-.normal-large {
-  /* 18 / 30 */
-  font-size: #{18 / $em}em;
-  line-height: ($line*1.25) / 18 * 1em;
-}
-
-.large, h2, h1 {
+.large {
     /* 26 / 36px */
     font-size: #{26 / $em}em;
     line-height: ($line*1.5) / 26 * 1em;
-}
-
-.large-huge {
-  /* 30 / 42px */
-    font-size: #{30 / $em}em;
-    line-height: ($line*1.75) / 30 * 1em;
-
-    &.spaced {
-    line-height: ($line*3) / 30 * 1em;
-    }
 }
 
 .huge {
@@ -65,51 +82,6 @@ body {
     line-height: ($line*5) / 110 * 1em;
 }
 
-p {
-  font-size: 1.125em; /* 18 / 16 */
-  font-family: "minion-pro";
-
-    .drop-cap {
-      font-size: 2em; /* 24 / 12 */
-    }
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: "museo-slab";
-  font-weight: 700;
-  margin: 0;
-}
-
-h1 {
-  .small {
-    font-size: 0.66666666666667em; /* 20 / 30 */
-    font-family: "museo-sans";
-    font-weight: 300;
-  }
-}
-
-#user-nav {
-  li {
-    font-family: "museo-sans";
-    font-weight: 500;
-    font-style: italic;
-  }
-  a {
-    font-family: "museo-sans";
-    font-weight: 500;
-    font-style: normal;
-  }
-}
-
-#main-nav {
-  a {
-    font-family: "museo-slab";
-    font-weight: 700;
-  }
-}
-
-button,
-#footer-nav a {
-  font-family: "museo-sans";
-  font-weight: 500;
+.tight-line-height {
+    line-height: 1em;
 }
