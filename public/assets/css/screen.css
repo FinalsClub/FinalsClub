@@ -44,56 +44,64 @@ Please have a look around, I hope you enjoy your stay.
   float: left;
   width: 9.091%;
   padding: 0;
-  margin: 0 1.705%; }
+  margin-left: 1.705%;
+  margin-right: 1.705%; }
 
 .grid-2 {
   float: left;
   width: 21.591%;
   padding: 0;
-  margin: 0 1.705%; }
+  margin-left: 1.705%;
+  margin-right: 1.705%; }
 
 .grid-3 {
   float: left;
   width: 34.091%;
   padding: 0;
-  margin: 0 1.705%; }
+  margin-left: 1.705%;
+  margin-right: 1.705%; }
 
-.grid-4, #g-logo, #nav-main, #intro-text, #intro-schools {
+.grid-4, #g-logo, #nav-main, #intro-text, #intro-video {
   float: left;
   width: 46.591%;
   padding: 0;
-  margin: 0 1.705%; }
+  margin-left: 1.705%;
+  margin-right: 1.705%; }
 
 .grid-5 {
   float: left;
   width: 59.091%;
   padding: 0;
-  margin: 0 1.705%; }
+  margin-left: 1.705%;
+  margin-right: 1.705%; }
 
 .grid-6 {
   float: left;
   width: 71.591%;
   padding: 0;
-  margin: 0 1.705%; }
+  margin-left: 1.705%;
+  margin-right: 1.705%; }
 
 .grid-7 {
   float: left;
   width: 84.091%;
   padding: 0;
-  margin: 0 1.705%; }
+  margin-left: 1.705%;
+  margin-right: 1.705%; }
 
-.grid-8, #nav-user, .subheader, #intro-video {
+.grid-8, #nav-user, .subheader, #g-footer, #intro-schools {
   float: left;
   width: 96.591%;
   padding: 0;
-  margin: 0 1.705%; }
+  margin-left: 1.705%;
+  margin-right: 1.705%; }
 
-.futura, .futura-italic, .futura-light, .subheader h2, .futura-bold, h1, h2, h3, h4, h5, h6, p, #g-masthead {
+.futura, .futura-oblique, .futura-light, .subheader h2, .futura-bold, h1, h2, h3, h4, h5, h6, p, #g-masthead {
   font-family: "futura-pt", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   font-weight: 500;
   -webkit-font-smoothing: antialiased; }
 
-.futura-italic {
+.futura-oblique {
   font-style: italic; }
 
 .futura-light, .subheader h2 {
@@ -118,7 +126,12 @@ body {
   font-size: 1em;
   line-height: 1.5em; }
 
-.small, #nav-user {
+.tiny, #g-nav-footer li, #g-footer-copyright, #intro-schools li {
+  /* 14px / 18px */
+  font-size: 0.75em;
+  line-height: 1.091em; }
+
+.small, #nav-user, .link-bar a {
   /* 14px / 18px */
   font-size: 0.875em;
   line-height: 1.286em; }
@@ -129,7 +142,7 @@ body {
   line-height: 1.5em;
   /* 24 */ }
 
-.big, p, #nav-main a {
+.big, h4, p, #nav-main a {
   /* 18px / 24px */
   font-size: 1.125em;
   line-height: 1.333em; }
@@ -165,10 +178,16 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0;
   margin-bottom: 0.375em; }
 
+a {
+  color: #e8a200; }
+
 p {
   margin: 0;
   margin-bottom: 0.75em;
   color: #444; }
+
+img {
+  max-width: 100%; }
 
 ::-moz-selection {
   background: #44a1dd;
@@ -278,12 +297,16 @@ body {
   margin: 0; }
 
 body {
-  background-color: #262626;
   background-position: 20% 0;
   border-top: 3px solid #1f1e1c; }
 
 /* a.`header
 -------------------------- */
+#g-masthead {
+  background-color: #262626; }
+  #g-masthead .wrapper {
+    background-color: #262626; }
+
 #g-logo a {
   display: block; }
 
@@ -334,7 +357,8 @@ body {
 -------------------------- */
 #g-page {
   border-top: 1px solid #333;
-  background-color: #fff; }
+  background-color: #fff;
+  margin-bottom: 3em; }
 
 .page {
   color: #333; }
@@ -352,6 +376,20 @@ body {
 
 /* c.`footer
 -------------------------- */
+#g-footer {
+  text-align: center; }
+
+#g-nav-footer {
+  text-align: center; }
+  #g-nav-footer li {
+    display: inline;
+    text-align: center; }
+  #g-nav-footer a {
+    padding: 0 0.75em; }
+
+#g-footer-copyright img {
+  margin: 0 auto; }
+
 .footer {
   color: #444;
   padding-top: 24px; }
@@ -543,28 +581,42 @@ body {
  1.Layout
 
 ----------------------------------------------------------------*/
-.section-home h3 {
-  padding-bottom: 0.375em;
-  margin-bottom: 0.375em; }
+.page {
+  display: none;
+  -webkit-transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -o-transition: all 0.25s ease-in-out;
+  -ms-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out; }
 
+.section-home {
+  margin-bottom: 1.5em; }
+
+#intro-schools h4 {
+  padding-bottom: 0.75em;
+  border-bottom: 1px solid #e5e5e5; }
 #intro-schools li {
-  float: left;
-  width: 33.333%;
-  min-height: 50px;
-  margin: 0.75em 0; }
-  #intro-schools li .sprite {
-    margin: 0 auto; }
+  display: inline;
+  padding: 0.5em; }
 
-.button {
-  background-color: #e5e5e5;
-  color: #0ca6ff; }
+.link-bar {
+  margin-left: -0.375em; }
+  .link-bar li {
+    display: inline; }
+    .link-bar li.last a {
+      border: 0; }
+  .link-bar a {
+    padding: 0 0.375em;
+    border-right: 1px solid #ffcd58;
+    color: #e8a200; }
 
 .video-wrapper {
   -moz-border-radius: 5px;
   border-radius: 5px;
   padding: 5px;
   background-color: #f5f5f5;
-  text-align: center; }
+  text-align: center;
+  line-height: 0; }
 
 .schools li {
   float: left;

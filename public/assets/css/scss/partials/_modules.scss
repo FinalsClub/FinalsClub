@@ -1,6 +1,23 @@
-.button {
-    background-color: #e5e5e5;
-    color: $blue;
+.link-bar {
+    margin-left: $base/-4;
+
+    li {
+        display: inline;
+
+        &.last {
+            a {
+                border: 0;
+
+            }
+        }
+    }
+
+    a {
+        padding: 0 $base/4;
+        border-right: 1px solid $gold;
+        color: $mustard;
+        @extend .small;
+    }
 }
 
 .video-wrapper {
@@ -8,6 +25,7 @@
   padding: 5px;
   background-color: #f5f5f5;
   text-align: center;
+  line-height: 0;
 }
 
 .schools {

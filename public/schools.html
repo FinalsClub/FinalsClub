@@ -54,7 +54,6 @@
 
                 <h1>Universities</h1>
 
-                
                 <div class="school" id=PROTO_school>
                     <div class=name>
                         <a href="courses.html?school=__name__">__name__</a>
@@ -70,21 +69,20 @@
 
             <script>
 
-            var schools = []
+                var schools = []
 
-            // this is what will really happen when we're done
-            $.get("/schools", {}, function(r) {
+                // this is what will really happen when we're done
+                $.get("/schools", {}, function(r) {
 
-                //XXX schools = JSON.parse(r)
-                schools = [
-                    { name: "Berkeley", numCourses: 2 },
-                    { name: "Brown", numCourses: 5 },
-                    { name: "Columbia", numCourses: 0 },
-                ];
+                    //XXX schools = JSON.parse(r)
+                    schools = [
+                        { name: "Berkeley", numCourses: 2 },
+                        { name: "Brown", numCourses: 5 },
+                        { name: "Columbia", numCourses: 0 },
+                    ];
 
-                ProtoDiv.replicate("PROTO_school", schools);
-            });
-
+                    ProtoDiv.replicate("PROTO_school", schools);
+                });
 
             </script>
         </div>

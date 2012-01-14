@@ -7,33 +7,34 @@
 
 ----------------------------------------------------------------*/
 
-.section-home {
-
-    h3 { 
-        padding-bottom: $base/4;
-        margin-bottom: $base/4;
-    }
-
+.page {
+    display: none;
+    @include transition( all );
 }
+
+.section-home {
+    margin-bottom: $base;
+}
+
 #intro-text {
     @extend .grid-4;
 }
 
-#intro-schools {
+#intro-video {
     @extend .grid-4;
-
-    li {
-        float: left;
-        width: 100/3*1%;
-        min-height: 50px;
-        margin: $base/2 0;
-
-        .sprite {
-            margin: 0 auto;
-        }
-    }
 }
 
-#intro-video {
+#intro-schools {
     @extend .grid-8;
+
+    h4 {
+        padding-bottom: $base/2;
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    li {
+        display: inline;
+        padding: $base/3;
+        @extend .tiny;
+    }
 }

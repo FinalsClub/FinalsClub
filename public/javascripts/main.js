@@ -14,35 +14,49 @@ function j2o(json) { try { return JSON.parse(json); } catch(e) { return null; } 
 /* Convert an object to a JSON string (just easier to type than "JSON.stringify" */
 function o2j(obj) { return JSON.stringify(obj); }
 
-var user = {};
+var
+user = {},
 
-var router = {
-  routes: {},
-  add: function(name, useAjax, cb) {
-    if (typeof useAjax === 'function') {
-      cb = useAjax;
-      useAjax = true;
-    }
-    this.routes[name] = {
-      fn: cb,
-      useAjax: useAjax
-    }
-  },
-  run: function(name, path) {
-    $('.nav').removeClass('active');
-    checkUser(function() {
-      if (router.routes[name].useAjax) {
-        $.get(path, {cache: false}, function(data) {
-          if (data.status === 'not_found' || (typeof data === 'string')) {
-            return router.run('404');
-          }
-          router.routes[name].fn(data, render);
+router = {
+
+    routes: {},
+
+    add: function(name, useAjax, cb) {
+        if (typeof useAjax === 'function') {
+            cb = useAjax;
+            useAjax = true;
+        }
+
+        this.routes[name] = {
+            fn: cb,
+            useAjax: useAjax
+        }
+    },
+
+    run: function(name, path) {
+
+        $('.nav').removeClass('active');
+
+        checkUser( function() {
+
+            if (router.routes[name].useAjax) {
+
+                $.get(
+                    path,
+                    {cache: false},
+                    function(data) {
+
+                        if (data.status === 'not_found' || (typeof data === 'string')) {
+                            return router.run('404');
+                        }
+                        router.routes[name].fn(data, render);
+                    }
+                );
+            } else {
+                router.routes[name].fn(render);
+            }
         });
-      } else {
-        router.routes[name].fn(render);
-      }
-    });
-  }
+    }
 }
 
 function render(pageId, response) {
@@ -114,25 +128,24 @@ router.add('home', false, function(cb) {
     })
   });
   if ($('#vimeo-screencast').length === 0) {
-    $('.video-wrapper').html('<iframe id="vimeo-screencast" src="http://player.vimeo.com/video/30647271?title=0&amp;byline=0&amp;portrait=0&amp;color=367da9" width="460" height="259" frameborder="0" webkitAllowFullScreen allowFullScreen></iframe>');
+    $('.video-wrapper').html('<iframe id="vimeo-screencast" src="http://player.vimeo.com/video/30647271?title=0&amp;byline=0&amp;portrait=0&amp;color=367da9" width="400" height="225" frameborder="0" webkitAllowFullScreen allowFullScreen></iframe>');
   }
 });
-
 
 
 // go to the page that lists the schools
 router.add('schools', function(data, cb) {
-  console.log(data);
+
   $('#school_link').addClass('active');
+
   var response = {
     id: 'school',
     data: data.schools
   }
-  //$('#pg_schools').html('');
+
   $('#pg_schools').css('display', 'block');
   $('#schoolTmpl').tmpl( data.schools ).appendTo("#pg_schools");
 });
-
 
 
 // go to the page that lists the courses for a specific school
@@ -495,29 +508,28 @@ router.add('conduct', false, function(cb) {
 /* Do and show the appropriate thing, based on the pages current URL */
 function showPage(y) {
 
-	$(".page").hide(); //(100);		// hide all pseudo pages
+    $('.page').hide(); //(100);// hide all pseudo pages
 
-	var path = document.location.pathname
-  var routes = router.routes;
+    var
+    path = document.location.pathname,
+    routes = router.routes,
+    slugs = path.split('/');
 
-  var slugs = path.split('/');
+    slugs.shift();
 
-  slugs.shift();
+    var mainSlug = slugs[0].toLowerCase() || 'home';
 
-  mainSlug = slugs[0].toLowerCase() || 'home';
-
-  if (mainSlug === 'archive') {
-    if (slugs[1]) {
-      mainSlug = mainSlug + slugs[1];
+    if (mainSlug === 'archive') {
+        if (slugs[1]) {
+            mainSlug = mainSlug + slugs[1];
+        }
     }
-  }
 
-  if (routes[mainSlug]) {
-    router.run(mainSlug, path)
-  } else {
-    router.run('404')
-  }
-
+    if (routes[mainSlug]) {
+        router.run(mainSlug, path)
+    } else {
+        router.run('404')
+    }
 }
 
 
@@ -538,7 +550,6 @@ function goPage(path) {
     document.location = path;
   }
 }
-
 
 /* Simulates a "back" browser navigation.  */
 var popped = false;
@@ -569,13 +580,14 @@ $(document).ready(function() {
     }
   })
 
-	// xxx older FF browsers don't fire a page load/reload - deal with it somehow.
+    // xxx older FF browsers don't fire a page load/reload - deal with it somehow.
+    // I've increased the timeout, we need to avoid calling showPage twice. It causes page flicker.
   setTimeout(function() {
     console.timeEnd('no-pop')
     if (!popped) {
-      showPage( 0 );		// needed for some older browsers, redundant for chrome
+      showPage( 0 ); // needed for some older browsers, redundant for chrome
     }
-  }, 200)
+  }, 1200)
 
 })
 

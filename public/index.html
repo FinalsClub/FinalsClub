@@ -5,41 +5,45 @@
         <link rel="stylesheet" href="/assets/css/include.css" type="text/css" media="screen" />
         <script type="text/javascript" src="/assets/js/modernizr.custom.js"></script>
 
-        <!-- <script type="text/javascript" src="http://use.typekit.com/cbx6gxx.js"></script>-->
-        <!-- <script type="text/javascript">try{Typekit.load();}catch(e){}</script>-->
         <script type='text/javascript' src='/javascripts/jquery.min.js'></script>
         <script type='text/javascript' src='/javascripts/jquery.tmpl.js'></script>
-        <!--<script type='text/javascript' src='/javascripts/jquery.min.js'></script> -->
-        <!--<script type="text/javascript" src="/assets/js/load.js"></script>-->
+        <script type="text/javascript" src="/assets/js/init.js"></script>
         <script type='text/javascript' src='/javascripts/es5-shim.min.js'></script>
         <script type='text/javascript' src='/javascripts/protodiv.js'></script>
         <script type='text/javascript' src='/javascripts/main.js'></script>
-        <script type="text/javascript">
-          TypekitConfig = {
-            kitId: 'cbx6gxx',
-            scriptTimeout: 3000
-          };
-          (function() {
-            var h = document.getElementsByTagName('html')[0];
-            h.className += ' wf-loading';
-            var t = setTimeout(function() {
-              h.className = h.className.replace(/(\s|^)wf-loading(\s|$)/g, '');
-              h.className += ' wf-inactive';
-            }, TypekitConfig.scriptTimeout);
-            var tk = document.createElement('script');
-            tk.src = '//use.typekit.com/' + TypekitConfig.kitId + '.js';
-            tk.type = 'text/javascript';
-            tk.async = 'true';
-            tk.onload = tk.onreadystatechange = function() {
-              var rs = this.readyState;
-              if (rs && rs != 'complete' && rs != 'loaded') return;
-              clearTimeout(t);
-              try { Typekit.load(TypekitConfig); } catch (e) {}
+        <script type='text/javascript'>
+            TypekitConfig = {
+                kitId: 'cbx6gxx',
+                scriptTimeout: 3000
             };
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(tk, s);
-          })();
+
+            (function() {
+                var h = document.getElementsByTagName('html')[0];
+                h.className += ' wf-loading';
+
+                var t = setTimeout(function() {
+                    h.className = h.className.replace(/(\s|^)wf-loading(\s|$)/g, '');
+                    h.className += ' wf-inactive';
+                }, TypekitConfig.scriptTimeout);
+
+                var tk = document.createElement('script');
+                tk.src = '//use.typekit.com/' + TypekitConfig.kitId + '.js';
+                tk.type = 'text/javascript';
+                tk.async = 'true';
+
+                tk.onload = tk.onreadystatechange = function() {
+                    var rs = this.readyState;
+
+                    if (rs && rs != 'complete' && rs != 'loaded') return;
+                    clearTimeout(t);
+                    try { Typekit.load(TypekitConfig); } catch (e) {}
+                };
+
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(tk, s);
+            })();
         </script>
+
     </head>
   <!--================================================================= -->
     <body>
@@ -106,46 +110,52 @@
                 </div>
                 <div class="wrapper">
                     <div id="intro">
+
+                        <section class="section-home" id="intro-video">
+                            <h3 class="heading">Our Screencasts</h3>
+                            <div class="video-wrapper">
+                                <!-- video loaded in main.js -->
+                            </div>
+                        </section>
+
                         <section class="section-home" id="intro-text">
                             <h3>Our Mission</h3>
                             <p>
-                                To provide tools that help college students collaborate on during and after class, with peers and with instructers.  and lecture, and to ask questions to their professors, when they have them.
-                            </p>
+                                To provide tools that make it dead simple for college students to collaborate during and after class, with peers and with instructers.  You can begin taking lecture notes online, and allow anyone to contribute.</p> 
                             <p>
-                            A single user can begin lecture notes on FinalsClub, but the best results occur when everyone contributes to common knowledge. Working together we can transform higher education, one classroom at a time.
+                                You can also post questions that will be seen by the entire class, and get a response from your peers or instructor immediately. Sign up, or just have a look around. Let us know what you think. We need your feedback to make Finals Club the best that it can be.
                             </p>
-                            <a href="#" class="button" id="signup">Sign Up</a>
-                            <a href="#" class="button" id="learnsomething">Learn Something</a>
+                            <nav class="link-bar">
+                                <ul>
+                                    <li><a href="#">Sign Up</a></li>
+                                    <li class="last"><a href="#">Learn Something</a></li>
+                                </ul>
+                            </nav>
                         </section>
+
+
 
                         <section class="section-home" id="intro-schools">
-                            <h3>Who we support</h3>
+                            <h4>Schools we support</h4>
                             <ul>
-                                <li><div class="sprite logo-brown">Brown Logo</div></li>
-                                <li><div class="sprite logo-columbia">Columbia Logo</div></li>
-                                <li><div class="sprite logo-cornell">Cornell Logo</div></li>
-                                <li><div class="sprite logo-dartmouth">Dartmouth Logo</div></li>
-                                <li><div class="sprite logo-shield">School Logo</div></li>
-                                <li><div class="sprite logo-mit">MIT Logo</div></li>
-                                <li><div class="sprite logo-lock_haven">Lock Haven Logo</div></li>
-                                <li><div class="sprite logo-california">Cal Tech Logo</div></li>
-                                <li><div class="sprite logo-texas">University of Texas Logo</div></li>
-                                <li><div class="sprite logo-yale">Yale Logo</div></li>
-                                <li><div class="sprite logo-penn">Penn Logo</div></li>
-                                <li><div class="sprite logo-harvard">Harvad Logo</div></li>
+                                <li><span class="school-name">Brown</span></li>
+                                <li><span class="school-name">Columbia</span></li>
+                                <li><span class="school-name">Cornell</span></li>
+                                <li><span class="school-name">Dartmouth</span></li>
+                                <li><span class="school-name">Harvard</span></li>
+                                <li><span class="school-name">Lock Haven</span></li>
+                                <li><span class="school-name">MIT</span></li>
+                                <li><span class="school-name">University of California</span></li>
+                                <li><span class="school-name">University of Pennsylvania</span></li>
+                                <li><span class="school-name">University of Texas</span></li>
+                                <li><span class="school-name">Yale</span></li>
                             </ul>
-                        </section>
-
-                        <section class="section-home" id="intro-video">
-                            <h3 class="heading">Check out our Screencasts</h3>
-                            <div class="video-wrapper">
-                                <iframe src="http://player.vimeo.com/video/30647271?title=0&amp;byline=0&amp;portrait=0&amp;color=367da9" width="460" height="259" frameborder="0" webkitAllowFullScreen allowFullScreen></iframe>		
-                            </div>
                         </section>
                     </div>
                 </div>
             </div>
       <!--================================================================= -->
+
             <div class="page" id="pg_schools">
                 <h1>Universities</h1>
             </div>
@@ -162,6 +172,7 @@
             <script id="course" type="text/x-jquery-tmpl">
                 <li>${dept}: ${name} (${number})</li>
             </script>
+
       <!--================================================================= -->
             <div class=page id=pg_courses>
                 <h1>Courses for <span id=school_name></span></h1>
@@ -673,9 +684,9 @@
             </div>
         </div>
 
-        <div id="g-footer">
-            <div class="wrapper">
-                <nav id="nav-footer">
+        <div class="wrapper">
+            <div id="g-footer">
+                <nav id="g-nav-footer">
                     <ul>
                         <li><a href="/conduct">Conduct</a></li>
                         <li><a href="https://github.com/finalsclubdev/FinalsClub/">Code</a></li>
@@ -685,17 +696,11 @@
                         <li><a href="http://blog.finalsclub.org/team.html">Team</a></li>
                     </ul>
                 </nav>
-            </div>
-
-            <p>Finals Club is a 501\(c\)(3) non-profit organization.</p>
-            <div class="creative_commons">
-                <div class="section">
+                <div id="g-footer-copyright">
+                    <p>Finals Club is a 501c3 non-profit organization.</p>
                     <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">
                         <img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/88x31.png" />
                     </a>
-                    <br />
-                </div>
-                <div class="section">
                     This site is licensed under a
                     <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.
                 </div>

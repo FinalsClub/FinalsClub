@@ -40,6 +40,7 @@ Please have a look around, I hope you enjoy your stay.
 $blue: #0ca6ff;
 $dark: #1f1e1c;
 $gold: #ffcd58;
+$mustard: #e8a200;
 
 @import "partials/mixins";
 @import "partials/grid";
@@ -67,12 +68,24 @@ h3 {
     @extend .large;
 }
 
+h4 {
+    @extend .big;
+}
+
+a {
+    color: $mustard;
+}
+
 p {
     @extend .futura;
     @extend .big;
     margin: 0;
     margin-bottom: $base/2;
     color: #444;
+}
+
+img {
+    max-width: 100%;
 }
 
 ::-moz-selection { background: #44a1dd; color: #fff; text-shadow: none; }
@@ -105,7 +118,7 @@ body {
 }
 
 body {
-    background-color: #262626;
+    // background-color: #262626;
     background-position: 20% 0;
     border-top: 3px solid $dark;
 }
@@ -117,6 +130,11 @@ body {
 
 #g-masthead {
     @extend .futura;
+    background-color: #262626;
+
+    .wrapper {
+        background-color: #262626;
+    }
 }
 
 #g-logo {
@@ -223,6 +241,7 @@ body {
 #g-page {
     border-top: 1px solid #333;
     background-color: #fff;
+    margin-bottom: $base*2;
 }
 
 .page {
@@ -255,6 +274,34 @@ body {
 /* c.`footer
 -------------------------- */
 
+
+#g-footer {
+    @extend .grid-8;
+    text-align: center;
+}
+
+#g-nav-footer {
+    text-align: center;
+
+    li {
+        display: inline;
+        text-align: center;
+        @extend .tiny;
+    }
+
+    a {
+        padding: 0 $base/2;
+    }
+}
+
+#g-footer-copyright {
+    @extend .tiny;
+
+    img {
+        margin: 0 auto;
+    }
+
+}
 .footer {
   color: #444;
   padding-top: 24px;

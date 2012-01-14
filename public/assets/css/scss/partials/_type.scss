@@ -4,7 +4,7 @@
     -webkit-font-smoothing: antialiased;
 }
 
-.futura-italic {
+.futura-oblique {
     @extend .futura;
     font-style: italic;
 }
@@ -44,6 +44,12 @@ body {
     /* 16px / 24px */
     font-size: $font-size / 16 * 1em;
     line-height: #{$line / $em}em;
+}
+
+.tiny {
+    /* 14px / 18px */
+    font-size: #{($font-size*0.75) / $em}em;
+    line-height: ($line*0.5) / ($font-size*0.6875) * 1em;
 }
 
 .small {
