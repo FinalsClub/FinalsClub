@@ -28,7 +28,7 @@ body, button, input, select, textarea { font-family: sans-serif; color: #222; }
 /* Links
 ============================================== */
 
-a { color: #4b8eda; cursor: pointer; text-decoration: none; }
+a { color: #0ca6ff; cursor: pointer; text-decoration: none; }
 
 a:link, a:visited { outline: none; }
 

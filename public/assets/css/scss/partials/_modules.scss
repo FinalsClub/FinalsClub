@@ -1,0 +1,25 @@
+.button {
+    background-color: #e5e5e5;
+    color: $blue;
+}
+
+.video-wrapper {
+  @include rounded();
+  padding: 5px;
+  background-color: #f5f5f5;
+  text-align: center;
+}
+
+.schools {
+  ul {
+    @extend .group;
+  }
+  li {
+    float: left;
+    width: 25%;
+    height: 100px;
+  }
+  em {
+    margin: 0 auto;
+  }
+}

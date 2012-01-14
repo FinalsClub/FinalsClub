@@ -5,8 +5,8 @@
         <link rel="stylesheet" href="/assets/css/include.css" type="text/css" media="screen" />
         <script type="text/javascript" src="/assets/js/modernizr.custom.js"></script>
 
-        <script type="text/javascript" src="http://use.typekit.com/cbx6gxx.js"></script>
-        <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+        <!-- <script type="text/javascript" src="http://use.typekit.com/cbx6gxx.js"></script>-->
+        <!-- <script type="text/javascript">try{Typekit.load();}catch(e){}</script>-->
         <script type='text/javascript' src='/javascripts/jquery.min.js'></script>
         <script type='text/javascript' src='/javascripts/jquery.tmpl.js'></script>
         <!--<script type='text/javascript' src='/javascripts/jquery.min.js'></script> -->
@@ -14,46 +14,76 @@
         <script type='text/javascript' src='/javascripts/es5-shim.min.js'></script>
         <script type='text/javascript' src='/javascripts/protodiv.js'></script>
         <script type='text/javascript' src='/javascripts/main.js'></script>
+        <script type="text/javascript">
+          TypekitConfig = {
+            kitId: 'cbx6gxx',
+            scriptTimeout: 3000
+          };
+          (function() {
+            var h = document.getElementsByTagName('html')[0];
+            h.className += ' wf-loading';
+            var t = setTimeout(function() {
+              h.className = h.className.replace(/(\s|^)wf-loading(\s|$)/g, '');
+              h.className += ' wf-inactive';
+            }, TypekitConfig.scriptTimeout);
+            var tk = document.createElement('script');
+            tk.src = '//use.typekit.com/' + TypekitConfig.kitId + '.js';
+            tk.type = 'text/javascript';
+            tk.async = 'true';
+            tk.onload = tk.onreadystatechange = function() {
+              var rs = this.readyState;
+              if (rs && rs != 'complete' && rs != 'loaded') return;
+              clearTimeout(t);
+              try { Typekit.load(TypekitConfig); } catch (e) {}
+            };
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(tk, s);
+          })();
+        </script>
     </head>
   <!--================================================================= -->
     <body>
-        <header id="masthead">
+        <header id="g-masthead">
             <div class="wrapper">
-                <div id="site-logo">
+
+                <nav id="nav-user">
+                    <ul>
+                        <li class="first"><a href="#" class="username"></a></li>
+                        <li><a href="/register">Register</a></li>
+                        <li class="last"><a href="/login">Login</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="wrapper">
+
+                <div id="g-logo">
                     <a href="/">
                         <img src="/assets/img/logo.png" alt="FinalsClub - social notetaking" />
                     </a>
                 </div>
-                <div id="nav-masthead">
 
-                    <nav id="nav-user">
-                        <ul>
-                            <li class="first"><a href="#" class="username"></a></li>
-                            <li><a href="/register">Register</a></li>
-                            <li class="last"><a href="/login">Login</a></li>
-                        </ul>
-                    </nav>
-                    <nav id="nav-main">
-                        <ul>
-                            <li><a href="/schools" id=school_link><span class="icon" alt="paperclip"></span>Courses</a></li>
-                            <li><a href="http://blog.finalsclub.org" id="blog_link"><span class="icon" alt="align-lines"></span>Blog</a></li>
-                            <li><a href="/archive" id=archive_link class="nav"><span class="icon" alt="book"></span>Library</a></li>
-                            <!--
-                            <li><a href="/press" id=press_link class="nav"><em class="icon"></em>Press</a></li>
-                            -->
-                            <li><a href="/profile" id=profile_link class="nav"><em class="icon"></em>Profile</a></li>
-                            <!-- li><a href="#" class="donate"><em class="icon"></em><em class="lc yellow">Donate</em></a></li -->
-                        </ul>
-                    </nav>
-                </div>
+
+                <nav id="nav-main">
+                    <ul>
+                        <li><a href="/schools" id=school_link><span class="icon" alt="paperclip"></span>Courses</a></li>
+                        <li><a href="http://blog.finalsclub.org" id="blog_link"><span class="icon" alt="align-lines"></span>Blog</a></li>
+                        <li><a href="/archive" id=archive_link class="nav"><span class="icon" alt="book"></span>Library</a></li>
+                        <!--
+                        <li><a href="/press" id=press_link class="nav"><em class="icon"></em>Press</a></li>
+                        -->
+                        <li><a href="/profile" id=profile_link class="nav"><em class="icon"></em>Profile</a></li>
+                        <!-- li><a href="#" class="donate"><em class="icon"></em><em class="lc yellow">Donate</em></a></li -->
+                    </ul>
+                </nav>
             </div>
         </header>
         <div id="topofcontent"></div>
         <div id="messages" class="page"><span id="PROTO_message" class="__type__">__msg__</span></div>
-        <div class="content">
+        <div id="g-page">
 
             <style>
-                /* The is here is because it's related less to "styling" and more to UI "behavior" */
+                /* This related less to "styling" and more to UI "behavior" */
                 .page { display: none; }
             </style>
 
@@ -64,56 +94,54 @@
                 or
                 <a href="http://firefox.com">Firefox</a>.
             </noscript>
-      <!--================================================================= -->
-            <div class=page id=pg_home>
-                <div class="grid-12">
-                    <div class="padded-loose">
-                        <h1 class="large-huge spaced centered">Welcome to FinalsClub! <span class="small">Collaborate. Learn. Share.</span></h1>
-                    </div>
-                </div>
-                <div class="grid-10 grid-centered">
-                    <div class="padded-loose">
-                        <p class="no-top-margin">
-                            Welcome to FinalsClub.org.  We provide tools to help college students collaborate in realtime on class notes and hold live scholarly discussions with their peers and instructors.
-            </p>
-                        <p>
-                            A single user can begin lecture notes on FinalsClub, but the best results occur when everyone contributes to common knowledge. Working together we can transform higher education, one classroom at a time.
-            </p>
-                    </div>
-                </div>
-      <!--================================================================= -->
-                <div class="grid-12">
-                    <div class="button-set vertical half-width centered-rt-parent half-width-buttons">
-                        <button id="signup" class="green">Sign Up</button>
-                        <button id="learnsomething" class="blue">Learn Something</button>
-                    </div>
-                </div>
-      <!--================================================================= -->
-                <div class="container-12 spacer">
 
-                    <div class="grid-6">
-                        <h3 class="heading">Check out our Screencasts</h3>
-                        <div class="video-wrapper">
-                            <iframe src="http://player.vimeo.com/video/30647271?title=0&amp;byline=0&amp;portrait=0&amp;color=367da9" width="460" height="259" frameborder="0" webkitAllowFullScreen allowFullScreen></iframe>		</div>
-                        </div>
-                    <div class="grid-6">
-                        <h3 class="heading">We currently support the following schools</h3>
-                        <div class="schools">
+      <!--================================================================= -->
+
+            <div class="page" id="pg_home">
+                <div class="wrapper">
+                    <header class="subheader">
+                        <h1>Welcome to FinalsClub.</h1>
+                        <h2>Collaborate. Learn. Share.</h2>
+                    </header>
+                </div>
+                <div class="wrapper">
+                    <div id="intro">
+                        <section class="section-home" id="intro-text">
+                            <h3>Our Mission</h3>
+                            <p>
+                                To provide tools that help college students collaborate on during and after class, with peers and with instructers.  and lecture, and to ask questions to their professors, when they have them.
+                            </p>
+                            <p>
+                            A single user can begin lecture notes on FinalsClub, but the best results occur when everyone contributes to common knowledge. Working together we can transform higher education, one classroom at a time.
+                            </p>
+                            <a href="#" class="button" id="signup">Sign Up</a>
+                            <a href="#" class="button" id="learnsomething">Learn Something</a>
+                        </section>
+
+                        <section class="section-home" id="intro-schools">
+                            <h3>Who we support</h3>
                             <ul>
-                                <li><em class="sprite-school brown">Brown Logo</em></li>
-                                <li><em class="sprite-school columbia">Columbia Logo</em></li>
-                                <li><em class="sprite-school cornell">Cornell Logo</em></li>
-                                <li><em class="sprite-school dartmouth">Dartmouth Logo</em></li>
-                                <li><em class="sprite-school shield">School Logo</em></li>
-                                <li><em class="sprite-school mit">MIT Logo</em></li>
-                                <li><em class="sprite-school lock_haven">Lock Haven Logo</em></li>
-                                <li><em class="sprite-school cal">Cal Tech Logo</em></li>
-                                <li><em class="sprite-school texas">University of Texas Logo</em></li>
-                                <li><em class="sprite-school yale">Yale Logo</em></li>
-                                <li><em class="sprite-school penn">Penn Logo</em></li>
-                                <li><em class="sprite-school harvard">Harvad Logo</em></li>
+                                <li><div class="sprite logo-brown">Brown Logo</div></li>
+                                <li><div class="sprite logo-columbia">Columbia Logo</div></li>
+                                <li><div class="sprite logo-cornell">Cornell Logo</div></li>
+                                <li><div class="sprite logo-dartmouth">Dartmouth Logo</div></li>
+                                <li><div class="sprite logo-shield">School Logo</div></li>
+                                <li><div class="sprite logo-mit">MIT Logo</div></li>
+                                <li><div class="sprite logo-lock_haven">Lock Haven Logo</div></li>
+                                <li><div class="sprite logo-california">Cal Tech Logo</div></li>
+                                <li><div class="sprite logo-texas">University of Texas Logo</div></li>
+                                <li><div class="sprite logo-yale">Yale Logo</div></li>
+                                <li><div class="sprite logo-penn">Penn Logo</div></li>
+                                <li><div class="sprite logo-harvard">Harvad Logo</div></li>
                             </ul>
-                        </div>
+                        </section>
+
+                        <section class="section-home" id="intro-video">
+                            <h3 class="heading">Check out our Screencasts</h3>
+                            <div class="video-wrapper">
+                                <iframe src="http://player.vimeo.com/video/30647271?title=0&amp;byline=0&amp;portrait=0&amp;color=367da9" width="460" height="259" frameborder="0" webkitAllowFullScreen allowFullScreen></iframe>		
+                            </div>
+                        </section>
                     </div>
                 </div>
             </div>
@@ -593,7 +621,6 @@
           </div>
         </form>
       </div>
-
             <div class=page id=pg_conduct>
                 <div class="conduct">
                     <h1>Code of Conduct</h1>
@@ -645,32 +672,32 @@
                 Sorry, there is no content for this page.
             </div>
         </div>
-        <div class="footer small">
-            <div class="container-12">
-                <div class="grid-12">
-                    <nav id="footer-nav">
-                        <ul>
-                            <li><a href="/conduct">Conduct</a></li>
-                            <li><a href="https://github.com/finalsclubdev/FinalsClub/">Code</a></li>
-                            <li><a href="http://blog.finalsclub.org/about.html">About</a></li>
-                            <li><a href="http://blog.finalsclub.org/contact.html">Contact</a></li>
-                            <li><a href="http://blog.finalsclub.org/legal.html">Legal</a></li>
-                            <li><a href="http://blog.finalsclub.org/team.html">Team</a></li>
-                        </ul>
-                    </nav>
-                    <p>Finals Club is a 501\(c\)(3) non-profit organization.</p>
-                    <div class="creative_commons">
-                        <div class="section">
-                            <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">
-                                <img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/88x31.png" />
-                            </a>
-                            <br />
-                        </div>
-                        <div class="section">
-                            This site is licensed under a
-                            <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.
-                        </div>
-                    </div>
+
+        <div id="g-footer">
+            <div class="wrapper">
+                <nav id="nav-footer">
+                    <ul>
+                        <li><a href="/conduct">Conduct</a></li>
+                        <li><a href="https://github.com/finalsclubdev/FinalsClub/">Code</a></li>
+                        <li><a href="http://blog.finalsclub.org/about.html">About</a></li>
+                        <li><a href="http://blog.finalsclub.org/contact.html">Contact</a></li>
+                        <li><a href="http://blog.finalsclub.org/legal.html">Legal</a></li>
+                        <li><a href="http://blog.finalsclub.org/team.html">Team</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <p>Finals Club is a 501\(c\)(3) non-profit organization.</p>
+            <div class="creative_commons">
+                <div class="section">
+                    <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">
+                        <img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/88x31.png" />
+                    </a>
+                    <br />
+                </div>
+                <div class="section">
+                    This site is licensed under a
+                    <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.
                 </div>
             </div>
         </div>

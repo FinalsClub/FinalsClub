@@ -52,10 +52,16 @@ body {
     line-height: ($line*0.75) / ($font-size*0.875) * 1em;
 }
 
-.normal, h3 {
+.normal {
     /* 16px / 24px */
     font-size: #{$font-size / $em}em;
     line-height: #{$line / $em}em; /* 24 */
+}
+
+.big {
+    /* 18px / 24px */
+    font-size: #{$font-size*1.125 / $em}em;
+    line-height: ($line*1) / ($font-size*1.125) * 1em;
 }
 
 .large {
@@ -65,21 +71,21 @@ body {
 }
 
 .huge {
-    /* 42px / 48px */
-    font-size: #{42 / $em}em;
-    line-height: ($line*2) / 42 * 1em;
+    /* 36px / 42px */
+    font-size: #{36 / $em}em;
+    line-height: ($line*1.75) / 36 * 1em;
 }
 
 .massive {
-    /* 68px / 72px */
-    font-size: #{68 / $em}em;
-    line-height: ($line*2.8) / 68 * 1em;
+    /* 52px / 60px */
+    font-size: #{52 / $em}em;
+    line-height: ($line*2.5) / 52 * 1em;
 }
 
 .gigantic {
-    /* 110px / 120px */
-    font-size: #{110 / $em}em;
-    line-height: ($line*5) / 110 * 1em;
+    /* 60px / 72px */
+    font-size: #{60 / $em}em;
+    line-height: ($line*3) / 60 * 1em;
 }
 
 .tight-line-height {

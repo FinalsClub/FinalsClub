@@ -1,88 +1,102 @@
-/*
+/* ----------------------------------------------------------------
+
 Title: Master styles for screen media
 Author: Jordan Cooperman, jordan@vectormediagroup.com
-Year: 2011
+Year: 2012
 
-Welcome, thou wanderer of the interwebs!
-If you have any questions, Don't be shy. Send me a line!
-================================================================
 ----------------------------------------------------------------
 
-[Table of contents]
+Oh, I didn't see you there, friend.
 
- 0.General
- 1.Layout
-    a.Header
-    b.Footer
- 5.Pages
- 6.Modules
- 7.Forms
- 8.Sprites
- *.User Defined
+Please have a look around, I hope you enjoy your stay.
 
-----------------------------------------------------------------*/
+----------------------------------------------------------------
 
-$blue: #367da9;
-$dark-blue: #16567e;
-$green: #78b343;
-$dark-green: #4f901b;
+[Table of contents] - a map of our grounds.
 
+    0.General
+        a.elements
+        b.classes
+
+    1.Layout
+        a.header
+        b.content
+        c.footer
+
+    2.Extensible Classes
+
+
+    *.Pages, modules, sprites and media queries imported at end
+
+----------------------------------------------------------------
+
+[Prefixes] - some patterns that you may observe.
+
+    g: global
+    s: state
+
+---------------------------------------------------------------- */
+// hello
+$blue: #0ca6ff;
 $dark: #1f1e1c;
-$yellow-gold: #ffcd58;
 $gold: #ffcd58;
 
 @import "partials/mixins";
 @import "partials/grid";
 @import "partials/type";
 
-/* media queries included at end of document */
 
-/* 0.`general
-============================================== */
+/* 0.`General
+---------------------------------------------- */
+
+
+/* a.`elements
+-------------------------- */
+
+h1, h2, h3, h4, h5, h6 { margin: 0; margin-bottom: $base/4; @extend .futura; }
+
+h1 {
+    @extend .gigantic;
+}
+
+h2 {
+    @extend .huge;
+}
+
+h3 {
+    @extend .large;
+}
+
+p {
+    @extend .futura;
+    @extend .big;
+    margin: 0;
+    margin-bottom: $base/2;
+    color: #444;
+}
 
 ::-moz-selection { background: #44a1dd; color: #fff; text-shadow: none; }
 ::selection { background: #44a1dd; color: #fff; text-shadow: none; }
 
-h1, h2, h3, h4, h5, h6 {
-    margin: 0;
-}
 
-p {
-    @extend .minion;
-}
+/* b.`classes
+-------------------------- */
 
-button {
-  @include rounded;
-  padding: 8px 24px;
-  border: 0;
-  background-image: url("../img/button-bg.png");
-  background-repeat: repeat-x;
-  background-position: left bottom;
+// for asychronous typekit loading
+@each $element in h1, h2, h3, h4, h5, h6, p, li {
+    .wf-loading #{$element} {
+        opacity: 0;
+    }
 
-  &.blue {
-    background-color: $blue;
-    border: 1px solid $dark-blue;
-    color: #fff;
-  }
-  &.green {
-    background-color: $green;
-    border: 1px solid $dark-green;
-    color: #fff;
-  }
-  &.three-dim.blue {
-    @include drop-shadow(2px, 2px, 0, $dark-blue);
-  }
-  &.three-dim.green {
-    @include drop-shadow(2px, 2px, 0, $dark-green);
-  }
+    #{$element} {
+        @include transition( opacity );
+        opacity: 1;
+    }
 }
 
 
-//*************************************
-
-// 1.`Layout
-
-//*************************************
+/* 1.`Layout
+---------------------------------------------- */
 
 html,
 body {
@@ -91,58 +105,40 @@ body {
 }
 
 body {
-    background-image: url("../img/bg.gif");
+    background-color: #262626;
     background-position: 20% 0;
     border-top: 3px solid $dark;
 }
 
-.content { background-color: #fff; }
 
 
-//*********************
+/* a.`header
+-------------------------- */
 
-// a.`Header
-
-//*********************
-
-#masthead {
+#g-masthead {
     @extend .futura;
-    border-top: 1px solid #4c4a46;
-    border-top: 1px solid rgba( 255, 255, 255, 0.2 );
-    border-bottom: 3px solid $gold;
 }
 
-#site-logo {
+#g-logo {
     @extend .grid-4;
 
     a {
         display: block;
-        padding: $base;
     }
 }
 
-#nav-masthead {
-    @extend .grid-4;
-    margin-top: -1px;
-}
-
 #nav-user {
-    float: right;
+    @extend .grid-8;
     padding: $base/4 $base/2 $base/2;
+    text-align: right;
     @extend .small;
-    background-color: $dark;
-    @include roundedSide('left', 'bottom', 8px);
-    @include roundedSide('right', 'bottom', 8px);
 
     ul {
         @extend .tight-line-height;
     }
 
     li {
-        @include inline-block( middle );
-        color: #818181;
-        border-left: 1px solid #222;
-        border-left: 1px solid rgba(0, 0, 0, 0.2);
+        display: inline;
 
         &.first, &.first a {
             border: 0;
@@ -150,91 +146,114 @@ body {
     }
 
     a {
-        display: block;
-        padding: 0 $base/4;
-        color: #818181;
-        border-left: 1px solid #2a2a2a;
-        border-left: 1px solid rgba(255, 255, 255, 0.1);
-
-        &.username {
-            font-style: italic;
-        }
+        padding: 0 $base/2;
+        color: $gold;
     }
 }
 
 #nav-main {
-    @include group;
-    clear: both;
+    @extend .grid-4;
+    @extend .group;
 
     ul {
         float: right;
         padding: $base/4 0;
     }
 
-    li {
-        display: inline-block;
-        vertical-align: middle;
-        float: none;
+    li { @include inline-block; }
 
-        a {
-            position: relative;
-            display: block;
-            padding: $base/4;
-            margin-left: $base;
-            color: #fff;
+    a {
+        position: relative;
+        display: block;
+        padding: $base/4 0;
+        margin-left: $base;
+        @extend .big;
+        color: #fff;
 
-            &:hover {
-                color: $gold;
-            }
-
-            .icon {
-                position: absolute;
-                left: 0;
-            }
+        &:hover {
+            color: $gold;
         }
 
-        #school_link {
-            padding-left: $base*1.4;
+        .icon {
+            position: absolute;
+            left: 0;
+        }
+    }
 
-            &:hover .icon { @extend .paperclip-active; }
+    #school_link {
+        padding-left: $base*1.4;
 
-            .icon {
-                @extend .paperclip;
-                top: 50%;
-                margin-top: -10px;
-            }
+        &:hover .icon { @extend .paperclip-active; }
+
+        .icon {
+            @extend .paperclip;
+            top: 50%;
+            margin-top: -10px;
+        }
+    }
+
+    #blog_link {
+        padding-left: $base*1.3;
+
+        &:hover .icon { @extend .align-lines-active; }
+
+        .icon {
+            top: 50%;
+            margin-top: -9px;
+            @extend .align-lines;
+        }
+    }
+
+    #archive_link {
+        padding-left: $base*1.2;
+
+        &:hover {
+
+            .icon { @extend .book-active; }
         }
 
-        #blog_link {
-            padding-left: $base*1.2;
-
-            &:hover .icon { @extend .align-lines-active; }
-
-            .icon {
-                top: 50%;
-                margin-top: -9px;
-                @extend .align-lines;
-            }
-        }
-
-        #archive_link {
-            padding-left: $base*1.2;
-
-            &:hover {
-
-                .icon { @extend .book-active; }
-            }
-
-            .icon { @extend .book; }
-        }
-
-
-
+        .icon { @extend .book; }
     }
 }
 
-/* 4.`footer
-============================================== */
+
+/* b.`content
+-------------------------- */
+
+#g-page {
+    border-top: 1px solid #333;
+    background-color: #fff;
+}
+
+.page {
+    color: #333;
+}
+
+.subheader {
+    @extend .grid-8;
+    padding: $base*2 0;
+    border-top: 3px solid $gold;
+    text-align: center;
+
+    h1, h3 {
+        display: inline;
+        padding: $base/10;
+        margin: 0;
+        @extend .tight-line-height;
+    }
+
+    h1 {
+        color: #333;
+    }
+
+    h2 {
+        @extend .futura-light;
+    }
+}
+
+
+/* c.`footer
+-------------------------- */
 
 .footer {
   color: #444;
@@ -274,174 +293,33 @@ body {
   }
 }
 
-/* 6.`modules
-============================================== */
+/* 7.`Extensible Classes
+---------------------------------------------- */
 
-.padded-loose {
-  padding: 10px;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
-.button-set {
-  &.vertical {
-    button {
-      margin-bottom: 16px;
+.group {
+    &:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
     }
-  }
-  &.half-width-buttons {
-    button {
-      width: 48%;
-    }
-  }
-  &.centered {
-    text-align: center;
-  }
 }
 
-.video-wrapper {
-  @include rounded();
-  padding: 5px;
-  background-color: #f5f5f5;
-  text-align: center;
-}
-.schools {
-  ul {
-    @include group;
-  }
-  li {
-    float: left;
-    width: 25%;
-    height: 100px;
-  }
-  em {
-    margin: 0 auto;
-  }
-}
+.right { float: right !important; }
+.left { float: left !important; }
 
-/* 8.`sprites
-============================================== */
-
-.icon,
-.sprite,
-.sprite-school {
-    text-indent : -9999px;
-    line-height : 0;
-    font-size   : 0;
-    overflow    : hidden;
-    display     : block;
-}
-
-.sprite { background-image : url('../img/finalsclub-sprite-images.png'); }
-.icon { background-image   : url('../img/finalsclub-sprite-icons.png'); }
-.sprite-school { background-image : url("../img/finalsclub-sprite-schools.gif"); }
-
-.paperclip {
-    background-position: 0 0;
-    width: 22px;
-    height: 20px;
-}
-
-.paperclip-active {
-    @extend .paperclip;
-    background-position: -24px 0;
-}
-
-.align-lines {
-    background-position: 0 -25px;
-    width: 24px;
-    height: 17px;
-}
-
-.align-lines-active {
-    @extend align-lines;
-    background-position: -27px -25px;
-}
-
-.book {
-    background-position: 0 -46px;
-    width: 19px;
-    height: 26px;
-}
-
-.book-active {
-    @extend .book;
-    background-position: -24px -46px;
-}
-
-.brown {
-  background-position: 0 0;
-  width: 61px;
-  height: 72px;
-}
-.columbia {
-  background-position: -62px 0;
-  width: 81px;
-  height: 61px;
-}
-.cornell {
-  background-position: -144px 0;
-  width: 71px;
-  height: 72px;
-}
-.dartmouth {
-  background-position: -216px 0;
-  width: 56px;
-  height: 71px;
-}
-.shield {
-  background-position: -273px 0;
-  width: 59px;
-  height: 60px;
-}
-.mit {
-  background-position: -333px 0;
-  width: 79px;
-  height: 41px;
-}
-.lock_haven {
-  background-position: -413px 0;
-  width: 61px;
-  height: 68px;
-}
-.cal {
-  background-position: -475px 0;
-  width: 91px;
-  height: 72px;
-}
-.texas {
-  background-position: -567px 0;
-  width: 54px;
-  height:68px;
-}
-.yale {
-  background-position: -622px 0;
-  width: 51px;
-  height: 50px;
-}
-.penn {
-  background-position: -674px 0;
-  width: 115px;
-  height:65px;
-}
-.harvard {
-  background-position: -790px 0;
-  width: 67px;
-  height: 65px;
-}
-/* media queries */
-
-@import "partials/media";
-
-/* *.`user defined
-============================================== */
-
-.right { float: right !important;}
-.no-top-margin { margin-top: 0; }
 .spacer {
   padding-top: 16px;
   padding-bottom: 32px;
 }
+
 .half-width { width: 50%; }
 .centered { text-align: center;}
 .centered-rt-parent { margin: 0 auto;}
+
+
+@import "partials/sprites"; // A
+@import "partials/pages";   // B
+@import "partials/modules"; // C
+@import "partials/media";   // D

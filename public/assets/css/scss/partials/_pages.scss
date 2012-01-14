@@ -1,0 +1,39 @@
+/*----------------------------------------------------------------
+
+[Table of contents]
+
+ 0.Home
+ 1.Layout
+
+----------------------------------------------------------------*/
+
+.section-home {
+
+    h3 { 
+        padding-bottom: $base/4;
+        margin-bottom: $base/4;
+    }
+
+}
+#intro-text {
+    @extend .grid-4;
+}
+
+#intro-schools {
+    @extend .grid-4;
+
+    li {
+        float: left;
+        width: 100/3*1%;
+        min-height: 50px;
+        margin: $base/2 0;
+
+        .sprite {
+            margin: 0 auto;
+        }
+    }
+}
+
+#intro-video {
+    @extend .grid-8;
+}
