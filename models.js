@@ -180,7 +180,7 @@ var HarvardCourses = new Schema( {
 });
 
 HarvardCourses.virtual( 'sanitized' ).get(function() {
-    var class = {
+    var hcourse = {
         _id     : this._id,
         title   : this.name,
         field   : this.field,
@@ -191,7 +191,7 @@ HarvardCourses.virtual( 'sanitized' ).get(function() {
         room    : this.room,
         faculty : this.faculty
         }
-    return class
+    return hcourse
 })
 
 // courses
