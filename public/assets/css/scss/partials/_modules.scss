@@ -2,7 +2,8 @@
     margin-left: $base/-4;
 
     li {
-        display: inline;
+        display: block;
+        float: left;
 
         &.last {
             a {
@@ -13,10 +14,12 @@
     }
 
     a {
+        display: block;
         padding: 0 $base/4;
         border-right: 1px solid $gold;
         color: $mustard;
         @extend .small;
+        @extend .futura-bold;
     }
 }
 

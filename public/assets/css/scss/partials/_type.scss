@@ -47,9 +47,15 @@ body {
 }
 
 .tiny {
-    /* 14px / 18px */
-    font-size: #{($font-size*0.75) / $em}em;
+    /* 11px / 12px */
+    font-size: #{($font-size*0.6875) / $em}em;
     line-height: ($line*0.5) / ($font-size*0.6875) * 1em;
+}
+
+.mini {
+    /* 12px / 12px */
+    font-size: #{($font-size*0.75) / $em}em;
+    line-height: ($line*0.5) / ($font-size*0.75) * 1em;
 }
 
 .small {

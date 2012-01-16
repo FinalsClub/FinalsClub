@@ -142,6 +142,7 @@ router.add('schools', function(data, cb) {
     id: 'school',
     data: data.schools
   }
+  console.log(response.data);
 
   $('#pg_schools').css('display', 'block');
   $('#schoolTmpl').tmpl( data.schools ).appendTo("#pg_schools");

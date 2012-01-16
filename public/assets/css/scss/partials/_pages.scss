@@ -16,11 +16,11 @@
     margin-bottom: $base;
 }
 
-#intro-text {
+#intro-video {
     @extend .grid-4;
 }
 
-#intro-video {
+#intro-text {
     @extend .grid-4;
 }
 
@@ -28,13 +28,23 @@
     @extend .grid-8;
 
     h4 {
-        padding-bottom: $base/2;
-        border-bottom: 1px solid #e5e5e5;
     }
 
     li {
-        display: inline;
-        padding: $base/3;
-        @extend .tiny;
+        @include inline-block;
+        position: relative;
+        padding: $base/4 0;
+        padding-right: $base/2;
+        @extend .small;
+
+        &:after {
+            content: "";
+            position: absolute;
+            right: 3px;
+            top: 50%;
+            width: 3px;
+            height: 2px;
+            background-color: #999;
+        }
     }
 }
