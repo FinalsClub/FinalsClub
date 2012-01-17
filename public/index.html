@@ -50,16 +50,13 @@
         <header id="g-masthead">
             <div class="wrapper">
 
-                <nav id="nav-user">
+                <nav id="g-nav-user">
                     <ul>
                         <li class="first"><a href="#" class="username"></a></li>
                         <li><a href="/register">Register</a></li>
                         <li class="last"><a href="/login">Login</a></li>
                     </ul>
                 </nav>
-            </div>
-
-            <div class="wrapper">
 
                 <div id="g-logo">
                     <a href="/">
@@ -67,8 +64,7 @@
                     </a>
                 </div>
 
-
-                <nav id="nav-main">
+                <nav id="g-nav-main">
                     <ul>
                         <li><a href="/schools" id=school_link><span class="icon" alt="paperclip"></span>Courses</a></li>
                         <li><a href="http://blog.finalsclub.org" id="blog_link"><span class="icon" alt="align-lines"></span>Blog</a></li>
@@ -80,6 +76,7 @@
                         <!-- li><a href="#" class="donate"><em class="icon"></em><em class="lc yellow">Donate</em></a></li -->
                     </ul>
                 </nav>
+                <hr id="g-masthead-hr" />
             </div>
         </header>
         <div id="topofcontent"></div>
@@ -150,27 +147,49 @@
                         </section>
                     </div>
                 </div>
-          <!--================================================================= -->
+
+          <!--=================================================================-->
 
                 <div class="page" id="pg_schools">
-                    <h1>Universities</h1>
-                </div>
-                <script id="schoolTmpl" type="text/x-jquery-tmpl">
-                    <a href="school/${_id}" class="school">
-                        <div class="name">${name}</div>
-                        <div class="desc">${description}</div>
-                        <ul class="courses">
-                            {{tmpl(courses) "#course"}}
+
+                    <header class="breadcrumb">
+                        <a href="#"><span class="action">&#139; Back</span><span class="location">&nbsp;to Home</span></a>
+                    </header>
+
+                    <header class="subheader">
+                        <h1>Universities</h1>
+                    </header>
+
+                    <div class="main-content">
+                        <ul id="schools">
                         </ul>
-                    </a> <!-- .school -->
+                    </div>
+                </div>
+
+                <script id="schoolTmpl" type="text/x-jquery-tmpl">
+                    <li>
+                        <a href="school/${_id}" class="school">
+                            <img class="icon-pair" src="/assets/img/avatar-univerisity-generic.gif" alt="" />
+                            <div class="text-pair">
+                                <span class="school_name">${name}</span>
+                                <!-- <h4>${description}</h4>-->
+                                <span class="number_of_courses">12 Courses, </span>
+                                <span class="number_of_notes">27 Notes</span>
+                            </div>
+                        </a>
+                    </li>
                 </script>
+
                 <script id="course" type="text/x-jquery-tmpl">
                     <li>${dept}: ${name} (${number})</li>
                 </script>
 
-          <!--================================================================= -->
+          <!--=================================================================-->
+
                 <div class=page id=pg_courses>
-                    <h1>Courses for <span id=school_name></span></h1>
+                    <div class="subheader">
+                        <h1>Courses for <span id=school_name></span></h1>
+                    </div>
                 <div>
               <span class="sub_menu" style="display:none;">
               </span>

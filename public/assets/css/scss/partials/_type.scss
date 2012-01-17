@@ -14,23 +14,14 @@
     font-weight: 300;
 }
 
+.futura-light-oblique {
+    @extend .futura;
+    font-style: italic;
+    font-weight: 300;
+}
+
 .futura-bold {
     @extend .futura;
-    font-weight: 700;
-}
-
-.minion {
-    font-family: "minion-pro", "Georgia", serif;
-    font-weight: 400;
-    -webkit-font-smoothing: antialiased;
-}
-
-.minion-italic {
-    @extend .minion;
-    font-style: italic;
-}
-
-.minion-bold {
     font-weight: 700;
 }
 
@@ -44,6 +35,7 @@ body {
     /* 16px / 24px */
     font-size: $font-size / 16 * 1em;
     line-height: #{$line / $em}em;
+    @extend .futura;
 }
 
 .tiny {

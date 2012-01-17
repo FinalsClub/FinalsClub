@@ -54,10 +54,11 @@ $mustard: #e8a200;
 /* a.`elements
 -------------------------- */
 
-h1, h2, h3, h4, h5, h6 { margin: 0; margin-bottom: $base/4; @extend .futura; }
+h1, h2, h3, h4, h5, h6 { margin: 0; margin-bottom: $base/4; }
 
 h1 {
     @extend .gigantic;
+    @extend .futura-light;
 }
 
 h2 {
@@ -68,12 +69,13 @@ h3 {
     @extend .large;
 }
 
-h4 {
-    @extend .large;
-}
-
 a {
+    @include transition( color );
     color: $mustard;
+
+    &:hover {
+        color: $mustard;
+    }
 }
 
 p {
@@ -145,7 +147,7 @@ body {
     }
 }
 
-#nav-user {
+#g-nav-user {
     @extend .grid-8;
     padding: $base/4 $base/2 $base/2;
     text-align: right;
@@ -169,7 +171,7 @@ body {
     }
 }
 
-#nav-main {
+#g-nav-main {
     @extend .grid-5;
     @extend .group;
 
@@ -234,31 +236,78 @@ body {
     }
 }
 
+#g-masthead-hr {
+    position: absolute;
+    margin-top: 0;
+    margin-bottom: 0;
+    @extend .grid-8;
+    top: 100%;
+    height: 3px;
+    border: 0;
+    background-color: $gold;
+}
+
 
 /* b.`content
+
 -------------------------- */
 
 #g-page {
-    border-top: 1px solid #333;
     background-color: #fff;
     margin-bottom: $base*2;
 }
 
 .page {
+    display: none;
     @extend .group;
     margin-bottom: $base;
-    border-top: 3px solid $gold;
+    margin-top: 3px;
     color: #333;
+}
+
+.breadcrumb {
+    @extend .grid-8;
+    @extend .big;
+    @extend .group;
+    border-bottom: 1px solid #f5f5f5;
+    background-color: #fafafa;
+
+    a {
+        display: block;
+        float: left;
+        padding: $base/4;
+
+        &:hover {
+
+            .action {
+                color: $mustard;
+            }
+
+            .location {
+                color: #666;
+            }
+        }
+
+        span {
+            @include transition( color );
+        }
+    }
+
+    .action {
+        color: #666;
+    }
+
+    .location {
+        @extend .futura-oblique;
+        color: #bbb;
+    }
 }
 
 .subheader {
     @extend .grid-8;
     padding: $base*2 0;
-    text-align: center;
 
     h1, h3 {
-        display: inline;
-        padding: $base/10;
         margin: 0;
         @extend .tight-line-height;
     }
@@ -272,6 +321,9 @@ body {
     }
 }
 
+.main-content {
+    @extend .grid-8;
+}
 
 /* c.`footer
 -------------------------- */

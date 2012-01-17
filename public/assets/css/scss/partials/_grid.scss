@@ -9,10 +9,10 @@ $percent-margin: $margin / $layout-margin-width;
 
 // Grid Container
 .wrapper {
-  width: $layout-margin-width + px;
-  margin: 0 auto;
-
-  @extend .group;
+    position: relative;
+    width: $layout-margin-width + px;
+    margin: 0 auto;
+    @extend .group;
 }
 
 // Grid Columns

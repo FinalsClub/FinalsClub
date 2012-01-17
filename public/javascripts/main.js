@@ -132,7 +132,6 @@ router.add('home', false, function(cb) {
   }
 });
 
-
 // go to the page that lists the schools
 router.add('schools', function(data, cb) {
 
@@ -142,12 +141,10 @@ router.add('schools', function(data, cb) {
     id: 'school',
     data: data.schools
   }
-  console.log(response.data);
 
-  $('#pg_schools').css('display', 'block');
-  $('#schoolTmpl').tmpl( data.schools ).appendTo("#pg_schools");
+  $('#pg_schools').fadeIn();
+  $('#schoolTmpl').tmpl( data.schools ).appendTo("#pg_schools #schools");
 });
-
 
 // go to the page that lists the courses for a specific school
 router.add('school', function(data, cb) {
@@ -184,9 +181,6 @@ router.add('school', function(data, cb) {
   }
   cb("courses", response)
 });
-
-
-
 
 // go to the page that lists the lectures for a specific course
 router.add('course', function(data, cb) {
@@ -253,7 +247,6 @@ router.add('course', function(data, cb) {
       })
     });
   }
-
 });
 
 

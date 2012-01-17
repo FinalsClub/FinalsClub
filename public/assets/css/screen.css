@@ -37,6 +37,7 @@ Please have a look around, I hope you enjoy your stay.
 
 ---------------------------------------------------------------- */
 .wrapper {
+  position: relative;
   width: 880px;
   margin: 0 auto; }
 
@@ -68,7 +69,7 @@ Please have a look around, I hope you enjoy your stay.
   margin-left: 1.705%;
   margin-right: 1.705%; }
 
-.grid-5, #nav-main {
+.grid-5, #g-nav-main {
   float: left;
   width: 59.091%;
   padding: 0;
@@ -89,36 +90,29 @@ Please have a look around, I hope you enjoy your stay.
   margin-left: 1.705%;
   margin-right: 1.705%; }
 
-.grid-8, #nav-user, .subheader, #g-footer, #intro-schools {
+.grid-8, #g-nav-user, #g-masthead-hr, .breadcrumb, .subheader, .main-content, #g-footer, #intro-schools {
   float: left;
   width: 96.591%;
   padding: 0;
   margin-left: 1.705%;
   margin-right: 1.705%; }
 
-.futura, .futura-oblique, .futura-light, .subheader h2, .futura-bold, .link-bar a, h1, h2, h3, h4, h5, h6, p, #g-masthead {
+.futura, .futura-oblique, .breadcrumb .location, #schools .number_of_courses, #schools .number_of_notes, .futura-light, h1, .subheader h2, .futura-light-oblique, .futura-bold, .link-bar a, body, p, #g-masthead, #pg_home h1 {
   font-family: "futura-pt", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   font-weight: 500;
   -webkit-font-smoothing: antialiased; }
 
-.futura-oblique {
+.futura-oblique, .breadcrumb .location, #schools .number_of_courses, #schools .number_of_notes {
   font-style: italic; }
 
-.futura-light, .subheader h2 {
+.futura-light, h1, .subheader h2 {
+  font-weight: 300; }
+
+.futura-light-oblique {
+  font-style: italic;
   font-weight: 300; }
 
 .futura-bold, .link-bar a {
-  font-weight: 700; }
-
-.minion, .minion-italic {
-  font-family: "minion-pro", "Georgia", serif;
-  font-weight: 400;
-  -webkit-font-smoothing: antialiased; }
-
-.minion-italic {
-  font-style: italic; }
-
-.minion-bold {
   font-weight: 700; }
 
 body {
@@ -136,7 +130,7 @@ body {
   font-size: 0.75em;
   line-height: 1em; }
 
-.small, #nav-user, #intro-schools li, .link-bar a {
+.small, #g-nav-user, #intro-schools li, .link-bar a {
   /* 14px / 18px */
   font-size: 0.875em;
   line-height: 1.286em; }
@@ -147,12 +141,12 @@ body {
   line-height: 1.5em;
   /* 24 */ }
 
-.big, p, #nav-main a {
+.big, p, #g-nav-main a, .breadcrumb {
   /* 18px / 24px */
   font-size: 1.125em;
   line-height: 1.333em; }
 
-.large, h3, h4 {
+.large, h3, #schools .school_name {
   /* 26 / 36px */
   font-size: 1.625em;
   line-height: 1.385em; }
@@ -172,7 +166,7 @@ body {
   font-size: 3.75em;
   line-height: 1.2em; }
 
-.tight-line-height, #nav-user ul, .subheader h1, .subheader h3 {
+.tight-line-height, #g-nav-user ul, .subheader h1, .subheader h3 {
   line-height: 1em; }
 
 /* 0.`General
@@ -184,7 +178,14 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0.375em; }
 
 a {
+  -webkit-transition: color 0.25s ease-in-out;
+  -moz-transition: color 0.25s ease-in-out;
+  -o-transition: color 0.25s ease-in-out;
+  -ms-transition: color 0.25s ease-in-out;
+  transition: color 0.25s ease-in-out;
   color: #e8a200; }
+  a:hover {
+    color: #e8a200; }
 
 p {
   margin: 0;
@@ -315,67 +316,96 @@ body {
 #g-logo a {
   display: block; }
 
-#nav-user {
+#g-nav-user {
   padding: 0.375em 0.75em 0.75em;
   text-align: right; }
-  #nav-user li {
+  #g-nav-user li {
     display: inline; }
-    #nav-user li.first, #nav-user li.first a {
+    #g-nav-user li.first, #g-nav-user li.first a {
       border: 0; }
-  #nav-user a {
+  #g-nav-user a {
     padding: 0 0.75em;
     color: #ffcd58; }
 
-#nav-main ul {
+#g-nav-main ul {
   float: right;
   padding: 0.375em 0; }
-#nav-main li {
+#g-nav-main li {
   display: inline-block;
   *display: inline;
   *zoom: 1;
   vertical-align: middle; }
-#nav-main a {
+#g-nav-main a {
   position: relative;
   display: block;
   padding: 0.375em 0;
   margin-left: 1.5em;
   color: #fff; }
-  #nav-main a:hover {
+  #g-nav-main a:hover {
     color: #ffcd58; }
-  #nav-main a .icon {
+  #g-nav-main a .icon {
     position: absolute;
     left: 0; }
-#nav-main #school_link {
+#g-nav-main #school_link {
   padding-left: 2.1em; }
-  #nav-main #school_link .icon {
+  #g-nav-main #school_link .icon {
     top: 50%;
     margin-top: -10px; }
-#nav-main #blog_link {
+#g-nav-main #blog_link {
   padding-left: 1.95em; }
-  #nav-main #blog_link .icon {
+  #g-nav-main #blog_link .icon {
     top: 50%;
     margin-top: -9px; }
-#nav-main #archive_link {
+#g-nav-main #archive_link {
   padding-left: 1.8em; }
 
+#g-masthead-hr {
+  position: absolute;
+  margin-top: 0;
+  margin-bottom: 0;
+  top: 100%;
+  height: 3px;
+  border: 0;
+  background-color: #ffcd58; }
+
 /* b.`content
+
 -------------------------- */
 #g-page {
-  border-top: 1px solid #333;
   background-color: #fff;
   margin-bottom: 3em; }
 
 .page {
+  display: none;
   margin-bottom: 1.5em;
-  border-top: 3px solid #ffcd58;
+  margin-top: 3px;
   color: #333; }
 
+.breadcrumb {
+  border-bottom: 1px solid #f5f5f5;
+  background-color: #fafafa; }
+  .breadcrumb a {
+    display: block;
+    float: left;
+    padding: 0.375em; }
+    .breadcrumb a:hover .action {
+      color: #e8a200; }
+    .breadcrumb a:hover .location {
+      color: #666; }
+    .breadcrumb a span {
+      -webkit-transition: color 0.25s ease-in-out;
+      -moz-transition: color 0.25s ease-in-out;
+      -o-transition: color 0.25s ease-in-out;
+      -ms-transition: color 0.25s ease-in-out;
+      transition: color 0.25s ease-in-out; }
+  .breadcrumb .action {
+    color: #666; }
+  .breadcrumb .location {
+    color: #bbb; }
+
 .subheader {
-  padding: 3em 0;
-  text-align: center; }
+  padding: 3em 0; }
   .subheader h1, .subheader h3 {
-    display: inline;
-    padding: 0.15em;
     margin: 0; }
   .subheader h1 {
     color: #333; }
@@ -432,7 +462,7 @@ body {
 
 /* 7.`Extensible Classes
 ---------------------------------------------- */
-.group:after, .wrapper:after, #nav-main:after, .page:after, .schools ul:after {
+.group:after, .wrapper:after, #g-nav-main:after, .page:after, .breadcrumb:after, #schools li:after, .schools ul:after {
   content: ".";
   display: block;
   height: 0;
@@ -485,28 +515,28 @@ body {
 
 /* A2.`Sprites
 ---------------------------------------------- */
-.paperclip, #nav-main #school_link .icon, .paperclip-active, #nav-main #school_link:hover .icon {
+.paperclip, #g-nav-main #school_link .icon, .paperclip-active, #g-nav-main #school_link:hover .icon {
   background-position: 0 0;
   width: 22px;
   height: 20px; }
 
-.paperclip-active, #nav-main #school_link:hover .icon {
+.paperclip-active, #g-nav-main #school_link:hover .icon {
   background-position: -24px 0; }
 
-.align-lines, #nav-main #blog_link .icon {
+.align-lines, #g-nav-main #blog_link .icon {
   background-position: 0 -25px;
   width: 24px;
   height: 17px; }
 
-.align-lines-active, #nav-main #blog_link:hover .icon {
+.align-lines-active, #g-nav-main #blog_link:hover .icon {
   background-position: -27px -25px; }
 
-.book, #nav-main #archive_link .icon, .book-active, #nav-main #archive_link:hover .icon {
+.book, #g-nav-main #archive_link .icon, .book-active, #g-nav-main #archive_link:hover .icon {
   background-position: 0 -46px;
   width: 19px;
   height: 26px; }
 
-.book-active, #nav-main #archive_link:hover .icon {
+.book-active, #g-nav-main #archive_link:hover .icon {
   background-position: -24px -46px; }
 
 .logo-brown {
@@ -586,18 +616,15 @@ body {
 [Table of contents]
 
  0.Home
- 1.Layout
+ 1.Schools
+ 2.School
 
 ----------------------------------------------------------------*/
-.page {
-  display: none;
-  -webkit-transition: all 0.25s ease-in-out;
-  -moz-transition: all 0.25s ease-in-out;
-  -o-transition: all 0.25s ease-in-out;
-  -ms-transition: all 0.25s ease-in-out;
-  transition: all 0.25s ease-in-out; }
-
-.section-home {
+/* 0.`Home
+---------------------------------------------- */
+#pg_home .subheader {
+  text-align: center; }
+#pg_home .section-home {
   margin-bottom: 1.5em; }
 
 #intro-schools li {
@@ -616,6 +643,35 @@ body {
     width: 3px;
     height: 2px;
     background-color: #999; }
+
+/* 1.`Schools
+---------------------------------------------- */
+#schools a {
+  display: block;
+  float: left;
+  clear: both;
+  padding: 0.375em; }
+  #schools a:hover .school_name {
+    color: #e8a200; }
+  #schools a:hover .number_of_courses, #schools a:hover .number_of_notes {
+    color: #444; }
+  #schools a span {
+    -webkit-transition: color 0.25s ease-in-out;
+    -moz-transition: color 0.25s ease-in-out;
+    -o-transition: color 0.25s ease-in-out;
+    -ms-transition: color 0.25s ease-in-out;
+    transition: color 0.25s ease-in-out; }
+#schools .icon-pair, #schools .text-pair {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  vertical-align: middle; }
+#schools .icon-pair {
+  margin-right: 0.75em; }
+#schools .school_name {
+  color: #555; }
+#schools .number_of_courses, #schools .number_of_notes {
+  color: #999; }
 
 .link-bar {
   margin-left: -0.375em; }
