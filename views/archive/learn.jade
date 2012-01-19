@@ -1,0 +1,10 @@
+div.content
+	div.container1
+		h1 Featured Courses 
+		ul
+			- if ( courses.length > 0 )
+				- each course in courses
+					li
+						a( href = '/archive/course/#{ course.id }' ) #{ course.name }
+			- else
+				li No courses found.

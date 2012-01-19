@@ -1,0 +1,31 @@
+div.masthead 
+	div.logbar
+		div.loginstatus
+			- if( user && user.loggedIn )
+				| Currently logged in as 
+				span.username
+					| !{ user.displayName || user.name }
+			- else
+				| &nbsp;
+	div.navbar
+		table
+			tr
+				td
+					a(href="/")
+						img.logo(src="/images/finals-club-wht.png")
+				td.menu
+					a(href="/schools") Courses
+					a(href="http://blog.finalsclub.org") Blog
+					a(href="/archive") Archive
+					a(href="/press") Press
+
+					- if( user && user.loggedIn )
+						a(href="/profile") Profile
+						//span(class='sub_menu')
+						a.special( href='/logout' ) Logout
+					- else
+						a(href="/register") Create an Account
+						// span(class='sub_menu')
+						a.special(href="/login") Login
+	div.logbar
+		&nbsp;

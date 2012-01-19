@@ -1,0 +1,39 @@
+script
+	var lectureID = '#{lecture._id}';
+
+div.content
+	div.container1
+
+		h1 #{ lecture.name }
+		p Course: #{ course.name }
+		- if ( lecture.authorized )
+			p Instructor: 
+				a( href = 'mailto:#{ instructor.email }' ) #{ instructor.name }
+		- else
+			p Instructor: #{ instructor.name }
+
+		hr
+
+		h2 Existing Note Pads
+
+		ul
+			- if ( notes.length > 0 )
+				ul
+				- each note in notes
+					li
+						a( href = '/note/#{ note._id }' ) #{ note.name }
+						- if (note.public) 
+							|  (Public)
+						- else
+							|  (Private)
+						span( note-id = note._id ).count= counts[ note._id ]
+						span  Visits: #{ note.visits || 0 }
+			- else
+				p No note pads have been created for this lecture yet.
+
+		hr
+
+		- if ( lecture.authorized )
+			div
+				span(class='sub_menu')
+					a( href = '/lecture/#{ lecture._id }/notes/new' ) New Note Pad
