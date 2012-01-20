@@ -4,7 +4,8 @@
 
  0.Home
  1.Schools
- 2.School
+ 2.Courses
+ 3.Course
 
 ----------------------------------------------------------------*/
 
@@ -16,6 +17,7 @@
 
     .subheader {
         text-align: center;
+        padding: $base*2 0;
     }
 
     h1 {
@@ -102,7 +104,7 @@
 
     .school_name {
         @extend .large;
-        color: #555;
+        color: #333;
     }
 
     .number_of_courses, .number_of_notes {
@@ -111,3 +113,63 @@
     }
 }
 
+/* 2.`Courses
+---------------------------------------------- */
+
+#pg_courses {
+
+    .main-content {
+        @extend .grid-6;
+    }
+
+    .course {
+        position: relative;
+        margin-bottom: $base/2;
+
+        .course-name {
+            display: block;
+            margin-bottom: $base/4;
+            @extend .plump;
+            text-transform: capitalize;
+            color: #000;
+            @include transition( color );
+
+            &:hover {
+                color: $mustard;
+            }
+        }
+
+        .course-description {
+            color: #777;
+        }
+
+        .course-content {
+            padding-bottom: $base;
+            margin-left: 60px;
+            @include dotted-x( bottom );
+        }
+
+        .course-data {
+            position: absolute;
+            top: 0;
+            color: #bfbfbf;
+        }
+
+        .course-data-item {
+            margin-bottom: $base/6;
+            text-align: center;
+        }
+
+        .course-data-number {
+            @extend .fat;
+            @extend .futura-oblique;
+        }
+
+        .course-data-description {
+            margin-top: $base/-3;
+        }
+    }
+}
+
+/* 3.`Course
+---------------------------------------------- */

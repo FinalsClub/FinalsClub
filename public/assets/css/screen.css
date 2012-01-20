@@ -36,6 +36,8 @@ Please have a look around, I hope you enjoy your stay.
     s: state
 
 ---------------------------------------------------------------- */
+/* 0.`General
+---------------------------------------------- */
 .wrapper {
   position: relative;
   width: 880px;
@@ -76,7 +78,7 @@ Please have a look around, I hope you enjoy your stay.
   margin-left: 1.705%;
   margin-right: 1.705%; }
 
-.grid-6 {
+.grid-6, #pg_courses .main-content {
   float: left;
   width: 71.591%;
   padding: 0;
@@ -97,12 +99,12 @@ Please have a look around, I hope you enjoy your stay.
   margin-left: 1.705%;
   margin-right: 1.705%; }
 
-.futura, .futura-oblique, .breadcrumb .location, #schools .number_of_courses, #schools .number_of_notes, .futura-light, h1, .subheader h2, .futura-light-oblique, .futura-bold, .link-bar a, body, p, #g-masthead, #pg_home h1 {
+.futura, .futura-oblique, .breadcrumb .location, #schools .number_of_courses, #schools .number_of_notes, #pg_courses .course .course-data-number, .futura-light, h1, .subheader h2, .futura-light-oblique, .futura-bold, .link-bar a, body, p, #g-masthead, #pg_home h1 {
   font-family: "futura-pt", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   font-weight: 500;
   -webkit-font-smoothing: antialiased; }
 
-.futura-oblique, .breadcrumb .location, #schools .number_of_courses, #schools .number_of_notes {
+.futura-oblique, .breadcrumb .location, #schools .number_of_courses, #schools .number_of_notes, #pg_courses .course .course-data-number {
   font-style: italic; }
 
 .futura-light, h1, .subheader h2 {
@@ -146,10 +148,20 @@ body {
   font-size: 1.125em;
   line-height: 1.333em; }
 
+.plump, #pg_courses .course .course-name {
+  /* 21 / 30px */
+  font-size: 1.313em;
+  line-height: 1.429em; }
+
 .large, h3, #schools .school_name {
   /* 26 / 36px */
   font-size: 1.625em;
   line-height: 1.385em; }
+
+.fat, #pg_courses .course .course-data-number {
+  /* 30 / 36px */
+  font-size: 1.875em;
+  line-height: 1.2em; }
 
 .huge, h2 {
   /* 36px / 42px */
@@ -166,11 +178,12 @@ body {
   font-size: 3.75em;
   line-height: 1.2em; }
 
+.tiny-line-height {
+  line-height: 0.5em; }
+
 .tight-line-height, #g-nav-user ul, .subheader h1, .subheader h3 {
   line-height: 1em; }
 
-/* 0.`General
----------------------------------------------- */
 /* a.`elements
 -------------------------- */
 h1, h2, h3, h4, h5, h6 {
@@ -303,8 +316,7 @@ body {
   margin: 0; }
 
 body {
-  background-position: 20% 0;
-  border-top: 3px solid #1f1e1c; }
+  background-position: 20% 0; }
 
 /* a.`header
 -------------------------- */
@@ -347,17 +359,17 @@ body {
     position: absolute;
     left: 0; }
 #g-nav-main #school_link {
-  padding-left: 2.1em; }
+  padding-left: 1.65em; }
   #g-nav-main #school_link .icon {
     top: 50%;
     margin-top: -10px; }
 #g-nav-main #blog_link {
-  padding-left: 1.95em; }
+  padding-left: 1.8em; }
   #g-nav-main #blog_link .icon {
     top: 50%;
     margin-top: -9px; }
 #g-nav-main #archive_link {
-  padding-left: 1.8em; }
+  padding-left: 1.65em; }
 
 #g-masthead-hr {
   position: absolute;
@@ -404,7 +416,7 @@ body {
     color: #bbb; }
 
 .subheader {
-  padding: 3em 0; }
+  padding: 1.5em 0 2.25em; }
   .subheader h1, .subheader h3 {
     margin: 0; }
   .subheader h1 {
@@ -617,13 +629,15 @@ body {
 
  0.Home
  1.Schools
- 2.School
+ 2.Courses
+ 3.Course
 
 ----------------------------------------------------------------*/
 /* 0.`Home
 ---------------------------------------------- */
 #pg_home .subheader {
-  text-align: center; }
+  text-align: center;
+  padding: 3em 0; }
 #pg_home .section-home {
   margin-bottom: 1.5em; }
 
@@ -669,10 +683,47 @@ body {
 #schools .icon-pair {
   margin-right: 0.75em; }
 #schools .school_name {
-  color: #555; }
+  color: #333; }
 #schools .number_of_courses, #schools .number_of_notes {
   color: #999; }
 
+/* 2.`Courses
+---------------------------------------------- */
+#pg_courses .course {
+  position: relative;
+  margin-bottom: 0.75em; }
+  #pg_courses .course .course-name {
+    display: block;
+    margin-bottom: 0.375em;
+    text-transform: capitalize;
+    color: #000;
+    -webkit-transition: color 0.25s ease-in-out;
+    -moz-transition: color 0.25s ease-in-out;
+    -o-transition: color 0.25s ease-in-out;
+    -ms-transition: color 0.25s ease-in-out;
+    transition: color 0.25s ease-in-out; }
+    #pg_courses .course .course-name:hover {
+      color: #e8a200; }
+  #pg_courses .course .course-description {
+    color: #777; }
+  #pg_courses .course .course-content {
+    padding-bottom: 1.5em;
+    margin-left: 60px;
+    background-image: url("../img/dotted-x.png");
+    background-position: bottom;
+    background-repeat: repeat-x; }
+  #pg_courses .course .course-data {
+    position: absolute;
+    top: 0;
+    color: #bfbfbf; }
+  #pg_courses .course .course-data-item {
+    margin-bottom: 0.25em;
+    text-align: center; }
+  #pg_courses .course .course-data-description {
+    margin-top: -0.5em; }
+
+/* 3.`Course
+---------------------------------------------- */
 .link-bar {
   margin-left: -0.375em; }
   .link-bar li {
