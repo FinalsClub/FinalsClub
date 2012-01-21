@@ -631,6 +631,7 @@ body {
  1.Schools
  2.Courses
  3.Course
+ 4.Legal
 
 ----------------------------------------------------------------*/
 /* 0.`Home
@@ -751,6 +752,15 @@ body {
   height: 100px; }
 .schools em {
   margin: 0 auto; }
+
+/* 4. Legal
+---------------------------------------------- */
+
+#pg_legal .subheader {
+  text-align: center;
+  padding: 3em 0; }
+#pg_legal .section-home {
+  margin-bottom: 1.5em; }
 
 /* media queries
 ============================================== */
