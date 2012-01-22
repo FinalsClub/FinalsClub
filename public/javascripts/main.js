@@ -75,7 +75,7 @@ function render(pageId, response) {
     $('#profile_link').hide();
 		$('#sign_up-link').show();
   }
-  //if (asdfasdfasdf){
+
   if (response) {
     if (response instanceof Array) {
       $.each(response, function() {
@@ -87,7 +87,9 @@ function render(pageId, response) {
       ProtoDiv.replicate("PROTO_" + response.id, response.data)
     }
   }
-  $("#pg_" + pageId).fadeIn(100);
+	$("#pg_" + pageId).fadeIn(function() {
+		$("#g-footer").fadeIn(); // we don't want the footer jumping up and down
+	});
 }
 
 function message(type, msg) {
@@ -144,7 +146,9 @@ router.add('schools', function(data, cb) {
     data: data.schools
   }
 
-  $('#pg_schools').fadeIn();
+  $('#pg_schools').fadeIn(function() {
+		$('#g-footer').fadeIn();
+	});
   $('#schoolTmpl').tmpl( data.schools ).appendTo("#pg_schools #schools");
 });
 
@@ -505,6 +509,7 @@ router.add('conduct', false, function(cb) {
 function showPage(y) {
 
     $('.page').hide(); //(100);// hide all pseudo pages
+		$('#g-footer').hide();
 
     var
     path = document.location.pathname,
