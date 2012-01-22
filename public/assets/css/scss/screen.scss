@@ -14,26 +14,26 @@ Please have a look around, I hope you enjoy your stay.
 
 [Table of contents] - a map of our grounds.
 
-    0.General
-        a.elements
-        b.classes
+	0.General
+		a.elements
+		b.classes
 
-    1.Layout
-        a.header
-        b.content
-        c.footer
+	1.Layout
+		a.header
+		b.content
+		c.footer
 
-    2.Extensible Classes
+	2.Forms
+	3.Extensible Classes
 
-
-    *.Pages, modules, sprites and media queries imported at end
+	*.Pages, modules, sprites and media queries imported at end
 
 ----------------------------------------------------------------
 
 [Prefixes] - some patterns that you may observe.
 
-    g: global
-    s: state
+	g: global
+	s: state
 
 ---------------------------------------------------------------- */
 
@@ -93,6 +93,14 @@ p {
 
 img {
     max-width: 100%;
+}
+
+button {
+	padding: $base/4;
+	border: 0;
+	background: none;
+	background-color: $mustard;
+	color: #fff;
 }
 
 ::-moz-selection { background: #44a1dd; color: #fff; text-shadow: none; }
@@ -402,7 +410,28 @@ body {
   }
 }
 
-/* 7.`Extensible Classes
+/* 2.`Forms
+---------------------------------------------- */
+
+input.text {
+	padding: $base/4;
+	background-color: #e5e5e5;
+	border: 1px solid transparent;
+
+	&:focus {
+		border: 1px solid #aaa;
+		outline: 0;
+	}
+}
+
+.form-header {
+	p {
+		@extend .small;
+	}
+}
+
+
+/* 3.`Extensible Classes
 ---------------------------------------------- */
 
 .group {

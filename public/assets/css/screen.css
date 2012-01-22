@@ -14,26 +14,26 @@ Please have a look around, I hope you enjoy your stay.
 
 [Table of contents] - a map of our grounds.
 
-    0.General
-        a.elements
-        b.classes
+	0.General
+		a.elements
+		b.classes
 
-    1.Layout
-        a.header
-        b.content
-        c.footer
+	1.Layout
+		a.header
+		b.content
+		c.footer
 
-    2.Extensible Classes
+	2.Forms
+	3.Extensible Classes
 
-
-    *.Pages, modules, sprites and media queries imported at end
+	*.Pages, modules, sprites and media queries imported at end
 
 ----------------------------------------------------------------
 
 [Prefixes] - some patterns that you may observe.
 
-    g: global
-    s: state
+	g: global
+	s: state
 
 ---------------------------------------------------------------- */
 /* 0.`General
@@ -50,7 +50,7 @@ Please have a look around, I hope you enjoy your stay.
   margin-left: 1.705%;
   margin-right: 1.705%; }
 
-.grid-2 {
+.grid-2, #pg_courses .sidebar {
   float: left;
   width: 21.591%;
   padding: 0;
@@ -132,7 +132,7 @@ body {
   font-size: 0.75em;
   line-height: 1em; }
 
-.small, #g-nav-user, #intro-schools li, .link-bar a {
+.small, #g-nav-user, .form-header p, #intro-schools li, .link-bar a {
   /* 14px / 18px */
   font-size: 0.875em;
   line-height: 1.286em; }
@@ -207,6 +207,13 @@ p {
 
 img {
   max-width: 100%; }
+
+button {
+  padding: 0.375em;
+  border: 0;
+  background: none;
+  background-color: #e8a200;
+  color: #fff; }
 
 ::-moz-selection {
   background: #44a1dd;
@@ -472,7 +479,17 @@ body {
     .footer .creative_commons a {
       color: #777; }
 
-/* 7.`Extensible Classes
+/* 2.`Forms
+---------------------------------------------- */
+input.text {
+  padding: 0.375em;
+  background-color: #e5e5e5;
+  border: 1px solid transparent; }
+  input.text:focus {
+    border: 1px solid #aaa;
+    outline: 0; }
+
+/* 3.`Extensible Classes
 ---------------------------------------------- */
 .group:after, .wrapper:after, #g-nav-main:after, .page:after, .breadcrumb:after, #schools li:after, .schools ul:after {
   content: ".";

@@ -216,57 +216,64 @@
                             </aside>
                         </div>
 
-                        <form method="POST" id="form_course" style="display:none;">
-                            <h1>Create New Course</h1>
-                            <p>Use this form to create a new course. After creating the course, you can create a lecture within it.</p>
-                            <div class="row">
-                                <div class="label">Course number</div>
-                                <div class="field">
-                                    <input type="text" name="number">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="label">Course name</div>
-                                <div class="field">
-                                    <input type="text" name="name">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="label">Course subject</div>
-                                <div class="field">
-                                    <input type="text" name="subject">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="label">Course department</div>
-                                <div class="field">
-                                    <input type="text" name="department">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="label">Instructor's Name</div>
-                                <div class="field">
-                                    <input type="text" name="instructorName">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="label">Instructor's Email</div>
-                                <div class="field">
-                                    <input type="text" name="email">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="label">&nbsp;</div>
-                                <div class="field">
-                                    <button>Create Course</button>
-                                </div>
-                            </div>
-                        </form>
                     </div>
+										<div class="sidebar">
+											<form method="POST" id="form_course" style="display:none;">
+												<header class="form-header">
+													<h4>Create New Course</h4>
+													<p>Use this form to create a new course. After creating the course, you can create a lecture within it.</p>
+												</header>
+												<div class="row">
+													<div class="label">Course number</div>
+													<div class="field">
+														<input type="text" class="text" name="number">
+													</div>
+												</div>
+												<div class="row">
+													<div class="label">Course name</div>
+													<div class="field">
+														<input type="text" class="text" name="name">
+													</div>
+												</div>
+												<div class="row">
+													<div class="label">Course subject</div>
+													<div class="field">
+														<input type="text" class="text" name="subject">
+													</div>
+												</div>
+												<div class="row">
+													<div class="label">Course department</div>
+													<div class="field">
+														<input type="text" class="text" name="department">
+													</div>
+												</div>
+												<div class="row">
+													<div class="label">Instructor's Name</div>
+													<div class="field">
+														<input type="text" class="text" name="instructorName">
+													</div>
+												</div>
+												<div class="row">
+													<div class="label">Instructor's Email</div>
+													<div class="field">
+														<input type="text" class="text" name="email">
+													</div>
+												</div>
+												<div class="row">
+													<div class="label">&nbsp;</div>
+													<div class="field">
+															<button>Create Course</button>
+													</div>
+												</div>
+											</form>
+										</div>
                 </div>
 
                 <!--================================================================= -->
                 <div class=page id=pg_lectures>
+                    <header class="breadcrumb">
+                        <a href="#"><span class="action">&#139; Back</span><span class="location">&nbsp;to to Lectures</span></a>
+                    </header>
 									<header class="subheader">
 										<div class="proto lectures_head" id=PROTO_lectures_head>
 											<h2>Lectures for Course __number__ : __name__</h2>
@@ -297,7 +304,7 @@
 										<div class="row">
 											<div class="label">Lecture Name</div>
 											<div class="field">
-												<input type="text" name="name">
+												<input type="text" class="text" name="name">
 											</div>
 										</div>
 										<div class="row">
@@ -335,7 +342,7 @@
                 <div class="row">
                   <div class="label">Note Pad Name</div>
                   <div class="field">
-                    <input type="text" name="name">
+                    <input type="text" class="text" name="name">
                   </div>
                 </div>
                 <div class="row">
@@ -402,7 +409,7 @@
                                     <label for="email">School email*</label>
                                 </div>
                                 <div class="field">
-                                    <input type="text" name="email">
+                                    <input type="text" class="text" name="email">
                                 </div>
                             </div>
                             <div class="row">
@@ -442,7 +449,7 @@
                                     <label for="name">Site Handle</label>
                                 </div>
                                 <div class="field">
-                                    <input type="text" name="name">
+                                    <input type="text" class="text" name="name">
                                 </div>
                             </div>
                             <div class="row">
@@ -579,7 +586,7 @@
                                     <label for="email">School email</label>
                                 </div>
                                 <div class="field">
-                                    <input type="text" name="email" size="15" value="joe@sleepless.com">
+                                    <input type="text" class="text" name="email" size="15" value="joe@sleepless.com">
                                 </div>
                             </div>
                             <div class="row">
@@ -624,7 +631,7 @@
                     <label for="email">School email</label>
                   </div>
                   <div class="field">
-                    <input type="text" name="email" size="15" value="">
+                    <input type="text" class="text" name="email" size="15" value="">
                   </div>
                 </div>
                 <div class="row">

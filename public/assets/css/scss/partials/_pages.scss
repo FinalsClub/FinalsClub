@@ -130,6 +130,10 @@
         @extend .grid-6;
     }
 
+		.sidebar {
+			@extend .grid-2;
+		}
+
     .course {
         position: relative;
         margin-bottom: $base/2;
