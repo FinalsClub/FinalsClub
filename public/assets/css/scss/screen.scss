@@ -140,6 +140,10 @@ body {
 
 .sidebar {
 	@extend .grid-3;
+
+	form {
+		margin-left: $base;
+	}
 }
 
 
@@ -274,52 +278,53 @@ body {
 }
 
 .page {
-    display: none;
-    @extend .group;
-    margin-bottom: $base;
-    margin-top: 3px;
-    color: #333;
+	display: none;
+	@extend .group;
+	margin-bottom: $base;
+	margin-top: 3px;
+	color: #333;
 }
 
 .breadcrumb {
-    @extend .grid-8;
-    @extend .big;
-    @extend .group;
-    border-bottom: 1px solid #f5f5f5;
-    background-color: #fafafa;
+	position: relative;
+	@extend .grid-8;
+	@extend .big;
+	@extend .group;
+	border-bottom: 1px solid #f7f7f7;
+	background-color: #fafafa;
 
-    a {
-        display: block;
-        float: left;
-        padding: $base/4;
-				opacity: 0.7;
-				@include transition( opacity );
+	a {
+		display: block;
+		float: left;
+		padding: $base/4;
+		opacity: 0.7;
+		@include transition( opacity );
 
-				.action {
-					color: $mustard;
-				}
+		.action {
+			color: $mustard;
+		}
 
-				.location {
-					color: #666;
-				}
+		.location {
+			color: #666;
+		}
 
-        &:hover {
-					opacity: 1;
-        }
+		&:hover {
+			opacity: 1;
+		}
 
-        span {
-            @include transition( color );
-        }
-    }
+		span {
+				@include transition( color );
+		}
+	}
 
-    .action {
-        color: #666;
-    }
+	.action {
+		color: #666;
+	}
 
-    .location {
-        @extend .futura-oblique;
-        color: #bbb;
-    }
+	.location {
+		@extend .futura-oblique;
+		color: #bbb;
+	}
 }
 
 .subheader {
@@ -327,8 +332,8 @@ body {
     padding: $base 0 $base*1.5;
 		margin-bottom: $base;
 		border-top: 1px solid #fff;
-		border-bottom: 1px solid #f8f8f8;
-		background-color: #fcfcfc;
+		border-bottom: 1px solid #f7f7f7;
+		background-color: #fbfbfb;
 
     h1, h3 {
         margin: 0;
@@ -434,6 +439,7 @@ input.text {
 }
 
 .form-header {
+
 	p {
 		@extend .small;
 	}
@@ -443,6 +449,10 @@ form {
 
 	.row {
 		margin-bottom: $base/2;
+
+		button {
+			margin-top: $base/2;
+		}
 	}
 }
 

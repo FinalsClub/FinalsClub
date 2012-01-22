@@ -191,7 +191,6 @@ router.add('course', function(data, cb) {
   $('#school_link').addClass('active');
   $('.sub_menu').hide();
   $('#new_lecture').unbind();
-  $('#form_lecture').hide().unbind();;
 
   var response = [];
 
@@ -229,27 +228,23 @@ router.add('course', function(data, cb) {
 
   if (data.course.authorized) {
     $('.sub_menu').show();
-    $('#new_lecture').click(function(e) {
-      e.preventDefault();
+		var form = $('#form_lecture');
 
-      var form = $('#form_lecture');
+		form.show();
 
-      form.toggle();
+		form.submit(function(e) {
+			e.preventDefault();
 
-      form.submit(function(e) {
-        e.preventDefault();
-
-        $.post(window.location.pathname, form.serialize(), function(data) {
-          if (data.status === 'error') {
-            message('error', data.message);
-          } else if (data.status === 'ok') {
-            form.hide();
-            goPage(window.location.pathname);
-            message('info', data.message);
-          }
-        });
-      })
-    });
+			$.post(window.location.pathname, form.serialize(), function(data) {
+				if (data.status === 'error') {
+					message('error', data.message);
+				} else if (data.status === 'ok') {
+					form.hide();
+					goPage(window.location.pathname);
+					message('info', data.message);
+				}
+			});
+		})
   }
 });
 
@@ -294,28 +289,22 @@ router.add('lecture', function(data, cb) {
   }
   
   if (data.lecture.authorized) {
-    $('.sub_menu').show();
-    $('#new_note').click(function(e) {
-      e.preventDefault();
 
-      var form = $('#form_note');
+		var form = $('#form_note').show();
 
-      form.toggle();
+		form.submit(function(e) {
+			e.preventDefault();
 
-      form.submit(function(e) {
-        e.preventDefault();
-
-        $.post(window.location.pathname, form.serialize(), function(data) {
-          if (data.status === 'error') {
-            message('error', data.message);
-          } else if (data.status === 'ok') {
-            form.hide();
-            goPage(window.location.pathname);
-            message('info', data.message);
-          }
-        });
-      })
-    });
+			$.post(window.location.pathname, form.serialize(), function(data) {
+				if (data.status === 'error') {
+					message('error', data.message);
+				} else if (data.status === 'ok') {
+					form.hide();
+					goPage(window.location.pathname);
+					message('info', data.message);
+				}
+			});
+		})
   }
 });
 
