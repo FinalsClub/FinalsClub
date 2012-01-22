@@ -14,26 +14,26 @@ Please have a look around, I hope you enjoy your stay.
 
 [Table of contents] - a map of our grounds.
 
-    0.General
-        a.elements
-        b.classes
+	0.General
+		a.elements
+		b.classes
 
-    1.Layout
-        a.header
-        b.content
-        c.footer
+	1.Layout
+		a.header
+		b.content
+		c.footer
 
-    2.Extensible Classes
+	2.Forms
+	3.Extensible Classes
 
-
-    *.Pages, modules, sprites and media queries imported at end
+	*.Pages, modules, sprites and media queries imported at end
 
 ----------------------------------------------------------------
 
 [Prefixes] - some patterns that you may observe.
 
-    g: global
-    s: state
+	g: global
+	s: state
 
 ---------------------------------------------------------------- */
 
@@ -42,14 +42,15 @@ $dark: #1f1e1c;
 $gold: #ffcd58;
 $mustard: #e8a200;
 
-@import "partials/mixins";
-@import "partials/grid";
-@import "partials/type";
-
 
 /* 0.`General
 ---------------------------------------------- */
 
+@import "partials/mixins";
+
+@import "partials/grid";
+
+@import "partials/type";
 
 /* a.`elements
 -------------------------- */
@@ -67,6 +68,10 @@ h2 {
 
 h3 {
     @extend .large;
+}
+
+h4 {
+	@extend .big;
 }
 
 a {
@@ -88,6 +93,16 @@ p {
 
 img {
     max-width: 100%;
+}
+
+button {
+	padding: $base/4 $base/2;
+	border: 0;
+	background: none;
+	background-color: #333;
+	border: 1px solid #000;
+	color: #fff;
+	// color: #fff;
 }
 
 ::-moz-selection { background: #44a1dd; color: #fff; text-shadow: none; }
@@ -120,11 +135,16 @@ body {
 }
 
 body {
-    // background-color: #262626;
     background-position: 20% 0;
-    border-top: 3px solid $dark;
 }
 
+.sidebar {
+	@extend .grid-3;
+
+	form {
+		margin-left: $base;
+	}
+}
 
 
 /* a.`header
@@ -201,7 +221,7 @@ body {
     }
 
     #school_link {
-        padding-left: $base*1.4;
+        padding-left: $base*1.1;
 
         &:hover .icon { @extend .paperclip-active; }
 
@@ -213,7 +233,7 @@ body {
     }
 
     #blog_link {
-        padding-left: $base*1.3;
+        padding-left: $base*1.2;
 
         &:hover .icon { @extend .align-lines-active; }
 
@@ -225,7 +245,7 @@ body {
     }
 
     #archive_link {
-        padding-left: $base*1.2;
+        padding-left: $base*1.1;
 
         &:hover {
 
@@ -258,54 +278,65 @@ body {
 }
 
 .page {
-    display: none;
-    @extend .group;
-    margin-bottom: $base;
-    margin-top: 3px;
-    color: #333;
+	display: none;
+	@extend .group;
+	margin-bottom: $base;
+	margin-top: 3px;
+	color: #333;
 }
 
 .breadcrumb {
-    @extend .grid-8;
-    @extend .big;
-    @extend .group;
-    border-bottom: 1px solid #f5f5f5;
-    background-color: #fafafa;
+	position: relative;
+	@extend .grid-8;
+	@extend .big;
+	@extend .group;
+	border-bottom: 1px solid #f8f8f8;
+	background-color: #fafafa;
 
-    a {
-        display: block;
-        float: left;
-        padding: $base/4;
+	a {
+		display: block;
+		float: left;
+		padding: $base/4;
+		opacity: 0.7;
+		@include transition( opacity );
 
-        &:hover {
+		.action {
+			color: $mustard;
+		}
 
-            .action {
-                color: $mustard;
-            }
+		.location {
+			color: #666;
+		}
 
-            .location {
-                color: #666;
-            }
-        }
+		&:hover {
+			opacity: 1;
+		}
 
-        span {
-            @include transition( color );
-        }
-    }
+		span {
+				@include transition( color );
+		}
+	}
 
-    .action {
-        color: #666;
-    }
+	.action {
+		color: #666;
+	}
 
-    .location {
-        @extend .futura-oblique;
-        color: #bbb;
-    }
+	.location {
+		@extend .futura-oblique;
+		color: #bbb;
+	}
 }
+
+$rgba-gold: rgba(255, 205, 88, 0.1);
 
 .subheader {
     @extend .grid-8;
-    padding: $base*2 0;
+    padding: $base*1.5 0 $base*2;
+		margin-bottom: $base*1.5;
+		border-top: 1px solid #f7f7f7;
+		border-bottom: 1px solid #fbf7eb;
+		border-bottom: 1px solid $rgba-gold;
+		background-color: #fcfcfc;
 
     h1, h3 {
         margin: 0;
@@ -396,7 +427,49 @@ body {
   }
 }
 
-/* 7.`Extensible Classes
+/* 2.`Forms
+---------------------------------------------- */
+
+input.text {
+	padding: $base/4;
+	background-color: #e5e5e5;
+	border: 1px solid #ccc;
+
+	&:focus {
+		border: 1px solid #aaa;
+		outline: 0;
+	}
+}
+
+.form-header {
+
+	h4 {
+		color: $mustard;
+		@extend .futura;
+	}
+
+	p {
+		@extend .small;
+	}
+}
+
+.form-section {
+	margin-bottom: $base*2;
+}
+
+form {
+
+	.row {
+		margin-bottom: $base/2;
+
+		button {
+			margin-top: $base/2;
+		}
+	}
+}
+
+
+/* 3.`Extensible Classes
 ---------------------------------------------- */
 
 .group {
@@ -421,8 +494,22 @@ body {
 .centered { text-align: center;}
 .centered-rt-parent { margin: 0 auto;}
 
+.light {
+	color: #444;
+}
+
+.info {
+	@extend .futura-bold;
+	color: #6bcf77;
+}
+
+.error {
+	@extend .futura-bold;
+	color: #b7300b;
+}
 
 @import "partials/sprites"; // A
 @import "partials/pages";   // B
 @import "partials/modules"; // C
+@import "partials/mixins"; // C
 @import "partials/media";   // D

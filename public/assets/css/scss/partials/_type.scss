@@ -68,10 +68,22 @@ body {
     line-height: ($line*1) / ($font-size*1.125) * 1em;
 }
 
+.plump {
+    /* 21 / 30px */
+    font-size: #{21 / $em}em;
+    line-height: ($line*1.25) / 21 * 1em;
+}
+
 .large {
     /* 26 / 36px */
     font-size: #{26 / $em}em;
     line-height: ($line*1.5) / 26 * 1em;
+}
+
+.fat {
+    /* 30 / 36px */
+    font-size: #{30 / $em}em;
+    line-height: ($line*1.5) / 30 * 1em;
 }
 
 .huge {
@@ -92,6 +104,7 @@ body {
     line-height: ($line*3) / 60 * 1em;
 }
 
+.tiny-line-height { line-height: 0.5em; }
 .tight-line-height {
     line-height: 1em;
 }

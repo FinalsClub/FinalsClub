@@ -53,8 +53,8 @@
                 <nav id="g-nav-user">
                     <ul>
                         <li class="first"><a href="#" class="username"></a></li>
-                        <li><a href="/register">Register</a></li>
-                        <li class="last"><a href="/login">Login</a></li>
+                        <li><a href="/register" id="register_link">Register</a></li>
+                        <li class="last"><a href="/login" id="login_link">Login</a></li>
                     </ul>
                 </nav>
 
@@ -69,18 +69,15 @@
                         <li><a href="/schools" id=school_link><span class="icon" alt="paperclip"></span>Courses</a></li>
                         <li><a href="http://blog.finalsclub.org" id="blog_link"><span class="icon" alt="align-lines"></span>Blog</a></li>
                         <li><a href="/archive" id=archive_link class="nav"><span class="icon" alt="book"></span>Library</a></li>
-                        <!--
-                        <li><a href="/press" id=press_link class="nav"><em class="icon"></em>Press</a></li>
-                        -->
-                        <li><a href="/profile" id=profile_link class="nav"><em class="icon"></em>Profile</a></li>
-                        <!-- li><a href="#" class="donate"><em class="icon"></em><em class="lc yellow">Donate</em></a></li -->
                     </ul>
                 </nav>
                 <hr id="g-masthead-hr" />
             </div>
         </header>
         <div id="topofcontent"></div>
-        <div id="messages" class="page"><span id="PROTO_message" class="__type__">__msg__</span></div>
+				<div class="wrapper">
+					<div id="messages" class="page"><span id="PROTO_message" class="__type__">__msg__</span></div>
+				</div>
         <div id="g-page">
             <div class="wrapper">
                 <style>
@@ -153,7 +150,7 @@
                 <div class="page" id="pg_schools">
 
                     <header class="breadcrumb">
-                        <a href="#"><span class="action">&#139; Back</span><span class="location">&nbsp;to Home</span></a>
+                        <a href="/"><span class="action">&#139; Back</span><span class="location">&nbsp;to Home</span></a>
                     </header>
 
                     <header class="subheader">
@@ -184,149 +181,181 @@
                     <li>${dept}: ${name} (${number})</li>
                 </script>
 
-          <!--=================================================================-->
+            <!--=================================================================-->
 
                 <div class=page id=pg_courses>
-                    <div class="subheader">
-                        <h1>Courses for <span id=school_name></span></h1>
-                    </div>
-                <div>
-              <span class="sub_menu" style="display:none;">
-              </span>
-              <form method="POST" id="form_course" style="display:none;">
-                <h1>Create New Course</h1>
-                <p>Use this form to create a new course. After creating the course, you can create a lecture within it.</p>
-                <div class="row">
-                  <div class="label">Course number</div>
-                  <div class="field">
-                    <input type="text" name="number">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="label">Course name</div>
-                  <div class="field">
-                    <input type="text" name="name">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="label">Course subject</div>
-                  <div class="field">
-                    <input type="text" name="subject">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="label">Course department</div>
-                  <div class="field">
-                    <input type="text" name="department">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="label">Instructor's Name</div>
-                  <div class="field">
-                    <input type="text" name="instructorName">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="label">Instructor's Email</div>
-                  <div class="field">
-                    <input type="text" name="email">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="label">&nbsp;</div>
-                  <div class="field">
-                    <button>Create Course</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-                    <div class="proto course" id=PROTO_course>
-                        <div class=dept>__department__</div>
-                        <div class=name>
-                            <a href="/course/___id__">__number__: __name__</a>
+                    <header class="breadcrumb">
+                        <a href="/schools"><span class="action">&#139; Back</span><span class="location">&nbsp;to Universities</span></a>
+                    </header>
+
+                    <header class="subheader">
+                        <h1><span id=school_name></span> Courses</h1>
+                    </header>
+
+                    <div class="main-content">
+
+                        <span class="sub_menu" style="display:none;"></span>
+
+                        <div class="proto course" id=PROTO_course>
+                            <div class="course-content">
+                                <a class="course-name" href="/course/___id__">__number__: __name__</a>
+                                <p class="course-description">
+                                    This is placeholder description text, an intro to description in the nature of things that is quite and very and yes!</p>
+                                <div class=dept>__department__</div>
+                            </div>
+                            <aside class="course-data">
+                                <div class="course-data-item">
+                                    <div class="course-data-number">20</div>
+                                    <div class="course-data-description">notes</div>
+                                </div>
+                            </aside>
                         </div>
+
                     </div>
+										<div class="sidebar">
+											<form method="POST" id="form_course" style="display:none;">
+												<header class="form-header">
+													<h4>Create New Course</h4>
+													<p>Use this form to create a new course. After creating the course, you can create a lecture within it.</p>
+												</header>
+												<div class="row">
+													<div class="label">Course number</div>
+													<div class="field">
+														<input type="text" class="text" name="number">
+													</div>
+												</div>
+												<div class="row">
+													<div class="label">Course name</div>
+													<div class="field">
+														<input type="text" class="text" name="name">
+													</div>
+												</div>
+												<div class="row">
+													<div class="label">Course subject</div>
+													<div class="field">
+														<input type="text" class="text" name="subject">
+													</div>
+												</div>
+												<div class="row">
+													<div class="label">Course department</div>
+													<div class="field">
+														<input type="text" class="text" name="department">
+													</div>
+												</div>
+												<div class="row">
+													<div class="label">Instructor's Name</div>
+													<div class="field">
+														<input type="text" class="text" name="instructorName">
+													</div>
+												</div>
+												<div class="row">
+													<div class="label">Instructor's Email</div>
+													<div class="field">
+														<input type="text" class="text" name="email">
+													</div>
+												</div>
+												<div class="row">
+													<div class="field">
+															<button>Create Course</button>
+													</div>
+												</div>
+											</form>
+										</div>
                 </div>
-          <!--================================================================= -->
+
+                <!--================================================================= -->
                 <div class=page id=pg_lectures>
-                    <div class="proto lectures_head" id=PROTO_lectures_head>
-                        <h1>Lectures for Course __number__ : __name__</h1>
-                        Subject: __subject__<br>
-                        Department: __department__<br>
-                    </div>
-                    <div class="proto lectures_instructor" id=PROTO_lectures_instructor>
-              Instructor: __name__ <span class="instructor_email">(__email__)</span><br>
-                    </div>
-                    <div class="proto lecture" id=PROTO_lecture>
-                        <div class=name>
-                            <a href="/lecture/___id__">__name__</a><br>
-                            Created: __date__<br>
-                        </div>
-                    </div>
-            <div>
-              <span class="sub_menu" style="display:none;">
-                <a href="" id="new_lecture">New Lecture</a>
-              </span>
-              <form method="POST" id="form_lecture" style="display:none;">
-                <h1>Create New Lecture</h1>
-                <p>Use this form to create a new lecture. After creating the lecture, you can then create a notes-taking session within it.</p>
-                <div class="row">
-                  <div class="label">Lecture Name</div>
-                  <div class="field">
-                    <input type="text" name="name">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="label">&nbsp;</div>
-                  <div class="field">
-                    <button>Create Lecture</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-                </div>
+                    <header class="breadcrumb">
+                        <a href="#"><span class="action">&#139; Back</span><span class="location">&nbsp;to Lectures</span></a>
+                    </header>
+									<header class="subheader">
+										<div class="proto lectures_head" id=PROTO_lectures_head>
+											<h2>Lectures for Course __number__ : __name__</h2>
+											<h4>Subject:<span class="light futura"> __subject__</span></h4>
+											<h4>Department:<span class="light futura"> __department__</span></h4>
+										</div>
+										<div class="proto lectures_instructor" id=PROTO_lectures_instructor>
+											<h4>Instructor: <span class="futura light"> __name__ <a href="mailto:__email__" class="instructor_email">__email__</span></h4>
+										</div>
+									</header>
+									<div class="main-content">
+										<div class="lectures">
+											<div class="proto lecture" id=PROTO_lecture>
+												<a href="/lecture/___id__" class="lecture-name">__name__</a>
+												<div class="lecture-created-at">Created: __date__</div>
+											</div>
+										</div>
+									</div>
+									<div class="sidebar">
+										<form method="POST" id="form_lecture">
+											<header class="form-header">
+												<h4>Create New Lecture</h4>
+												<p>Use this form to create a new lecture. After creating the lecture, you can then create a notes-taking session within it.</p>
+											</header>
+											<div class="row">
+												<div class="label">Lecture Name</div>
+												<div class="field">
+													<input type="text" class="text" name="name">
+												</div>
+											</div>
+											<div class="row">
+												<div class="field">
+													<button>Create Lecture</button>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
           <!--================================================================= -->
                 <div class=page id=pg_notes>
+									<header class="breadcrumb">
+											<a href="/"><span class="action">&#139; Back</span><span class="location">&nbsp;to Notes</span></a>
+									</header>
+									<header class="subheader">
                     <div class="proto notes_head" id=PROTO_notes_head>
-                        <h1>Note pads for Course __number__ : __name__</h1>
-                        Subject: __subject__<br>
-                        Department: __department__<br>
+                        <h2>Note Pads for Course __number__ : __name__</h2>
+												<h4>Subject:<span class="light futura">__subject__</span></h4>
+												<h4>Department:<span class="light futura">__department__</span></h4>
                     </div>
                     <div class="proto notes_instructor" id=PROTO_notes_instructor>
-              Instructor: __name__ <span class="instructor_email">(__email__)</span><br>
+											<h4> Instructor: <span class="italic futura"> __name__ <a href="mailto:__email__" class="instructor_email">(__email__)</a></span></h4>
                     </div>
+									</header>
+									<div class="main-content">
                     <div class="proto note" id=PROTO_note>
                         <div class=name>
                             <a href="/note/___id__">__name__</a> Visits: __visits__
                         </div>
                     </div>
-            <div>
-              <span class="sub_menu" style="display:none;">
-                <a href="" id="new_note">New Note Pad</a>
-              </span>
-              <form method="POST" id="form_note" style="display:none;">
-                <h1>Create New Note Pad</h1>
-                <p>Use this form to create a new note pad. You can then use this as a notes-taking session.</p>
-                <div class="row">
-                  <div class="label">Note Pad Name</div>
-                  <div class="field">
-                    <input type="text" name="name">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="label">Private</div>
-                  <div class="field">
-                    <input type="checkbox" name="private" value="true">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="label">&nbsp;</div>
-                  <div class="field">
-                    <button>Create Note Pad</button>
-                  </div>
-                </div>
-              </form>
-            </div>
+									</div>
+									<div class="sidebar">
+										<span class="sub_menu" style="display:none;">
+											<a href="" id="new_note">New Note Pad</a>
+										</span>
+										<form method="POST" id="form_note" style="display:none;">
+											<header class="form-header">
+												<h4>Create Note Pad</h4>
+												<p>Use this form to create a new note pad. You can then use this as a notes-taking session.</p>
+											</header>
+											<div class="row">
+												<div class="label">Note Pad Name</div>
+												<div class="field">
+													<input type="text" class="text" name="name">
+												</div>
+											</div>
+											<div class="row">
+												<div class="label">Private</div>
+												<div class="field">
+													<input type="checkbox" name="private" value="true">
+												</div>
+											</div>
+											<div class="row">
+												<div class="field">
+													<button>Create Note Pad</button>
+												</div>
+											</div>
+										</form>
+									</div>
                 </div>
           <!--================================================================= -->
                 <div class=page id=pg_archive_subjects>
@@ -369,181 +398,194 @@
                 </div>
           <!--================================================================= -->
                 <div class=page id=pg_register>
-                    <h1>Create an Account</h1>
-                    <form id="form_register" action="/register" method="POST">
-                        <div class="zarea">
-                            <div class="row">
-                                <div class="label">
-                                    <label for="email">School email*</label>
-                                </div>
-                                <div class="field">
-                                    <input type="text" name="email">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="label">
-                                    <label for="password">Password*</label>
-                                </div>
-                                <div class="field">
-                                    <input type="password" name="password">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="label">
-                                    <label for="school">School*</label>
-                                </div>
-                                <div class="field">
-                                    <select name="school">
-                                        <option value="Harvard">Harvard</option>
-                                        <option value="Berkeley">Berkeley</option>
-                                        <option value="Brown">Brown</option>
-                                        <option value="Columbia">Columbia</option>
-                                        <!--
-                                        <option value="Cornell">Cornell</option>
-                                        <option value="Dartmouth">Dartmouth</option>
-                                        <option value="MIT">MIT</option>
-                                        <option value="Princeton">Princeton</option>
-                                        <option value="Stanford">Stanford</option>
-                                        <option value="UPenn">UPenn</option>
-                                        <option value="University of Texas">University of Texas</option>
-                                        <option value="Yale">Yale</option>
-                                        <option value="Other">Other</option>
-                                        -->
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="label">
-                                    <label for="name">Site Handle</label>
-                                </div>
-                                <div class="field">
-                                    <input type="text" name="name">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="label">
-                                    <label for="affil">Affiliation</label>
-                                </div>
-                                <div class="field">
-                                    <select name="affil">
-                                        <option value="Student">Student</option>
-                                        <option value="Teachers Assistant">Teachers Assistant</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="label">
-                                    &nbsp;
-                                </div>
-                                <div class="field">
-                                    <button>Register</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+									<header class="subheader">
+										<h2>Create an Account</h2>
+									</header>
+									<div class="main-content">
+											<form id="form_register" action="/register" method="POST">
+													<div class="zarea">
+															<div class="row">
+																	<div class="label">
+																			<label for="email">School email*</label>
+																	</div>
+																	<div class="field">
+																			<input type="text" class="text" name="email">
+																	</div>
+															</div>
+															<div class="row">
+																	<div class="label">
+																			<label for="password">Password*</label>
+																	</div>
+																	<div class="field">
+																			<input type="password" class="text" name="password">
+																	</div>
+															</div>
+															<div class="row">
+																	<div class="label">
+																			<label for="name">Site Handle</label>
+																	</div>
+																	<div class="field">
+																			<input type="text" class="text" name="name">
+																	</div>
+															</div>
+															<div class="row">
+																	<div class="label">
+																			<label for="school">School*</label>
+																	</div>
+																	<div class="field">
+																			<select name="school">
+																					<option value="Harvard">Harvard</option>
+																					<option value="Berkeley">Berkeley</option>
+																					<option value="Brown">Brown</option>
+																					<option value="Columbia">Columbia</option>
+																					<!--
+																					<option value="Cornell">Cornell</option>
+																					<option value="Dartmouth">Dartmouth</option>
+																					<option value="MIT">MIT</option>
+																					<option value="Princeton">Princeton</option>
+																					<option value="Stanford">Stanford</option>
+																					<option value="UPenn">UPenn</option>
+																					<option value="University of Texas">University of Texas</option>
+																					<option value="Yale">Yale</option>
+																					<option value="Other">Other</option>
+																					-->
+																			</select>
+																	</div>
+															</div>
+															<div class="row">
+																	<div class="label">
+																			<label for="affil">Affiliation</label>
+																	</div>
+																	<div class="field">
+																			<select name="affil">
+																					<option value="Student">Student</option>
+																					<option value="Teachers Assistant">Teachers Assistant</option>
+																			</select>
+																	</div>
+															</div>
+															<div class="row">
+																	<div class="label">
+																			&nbsp;
+																	</div>
+																	<div class="field">
+																			<button>Register</button>
+																	</div>
+															</div>
+													</div>
+											</form>
+										</div>
                 </div>
           <!--================================================================= -->
           <div class="page" id="pg_profile">
-            <h1>User Profile</h1>
-            <form id="form_profile" action="/profile" method="POST">
-              <h2>Account Information</h2>
-              <div class="area">
-                <div class="row">
-                  <div class="label">
-                    <span>Email</span>
-                  </div>
-                  <div class="field">
-                    <span class="email"></span>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="label">
-                    <label for="affiliation">Affiliation</label>
-                  </div>
-                  <div class="field">
-                    <select id="affiliation" name="affiliation">
-                      <option value="Student">Student</option>
-                      <option value="Teachers Assistant">Teachers Assistant</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <h2>Profile Information</h2>
-              <div class="area">
-                <div class="row">
-                  <div class="label">
-                    <label for="name">User Name</label>
-                  </div>
-                  <div class="field">
-                    <input id="name" type="text" name="name" value="">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="label">
-                    <label>&nbsp;</label>
-                  </div>
-                  <div class="field">
-                    <input style="width: auto;" id="showName" type="checkbox" name="showName">
-                    Display your real name in contributions
-                  </div>
-                </div>
-                  <!--
-                <div class="row">
-                  <div class="label">
-                    <label for="major">Major</label>
-                  </div>
-                  <div class="field">
-                    <input id="major" type="text" name="major" value="">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="label">
-                    <label for="bio">Bio</label>
-                  </div>
-                  <div class="field">
-                    <input id="bio" type="text" name="bio" value="">
-                  </div>
-                </div>
-                -->
-              </div>
-              <h2>Change Password</h2>
-              <div class="area">
-                <div class="row">
-                  <div class="label">
-                    <label for="existingPassword">Old Password</label>
-                  </div>
-                  <div class="field">
-                    <input id="existingPassword" type="password" name="existingPassword">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="label">
-                    <label for="newPassword">New Password</label>
-                  </div>
-                  <div class="field">
-                    <input id="newPassword" type="password" name="newPassword">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="label">
-                    <label for="newPasswordConfirm">Confirm Password</label>
-                  </div>
-                  <div class="field">
-                    <input id="newPasswordConfirm" type="password" name="newPasswordConfirm">
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="label">&nbsp;</div>
-                <div class="field">
-                  <button>Submit</button>
-                </div>
-              </div>
-            </form>
+						<header class="subheader">
+							<h1>User Profile</h1>
+						</header>
+						<div class="main-content">
+							<form id="form_profile" action="/profile" method="POST">
+								<section class="form-section">
+									<h4>Account Information</h4>
+									<div class="area">
+										<div class="row">
+											<div class="label">
+												<span>Email</span>
+											</div>
+											<div class="field">
+												<span class="email"></span>
+											</div>
+										</div>
+										<div class="row">
+											<div class="label">
+												<label for="affiliation">Affiliation</label>
+											</div>
+											<div class="field">
+												<select id="affiliation" name="affiliation">
+													<option value="Student">Student</option>
+													<option value="Teachers Assistant">Teachers Assistant</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</section>
+								<section class="form-section">
+									<h4>Profile Information</h4>
+									<div class="area">
+										<div class="row">
+											<div class="label">
+												<label for="name">User Name</label>
+											</div>
+											<div class="field">
+												<input id="name" type="text" class="text" name="name" value="">
+											</div>
+										</div>
+										<div class="row">
+											<div class="field">
+												<input style="width: auto;" id="showName" type="checkbox" name="showName">
+												Display your real name in contributions
+											</div>
+										</div>
+										<!--
+									<div class="row">
+										<div class="label">
+											<label for="major">Major</label>
+										</div>
+										<div class="field">
+											<input id="major" type="text" name="major" value="">
+										</div>
+									</div>
+									<div class="row">
+										<div class="label">
+											<label for="bio">Bio</label>
+										</div>
+										<div class="field">
+											<input id="bio" type="text" name="bio" value="">
+										</div>
+									</div>
+									-->
+									</div>
+								</section>
+								<section class="form-section">
+									<h4>Change Password</h4>
+									<div class="area">
+										<div class="row">
+											<div class="label">
+												<label for="existingPassword">Old Password</label>
+											</div>
+											<div class="field">
+												<input id="existingPassword" type="password" class="text" name="existingPassword">
+											</div>
+										</div>
+										<div class="row">
+											<div class="label">
+												<label for="newPassword">New Password</label>
+											</div>
+											<div class="field">
+												<input id="newPassword" type="password" class="text" name="newPassword">
+											</div>
+										</div>
+										<div class="row">
+											<div class="label">
+												<label for="newPasswordConfirm">Confirm Password</label>
+											</div>
+											<div class="field">
+												<input id="newPasswordConfirm" type="password" class="text" name="newPasswordConfirm">
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="field">
+											<button>Submit</button>
+										</div>
+									</div>
+								</section>
+							</form>
+						</div>
           </div>
           <!--================================================================= -->
                 <div class=page id=pg_login>
-                    <h1>Login</h1>
+									<header class="subheader">
+										<h2>Login</h2>
+									</header>
+									<div class="main-content">
                     <form id="form_login" action="/login" method="POST">
                         <div class="zarea">
                             <div class="row">
@@ -551,7 +593,7 @@
                                     <label for="email">School email</label>
                                 </div>
                                 <div class="field">
-                                    <input type="text" name="email" size="15" value="joe@sleepless.com">
+                                    <input type="text" class="text" name="email" size="15" value="joe@sleepless.com">
                                 </div>
                             </div>
                             <div class="row">
@@ -559,7 +601,7 @@
                                     <label for="password">Password</label>
                                 </div>
                                 <div class="field">
-                                    <input type="password" name="password" size="15">
+                                    <input type="password" class="text" name="password" size="15">
                                 </div>
                             </div>
                             <div class="row">
@@ -584,6 +626,7 @@
                         </div>
                     </form>
                 </div>
+							</div>
           <!--================================================================= -->
           <div class="page" id="pg_resetpass">
             <h1>Password Reset</h1>
@@ -595,7 +638,7 @@
                     <label for="email">School email</label>
                   </div>
                   <div class="field">
-                    <input type="text" name="email" size="15" value="">
+                    <input type="text" class="text" name="email" size="15" value="">
                   </div>
                 </div>
                 <div class="row">
@@ -661,6 +704,343 @@
                         </p>
                     </div>
                 </div>
+
+		<div class=page id=pg_legal>
+			<div >
+				<p>These Terms of Service ("Terms") govern your access to and use of the services, websites, and
+applications offered by FinalsClub (the "Service"). Your access to and use of the Service is
+conditioned on your acceptance of and compliance with these Terms. By accessing or using the
+Service you agree to be bound by these Terms.</p>
+
+<h2>Use of the Service</h2>
+<p>You may use the Service only if you can form a binding contract with FinalsClub, and only in
+compliance with these Terms and all applicable local, state, national, and international laws,
+rules and regulations. You must provide us accurate information, including your real name, when
+you create your account on FinalsClub.</p>
+
+<p>We may, without prior notice, change the Service; stop providing the Service or features of the
+Service, to you or to users generally; or create usage limits for the Service.
+You are responsible for safeguarding the password that you use to access the Service and for
+any activities or actions under your password. We encourage you to use "strong" passwords
+(that use a combination of upper and lower case letters, numbers and symbols) with your
+account. FinalsClub will not be liable for any loss or damage arising from your failure to comply
+with these requirements.</p>
+
+<h2>User Content</h2>
+
+<p>"Content" means any information, text, graphics, or other materials uploaded, downloaded or
+appearing on the Service. You retain ownership of all Content you submit, post, display, or
+otherwise make available on the Service. </p>
+
+<h2>Your License to FinalsClub</h2>
+
+<p>By submitting, posting or displaying Content on or through the 
+Service, you grant us permission
+to share all content under a Creative Commons Attribution-Share Alike 
+3.0 Unported (CC BY-SA
+3.0) license.  For more information, see 
+http://creativecommons.org/licenses/by-sa/3.0.  Note
+that exceptions can be made upon request.  Or, if you would like more 
+information, please feel
+free to contact us (link to the contact page). 
+You agree that this license includes the right for other users of the 
+Service to modify your
+Content, and for FinalsClub to make your Content available to others for
+ the publication,
+distribution, syndication, or broadcast of such Content on other media 
+and services, subject to
+our terms and conditions for such Content use. Such additional uses by 
+FinalsClub or others
+may be made with no compensation paid to you with respect to the Content
+ that you submit,
+post, transmit or otherwise make available through the Service.We may 
+modify or adapt your Content in order to transmit, display or distribute
+ it over computer
+networks and in various media and/or make changes to your Content as are
+ necessary to
+conform and adapt that Content to any requirements or limitations of any
+ networks, devices,
+services or media.</p>
+
+<h2>FinalsClub's Licenses to You</h2>
+
+<p>Subject to these Terms, FinalsClub gives you a worldwide, 
+royalty-free, non-assignable and nonexclusive license to re-post any of 
+the Content on FinalsClub anywhere on the rest of the web
+provided that the Content was added to the Service after April 22, 2008,
+ and provided that the
+user who created the content has not explicitly marked the content as 
+not for reproduction, and
+provided that you: (a) do not modify the Content; (b) attribute 
+FinalsClub with a human and
+machine-followable link (an A tag) linking back to the page displaying 
+the original source of the
+content on FinalsClub.org (c) upon request, either by FinalsClub or a 
+user, remove the user's
+name from Content which the user has subsequently made anonymous; (d) 
+upon request, either
+by FinalsClub or by a user who contributed to the Content, make a 
+reasonable effort to update a
+particular piece of Content to the latest version on FinalsClub.org; and
+ (e) upon request, either
+by FinalsClub or by a user who contributed to the Content, make a 
+reasonable attempt to delete
+Content that has been deleted on FinalsClub.org.
+Your Content will be viewable by other users of the Service and through 
+third party services and
+websites. You should only provide Content that you are comfortable 
+sharing with others under
+these Terms.
+All Content, whether publicly posted or privately transmitted, is the 
+sole responsibility of the
+person who originated such Content. We may not monitor or control the 
+Content posted via the
+Service. Any use of or reliance on any Content or materials posted via 
+the Service or obtained by
+you through the Service is at your own risk. We do not endorse, support,
+ represent or guarantee
+the completeness, truthfulness, accuracy, or reliability of any Content 
+or communications posted
+via the Service or endorse any opinions expressed via the Service. You 
+understand that by using
+the Service, you may be exposed to Content that might be offensive, 
+harmful, inaccurate or
+otherwise inappropriate. Under no circumstances will FinalsClub be 
+liable in any way for any
+Content, including, but not limited to, any errors or omissions in any 
+Content, or any loss or
+damage of any kind incurred as a result of the use of any Content made 
+available via the Service
+or broadcast elsewhere.
+</p><p>You are responsible for your use of the Service, for any Content 
+you provide, and for any
+consequences thereof, including the use of your Content by other users 
+and third parties
+partners. You understand that your Content may be republished and if you
+ do not have the right
+to submit Content for such use, it may subject you to liability. 
+FinalsClub will not be responsible
+or liable for any use of your Content by FinalsClub in accordance with 
+these Terms. You
+represent and warrant that you have all the rights, power and authority 
+necessary to grant the
+rights granted herein to any Content that you submit.We reserve the 
+right at all times (but will not have an obligation) to remove or refuse
+ to distribute
+any Content on the Service and to terminate users or reclaim usernames. 
+We also reserve the
+right to access, read, preserve, and disclose any information as we 
+reasonably believe is
+necessary to (i) satisfy any applicable law, regulation, legal process 
+or governmental request, (ii)
+enforce the Terms, including investigation of potential violations 
+hereof, (iii) detect, prevent, or
+otherwise address fraud, security or technical issues, (iv) respond to 
+user support requests, or (v)
+protect the rights, property or safety of FinalsClub, its users and the 
+public.
+Rules
+You must not do any of the following while accessing or using the 
+Service: (i) use the Service for
+any unlawful purposes or for promotion of illegal activities; (ii) post 
+any Content (as defined
+below) or use the Service in violation of any applicable law (including 
+intellectual property laws,
+right of privacy or publicity laws, and any laws of a non-U.S. 
+jurisdiction applicable to you), or
+any contractual or other legal obligation; (iii) post Content that is 
+hateful, abusive, threatening,
+profane, or otherwise objectionable; (iv) post Content or use the 
+Service to create an impression
+that you know is incorrect, misleading, or deceptive, including by 
+impersonating others or
+otherwise misrepresenting your affiliation with a person or entity; (v) 
+publish or post other
+people's private or personally identifiable information without their 
+express authorization and
+permission; (vi) use the Service for the purpose of spamming anyone; 
+(vii) publish or link to
+malicious content intended to damage or disrupt another user's browser 
+or computer or to
+compromise a user's privacy; (viii) access or tamper with non-public 
+areas of the Service,
+FinalsClub's computer systems, or the technical delivery systems of 
+FinalsClub's providers; (ix)
+probe, scan, or test the vulnerability of any system or network or 
+breach or circumvent any
+security or authentication measures; (x) access or search or attempt to 
+access or search the
+Service by any means (automated or otherwise) other than through the 
+currently available,
+published interfaces that are provided by FinalsClub (and only pursuant 
+to those terms and
+conditions), unless you have been specifically allowed to do so in a 
+separate agreement with
+FinalsClub (crawling the Service is permissible in accordance with these
+ Terms, but scraping the
+Service without the prior consent of FinalsClub except as permitted by 
+these Terms is expressly
+prohibited); (xi) forge any TCP/IP packet header or any part of the 
+header information in any
+email or posting, or in any way use the Service to send altered, 
+deceptive or false sourceidentifying information; or (xii) interfere 
+with or disrupt (or attempt to do so) the access of any
+user, host or network, including, without limitation, sending a virus, 
+overloading, flooding,
+spamming, mail-bombing the Service, or by scripting the creation of 
+Content in such a manner
+as to interfere with or create an undue burden on the Service.</p>
+
+<h2>Proprietary Rights</h2>
+
+<p>All right, title, and interest in and to the Service (excluding 
+Content provided by users) are and
+will remain the exclusive property of FinalsClub and its licensors. The 
+Service is protected by
+copyright, trademark, and other laws of both the United States and 
+foreign countries. Except asexpressly provided herein, nothing in the 
+Terms gives you a right to use the FinalsClub name or
+any of the FinalsClub trademarks, logos, domain names, and other 
+distinctive brand features.
+Any feedback, comments, or suggestions you may provide regarding the 
+Service is entirely
+voluntary and we will be free to use such feedback, comments or 
+suggestions as we see fit and
+without any obligation to you. </p>
+
+<h2>Copyright Policy</h2>
+
+<p>FinalsClub respects the intellectual property rights of others and expects users of the Service to
+do the same. We will respond to notices of alleged copyright infringement that comply with
+applicable law and are properly provided to us. If you believe that your Content has been copied
+in a way that constitutes copyright infringement, please provide our copyright agent with the
+following information in accordance with the Digital Millennium Copyright Act: (i) a physical or
+electronic signature of the copyright owner or a person authorized to act on their behalf; (ii)
+identification of the copyrighted work claimed to have been infringed; (iii) identification of the
+material that is claimed to be infringing or to be the subject of infringing activity and that is to be
+removed or access to which is to be disabled, and information reasonably sufficient to permit us
+to locate the material; (iv) your contact information, including your address, telephone number,
+and an email address; (v) a statement by you that you have a good faith belief that use of the
+material in the manner complained of is not authorized by the copyright owner, its agent, or the
+law; and (vi) a statement that the information in the notification is accurate, and, under penalty of
+perjury, that you are authorized to act on behalf of the copyright owner.
+Our designated copyright agent for notice of alleged copyright infringement or other legal
+notices regarding Content appearing on the Service is:
+FinalsClub, Inc.
+Attn: Copyright Agent
+1132 Massachusetts Avenue
+Cambridge, MA 02138
+Email: copyright@FinalsClub.org
+Please note that in addition to being forwarded to the person who provided the allegedly illegal
+content, we may send a copy of your notice (with your personal information removed) to Chilling
+Effects (www.chillingeffects.org) for publication and/or annotation. You can see an example of
+such a publication athttp://www.chillingeffects.org/fairuse/notice.cgi?NoticeID=16887. A link to
+your published notice will be displayed on FinalsClub in place of the removed content.
+We reserve the right to remove Content alleged to be infringing or otherwise illegal without prior
+notice and at our sole discretion. In appropriate circumstances, FinalsClub will also terminate a
+user's account if the user is determined to be a repeat infringer.
+PrivacyFinalsClub values your privacy.  We will never sell any personal user information stored on
+FinalsClub.org with any third-party corporations or organizations without your express consent.
+By using the Service you consent to the transfer of your information to the United States and/or
+other countries for storage, processing and use by FinalsClub.  Note that user information stored
+with any of our affiliate services, such as PBworks.com, is subject to the terms of service of
+those service-providers.  Please consult the respective Terms of Service for any affiliate services
+for specific details.</p>
+
+<h2>Links</h2>
+
+<p>The Service may contain links to third-party websites or resources. You acknowledge and agree
+that we are not responsible or liable for: (i) the availability or accuracy of such websites or
+resources; or (ii) the content, products, or services on or available from such websites or
+resources. Links to such websites or resources do not imply any endorsement by FinalsClub of
+such websites or resources or the content, products, or services available from such websites or
+resources. You acknowledge sole responsibility for and assume all risk arising from your use of
+any such websites or resources.
+
+</p><h2>Disclaimers; Indemnity</h2>
+
+<p>Your access to and use of the Service or any Content is at your own risk. You understand and
+agree that the Service is provided to you on an "AS IS" and "AS AVAILABLE" basis. Without
+limiting the foregoing, FINALSCLUB AND ITS PARTNERS DISCLAIM ANY WARRANTIES,
+EXPRESS OR IMPLIED, OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
+NON-INFRINGEMENT. We make no warranty and disclaim all responsibility and liability for the
+completeness, accuracy, availability, timeliness, security or reliability of the Service or any
+content thereon. FinalsClub will not be responsible or liable for any harm to your computer
+system, loss of data, or other harm that results from your access to or use of the Service, or any
+Content. You also agree that FinalsClub has no responsibility or liability for the deletion of, or the
+failure to store or to transmit, any Content and other communications maintained by the Service.
+We make no warranty that the Service will meet your requirements or be available on an
+uninterrupted, secure, or error-free basis. No advice or information, whether oral or written,
+obtained from FinalsClub or through the Service, will create any warranty not expressly made
+herein.</p>
+<p>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, FINALSCLUB AND ITS
+AFFILIATES, OFFICERS, EMPLOYEES, AGENTS, PARTNERS AND LICENSORS WILL NOT
+ BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR 
+PUNITIVE
+DAMAGES, INCLUDING WITHOUT LIMITATION, LOSS OF PROFITS, DATA, USE, 
+GOOD-WILL,
+OR OTHER INTANGIBLE LOSSES, RESULTING FROM (i) YOUR ACCESS TO OR USE OF 
+OR
+INABILITY TO ACCESS OR USE THE SERVICE; (ii) ANY CONDUCT OR CONTENT OF 
+ANY
+THIRD PARTY ON THE SERVICE, INCLUDING WITHOUT LIMITATION, ANY 
+DEFAMATORY,
+OFFENSIVE OR ILLEGAL CONDUCT OF OTHER USERS OR THIRD PARTIES; (iii) ANY
+CONTENT OBTAINED FROM THE SERVICE; AND (iv) UNAUTHORIZED ACCESS, USE 
+ORALTERATION OF YOUR TRANSMISSIONS OR CONTENT, WHETHER BASED ON 
+WARRANTY,
+CONTRACT, TORT (INCLUDING NEGLIGENCE) OR ANY OTHER LEGAL THEORY, WHETHER
+OR NOT FINALSCLUB HAS BEEN INFORMED OF THE POSSIBILITY OF SUCH DAMAGE, 
+AND
+EVEN IF A REMEDY SET FORTH HEREIN IS FOUND TO HAVE FAILED OF ITS 
+ESSENTIAL
+PURPOSE.</p>
+<p>Some jurisdictions do not allow the exclusion of certain warranties or the exclusion or limitation
+of liability for consequential or incidental damages, so the limitations above may not apply to
+you.
+If anyone brings a claim against us related to your actions or Content on the Service, or actions
+or Content by or from someone using your account, you will indemnify and hold us harmless
+from and against all damages, losses, and expenses of any kind (including reasonable legal fees
+and costs) related to such claim.</p>
+<h2>General Terms</h2>
+<p>These Terms and any action related thereto will be governed by the laws of the State of
+California without regard to or application of its conflict of law provisions or your state or country
+of residence. Unless submitted to arbitration as set forth in the following paragraph, all claims,
+legal proceedings or litigation arising in connection with the Service will be brought solely in
+Santa Clara County, California, and you consent to the jurisdiction of and venue in such courts
+and waive any objection as to inconvenient forum.
+For any claim (excluding claims for injunctive or other equitable relief) under these Terms where
+the total amount of the award sought is less than $10,000, the party requesting relief may elect
+to resolve the dispute through binding non-appearance-based arbitration. The party electing
+such arbitration shall initiate the arbitration through an established alternative dispute resolution
+("ADR") provider mutually agreed upon by the parties. The ADR provider and the parties must
+comply with the following rules: a) the arbitration shall be conducted by telephone, online and/or
+be solely based on written submissions, as selected by the party initiating the arbitration; b) the
+arbitration shall not involve any personal appearance by the parties or witnesses unless
+otherwise mutually agreed by the parties; and c) any judgment on the award rendered by the
+arbitrator may be entered in any court of competent jurisdiction.
+These Terms are the entire and exclusive agreement between FinalsClub and you regarding the
+Service (excluding any services for which you have a separate agreement with FinalsClub that is
+explicitly in addition or in place of these Terms), and these Terms supersede and replace any
+prior agreements between FinalsClub and you regarding the Service.
+The failure of FinalsClub to enforce any right or provision of these Terms will not be deemed a
+waiver of such right or provision. In the event that any provision of these Terms is held to be
+invalid or unenforceable, the remaining provisions of these Terms will remain in full force and
+effect.We may revise these Terms from time to time. The most current version will always be on this
+page (or such other page as the Service may indicate). If the revision, in our sole discretion, is
+material we will notify you via posting to our website or e-mail to the email associated with your
+account. By continuing to access or use the Service after those revisions become effective, you
+agree to be bound by the revised Terms.</p>
+
+<p>The Service is operated and provided by FinalsClub, Inc., 1132 Massachusetts Avenue
+Cambridge, MA 02138. If you have questions about these Terms, please contact Andrew ~at~
+FinalsClub d0t org</p>
+			</div>
+		</div>
+
+
+
                 <div class=page id=pg_press>
                     <h1>FinalsClub in the Press</h1>
                     <div class="press">
@@ -697,14 +1077,14 @@
                     Sorry, there is no content for this page.
                 </div>
 
-            <div id="g-footer">
+            <div id="g-footer" style="display: none">
                 <nav id="g-nav-footer">
                     <ul>
                         <li><a href="/conduct">Conduct</a></li>
                         <li><a href="https://github.com/finalsclubdev/FinalsClub/">Code</a></li>
                         <li><a href="http://blog.finalsclub.org/about.html">About</a></li>
                         <li><a href="http://blog.finalsclub.org/contact.html">Contact</a></li>
-                        <li><a href="http://blog.finalsclub.org/legal.html">Legal</a></li>
+                        <li><a href="/legal">Legal</a></li>
                         <li><a href="http://blog.finalsclub.org/team.html">Team</a></li>
                     </ul>
                 </nav>
