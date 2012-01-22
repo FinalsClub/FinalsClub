@@ -474,102 +474,108 @@
                 </div>
           <!--================================================================= -->
           <div class="page" id="pg_profile">
-            <h1>User Profile</h1>
-            <form id="form_profile" action="/profile" method="POST">
-              <h2>Account Information</h2>
-              <div class="area">
-                <div class="row">
-                  <div class="label">
-                    <span>Email</span>
-                  </div>
-                  <div class="field">
-                    <span class="email"></span>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="label">
-                    <label for="affiliation">Affiliation</label>
-                  </div>
-                  <div class="field">
-                    <select id="affiliation" name="affiliation">
-                      <option value="Student">Student</option>
-                      <option value="Teachers Assistant">Teachers Assistant</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <h2>Profile Information</h2>
-              <div class="area">
-                <div class="row">
-                  <div class="label">
-                    <label for="name">User Name</label>
-                  </div>
-                  <div class="field">
-                    <input id="name" type="text" name="name" value="">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="label">
-                    <label>&nbsp;</label>
-                  </div>
-                  <div class="field">
-                    <input style="width: auto;" id="showName" type="checkbox" name="showName">
-                    Display your real name in contributions
-                  </div>
-                </div>
-                  <!--
-                <div class="row">
-                  <div class="label">
-                    <label for="major">Major</label>
-                  </div>
-                  <div class="field">
-                    <input id="major" type="text" name="major" value="">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="label">
-                    <label for="bio">Bio</label>
-                  </div>
-                  <div class="field">
-                    <input id="bio" type="text" name="bio" value="">
-                  </div>
-                </div>
-                -->
-              </div>
-              <h2>Change Password</h2>
-              <div class="area">
-                <div class="row">
-                  <div class="label">
-                    <label for="existingPassword">Old Password</label>
-                  </div>
-                  <div class="field">
-                    <input id="existingPassword" type="password" name="existingPassword">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="label">
-                    <label for="newPassword">New Password</label>
-                  </div>
-                  <div class="field">
-                    <input id="newPassword" type="password" name="newPassword">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="label">
-                    <label for="newPasswordConfirm">Confirm Password</label>
-                  </div>
-                  <div class="field">
-                    <input id="newPasswordConfirm" type="password" name="newPasswordConfirm">
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="label">&nbsp;</div>
-                <div class="field">
-                  <button>Submit</button>
-                </div>
-              </div>
-            </form>
+						<header class="subheader">
+							<h1>User Profile</h1>
+						</header>
+						<div class="main-content">
+							<form id="form_profile" action="/profile" method="POST">
+								<section class="form-section">
+									<h4>Account Information</h4>
+									<div class="area">
+										<div class="row">
+											<div class="label">
+												<span>Email</span>
+											</div>
+											<div class="field">
+												<span class="email"></span>
+											</div>
+										</div>
+										<div class="row">
+											<div class="label">
+												<label for="affiliation">Affiliation</label>
+											</div>
+											<div class="field">
+												<select id="affiliation" name="affiliation">
+													<option value="Student">Student</option>
+													<option value="Teachers Assistant">Teachers Assistant</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</section>
+								<section class="form-section">
+									<h4>Profile Information</h4>
+									<div class="area">
+										<div class="row">
+											<div class="label">
+												<label for="name">User Name</label>
+											</div>
+											<div class="field">
+												<input id="name" type="text" class="text" name="name" value="">
+											</div>
+										</div>
+										<div class="row">
+											<div class="field">
+												<input style="width: auto;" id="showName" type="checkbox" name="showName">
+												Display your real name in contributions
+											</div>
+										</div>
+										<!--
+									<div class="row">
+										<div class="label">
+											<label for="major">Major</label>
+										</div>
+										<div class="field">
+											<input id="major" type="text" name="major" value="">
+										</div>
+									</div>
+									<div class="row">
+										<div class="label">
+											<label for="bio">Bio</label>
+										</div>
+										<div class="field">
+											<input id="bio" type="text" name="bio" value="">
+										</div>
+									</div>
+									-->
+									</div>
+								</section>
+								<section class="form-section">
+									<h4>Change Password</h4>
+									<div class="area">
+										<div class="row">
+											<div class="label">
+												<label for="existingPassword">Old Password</label>
+											</div>
+											<div class="field">
+												<input id="existingPassword" type="password" class="text" name="existingPassword">
+											</div>
+										</div>
+										<div class="row">
+											<div class="label">
+												<label for="newPassword">New Password</label>
+											</div>
+											<div class="field">
+												<input id="newPassword" type="password" class="text" name="newPassword">
+											</div>
+										</div>
+										<div class="row">
+											<div class="label">
+												<label for="newPasswordConfirm">Confirm Password</label>
+											</div>
+											<div class="field">
+												<input id="newPasswordConfirm" type="password" class="text" name="newPasswordConfirm">
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="field">
+											<button>Submit</button>
+										</div>
+									</div>
+								</section>
+							</form>
+						</div>
           </div>
           <!--================================================================= -->
                 <div class=page id=pg_login>

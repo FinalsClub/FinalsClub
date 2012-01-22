@@ -99,7 +99,7 @@ Please have a look around, I hope you enjoy your stay.
   margin-left: 1.705%;
   margin-right: 1.705%; }
 
-.futura, .futura-oblique, .breadcrumb .location, #schools .number_of_courses, #schools .number_of_notes, #pg_courses .course .course-data-number, .futura-light, h1, .subheader h2, .futura-light-oblique, .futura-bold, .info, .error, .link-bar a, body, p, #g-masthead, #pg_home h1 {
+.futura, .futura-oblique, .breadcrumb .location, #schools .number_of_courses, #schools .number_of_notes, #pg_courses .course .course-data-number, .futura-light, h1, .subheader h2, .futura-light-oblique, .futura-bold, .info, .error, .link-bar a, body, p, #g-masthead, .form-header h4, #pg_home h1 {
   font-family: "futura-pt", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   font-weight: 500;
   -webkit-font-smoothing: antialiased; }
@@ -436,10 +436,11 @@ body {
     color: #bbb; }
 
 .subheader {
-  padding: 1.5em 0 2.25em;
-  margin-bottom: 1.5em;
+  padding: 2.25em 0 3em;
+  margin-bottom: 2.25em;
   border-top: 1px solid #fff;
-  border-bottom: 1px solid #f7f7f7;
+  border-bottom: 1px solid #fbf7eb;
+  border-bottom: 1px solid rgba(255, 205, 88, 0.1);
   background-color: #fbfbfb; }
   .subheader h1, .subheader h3 {
     margin: 0; }
@@ -505,6 +506,12 @@ input.text {
   input.text:focus {
     border: 1px solid #aaa;
     outline: 0; }
+
+.form-header h4 {
+  color: #e8a200; }
+
+.form-section {
+  margin-bottom: 3em; }
 
 form .row {
   margin-bottom: 0.75em; }
