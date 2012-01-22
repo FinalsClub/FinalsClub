@@ -96,11 +96,13 @@ img {
 }
 
 button {
-	padding: $base/4;
+	padding: $base/4 $base/2;
 	border: 0;
 	background: none;
-	background-color: $mustard;
+	background-color: #333;
+	border: 1px solid #000;
 	color: #fff;
+	// color: #fff;
 }
 
 ::-moz-selection { background: #44a1dd; color: #fff; text-shadow: none; }
@@ -290,16 +292,19 @@ body {
         display: block;
         float: left;
         padding: $base/4;
+				opacity: 0.7;
+				@include transition( opacity );
+
+				.action {
+					color: $mustard;
+				}
+
+				.location {
+					color: #666;
+				}
 
         &:hover {
-
-            .action {
-                color: $mustard;
-            }
-
-            .location {
-                color: #666;
-            }
+					opacity: 1;
         }
 
         span {
@@ -320,6 +325,10 @@ body {
 .subheader {
     @extend .grid-8;
     padding: $base 0 $base*1.5;
+		margin-bottom: $base;
+		border-top: 1px solid #fff;
+		border-bottom: 1px solid #f8f8f8;
+		background-color: #fcfcfc;
 
     h1, h3 {
         margin: 0;
@@ -416,7 +425,7 @@ body {
 input.text {
 	padding: $base/4;
 	background-color: #e5e5e5;
-	border: 1px solid transparent;
+	border: 1px solid #ccc;
 
 	&:focus {
 		border: 1px solid #aaa;
@@ -427,6 +436,13 @@ input.text {
 .form-header {
 	p {
 		@extend .small;
+	}
+}
+
+form {
+
+	.row {
+		margin-bottom: $base/2;
 	}
 }
 

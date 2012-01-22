@@ -69,11 +69,6 @@
                         <li><a href="/schools" id=school_link><span class="icon" alt="paperclip"></span>Courses</a></li>
                         <li><a href="http://blog.finalsclub.org" id="blog_link"><span class="icon" alt="align-lines"></span>Blog</a></li>
                         <li><a href="/archive" id=archive_link class="nav"><span class="icon" alt="book"></span>Library</a></li>
-                        <!--
-                        <li><a href="/press" id=press_link class="nav"><em class="icon"></em>Press</a></li>
-                        -->
-                        <li><a href="/profile" id=profile_link class="nav"><em class="icon"></em>Profile</a></li>
-                        <!-- li><a href="#" class="donate"><em class="icon"></em><em class="lc yellow">Donate</em></a></li -->
                     </ul>
                 </nav>
                 <hr id="g-masthead-hr" />
@@ -284,38 +279,36 @@
 											<h4>Instructor: <span class="futura light"> __name__ <a href="mailto:__email__" class="instructor_email">__email__</span></h4>
 										</div>
 									</header>
-								<div class="main-content">
-									<div class="lectures">
-										<div class="proto lecture" id=PROTO_lecture>
-											<div class=lecture-name>
-												<a href="/lecture/___id__">__name__</a><br>
-												Created: __date__<br>
+									<div class="main-content">
+										<div class="lectures">
+											<div class="proto lecture" id=PROTO_lecture>
+												<a href="/lecture/___id__" class="lecture-name">__name__</a>
+												<div class="lecture-created-at">Created: __date__</div>
 											</div>
 										</div>
 									</div>
-								</div>
-								<div class="sidebar">
-									<span class="sub_menu" style="display:none;">
-										<a href="" id="new_lecture">New Lecture</a>
-									</span>
-									<form method="POST" id="form_lecture" style="display:none;">
-										<h4>Create New Lecture</h4>
-										<p>Use this form to create a new lecture. After creating the lecture, you can then create a notes-taking session within it.</p>
-										<div class="row">
-											<div class="label">Lecture Name</div>
-											<div class="field">
-												<input type="text" class="text" name="name">
+									<div class="sidebar">
+										<span class="sub_menu" style="display:none;">
+											<a href="" id="new_lecture">New Lecture</a>
+										</span>
+										<form method="POST" id="form_lecture" style="display:none;">
+											<h4>Create New Lecture</h4>
+											<p>Use this form to create a new lecture. After creating the lecture, you can then create a notes-taking session within it.</p>
+											<div class="row">
+												<div class="label">Lecture Name</div>
+												<div class="field">
+													<input type="text" class="text" name="name">
+												</div>
 											</div>
-										</div>
-										<div class="row">
-											<div class="label">&nbsp;</div>
-											<div class="field">
-												<button>Create Lecture</button>
+											<div class="row">
+												<div class="label">&nbsp;</div>
+												<div class="field">
+													<button>Create Lecture</button>
+												</div>
 											</div>
-										</div>
-									</form>
+										</form>
+									</div>
 								</div>
-							</div>
           <!--================================================================= -->
                 <div class=page id=pg_notes>
 									<header class="subheader">
@@ -401,78 +394,82 @@
                 </div>
           <!--================================================================= -->
                 <div class=page id=pg_register>
-                    <h1>Create an Account</h1>
-                    <form id="form_register" action="/register" method="POST">
-                        <div class="zarea">
-                            <div class="row">
-                                <div class="label">
-                                    <label for="email">School email*</label>
-                                </div>
-                                <div class="field">
-                                    <input type="text" class="text" name="email">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="label">
-                                    <label for="password">Password*</label>
-                                </div>
-                                <div class="field">
-                                    <input type="password" name="password">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="label">
-                                    <label for="school">School*</label>
-                                </div>
-                                <div class="field">
-                                    <select name="school">
-                                        <option value="Harvard">Harvard</option>
-                                        <option value="Berkeley">Berkeley</option>
-                                        <option value="Brown">Brown</option>
-                                        <option value="Columbia">Columbia</option>
-                                        <!--
-                                        <option value="Cornell">Cornell</option>
-                                        <option value="Dartmouth">Dartmouth</option>
-                                        <option value="MIT">MIT</option>
-                                        <option value="Princeton">Princeton</option>
-                                        <option value="Stanford">Stanford</option>
-                                        <option value="UPenn">UPenn</option>
-                                        <option value="University of Texas">University of Texas</option>
-                                        <option value="Yale">Yale</option>
-                                        <option value="Other">Other</option>
-                                        -->
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="label">
-                                    <label for="name">Site Handle</label>
-                                </div>
-                                <div class="field">
-                                    <input type="text" class="text" name="name">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="label">
-                                    <label for="affil">Affiliation</label>
-                                </div>
-                                <div class="field">
-                                    <select name="affil">
-                                        <option value="Student">Student</option>
-                                        <option value="Teachers Assistant">Teachers Assistant</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="label">
-                                    &nbsp;
-                                </div>
-                                <div class="field">
-                                    <button>Register</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+									<header class="subheader">
+										<h2>Create an Account</h2>
+									</header>
+									<div class="main-content">
+											<form id="form_register" action="/register" method="POST">
+													<div class="zarea">
+															<div class="row">
+																	<div class="label">
+																			<label for="email">School email*</label>
+																	</div>
+																	<div class="field">
+																			<input type="text" class="text" name="email">
+																	</div>
+															</div>
+															<div class="row">
+																	<div class="label">
+																			<label for="password">Password*</label>
+																	</div>
+																	<div class="field">
+																			<input type="password" class="text" name="password">
+																	</div>
+															</div>
+															<div class="row">
+																	<div class="label">
+																			<label for="name">Site Handle</label>
+																	</div>
+																	<div class="field">
+																			<input type="text" class="text" name="name">
+																	</div>
+															</div>
+															<div class="row">
+																	<div class="label">
+																			<label for="school">School*</label>
+																	</div>
+																	<div class="field">
+																			<select name="school">
+																					<option value="Harvard">Harvard</option>
+																					<option value="Berkeley">Berkeley</option>
+																					<option value="Brown">Brown</option>
+																					<option value="Columbia">Columbia</option>
+																					<!--
+																					<option value="Cornell">Cornell</option>
+																					<option value="Dartmouth">Dartmouth</option>
+																					<option value="MIT">MIT</option>
+																					<option value="Princeton">Princeton</option>
+																					<option value="Stanford">Stanford</option>
+																					<option value="UPenn">UPenn</option>
+																					<option value="University of Texas">University of Texas</option>
+																					<option value="Yale">Yale</option>
+																					<option value="Other">Other</option>
+																					-->
+																			</select>
+																	</div>
+															</div>
+															<div class="row">
+																	<div class="label">
+																			<label for="affil">Affiliation</label>
+																	</div>
+																	<div class="field">
+																			<select name="affil">
+																					<option value="Student">Student</option>
+																					<option value="Teachers Assistant">Teachers Assistant</option>
+																			</select>
+																	</div>
+															</div>
+															<div class="row">
+																	<div class="label">
+																			&nbsp;
+																	</div>
+																	<div class="field">
+																			<button>Register</button>
+																	</div>
+															</div>
+													</div>
+											</form>
+										</div>
                 </div>
           <!--================================================================= -->
           <div class="page" id="pg_profile">
@@ -576,7 +573,7 @@
           <!--================================================================= -->
                 <div class=page id=pg_login>
 									<header class="subheader">
-										<h1>Login</h1>
+										<h2>Login</h2>
 									</header>
 									<div class="main-content">
                     <form id="form_login" action="/login" method="POST">
@@ -594,7 +591,7 @@
                                     <label for="password">Password</label>
                                 </div>
                                 <div class="field">
-                                    <input type="password" name="password" size="15">
+                                    <input type="password" class="text" name="password" size="15">
                                 </div>
                             </div>
                             <div class="row">

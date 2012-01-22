@@ -61,18 +61,16 @@ router = {
 
 function render(pageId, response) {
   if (user.name) {
-    $('.username').text("Hi, "+user.name+"!");
+    $('.username').text(user.name).attr('href', '/profile');
     $("#login_status").show();
     $('#login_link').text('Logout').attr('href', '/logout');
     $('#register_link').hide();
-    $('#profile_link').show();
 		$('#sign_up-link').hide();
   } else {
     $('.username').text('Guest');
     $("#login_status").hide();
     $('#login_link').text('Login').attr('href', '/login');
     $('#register_link').show();
-    $('#profile_link').hide();
 		$('#sign_up-link').show();
   }
 

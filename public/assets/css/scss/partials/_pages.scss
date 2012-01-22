@@ -86,6 +86,7 @@
         clear: both;
         padding: $base/4;
 
+
         &:hover {
 
             .school_name {
@@ -127,12 +128,8 @@
 #pg_courses {
 
     .main-content {
-        @extend .grid-6;
+        @extend .grid-5;
     }
-
-		.sidebar {
-			@extend .grid-2;
-		}
 
     .course {
         position: relative;
@@ -144,7 +141,6 @@
             @extend .plump;
             text-transform: capitalize;
             color: #000;
-            @include transition( color );
 
             &:hover {
                 color: $mustard;
@@ -193,12 +189,20 @@
 	}
 
 	.lecture {
-		padding-bottom: $base/2;
-		margin-bottom: $base/1.5;
+		padding-bottom: $base;
+		margin-bottom: $base/2;
 		@include dotted-x( bottom );
 	}
 
 	.lecture-name {
+		display: block;
+		margin-bottom: $base/4;
 		@extend .big;
+		color: #000;
+		@include transition( color );
+
+		&:hover {
+			color: $mustard;
+		}
 	}
 }
