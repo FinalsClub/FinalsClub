@@ -506,6 +506,7 @@ function showPage(y) {
     slugs.shift();
 
     var mainSlug = slugs[0].toLowerCase() || 'home';
+		console.log(slugs[0].toLowerCase());
 
     if (mainSlug === 'archive') {
         if (slugs[1]) {
