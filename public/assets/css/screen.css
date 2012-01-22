@@ -406,7 +406,7 @@ body {
 
 .breadcrumb {
   position: relative;
-  border-bottom: 1px solid #f7f7f7;
+  border-bottom: 1px solid #f8f8f8;
   background-color: #fafafa; }
   .breadcrumb a {
     display: block;
@@ -438,10 +438,10 @@ body {
 .subheader {
   padding: 2.25em 0 3em;
   margin-bottom: 2.25em;
-  border-top: 1px solid #fff;
+  border-top: 1px solid #f7f7f7;
   border-bottom: 1px solid #fbf7eb;
   border-bottom: 1px solid rgba(255, 205, 88, 0.1);
-  background-color: #fbfbfb; }
+  background-color: #fcfcfc; }
   .subheader h1, .subheader h3 {
     margin: 0; }
   .subheader h1 {

@@ -290,7 +290,7 @@ body {
 	@extend .grid-8;
 	@extend .big;
 	@extend .group;
-	border-bottom: 1px solid #f7f7f7;
+	border-bottom: 1px solid #f8f8f8;
 	background-color: #fafafa;
 
 	a {
@@ -333,11 +333,10 @@ $rgba-gold: rgba(255, 205, 88, 0.1);
     @extend .grid-8;
     padding: $base*1.5 0 $base*2;
 		margin-bottom: $base*1.5;
-		border-top: 1px solid #fff;
+		border-top: 1px solid #f7f7f7;
 		border-bottom: 1px solid #fbf7eb;
 		border-bottom: 1px solid $rgba-gold;
-		background-color: #fbfbfb;
-		// @include dotted-x-gold( bottom );
+		background-color: #fcfcfc;
 
     h1, h3 {
         margin: 0;
