@@ -2,15 +2,23 @@
 
 [Table of contents]
 
- 0.Home
- 1.Schools
- 2.Courses
- 3.Course
+ 0.General
+ 1.Home
+ 2.Schools
+ 3.Courses
+ 4.Course
 
 ----------------------------------------------------------------*/
 
+/* 0.`General
+---------------------------------------------- */
 
-/* 0.`Home
+#messages {
+	@extend .grid-8;
+	padding: $base/2;
+}
+
+/* 1.`Home
 ---------------------------------------------- */
 
 #pg_home {
@@ -63,7 +71,7 @@
 }
 
 
-/* 1.`Schools
+/* 2.`Schools
 ---------------------------------------------- */
 
 #schools {
@@ -113,7 +121,7 @@
     }
 }
 
-/* 2.`Courses
+/* 3.`Courses
 ---------------------------------------------- */
 
 #pg_courses {
@@ -171,5 +179,22 @@
     }
 }
 
-/* 3.`Course
+/* 4.`Course
 ---------------------------------------------- */
+
+#pg_lectures {
+
+	.main-content {
+		@extend .grid-5;
+	}
+
+	.lecture {
+		padding-bottom: $base/2;
+		margin-bottom: $base/1.5;
+		@include dotted-x( bottom );
+	}
+
+	.lecture-name {
+		@extend .big;
+	}
+}

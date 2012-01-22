@@ -80,7 +80,9 @@
             </div>
         </header>
         <div id="topofcontent"></div>
-        <div id="messages" class="page"><span id="PROTO_message" class="__type__">__msg__</span></div>
+				<div class="wrapper">
+					<div id="messages" class="page"><span id="PROTO_message" class="__type__">__msg__</span></div>
+				</div>
         <div id="g-page">
             <div class="wrapper">
                 <style>
@@ -121,7 +123,7 @@
                             </p>
                             <nav class="link-bar">
                                 <ul>
-                                    <li><a href="#">Sign Up</a></li>
+                                    <li><a href="/register" id="sign_up-link">Sign Up</a></li>
                                     <li class="last"><a href="#">Learn Something</a></li>
                                 </ul>
                             </nav>
@@ -265,51 +267,58 @@
 
                 <!--================================================================= -->
                 <div class=page id=pg_lectures>
-                    <div class="proto lectures_head" id=PROTO_lectures_head>
-                        <h1>Lectures for Course __number__ : __name__</h1>
-                        Subject: __subject__<br>
-                        Department: __department__<br>
-                    </div>
-                    <div class="proto lectures_instructor" id=PROTO_lectures_instructor>
-              Instructor: __name__ <span class="instructor_email">(__email__)</span><br>
-                    </div>
-                    <div class="proto lecture" id=PROTO_lecture>
-                        <div class=name>
-                            <a href="/lecture/___id__">__name__</a><br>
-                            Created: __date__<br>
-                        </div>
-                    </div>
-            <div>
-              <span class="sub_menu" style="display:none;">
-                <a href="" id="new_lecture">New Lecture</a>
-              </span>
-              <form method="POST" id="form_lecture" style="display:none;">
-                <h1>Create New Lecture</h1>
-                <p>Use this form to create a new lecture. After creating the lecture, you can then create a notes-taking session within it.</p>
-                <div class="row">
-                  <div class="label">Lecture Name</div>
-                  <div class="field">
-                    <input type="text" name="name">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="label">&nbsp;</div>
-                  <div class="field">
-                    <button>Create Lecture</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-                </div>
+									<header class="subheader">
+										<div class="proto lectures_head" id=PROTO_lectures_head>
+											<h2>Lectures for Course __number__ : __name__</h2>
+											<h4>Subject:<span class="light futura"> __subject__</span></h4>
+											<h4>Department:<span class="light futura"> __department__</span></h4>
+										</div>
+										<div class="proto lectures_instructor" id=PROTO_lectures_instructor>
+											<h4>Instructor: <span class="futura light"> __name__ <a href="mailto:__email__" class="instructor_email">__email__</span></h4>
+										</div>
+									</header>
+								<div class="main-content">
+									<div class="lectures">
+										<div class="proto lecture" id=PROTO_lecture>
+											<div class=lecture-name>
+												<a href="/lecture/___id__">__name__</a><br>
+												Created: __date__<br>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="sidebar">
+									<span class="sub_menu" style="display:none;">
+										<a href="" id="new_lecture">New Lecture</a>
+									</span>
+									<form method="POST" id="form_lecture" style="display:none;">
+										<h4>Create New Lecture</h4>
+										<p>Use this form to create a new lecture. After creating the lecture, you can then create a notes-taking session within it.</p>
+										<div class="row">
+											<div class="label">Lecture Name</div>
+											<div class="field">
+												<input type="text" name="name">
+											</div>
+										</div>
+										<div class="row">
+											<div class="label">&nbsp;</div>
+											<div class="field">
+												<button>Create Lecture</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
           <!--================================================================= -->
                 <div class=page id=pg_notes>
+									<header class="subheader">
                     <div class="proto notes_head" id=PROTO_notes_head>
-                        <h1>Note pads for Course __number__ : __name__</h1>
-                        Subject: __subject__<br>
-                        Department: __department__<br>
+                        <h2>Note pads for Course __number__ : __name__</h2>
+												<h4>Subject:<span class="light futura">__subject__</span></h4>
+												<h4>Department:<span class="light futura">__department__</span></h4>
                     </div>
                     <div class="proto notes_instructor" id=PROTO_notes_instructor>
-              Instructor: __name__ <span class="instructor_email">(__email__)</span><br>
+											<h4> Instructor: <span class="italic futura"> __name__ <a href="mailto:__email__" class="instructor_email">(__email__)</a></span></h4>
                     </div>
                     <div class="proto note" id=PROTO_note>
                         <div class=name>
@@ -559,7 +568,10 @@
           </div>
           <!--================================================================= -->
                 <div class=page id=pg_login>
-                    <h1>Login</h1>
+									<header class="subheader">
+										<h1>Login</h1>
+									</header>
+									<div class="main-content">
                     <form id="form_login" action="/login" method="POST">
                         <div class="zarea">
                             <div class="row">
@@ -600,6 +612,7 @@
                         </div>
                     </form>
                 </div>
+							</div>
           <!--================================================================= -->
           <div class="page" id="pg_resetpass">
             <h1>Password Reset</h1>

@@ -70,6 +70,10 @@ h3 {
     @extend .large;
 }
 
+h4 {
+	@extend .big;
+}
+
 a {
     @include transition( color );
     color: $mustard;
@@ -124,6 +128,9 @@ body {
     background-position: 20% 0;
 }
 
+.sidebar {
+	@extend .grid-3;
+}
 
 
 /* a.`header
@@ -420,6 +427,19 @@ body {
 .centered { text-align: center;}
 .centered-rt-parent { margin: 0 auto;}
 
+.light {
+	color: #444;
+}
+
+.info {
+	@extend .futura-bold;
+	color: #6bcf77;
+}
+
+.error {
+	@extend .futura-bold;
+	color: #b7300b;
+}
 
 @import "partials/sprites"; // A
 @import "partials/pages";   // B
