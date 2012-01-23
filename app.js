@@ -32,32 +32,38 @@ var FacebookClient = require('facebook-client').FacebookClient;
 var facebook = new FacebookClient();
 
 everyauth.debug = true;
+everyauth.everymodule.logoutPath('/bye');
 
 // configure facebook authentication
 everyauth.facebook
     .appId('118001624986867')
     .appSecret('c74910f00dea3d083a00572a445af3ae')
-    .scope('user_likes,user_photos,user_photo_video_tags,email')
+    .myHostname('http://localhost:8000')
+    .scope('email')
     .entryPath('/fbauth')
-    .redirectPath('/profile')
-    .findOrCreateUser(function(req) {
-        log3(req.user)
-        console.log(req.user);
-        User.findOne( { }, function( err, user ) {
-            log3(err)
-            log3(user)
+    .redirectPath('/schools')
+    .findOrCreateUser(function(session, accessToken, accessTokExtra, fbUserMetadata) {
+        sys.puts(session);
+        if(session){
+          sys.puts("have a session!");
+          sys.puts(session.sessionID);
+        }
+        var userPromise = this.Promise();
+        User.findOne( {'email': fbUserMetadata.email }, function( err, euser ) {
+            sys.puts("Found a fc user for this fb email");
+            if (err) return userPromise.fail(err);
             // if a user exists with that email, call them logged in
             // FIXME: change this to different query on 'fbid'
-            if(user) {
-                // save the fact that this cookie/session-id is right for this user
-                var sid = req.sessionID;
-                user.session = sid;
-                user.save( function() {
-                    //req.session.email = 'fuckles';
-                    sendJson(res, {status: 'ok', message:'Successfully logged in via Fb'});
-                });
+            if(euser) {
+                // save thhat this cookie/session-id is right for this user
+                var sid = session.sessionID;
+                euser.session = sid;
+                euser.save( );
+                sys.puts(euser);
             }
+            if (euser) return userPromise.fulfill(euser);
         });
+        return userPromise;
     });
     //.callbackPath('/fbsucc')
 
@@ -557,6 +563,8 @@ app.get( '/', loadUser, function( req, res ) {
 // in those schools.
 // Public with some private information
 app.get( '/schools', checkAjax, loadUser, function( req, res ) {
+  sys.puts('loading schools');
+  sys.puts(String(req.user));
   var user = req.user;
 
   var schoolList = [];
@@ -1510,6 +1518,7 @@ app.get( '/activate/:code', checkAjax, function( req, res ) {
 
 // Logut user
 app.get( '/logout', checkAjax, function( req, res ) {
+  sys.puts("logging out");
   var sid = req.sessionID;
 
   // Find user by session id
