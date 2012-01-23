@@ -39,27 +39,27 @@ everyauth.facebook
     .appId('118001624986867')
     .appSecret('c74910f00dea3d083a00572a445af3ae')
     .myHostname('http://localhost:8000')
-    .scope('email')
+    .scope( 'email')
     .entryPath('/fbauth')
     .redirectPath('/schools')
-    .findOrCreateUser(function(session, accessToken, accessTokExtra, fbUserMetadata) {
-        sys.puts(session);
-        if(session){
-          sys.puts("have a session!");
-          sys.puts(session.sessionID);
-        }
+    .findOrCreateUser(function(session, accessToken, accessTokExtra, fbUserMetadata, req) {
+        console.log('req.session');
+        console.log(req.session);
         var userPromise = this.Promise();
         User.findOne( {'email': fbUserMetadata.email }, function( err, euser ) {
-            sys.puts("Found a fc user for this fb email");
+            console.log("Found a fc user for this fb email");
             if (err) return userPromise.fail(err);
             // if a user exists with that email, call them logged in
             // FIXME: change this to different query on 'fbid'
             if(euser) {
+                //hsession = new Session( handshake, session );
                 // save thhat this cookie/session-id is right for this user
-                var sid = session.sessionID;
-                euser.session = sid;
-                euser.save( );
-                sys.puts(euser);
+                req.session.regenerate( function() {
+                  euser.session = req.sessionID;
+                  euser.save( );
+                  console.log( req.sessionID );
+                  req.user = euser;
+                });
             }
             if (euser) return userPromise.fulfill(euser);
         });
@@ -564,7 +564,7 @@ app.get( '/', loadUser, function( req, res ) {
 // Public with some private information
 app.get( '/schools', checkAjax, loadUser, function( req, res ) {
   sys.puts('loading schools');
-  sys.puts(String(req.user));
+  console.log(req.user);
   var user = req.user;
 
   var schoolList = [];
