@@ -1,0 +1,29 @@
+// edit these values
+$cols: 8;
+$margin: 15;
+$layout-width: 850; 
+// do not edit these values
+$layout-margin-width: $layout-width + $margin * 2;
+$col-width: $layout-margin-width / $cols;
+$percent-margin: $margin / $layout-margin-width;
+
+// Grid Container
+.wrapper {
+    position: relative;
+    width: $layout-margin-width + px;
+    margin: 0 auto;
+    @extend .group;
+}
+
+// Grid Columns
+@for $i from 1 through $cols {
+    .grid-#{$i} {
+        float: left;
+        width: ( ($col_width * $i / $layout-margin-width) - 2 * $percent-margin) * 100%;
+        padding: 0;
+        margin-left: $percent-margin * 100%;
+        margin-right: $percent-margin * 100%;
+    }
+}
+
+

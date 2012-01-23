@@ -1,670 +1,724 @@
 <!DOCTYPE html>
 <html class="no-js">
-	<head>
-		<title>FinalsClub.org: Online Social Note-Taking</title>
-		<link rel="stylesheet" href="/assets/css/include.css" type="text/css" media="screen" />
-		<script type="text/javascript" src="/assets/js/modernizr.custom.js"></script>
-		<script type="text/javascript" src="/assets/js/load.js"></script>
-		<script type="text/javascript" src="http://use.typekit.com/cbx6gxx.js"></script>
-		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    <head>
+        <title>FinalsClub.org: Online Social Note-Taking</title>
+        <link rel="stylesheet" href="/assets/css/include.css" type="text/css" media="screen" />
+        <script type="text/javascript" src="/assets/js/modernizr.custom.js"></script>
 
-		<script type='text/javascript' src='/javascripts/jquery.min.js'></script>
-		<script type='text/javascript' src='/javascripts/es5-shim.min.js'></script>
-		<script type='text/javascript' src='/javascripts/protodiv.js'></script>
-		<script type='text/javascript' src='/javascripts/main.js'></script>
-	</head>
+        <script type='text/javascript' src='/javascripts/jquery.min.js'></script>
+        <script type='text/javascript' src='/javascripts/jquery.tmpl.js'></script>
+        <script type="text/javascript" src="/assets/js/init.js"></script>
+        <script type='text/javascript' src='/javascripts/es5-shim.min.js'></script>
+        <script type='text/javascript' src='/javascripts/protodiv.js'></script>
+        <script type='text/javascript' src='/javascripts/main.js'></script>
+        <script type='text/javascript'>
+            TypekitConfig = {
+                kitId: 'cbx6gxx',
+                scriptTimeout: 3000
+            };
+
+            (function() {
+                var h = document.getElementsByTagName('html')[0];
+                h.className += ' wf-loading';
+
+                var t = setTimeout(function() {
+                    h.className = h.className.replace(/(\s|^)wf-loading(\s|$)/g, '');
+                    h.className += ' wf-inactive';
+                }, TypekitConfig.scriptTimeout);
+
+                var tk = document.createElement('script');
+                tk.src = '//use.typekit.com/' + TypekitConfig.kitId + '.js';
+                tk.type = 'text/javascript';
+                tk.async = 'true';
+
+                tk.onload = tk.onreadystatechange = function() {
+                    var rs = this.readyState;
+
+                    if (rs && rs != 'complete' && rs != 'loaded') return;
+                    clearTimeout(t);
+                    try { Typekit.load(TypekitConfig); } catch (e) {}
+                };
+
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(tk, s);
+            })();
+        </script>
+
+    </head>
   <!--================================================================= -->
-	<body>
-		<div class="header">
-			<div class="container-12 highlight">
-					<div class="grid-3">
-						<a id="logo" href="/">
-							<img src="/assets/img/logo-light.png" alt="FinalsClub" />
-						</a>
-					</div>
-					<div class="grid-9">
-						<nav id="user-nav" class="small">
-							<ul>
-								<li><span class="username"></span></li>
-								<li><a id=login_link href="/login">Login</a></li>
-							</ul>
-						</nav>
-						<nav id="main-nav" class="small">
-							<ul>
-								<li><a href="/schools" id=school_link class="nav"><em class="icon"></em>Courses</a></li>
-								<li><a href="http://blog.finalsclub.org"><em class="icon"></em>Blog</a></li>
-								<li><a href="/archive" id=archive_link class="nav"><em class="icon"></em>Library</a></li>
-								<!--
-								<li><a href="/press" id=press_link class="nav"><em class="icon"></em>Press</a></li>
-								-->
-								<li><a href="/register" id=register_link class="nav"><em class="icon"></em>Register</a></li>
-								<li><a href="/profile" id=profile_link class="nav"><em class="icon"></em>Profile</a></li>
-								<!-- li><a href="#" class="donate"><em class="icon"></em><em class="lc yellow">Donate</em></a></li -->
-							</ul>
-						</nav>
-					</div>
-			</div>
-		</div>
-		<hr class="stripes" />
-		<div id="topofcontent"></div>
-		<div id="messages" class="page"><span id="PROTO_message" class="__type__">__msg__</span></div>
-		<div class="content">
+    <body>
+        <header id="g-masthead">
+            <div class="wrapper">
 
-			<style>
-				/* The is here is because it's related less to "styling" and more to UI "behavior" */
-				.page { display: none; }
-			</style>
+                <nav id="g-nav-user">
+                    <ul>
+                        <li class="first"><a href="#" class="username"></a></li>
+                        <li><a href="/register">Register</a></li>
+                        <li class="last"><a href="/login">Login</a></li>
+                    </ul>
+                </nav>
 
-			<noscript>
-				This site requires JavaScript to properly function.
-				Please enable JavaScript or use a modern browser such as
-				<a href="http://google.com/chrome">Google Chrome</a>
-				or
-				<a href="http://firefox.com">Firefox</a>.
-			</noscript>
-      <!--================================================================= -->
-			<div class=page id=pg_home>
-				<div class="grid-12">
-					<div class="padded-loose">
-						<h1 class="large-huge spaced centered">Welcome to FinalsClub! <span class="small">Collaborate. Learn. Share.</span></h1>
-					</div>
-				</div>
-				<div class="grid-10 grid-centered">
-					<div class="padded-loose">
-						<p class="no-top-margin">
-							Welcome to FinalsClub.org.  We provide tools to help college students collaborate in realtime on class notes and hold live scholarly discussions with their peers and instructors.
-            </p>
-						<p>
-							A single user can begin lecture notes on FinalsClub, but the best results occur when everyone contributes to common knowledge. Working together we can transform higher education, one classroom at a time.
-            </p>
-					</div>
-				</div>
-      <!--================================================================= -->
-				<div class="grid-12">
-					<div class="button-set vertical half-width centered-rt-parent half-width-buttons">
-						<button id="signup" class="green">Sign Up</button>
-						<button id="learnsomething" class="blue">Learn Something</button>
-					</div>
-				</div>
-      <!--================================================================= -->
-				<div class="container-12 spacer">
-				  <hr class="stripes spacer" />
+                <div id="g-logo">
+                    <a href="/">
+                        <img src="/assets/img/logo.png" alt="FinalsClub - social notetaking" />
+                    </a>
+                </div>
 
-					<div class="grid-6">
-						<h3 class="heading">Check out our Screencasts</h3>
-						<div class="video-wrapper">
-							<iframe src="http://player.vimeo.com/video/30647271?title=0&amp;byline=0&amp;portrait=0&amp;color=367da9" width="460" height="259" frameborder="0" webkitAllowFullScreen allowFullScreen></iframe>		</div>
-						</div>
-					<div class="grid-6">
-						<h3 class="heading">We currently support the following schools</h3>
-						<div class="schools">
-							<ul>
-								<li><em class="sprite-school brown">Brown Logo</em></li>
-								<li><em class="sprite-school columbia">Columbia Logo</em></li>
-								<li><em class="sprite-school cornell">Cornell Logo</em></li>
-								<li><em class="sprite-school dartmouth">Dartmouth Logo</em></li>
-								<li><em class="sprite-school shield">School Logo</em></li>
-								<li><em class="sprite-school mit">MIT Logo</em></li>
-								<li><em class="sprite-school lock_haven">Lock Haven Logo</em></li>
-								<li><em class="sprite-school cal">Cal Tech Logo</em></li>
-								<li><em class="sprite-school texas">University of Texas Logo</em></li>
-								<li><em class="sprite-school yale">Yale Logo</em></li>
-								<li><em class="sprite-school penn">Penn Logo</em></li>
-								<li><em class="sprite-school harvard">Harvad Logo</em></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-      <!--================================================================= -->
-			<div class=page id=pg_schools>
-				<h1>Universities</h1>
-				<div class="proto school" id=PROTO_school onclick="goPage('/school/___id__')">
-					<div class=name>__name__</div>
-					<div class=desc>__description__</div>
-				</div>
-			</div>
-      <!--================================================================= -->
-			<div class=page id=pg_courses>
-				<h1>Courses for <span id=school_name></span></h1>
-        <div>
-          <span class="sub_menu" style="display:none;">
-          </span>
-          <form method="POST" id="form_course" style="display:none;">
-            <h1>Create New Course</h1>
-            <p>Use this form to create a new course. After creating the course, you can create a lecture within it.</p>
-            <div class="row">
-              <div class="label">Course number</div>
-              <div class="field">
-                <input type="text" name="number">
-              </div>
+                <nav id="g-nav-main">
+                    <ul>
+                        <li><a href="/schools" id=school_link><span class="icon" alt="paperclip"></span>Courses</a></li>
+                        <li><a href="http://blog.finalsclub.org" id="blog_link"><span class="icon" alt="align-lines"></span>Blog</a></li>
+                        <li><a href="/archive" id=archive_link class="nav"><span class="icon" alt="book"></span>Library</a></li>
+                        <!--
+                        <li><a href="/press" id=press_link class="nav"><em class="icon"></em>Press</a></li>
+                        -->
+                        <li><a href="/profile" id=profile_link class="nav"><em class="icon"></em>Profile</a></li>
+                        <!-- li><a href="#" class="donate"><em class="icon"></em><em class="lc yellow">Donate</em></a></li -->
+                    </ul>
+                </nav>
+                <hr id="g-masthead-hr" />
             </div>
-            <div class="row">
-              <div class="label">Course name</div>
-              <div class="field">
-                <input type="text" name="name">
-              </div>
+        </header>
+        <div id="topofcontent"></div>
+        <div id="messages" class="page"><span id="PROTO_message" class="__type__">__msg__</span></div>
+        <div id="g-page">
+            <div class="wrapper">
+                <style>
+                    /* This related less to "styling" and more to UI "behavior" */
+                    .page { display: none; }
+                </style>
+
+                <noscript>
+                    This site requires JavaScript to properly function.
+                    Please enable JavaScript or use a modern browser such as
+                    <a href="http://google.com/chrome">Google Chrome</a>
+                    or
+                    <a href="http://firefox.com">Firefox</a>.
+                </noscript>
+
+          <!--================================================================= -->
+
+                <div class="page" id="pg_home">
+                    <header class="subheader">
+                        <h1>Welcome to FinalsClub.</h1>
+                        <h2>Collaborate. Learn. Share.</h2>
+                    </header>
+                    <div id="intro">
+
+                        <section class="section-home" id="intro-video">
+                            <h3 class="heading">Our Screencasts</h3>
+                            <div class="video-wrapper">
+                                <!-- video loaded in main.js -->
+                            </div>
+                        </section>
+
+                        <section class="section-home" id="intro-text">
+                            <h3>Our Mission</h3>
+                            <p>
+                                To provide tools that make it dead simple for college students to collaborate during and after class, with peers and with instructers.  You can begin taking lecture notes online, and allow anyone to contribute.</p> 
+                            <p>
+                                You can also post questions that will be seen by the entire class, and get a response from your peers or instructor immediately. Sign up, or just have a look around. Let us know what you think. We need your feedback to make Finals Club the best that it can be.
+                            </p>
+                            <nav class="link-bar">
+                                <ul>
+                                    <li><a href="/register">Sign Up</a></li>
+                                    <li class="last"><a href="/archive">Learn Something</a></li>
+                                </ul>
+                            </nav>
+                        </section>
+
+
+
+                        <section class="section-home" id="intro-schools">
+                            <h4>Schools we support</h4>
+                            <ul>
+                                <li><span class="school-name">Brown</span></li>
+                                <li><span class="school-name">Columbia</span></li>
+                                <li><span class="school-name">Cornell</span></li>
+                                <li><span class="school-name">Dartmouth</span></li>
+                                <li><span class="school-name">Harvard</span></li>
+                                <li><span class="school-name">Lock Haven</span></li>
+                                <li><span class="school-name">MIT</span></li>
+                                <li><span class="school-name">University of California</span></li>
+                                <li><span class="school-name">University of Pennsylvania</span></li>
+                                <li><span class="school-name">University of Texas</span></li>
+                                <li><span class="school-name">Yale</span></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+
+          <!--=================================================================-->
+
+                <div class="page" id="pg_schools">
+
+                    <header class="breadcrumb">
+                        <a href="#"><span class="action">&#139; Back</span><span class="location">&nbsp;to Home</span></a>
+                    </header>
+
+                    <header class="subheader">
+                        <h1>Universities</h1>
+                    </header>
+
+                    <div class="main-content">
+                        <ul id="schools">
+                        </ul>
+                    </div>
+                </div>
+
+                <script id="schoolTmpl" type="text/x-jquery-tmpl">
+                    <li>
+                        <a href="school/${_id}" class="school">
+                            <img class="icon-pair" src="/assets/img/avatar-univerisity-generic.gif" alt="" />
+                            <div class="text-pair">
+                                <span class="school_name">${name}</span>
+                                <!-- <h4>${description}</h4>-->
+                                <span class="number_of_courses">12 Courses, </span>
+                                <span class="number_of_notes">27 Notes</span>
+                            </div>
+                        </a>
+                    </li>
+                </script>
+
+                <script id="course" type="text/x-jquery-tmpl">
+                    <li>${dept}: ${name} (${number})</li>
+                </script>
+
+          <!--=================================================================-->
+
+                <div class=page id=pg_courses>
+                    <div class="subheader">
+                        <h1>Courses for <span id=school_name></span></h1>
+                    </div>
+                <div>
+              <span class="sub_menu" style="display:none;">
+              </span>
+              <form method="POST" id="form_course" style="display:none;">
+                <h1>Create New Course</h1>
+                <p>Use this form to create a new course. After creating the course, you can create a lecture within it.</p>
+                <div class="row">
+                  <div class="label">Course number</div>
+                  <div class="field">
+                    <input type="text" name="number">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="label">Course name</div>
+                  <div class="field">
+                    <input type="text" name="name">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="label">Course subject</div>
+                  <div class="field">
+                    <input type="text" name="subject">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="label">Course department</div>
+                  <div class="field">
+                    <input type="text" name="department">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="label">Instructor's Name</div>
+                  <div class="field">
+                    <input type="text" name="instructorName">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="label">Instructor's Email</div>
+                  <div class="field">
+                    <input type="text" name="email">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="label">&nbsp;</div>
+                  <div class="field">
+                    <button>Create Course</button>
+                  </div>
+                </div>
+              </form>
             </div>
-            <div class="row">
-              <div class="label">Course subject</div>
-              <div class="field">
-                <input type="text" name="subject">
-              </div>
+                    <div class="proto course" id=PROTO_course>
+                        <div class=dept>__department__</div>
+                        <div class=name>
+                            <a href="/course/___id__">__number__: __name__</a>
+                        </div>
+                    </div>
+                </div>
+          <!--================================================================= -->
+                <div class=page id=pg_lectures>
+                    <div class="proto lectures_head" id=PROTO_lectures_head>
+                        <h1>Lectures for Course __number__ : __name__</h1>
+                        Subject: __subject__<br>
+                        Department: __department__<br>
+                    </div>
+                    <div class="proto lectures_instructor" id=PROTO_lectures_instructor>
+              Instructor: __name__ <span class="instructor_email">(__email__)</span><br>
+                    </div>
+                    <div class="proto lecture" id=PROTO_lecture>
+                        <div class=name>
+                            <a href="/lecture/___id__">__name__</a><br>
+                            Created: __date__<br>
+                        </div>
+                    </div>
+            <div>
+              <span class="sub_menu" style="display:none;">
+                <a href="" id="new_lecture">New Lecture</a>
+              </span>
+              <form method="POST" id="form_lecture" style="display:none;">
+                <h1>Create New Lecture</h1>
+                <p>Use this form to create a new lecture. After creating the lecture, you can then create a notes-taking session within it.</p>
+                <div class="row">
+                  <div class="label">Lecture Name</div>
+                  <div class="field">
+                    <input type="text" name="name">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="label">&nbsp;</div>
+                  <div class="field">
+                    <button>Create Lecture</button>
+                  </div>
+                </div>
+              </form>
             </div>
-            <div class="row">
-              <div class="label">Course department</div>
-              <div class="field">
-                <input type="text" name="department">
-              </div>
+                </div>
+          <!--================================================================= -->
+                <div class=page id=pg_notes>
+                    <div class="proto notes_head" id=PROTO_notes_head>
+                        <h1>Note pads for Course __number__ : __name__</h1>
+                        Subject: __subject__<br>
+                        Department: __department__<br>
+                    </div>
+                    <div class="proto notes_instructor" id=PROTO_notes_instructor>
+              Instructor: __name__ <span class="instructor_email">(__email__)</span><br>
+                    </div>
+                    <div class="proto note" id=PROTO_note>
+                        <div class=name>
+                            <a href="/note/___id__">__name__</a> Visits: __visits__
+                        </div>
+                    </div>
+            <div>
+              <span class="sub_menu" style="display:none;">
+                <a href="" id="new_note">New Note Pad</a>
+              </span>
+              <form method="POST" id="form_note" style="display:none;">
+                <h1>Create New Note Pad</h1>
+                <p>Use this form to create a new note pad. You can then use this as a notes-taking session.</p>
+                <div class="row">
+                  <div class="label">Note Pad Name</div>
+                  <div class="field">
+                    <input type="text" name="name">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="label">Private</div>
+                  <div class="field">
+                    <input type="checkbox" name="private" value="true">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="label">&nbsp;</div>
+                  <div class="field">
+                    <button>Create Note Pad</button>
+                  </div>
+                </div>
+              </form>
             </div>
-            <div class="row">
-              <div class="label">Instructor's Name</div>
-              <div class="field">
-                <input type="text" name="instructorName">
+                </div>
+          <!--================================================================= -->
+                <div class=page id=pg_archive_subjects>
+                    <h1>Archived Subjects</h1>
+                    <p>
+                    Please browse our archive of past courses
+                    covered at Harvard from 2008 through 2010.
+                    </p>
+                    <ul>
+                        <li class=proto id=PROTO_archive_subject>
+                            <a href="/archive/subject/__id__">__name__</a>
+                        </li>
+                    </ul>
+
+                </div>
+          <!--================================================================= -->
+                <div class=page id=pg_archive_courses>
+                    <h1>Archived Courses</h1>
+                    <ul>
+                        <li class=proto id=PROTO_archive_course>
+                            <a href="/archive/course/__id__">__name__</a>
+                        </li>
+                    </ul>
+                </div>
+          <!--================================================================= -->
+                <div class=page id=pg_archive_notes>
+                    <h1>Archived Notes</h1>
+                    <ul>
+                        <li class=proto id=PROTO_archive_note>
+                            <a href="/archive/note/___id__">__topic__</a>
+                        </li>
+                    </ul>
+                </div>
+          <!--================================================================= -->
+                <div class=page id=pg_archive_note_display>
+                    <div id=PROTO_archive_note_display>
+                        <h1>__topic__</h1>
+                        <div>__text__</div>
+                    </div>
+                </div>
+          <!--================================================================= -->
+                <div class=page id=pg_register>
+                    <h1>Create an Account</h1>
+                    <form id="form_register" action="/register" method="POST">
+                        <div class="zarea">
+                            <div class="row">
+                                <div class="label">
+                                    <label for="email">School email*</label>
+                                </div>
+                                <div class="field">
+                                    <input type="text" name="email">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="label">
+                                    <label for="password">Password*</label>
+                                </div>
+                                <div class="field">
+                                    <input type="password" name="password">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="label">
+                                    <label for="school">School*</label>
+                                </div>
+                                <div class="field">
+                                    <select name="school">
+                                        <option value="Harvard">Harvard</option>
+                                        <option value="Berkeley">Berkeley</option>
+                                        <option value="Brown">Brown</option>
+                                        <option value="Columbia">Columbia</option>
+                                        <!--
+                                        <option value="Cornell">Cornell</option>
+                                        <option value="Dartmouth">Dartmouth</option>
+                                        <option value="MIT">MIT</option>
+                                        <option value="Princeton">Princeton</option>
+                                        <option value="Stanford">Stanford</option>
+                                        <option value="UPenn">UPenn</option>
+                                        <option value="University of Texas">University of Texas</option>
+                                        <option value="Yale">Yale</option>
+                                        <option value="Other">Other</option>
+                                        -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="label">
+                                    <label for="name">Site Handle</label>
+                                </div>
+                                <div class="field">
+                                    <input type="text" name="name">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="label">
+                                    <label for="affil">Affiliation</label>
+                                </div>
+                                <div class="field">
+                                    <select name="affil">
+                                        <option value="Student">Student</option>
+                                        <option value="Teachers Assistant">Teachers Assistant</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="label">
+                                    &nbsp;
+                                </div>
+                                <div class="field">
+                                    <button>Register</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+          <!--================================================================= -->
+          <div class="page" id="pg_profile">
+            <h1>User Profile</h1>
+            <form id="form_profile" action="/profile" method="POST">
+              <h2>Account Information</h2>
+              <div class="area">
+                <div class="row">
+                  <div class="label">
+                    <span>Email</span>
+                  </div>
+                  <div class="field">
+                    <span class="email"></span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="label">
+                    <label for="affiliation">Affiliation</label>
+                  </div>
+                  <div class="field">
+                    <select id="affiliation" name="affiliation">
+                      <option value="Student">Student</option>
+                      <option value="Teachers Assistant">Teachers Assistant</option>
+                    </select>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="label">Instructor's Email</div>
-              <div class="field">
-                <input type="text" name="email">
+              <h2>Profile Information</h2>
+              <div class="area">
+                <div class="row">
+                  <div class="label">
+                    <label for="name">User Name</label>
+                  </div>
+                  <div class="field">
+                    <input id="name" type="text" name="name" value="">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="label">
+                    <label>&nbsp;</label>
+                  </div>
+                  <div class="field">
+                    <input style="width: auto;" id="showName" type="checkbox" name="showName">
+                    Display your real name in contributions
+                  </div>
+                </div>
+                  <!--
+                <div class="row">
+                  <div class="label">
+                    <label for="major">Major</label>
+                  </div>
+                  <div class="field">
+                    <input id="major" type="text" name="major" value="">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="label">
+                    <label for="bio">Bio</label>
+                  </div>
+                  <div class="field">
+                    <input id="bio" type="text" name="bio" value="">
+                  </div>
+                </div>
+                -->
               </div>
-            </div>
-            <div class="row">
-              <div class="label">&nbsp;</div>
-              <div class="field">
-                <button>Create Course</button>
+              <h2>Change Password</h2>
+              <div class="area">
+                <div class="row">
+                  <div class="label">
+                    <label for="existingPassword">Old Password</label>
+                  </div>
+                  <div class="field">
+                    <input id="existingPassword" type="password" name="existingPassword">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="label">
+                    <label for="newPassword">New Password</label>
+                  </div>
+                  <div class="field">
+                    <input id="newPassword" type="password" name="newPassword">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="label">
+                    <label for="newPasswordConfirm">Confirm Password</label>
+                  </div>
+                  <div class="field">
+                    <input id="newPasswordConfirm" type="password" name="newPasswordConfirm">
+                  </div>
+                </div>
               </div>
+              <div class="row">
+                <div class="label">&nbsp;</div>
+                <div class="field">
+                  <button>Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!--================================================================= -->
+                <div class=page id=pg_login>
+                    <h1>Login</h1>
+                    <form id="form_login" action="/login" method="POST">
+                        <div class="zarea">
+                            <div class="row">
+                                <div class="label">
+                                    <label for="email">School email</label>
+                                </div>
+                                <div class="field">
+                                    <input type="text" name="email" size="15" value="joe@sleepless.com">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="label">
+                                    <label for="password">Password</label>
+                                </div>
+                                <div class="field">
+                                    <input type="password" name="password" size="15">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="label">&nbsp;
+                                </div>
+                                <div class="field">
+                                    <button class="major">Login</button>
+                                    <span class="reglink">
+                                        <a href="/resetpass">Forgot password?</a>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="label">&nbsp;
+                                </div>
+                                <div class="field">
+                                    <span class="reglink">
+                                        <a href="/register">Create an Account</a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+          <!--================================================================= -->
+          <div class="page" id="pg_resetpass">
+            <h1>Password Reset</h1>
+            <form id="form_resetpass" action="/resetpass" method="POST">
+              <div class="zarea">
+                <p>To reset your password, enter your email address click "Reset". An email will be sent to you with a link to reset your password.</p>
+                <div class="row">
+                  <div class="label">
+                    <label for="email">School email</label>
+                  </div>
+                  <div class="field">
+                    <input type="text" name="email" size="15" value="">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="label">&nbsp;</div>
+                  <div style="min-width: 200px" class="field">
+                    <button>Reset</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!--================================================================= -->
+          <div class="page" id="pg_resetpw">
+            <h1>Password Reset</h1>
+            <form id="form_resetpw" action="/resetpw" method="POST">
+              <div class="zarea">
+                <p>To verify and reset your password, type the full email address and your new password twice, then click submit.</p>
+                <div class="row">
+                  <div class="label">
+                    <label for="email">Email</label>
+                  </div>
+                  <div class="field">
+                    <input type="text" name="email" size="15" value="">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="label">
+                    <label for="pass1">New Password</label>
+                  </div>
+                  <div class="field">
+                    <input type="password" name="pass1" size="15" value="">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="label">
+                    <label for="pass2">Repeat New Password</label>
+                  </div>
+                  <div class="field">
+                    <input type="password" name="pass2" size="15" value="">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="label">&nbsp;</div>
+                  <div style="min-width: 200px" class="field">
+                    <button>Reset</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+                <div class=page id=pg_conduct>
+                    <div class="conduct">
+                        <h1>Code of Conduct</h1>
+                        <p class="academic">
+                            <img src="/images/keep-it-academic.png" alt="Keep it academic.">
+                        </p>
+                        <p class="vague">
+                            This directive is deliberately vague to
+                            accommodate creative humor, insight, and exploration.<br>
+                            Disruptive or irrelevant material, however,
+                            will be subject to removal.<br>
+                            Just keep it academic, and we'll all be better off.<br>
+                        </p>
+                    </div>
+                </div>
+                <div class=page id=pg_press>
+                    <h1>FinalsClub in the Press</h1>
+                    <div class="press">
+                        <img src="/images/boston.com.png" class="press">
+                        <p class="date">December 13, 2009</p>
+                        <p>Plenty of Harvard graduates have traded on the fame and prestige of their alma mater, but few have done so the way Andrew Magliozzi has. The year he graduated, 2005, he started a tutoring company located steps from Harvard Yard, with a name, Veritas, that is the motto of his storied alma mater.</p>
+                        <p>Then, two years ago, Magliozzi started up a side project called Finalsclub.org.</p>
+                        <p class="readmore">
+                        <a href="http://www.boston.com/bostonglobe/ideas/articles/2009/12/13/freeharvardeducationcom">Read more ...</a>
+                        </p>
+                    </div>
+                    <hr>
+                    <div class="press">
+                        <img src="/images/harvard-crimson.jpg" class="press">
+                        <p class="date">Wednesday, February 18, 2009</p>
+                        <p>A rapidly growing course preparatory Web site, FinalsClub.org, is moving forward with a plan to expand its site in spite of controversy over the legality of the venture. </p>
+                        <p>The Web site, which allows students to share notes, create study groups, and blog about lectures and sections, recently hired 10 Harvard College students to serve as BETA testers for the site. </p>
+                        <p class="readmore">
+                        <a href="http://www.thecrimson.com/article/2009/2/18/finalscluborg-passes-punch-span-stylefont-weight-boldcorrection">Read more ...</a>
+                        </p>
+                    </div>
+                    <hr>
+                    <div class="press">
+                        <img src="/images/blown-to-bits.png" class="press">
+                        <p class="date">September 27th, 2009</p>
+                        <p>Computer Science professor and former Dean of Harvard, Harry Lewis, embraces FinalsClub's work and its guiding principle of open education.  Even as Harvard University has not been wholly sympathetic to the FinalsClub mission, invoking the Copyright Act of 1976, assuming a similar position to other major institutions such as University of Texas, Lewis supports working towards the proverbial "temple of the free exchange of ideas."  A course he taught in the Harvard Extension School was also shared freely online.  </p>
+                        <p class="readmore">
+                        <a href="http://www.bitsbook.com/2009/09/a-harvard-skirmish-in-the-copyright-wars">Read more ...</a>
+                        </p>
+                    </div>
+                </div>
+                <div class=page id=pg_notfound>
+                    <h1>Page Not Found</h1>
+                    Sorry, there is no content for this page.
+                </div>
+
+            <div id="g-footer">
+                <nav id="g-nav-footer">
+                    <ul>
+                        <li><a href="/conduct">Conduct</a></li>
+                        <li><a href="https://github.com/finalsclubdev/FinalsClub/">Code</a></li>
+                        <li><a href="http://blog.finalsclub.org/about.html">About</a></li>
+                        <li><a href="http://blog.finalsclub.org/contact.html">Contact</a></li>
+                        <li><a href="http://blog.finalsclub.org/legal.html">Legal</a></li>
+                        <li><a href="http://blog.finalsclub.org/team.html">Team</a></li>
+                    </ul>
+                </nav>
+                <div id="g-footer-copyright">
+                    <p>Finals Club is a 501c3 non-profit organization.</p>
+                    <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">
+                        <img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/88x31.png" />
+                    </a>
+                    This site is licensed under a
+                    <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.
+                </div>
             </div>
-          </form>
         </div>
-				<div class="proto course" id=PROTO_course>
-					<div class=dept>__department__</div>
-					<div class=name>
-						<a href="/course/___id__">__number__: __name__</a>
-					</div>
-				</div>
-			</div>
-      <!--================================================================= -->
-			<div class=page id=pg_lectures>
-				<div class="proto lectures_head" id=PROTO_lectures_head>
-					<h1>Lectures for Course __number__ : __name__</h1>
-					Subject: __subject__<br>
-					Department: __department__<br>
-				</div>
-				<div class="proto lectures_instructor" id=PROTO_lectures_instructor>
-          Instructor: __name__ <span class="instructor_email">(__email__)</span><br>
-				</div>
-				<div class="proto lecture" id=PROTO_lecture>
-					<div class=name>
-						<a href="/lecture/___id__">__name__</a><br>
-						Created: __date__<br>
-					</div>
-				</div>
-        <div>
-          <span class="sub_menu" style="display:none;">
-            <a href="" id="new_lecture">New Lecture</a>
-          </span>
-          <form method="POST" id="form_lecture" style="display:none;">
-            <h1>Create New Lecture</h1>
-            <p>Use this form to create a new lecture. After creating the lecture, you can then create a notes-taking session within it.</p>
-            <div class="row">
-              <div class="label">Lecture Name</div>
-              <div class="field">
-                <input type="text" name="name">
-              </div>
-            </div>
-            <div class="row">
-              <div class="label">&nbsp;</div>
-              <div class="field">
-                <button>Create Lecture</button>
-              </div>
-            </div>
-          </form>
-        </div>
-			</div>
-      <!--================================================================= -->
-			<div class=page id=pg_notes>
-				<div class="proto notes_head" id=PROTO_notes_head>
-					<h1>Note pads for Course __number__ : __name__</h1>
-					Subject: __subject__<br>
-					Department: __department__<br>
-				</div>
-				<div class="proto notes_instructor" id=PROTO_notes_instructor>
-          Instructor: __name__ <span class="instructor_email">(__email__)</span><br>
-				</div>
-				<div class="proto note" id=PROTO_note>
-					<div class=name>
-						<a href="/note/___id__">__name__</a> Visits: __visits__
-					</div>
-				</div>
-        <div>
-          <span class="sub_menu" style="display:none;">
-            <a href="" id="new_note">New Note Pad</a>
-          </span>
-          <form method="POST" id="form_note" style="display:none;">
-            <h1>Create New Note Pad</h1>
-            <p>Use this form to create a new note pad. You can then use this as a notes-taking session.</p>
-            <div class="row">
-              <div class="label">Note Pad Name</div>
-              <div class="field">
-                <input type="text" name="name">
-              </div>
-            </div>
-            <div class="row">
-              <div class="label">Private</div>
-              <div class="field">
-                <input type="checkbox" name="private" value="true">
-              </div>
-            </div>
-            <div class="row">
-              <div class="label">&nbsp;</div>
-              <div class="field">
-                <button>Create Note Pad</button>
-              </div>
-            </div>
-          </form>
-        </div>
-			</div>
-      <!--================================================================= -->
-			<div class=page id=pg_archive_subjects>
-				<h1>Archived Subjects</h1>
-				<p>
-				Please browse our archive of past courses
-				covered at Harvard from 2008 through 2010.
-				</p>
-				<ul>
-					<li class=proto id=PROTO_archive_subject>
-						<a href="/archive/subject/__id__">__name__</a>
-					</li>
-				</ul>
 
-			</div>
-      <!--================================================================= -->
-			<div class=page id=pg_archive_courses>
-				<h1>Archived Courses</h1>
-				<ul>
-					<li class=proto id=PROTO_archive_course>
-						<a href="/archive/course/__id__">__name__</a>
-					</li>
-				</ul>
-			</div>
-      <!--================================================================= -->
-			<div class=page id=pg_archive_notes>
-				<h1>Archived Notes</h1>
-				<ul>
-					<li class=proto id=PROTO_archive_note>
-						<a href="/archive/note/___id__">__topic__</a>
-					</li>
-				</ul>
-			</div>
-      <!--================================================================= -->
-			<div class=page id=pg_archive_note_display>
-				<div id=PROTO_archive_note_display>
-					<h1>__topic__</h1>
-					<div>__text__</div>
-				</div>
-			</div>
-      <!--================================================================= -->
-			<div class=page id=pg_register>
-				<h1>Create an Account</h1>
-				<form id="form_register" action="/register" method="POST">
-					<div class="zarea">
-						<div class="row">
-							<div class="label">
-								<label for="email">School email*</label>
-							</div>
-							<div class="field">
-								<input type="text" name="email">
-							</div>
-						</div>
-						<div class="row">
-							<div class="label">
-								<label for="password">Password*</label>
-							</div>
-							<div class="field">
-								<input type="password" name="password">
-							</div>
-						</div>
-						<div class="row">
-							<div class="label">
-								<label for="school">School*</label>
-							</div>
-							<div class="field">
-								<select name="school">
-									<option value="Harvard">Harvard</option>
-									<option value="Berkeley">Berkeley</option>
-									<option value="Brown">Brown</option>
-									<option value="Columbia">Columbia</option>
-									<!--
-									<option value="Cornell">Cornell</option>
-									<option value="Dartmouth">Dartmouth</option>
-									<option value="MIT">MIT</option>
-									<option value="Princeton">Princeton</option>
-									<option value="Stanford">Stanford</option>
-									<option value="UPenn">UPenn</option>
-									<option value="University of Texas">University of Texas</option>
-									<option value="Yale">Yale</option>
-									<option value="Other">Other</option>
-									-->
-								</select>
-							</div>
-						</div>
-						<div class="row">
-							<div class="label">
-								<label for="name">Site Handle</label>
-							</div>
-							<div class="field">
-								<input type="text" name="name">
-							</div>
-						</div>
-						<div class="row">
-							<div class="label">
-								<label for="affil">Affiliation</label>
-							</div>
-							<div class="field">
-								<select name="affil">
-									<option value="Student">Student</option>
-									<option value="Teachers Assistant">Teachers Assistant</option>
-								</select>
-							</div>
-						</div>
-						<div class="row">
-							<div class="label">
-								&nbsp;
-							</div>
-							<div class="field">
-								<button>Register</button>
-							</div>
-						</div>
-					</div>
-				</form>
-			</div>
-      <!--================================================================= -->
-      <div class="page" id="pg_profile">
-        <h1>User Profile</h1>
-        <form id="form_profile" action="/profile" method="POST">
-          <h2>Account Information</h2>
-          <div class="area">
-            <div class="row">
-              <div class="label">
-                <span>Email</span>
-              </div>
-              <div class="field">
-                <span class="email"></span>
-              </div>
-            </div>
-            <div class="row">
-              <div class="label">
-                <label for="affiliation">Affiliation</label>
-              </div>
-              <div class="field">
-                <select id="affiliation" name="affiliation">
-                  <option value="Student">Student</option>
-                  <option value="Teachers Assistant">Teachers Assistant</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <h2>Profile Information</h2>
-          <div class="area">
-            <div class="row">
-              <div class="label">
-                <label for="name">User Name</label>
-              </div>
-              <div class="field">
-                <input id="name" type="text" name="name" value="">
-              </div>
-            </div>
-            <div class="row">
-              <div class="label">
-                <label>&nbsp;</label>
-              </div>
-              <div class="field">
-                <input style="width: auto;" id="showName" type="checkbox" name="showName">
-                Display your real name in contributions
-              </div>
-            </div>
-              <!--
-            <div class="row">
-              <div class="label">
-                <label for="major">Major</label>
-              </div>
-              <div class="field">
-                <input id="major" type="text" name="major" value="">
-              </div>
-            </div>
-            <div class="row">
-              <div class="label">
-                <label for="bio">Bio</label>
-              </div>
-              <div class="field">
-                <input id="bio" type="text" name="bio" value="">
-              </div>
-            </div>
-            -->
-          </div>
-          <h2>Change Password</h2>
-          <div class="area">
-            <div class="row">
-              <div class="label">
-                <label for="existingPassword">Old Password</label>
-              </div>
-              <div class="field">
-                <input id="existingPassword" type="password" name="existingPassword">
-              </div>
-            </div>
-            <div class="row">
-              <div class="label">
-                <label for="newPassword">New Password</label>
-              </div>
-              <div class="field">
-                <input id="newPassword" type="password" name="newPassword">
-              </div>
-            </div>
-            <div class="row">
-              <div class="label">
-                <label for="newPasswordConfirm">Confirm Password</label>
-              </div>
-              <div class="field">
-                <input id="newPasswordConfirm" type="password" name="newPasswordConfirm">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="label">&nbsp;</div>
-            <div class="field">
-              <button>Submit</button>
-            </div>
-          </div>
-        </form>
-      </div>
-      <!--================================================================= -->
-			<div class=page id=pg_login>
-				<h1>Login</h1>
-				<form id="form_login" action="/login" method="POST">
-					<div class="zarea">
-						<div class="row">
-							<div class="label">
-								<label for="email">School email</label>
-							</div>
-							<div class="field">
-								<input type="text" name="email" size="15" value="joe@sleepless.com">
-							</div>
-						</div>
-						<div class="row">
-							<div class="label">
-								<label for="password">Password</label>
-							</div>
-							<div class="field">
-								<input type="password" name="password" size="15">
-							</div>
-						</div>
-						<div class="row">
-							<div class="label">&nbsp;
-							</div>
-							<div class="field">
-								<button class="major">Login</button>
-								<span class="reglink">
-									<a href="/resetpass">Forgot password?</a>
-								</span>
-							</div>
-						</div>
-						<div class="row">
-							<div class="label">&nbsp;
-							</div>
-							<div class="field">
-								<span class="reglink">
-									<a href="/register">Create an Account</a>
-								</span>
-							</div>
-						</div>
-					</div>
-				</form>
-			</div>
-      <!--================================================================= -->
-      <div class="page" id="pg_resetpass">
-        <h1>Password Reset</h1>
-        <form id="form_resetpass" action="/resetpass" method="POST">
-          <div class="zarea">
-            <p>To reset your password, enter your email address click "Reset". An email will be sent to you with a link to reset your password.</p>
-            <div class="row">
-              <div class="label">
-                <label for="email">School email</label>
-              </div>
-              <div class="field">
-                <input type="text" name="email" size="15" value="">
-              </div>
-            </div>
-            <div class="row">
-              <div class="label">&nbsp;</div>
-              <div style="min-width: 200px" class="field">
-                <button>Reset</button>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-      <!--================================================================= -->
-      <div class="page" id="pg_resetpw">
-        <h1>Password Reset</h1>
-        <form id="form_resetpw" action="/resetpw" method="POST">
-          <div class="zarea">
-            <p>To verify and reset your password, type the full email address and your new password twice, then click submit.</p>
-            <div class="row">
-              <div class="label">
-                <label for="email">Email</label>
-              </div>
-              <div class="field">
-                <input type="text" name="email" size="15" value="">
-              </div>
-            </div>
-            <div class="row">
-              <div class="label">
-                <label for="pass1">New Password</label>
-              </div>
-              <div class="field">
-                <input type="password" name="pass1" size="15" value="">
-              </div>
-            </div>
-            <div class="row">
-              <div class="label">
-                <label for="pass2">Repeat New Password</label>
-              </div>
-              <div class="field">
-                <input type="password" name="pass2" size="15" value="">
-              </div>
-            </div>
-            <div class="row">
-              <div class="label">&nbsp;</div>
-              <div style="min-width: 200px" class="field">
-                <button>Reset</button>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-
-			<div class=page id=pg_conduct>
-				<div class="conduct">
-					<h1>Code of Conduct</h1>
-					<p class="academic">
-						<img src="/images/keep-it-academic.png" alt="Keep it academic.">
-					</p>
-					<p class="vague">
-						This directive is deliberately vague to
-						accommodate creative humor, insight, and exploration.<br>
-						Disruptive or irrelevant material, however,
-						will be subject to removal.<br>
-						Just keep it academic, and we'll all be better off.<br>
-					</p>
-				</div>
-			</div>
-			<div class=page id=pg_press>
-				<h1>FinalsClub in the Press</h1>
-				<div class="press">
-					<img src="/images/boston.com.png" class="press">
-					<p class="date">December 13, 2009</p>
-					<p>Plenty of Harvard graduates have traded on the fame and prestige of their alma mater, but few have done so the way Andrew Magliozzi has. The year he graduated, 2005, he started a tutoring company located steps from Harvard Yard, with a name, Veritas, that is the motto of his storied alma mater.</p>
-					<p>Then, two years ago, Magliozzi started up a side project called Finalsclub.org.</p>
-					<p class="readmore">
-					<a href="http://www.boston.com/bostonglobe/ideas/articles/2009/12/13/freeharvardeducationcom">Read more ...</a>
-					</p>
-				</div>
-				<hr>
-				<div class="press">
-					<img src="/images/harvard-crimson.jpg" class="press">
-					<p class="date">Wednesday, February 18, 2009</p>
-					<p>A rapidly growing course preparatory Web site, FinalsClub.org, is moving forward with a plan to expand its site in spite of controversy over the legality of the venture. </p>
-					<p>The Web site, which allows students to share notes, create study groups, and blog about lectures and sections, recently hired 10 Harvard College students to serve as BETA testers for the site. </p>
-					<p class="readmore">
-					<a href="http://www.thecrimson.com/article/2009/2/18/finalscluborg-passes-punch-span-stylefont-weight-boldcorrection">Read more ...</a>
-					</p>
-				</div>
-				<hr>
-				<div class="press">
-					<img src="/images/blown-to-bits.png" class="press">
-					<p class="date">September 27th, 2009</p>
-					<p>Computer Science professor and former Dean of Harvard, Harry Lewis, embraces FinalsClub's work and its guiding principle of open education.  Even as Harvard University has not been wholly sympathetic to the FinalsClub mission, invoking the Copyright Act of 1976, assuming a similar position to other major institutions such as University of Texas, Lewis supports working towards the proverbial "temple of the free exchange of ideas."  A course he taught in the Harvard Extension School was also shared freely online.  </p>
-					<p class="readmore">
-					<a href="http://www.bitsbook.com/2009/09/a-harvard-skirmish-in-the-copyright-wars">Read more ...</a>
-					</p>
-				</div>
-			</div>
-			<div class=page id=pg_notfound>
-				<h1>Page Not Found</h1>
-				Sorry, there is no content for this page.
-			</div>
-		</div>
-		<hr class="stripes bordered" />
-		<div class="footer small">
-			<div class="container-12">
-				<div class="grid-12">
-					<nav id="footer-nav">
-						<ul>
-							<li><a href="/conduct">Conduct</a></li>
-							<li><a href="https://github.com/finalsclubdev/FinalsClub/">Code</a></li>
-							<li><a href="http://blog.finalsclub.org/about.html">About</a></li>
-							<li><a href="http://blog.finalsclub.org/contact.html">Contact</a></li>
-							<li><a href="http://blog.finalsclub.org/legal.html">Legal</a></li>
-							<li><a href="http://blog.finalsclub.org/team.html">Team</a></li>
-						</ul>
-					</nav>
-					<p>Finals Club is a 501\(c\)(3) non-profit organization.</p>
-					<div class="creative_commons">
-						<div class="section">
-							<a rel="license" href="http://creativecommons.org/licenses/by/3.0/">
-								<img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/88x31.png" />
-							</a>
-							<br />
-						</div>
-						<div class="section">
-							This site is licensed under a
-							<a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
     <!-- start Mixpanel --><script type="text/javascript">var mpq=[];mpq.push(["init","252cf14807e7553594607c10b64418b5"]);(function(){var b,a,e,d,c;b=document.createElement("script");b.type="text/javascript";b.async=true;b.src=(document.location.protocol==="https:"?"https:":"http:")+"//api.mixpanel.com/site_media/js/api/mixpanel.js";a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a);e=function(f){return function(){mpq.push([f].concat(Array.prototype.slice.call(arguments,0)))}};d=["init","track","track_links","track_forms","register","register_once","identify","name_tag","set_config"];for(c=0;c<d.length;c++){mpq[d[c]]=e(d[c])}})(); </script><!-- end Mixpanel -->
-	</body>
+    </body>
 </html>

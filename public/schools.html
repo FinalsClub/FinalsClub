@@ -1,131 +1,129 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 
-	<head>
-		<title>FinalsClub.org</title>
+    <head>
+        <title>FinalsClub.org</title>
 
-		<!-- XXX Some SEO here would be nice -->
+        <!-- XXX Some SEO here would be nice -->
 
-		<link rel='stylesheet' href='stylesheets/fc2.css'>
+        <link rel='stylesheet' href='stylesheets/fc2.css'>
 
-		<script type='text/javascript' src='javascripts/jquery.min.js'></script>
-		<script type='text/javascript' src='javascripts/es5-shim.min.js'></script>
-		<script type='text/javascript' src='javascripts/protodiv.js'></script>
-		<script type='text/javascript' src='socket.io/socket.io.js'></script>
+        <script type='text/javascript' src='javascripts/jquery.min.js'></script>
+        <script type='text/javascript' src='javascripts/es5-shim.min.js'></script>
+        <script type='text/javascript' src='javascripts/protodiv.js'></script>
+        <script type='text/javascript' src='socket.io/socket.io.js'></script>
 
-    	<meta name="viewport" content="width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0">
-		<meta name="apple-touch-icon" href=""> <!-- XXX -->
-    	<meta name="icon" href="">
+        <meta name="viewport" content="width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0">
+        <meta name="apple-touch-icon" href=""> <!-- XXX -->
+        <meta name="icon" href="">
 
-	</head>
+    </head>
 
-	<body>
+    <body>
 
-		<div class="masthead">
-			<div class="logbar">
-				<div class="loginstatus">&nbsp;
-				</div>
-			</div>
-			<div class="navbar">
-				<table>
-					<tr>
-						<td>
-							<a href="/"><img src="/images/finals-club-wht.png" class="logo"/></a>
-						</td>
-						<td class="menu">
-							<a href="/schools">Courses</a>
-							<a href="http://blog.finalsclub.org">Blog</a>
-							<a href="/archive">Archive</a>
-							<a href="/press">Press</a>
-							<a href="/register">Create an Account</a>
-							<a href="/login" class="special">Login</a>
-						</td>
-					</tr>
-				</table>
-			</div>
-			<div class="logbar">&nbsp;</div>
-		</div>
-
-
-
-		<div class="content">
-
-			<div class=page>
-
-				<h1>Universities</h1>
-
-				
-				<div class="school" id=PROTO_school>
-					<div class=name>
-						<a href="courses.html?school=__name__">__name__</a>
-						(__numCourses__ courses)
-					</div>
-
-				</div>
-
-
-			</div>
+        <div class="masthead">
+            <div class="logbar">
+                <div class="loginstatus">&nbsp;
+                </div>
+            </div>
+            <div class="navbar">
+                <table>
+                    <tr>
+                        <td>
+                            <a href="/"><img src="/images/finals-club-wht.png" class="logo"/></a>
+                        </td>
+                        <td class="menu">
+                            <a href="/schools">Courses</a>
+                            <a href="http://blog.finalsclub.org">Blog</a>
+                            <a href="/archive">Archive</a>
+                            <a href="/press">Press</a>
+                            <a href="/register">Create an Account</a>
+                            <a href="/login" class="special">Login</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="logbar">&nbsp;</div>
+        </div>
 
 
 
-			<script>
+        <div class="content">
 
-			var schools = []
+            <div class=page>
 
-			// this is what will really happen when we're done
-			$.get("/schools", {}, function(r) {
+                <h1>Universities</h1>
 
-				//XXX schools = JSON.parse(r)
-				schools = [
-					{ name: "Berkeley", numCourses: 2 },
-					{ name: "Brown", numCourses: 5 },
-					{ name: "Columbia", numCourses: 0 },
-				];
+                <div class="school" id=PROTO_school>
+                    <div class=name>
+                        <a href="courses.html?school=__name__">__name__</a>
+                        (__numCourses__ courses)
+                    </div>
 
-				ProtoDiv.replicate("PROTO_school", schools);
-			});
+                </div>
 
 
-			</script>
-		</div>
+            </div>
+
+
+
+            <script>
+
+                var schools = []
+
+                // this is what will really happen when we're done
+                $.get("/schools", {}, function(r) {
+
+                    //XXX schools = JSON.parse(r)
+                    schools = [
+                        { name: "Berkeley", numCourses: 2 },
+                        { name: "Brown", numCourses: 5 },
+                        { name: "Columbia", numCourses: 0 },
+                    ];
+
+                    ProtoDiv.replicate("PROTO_school", schools);
+                });
+
+            </script>
+        </div>
 
 
 
 
-		<div class="footer">
-			<table>
-				<tr>
-					<td class="col1">
-						<div class="logo">
-							<img src="/images/finals-club-wht.png" title="FinalsClub.org" class="lilogo"/>
-						</div>
-						<div>Copyright 2011</div>
-						<div>All Rights Reserved</div>
-					</td>
-					<td class="col2">
-						<a href="/conduct">Code of Conduct</a>
-						<a href="http://blog.finalsclub.org/about.html">About</a>
-						<a href="http://blog.finalsclub.org/contact.html">Contact</a>
-						<a href="http://blog.finalsclub.org/legal.html">Legal</a>
-						<a href="http://blog.finalsclub.org/team.html">Team</a>
-					</td>
-				</tr>
-			</table>
-		</div>
-		<div class="footerer">
-			<p>
-				This work is licensed under a
-				Creative Commons Attribution-ShareAlike 3.0
-				United States License
-			</p>
-			<p>
-				<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/us/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/us/88x31.png"/></a>
-				<a href="http://mixpanel.com/f/partner"><img alt="Real Time Web Analytics" src="http://mixpanel.com/site_media/images/partner/badge_blue.png" style="border-width:0;margin:2px;"/></a>
-			</p>
-		</div>
+        <div class="footer">
+            <table>
+                <tr>
+                    <td class="col1">
+                        <div class="logo">
+                            <img src="/images/finals-club-wht.png" title="FinalsClub.org" class="lilogo"/>
+                        </div>
+                        <div>Copyright 2011</div>
+                        <div>All Rights Reserved</div>
+                    </td>
+                    <td class="col2">
+                        <a href="/conduct">Code of Conduct</a>
+                        <a href="http://blog.finalsclub.org/about.html">About</a>
+                        <a href="http://blog.finalsclub.org/contact.html">Contact</a>
+                        <a href="http://blog.finalsclub.org/legal.html">Legal</a>
+                        <a href="http://blog.finalsclub.org/team.html">Team</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="footerer">
+            <p>
+                This work is licensed under a
+                Creative Commons Attribution-ShareAlike 3.0
+                United States License
+            </p>
+            <p>
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/us/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/us/88x31.png"/></a>
+                <a href="http://mixpanel.com/f/partner"><img alt="Real Time Web Analytics" src="http://mixpanel.com/site_media/images/partner/badge_blue.png" style="border-width:0;margin:2px;"/></a>
+            </p>
+        </div>
 
 
 
 
-	</body>
+    </body>
 </html>

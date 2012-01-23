@@ -138,18 +138,22 @@ var SchoolSchema = new Schema( {
 	description	: String,
 	url					: String,
 
-  created     : { type : Date, default : Date.now },
-	hostnames		: Array,
+  created       : { type : Date, default : Date.now },
+  hostnames     : Array,
 
-	users				: Array
+  users         : Array,
+
+  slug          : String
 });
+// slug is the url version of a school
 
 SchoolSchema.virtual( 'sanitized' ).get(function() {
   var school = {
     _id: this._id,
     name: this.name,
     description: this.description,
-    url: this.url
+    url: this.url,
+    slug: this.slug
   }
 
   return school;
@@ -160,6 +164,39 @@ SchoolSchema.method( 'authorize', function( user, cb ) {
 });
 
 var School = mongoose.model( 'School', SchoolSchema );
+
+// harvardcourses
+
+var HarvardCourses = new Schema( {
+    cat_num         : Number,   // Catalog numb, unique_togther w/ term
+    term            : String,   // FALL or SPRING
+    bracketed       : Boolean,
+    field           : String,   // TODO: Add docs
+    number          : Number,   // string, int, float, intStringFloat
+    title           : String,
+    faculty         : String,   // hash fk to faculty table
+    description     : String,
+    prerequisites   : String,
+    notes           : String,
+    meetings        : String,   // TODO: try to auto parse this
+    building        : String,   // FIXME: Most == '', this is why we have to update
+    room            : String
+});
+
+HarvardCourses.virtual( 'sanitized' ).get(function() {
+    var hcourse = {
+        _id     : this._id,
+        title   : this.name,
+        field   : this.field,
+        number  : this.number,
+        desc    : this.description,
+        meetings: this.meetings,
+        building: this.building,
+        room    : this.room,
+        faculty : this.faculty
+        }
+    return hcourse
+})
 
 // courses
 

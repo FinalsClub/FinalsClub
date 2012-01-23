@@ -1,0 +1,97 @@
+.futura {
+    font-family: "futura-pt", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    font-weight: 500;
+    -webkit-font-smoothing: antialiased;
+}
+
+.futura-oblique {
+    @extend .futura;
+    font-style: italic;
+}
+
+.futura-light {
+    @extend .futura;
+    font-weight: 300;
+}
+
+.futura-light-oblique {
+    @extend .futura;
+    font-style: italic;
+    font-weight: 300;
+}
+
+.futura-bold {
+    @extend .futura;
+    font-weight: 700;
+}
+
+$line: 24;
+$column: 100% / 18;
+$font-size: 16;
+$em: $font-size * 1;
+$base: ($line/$font-size*1em); 
+
+body {
+    /* 16px / 24px */
+    font-size: $font-size / 16 * 1em;
+    line-height: #{$line / $em}em;
+    @extend .futura;
+}
+
+.tiny {
+    /* 11px / 12px */
+    font-size: #{($font-size*0.6875) / $em}em;
+    line-height: ($line*0.5) / ($font-size*0.6875) * 1em;
+}
+
+.mini {
+    /* 12px / 12px */
+    font-size: #{($font-size*0.75) / $em}em;
+    line-height: ($line*0.5) / ($font-size*0.75) * 1em;
+}
+
+.small {
+    /* 14px / 18px */
+    font-size: #{($font-size*0.875) / $em}em;
+    line-height: ($line*0.75) / ($font-size*0.875) * 1em;
+}
+
+.normal {
+    /* 16px / 24px */
+    font-size: #{$font-size / $em}em;
+    line-height: #{$line / $em}em; /* 24 */
+}
+
+.big {
+    /* 18px / 24px */
+    font-size: #{$font-size*1.125 / $em}em;
+    line-height: ($line*1) / ($font-size*1.125) * 1em;
+}
+
+.large {
+    /* 26 / 36px */
+    font-size: #{26 / $em}em;
+    line-height: ($line*1.5) / 26 * 1em;
+}
+
+.huge {
+    /* 36px / 42px */
+    font-size: #{36 / $em}em;
+    line-height: ($line*1.75) / 36 * 1em;
+}
+
+.massive {
+    /* 52px / 60px */
+    font-size: #{52 / $em}em;
+    line-height: ($line*2.5) / 52 * 1em;
+}
+
+.gigantic {
+    /* 60px / 72px */
+    font-size: #{60 / $em}em;
+    line-height: ($line*3) / 60 * 1em;
+}
+
+.tight-line-height {
+    line-height: 1em;
+}

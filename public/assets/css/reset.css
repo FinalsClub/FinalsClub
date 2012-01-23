@@ -18,7 +18,6 @@ audio:not([controls]) { display: none; }
  * 3. Prevent iOS text size adjust on device orientation change, without disabling user zoom: h5bp.com/g
  */
 
-* { font-family: "helvetica neue", "helvetica", "arial", "Sans-serif"; }
 
 html { overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
 
@@ -29,7 +28,7 @@ body, button, input, select, textarea { font-family: sans-serif; color: #222; }
 /* Links
 ============================================== */
 
-a { color: #4b8eda; cursor: pointer; text-decoration: none; }
+a { color: #0ca6ff; cursor: pointer; text-decoration: none; }
 
 a:link, a:visited { outline: none; }
 

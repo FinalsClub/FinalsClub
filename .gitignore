@@ -19,3 +19,7 @@ results
 
 node_modules
 npm-debug.log
+
+# Configuration for Guard
+Guardfile
+.sass-cache/*

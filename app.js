@@ -1,5 +1,5 @@
 // FinalsClub Server
-// 
+//
 // This file consists of the main webserver for FinalsClub.org
 // and is split between a standard CRUD style webserver and
 // a websocket based realtime webserver.
@@ -24,6 +24,46 @@ var Session			= connect.middleware.session.Session;
 var parseCookie = connect.utils.parseCookie;
 var Backchannel = require('./bc/backchannel');
 
+// ********************************
+// For facebook oauth and connect
+// ********************************
+var everyauth = require('everyauth');
+var FacebookClient = require('facebook-client').FacebookClient;
+var facebook = new FacebookClient();
+
+everyauth.debug = true;
+
+// configure facebook authentication
+everyauth.facebook
+    .appId('118001624986867')
+    .appSecret('c74910f00dea3d083a00572a445af3ae')
+    .scope('user_likes,user_photos,user_photo_video_tags,email')
+    .entryPath('/fbauth')
+    .redirectPath('/profile')
+    .findOrCreateUser(function(req) {
+        log3(req.user)
+        console.log(req.user);
+        User.findOne( { }, function( err, user ) {
+            log3(err)
+            log3(user)
+            // if a user exists with that email, call them logged in
+            // FIXME: change this to different query on 'fbid'
+            if(user) {
+                // save the fact that this cookie/session-id is right for this user
+                var sid = req.sessionID;
+                user.session = sid;
+                user.save( function() {
+                    //req.session.email = 'fuckles';
+                    sendJson(res, {status: 'ok', message:'Successfully logged in via Fb'});
+                });
+            }
+        });
+    });
+    //.callbackPath('/fbsucc')
+
+
+
+
 // Depracated
 // Used for initial testing
 var log3 = function() {}
@@ -33,11 +73,11 @@ var app = module.exports = express.createServer();
 
 // Load Mongoose Schemas
 // The actual schemas are located in models.j
-var User		= mongoose.model( 'User' );
-var School	= mongoose.model( 'School' );
-var Course	= mongoose.model( 'Course' );
-var Lecture	= mongoose.model( 'Lecture' );
-var Note		= mongoose.model( 'Note' );
+var User    = mongoose.model( 'User' );
+var School  = mongoose.model( 'School' );
+var Course  = mongoose.model( 'Course' );
+var Lecture = mongoose.model( 'Lecture' );
+var Note    = mongoose.model( 'Note' );
 
 // More schemas used for legacy data
 var ArchivedCourse = mongoose.model( 'ArchivedCourse' );
@@ -45,7 +85,7 @@ var ArchivedNote = mongoose.model( 'ArchivedNote' );
 var ArchivedSubject = mongoose.model( 'ArchivedSubject' );
 
 // XXX Not sure if necessary
-var ObjectId	= mongoose.SchemaTypes.ObjectId;
+var ObjectId    = mongoose.SchemaTypes.ObjectId;
 
 // Configuration
 // Use the environment variable DEV_EMAIL for testing
@@ -89,7 +129,7 @@ app.configure( 'development', function() {
   // If a port wasn't set earlier, set to 3000
   if ( !serverPort ) {
     serverPort = 3000;
-  }	 
+  }
 });
 
 // Production configuration settings
@@ -116,15 +156,18 @@ app.configure( 'production', function() {
   // Set to port 80 if not set through environment variables
   if ( !serverPort ) {
     serverPort = 80;
-  }	
+  }
 });
 
 // General Express configuration settings
 app.configure(function(){
+  // Views are rendered from public/index.html and main.js except for the pad that surrounds EPL and BC
+  // FIXME: make all views exist inside of public/index.html
   // Views are housed in the views folder
   app.set( 'views', __dirname + '/views' );
   // All templates use jade for rendering
   app.set( 'view engine', 'jade' );
+
   // Bodyparser is required to handle form submissions
   // without manually parsing them.
   app.use( express.bodyParser() );
@@ -158,6 +201,10 @@ app.configure(function(){
   app.use( express.methodOverride() );
   // Static files are loaded when no dynamic views match.
   app.use( express.static( __dirname + '/public' ) );
+
+  // EveryAuth fb connect
+  app.use( everyauth.middleware() );
+
   // Sets the routers middleware to load after everything set
   // before it, but before static files.
   app.use( app.router );
@@ -287,6 +334,8 @@ function loadUser( req, res, next ) {
 
         res.redirect( '/' );
       }
+    } else if('a'==='b'){
+        console.log('never. in. behrlin.');
     } else {
       // If no user record was found, then we store the requested
       // path they intended to view and redirect them after they
@@ -309,6 +358,7 @@ function loadUser( req, res, next ) {
 function loadSchool( req, res, next ) {
   var user			= req.user;
   var schoolId	= req.params.id;
+  console.log( 'loading a school by id' );
 
   School.findById( schoolId, function( err, school ) {
     if( school ) {
@@ -321,6 +371,33 @@ function loadSchool( req, res, next ) {
         req.school.authorized = authorized;
         next();
       });
+    } else {
+      // If no school is found, display an appropriate error.
+      sendJson(res,  {status: 'not_found', message: 'Invalid school specified!'} );
+    }
+  });
+}
+
+function loadSchoolSlug( req, res, next ) {
+  var user    = req.user;
+  var schoolSlug = req.params.slug;
+
+  console.log("loading a school by slug");
+  //console.log(schoolSlug);
+
+  School.findOne({ 'slug': schoolSlug }, function( err, school ) {
+    console.log( school );
+    if( school ) {
+      req.school = school;
+
+      // If a school is found, the user is checked to see if they are
+      // authorized to see or interact with anything related to that
+      // school.
+      next()
+      //school.authorize( user, function( authorized ){
+        //req.school.authorized = authorized;
+        //next();
+      //});
     } else {
       // If no school is found, display an appropriate error.
       sendJson(res,  {status: 'not_found', message: 'Invalid school specified!'} );
@@ -486,11 +563,19 @@ app.get( '/schools', checkAjax, loadUser, function( req, res ) {
   // XXX mongoose's documentation on sort is extremely poor, tread carefully
   School.find( {} ).sort( 'name', '1' ).run( function( err, schools ) {
     if( schools ) {
+    	
       // If schools are found, loop through them gathering any courses that are
       // associated with them and then render the page with that information.
-      sendJson(res, { 'user': user.sanitized, 'schools' : schools.map(function(school) {
-        return school.sanitized;
-      })})
+      var schools_todo = schools.length;
+      schools.each(function (school) {
+      	Course.find( { 'school': school.id } ).run(function (err, courses) {
+      		school.courses_length = courses.length
+      		schools_todo -= 1;
+      		if (schools_todo <= 0) {
+      			sendJson(res, { 'user': user.sanitized, 'schools': schools });
+      		} 
+    	});
+      });
     } else {
       // If no schools have been found, display none
       //res.render( 'schools', { 'schools' : [] } );
@@ -499,9 +584,43 @@ app.get( '/schools', checkAjax, loadUser, function( req, res ) {
   });
 });
 
-app.get( '/school/:id', checkAjax, loadUser, loadSchool, function( req, res ) {
+app.get( '/school/:slug', checkAjax, loadUser, loadSchoolSlug, function( req, res ) {
   var school = req.school;
   var user = req.user;
+  console.log( 'loading a school by school/:id now slug' );
+
+  school.authorize( user, function( authorized ) {
+    // This is used to display interface elements for those users
+    // that are are allowed to see th)m, for instance a 'New Course' button.
+    var sanitizedSchool = school.sanitized;
+    sanitizedSchool.authorized = authorized;
+    // Find all courses for school by it's id and sort by name
+    Course.find( { 'school' : school._id } ).sort( 'name', '1' ).run( function( err, courses ) {
+      // If any courses are found, set them to the appropriate school, otherwise
+      // leave empty.
+      if( courses.length > 0 ) {
+        sanitizedSchool.courses = courses.filter(function(course) {
+          if (!course.deleted) return course;
+        }).map(function(course) {
+          return course.sanitized;
+        });
+      } else {
+        sanitizedSchool.courses = [];
+      }
+      // This tells async (the module) that each iteration of forEach is
+      // done and will continue to call the rest until they have all been
+      // completed, at which time the last function below will be called.
+      sendJson(res, { 'school': sanitizedSchool, 'user': user.sanitized })
+    });
+  });
+});
+
+// FIXME: version of the same using school slugs instead of ids
+// TODO: merge this with the :id funciton or depricate it
+app.get( '/schoolslug/:slug', checkAjax, loadUser, loadSchoolSlug, function( req, res ) {
+  var school = req.school;
+  var user = req.user;
+  console.log( 'loading a schoolslug/:slug' );
 
   school.authorize( user, function( authorized ) {
     // This is used to display interface elements for those users
@@ -1048,8 +1167,8 @@ app.post( '/login', checkAjax, function( req, res ) {
 
   // Find user from email
   User.findOne( { 'email' : email.toLowerCase() }, function( err, user ) {
-    log3(err) 
-    log3(user) 
+    log3(err)
+    log3(user)
 
     // If user exists, check if activated, if not notify them and send them to
     // the login form
@@ -1171,7 +1290,7 @@ app.post( '/resetpw/:id', checkAjax, function( req, res ) {
       if (valid) {
         user.save( function( err ) {
           sendJson(res, {status: 'ok', message: 'Your password has been reset. You can now login with your the new password you just created.'})
-        });			
+        });
       }
     } 
     // If there was a problem, notify user
@@ -1204,9 +1323,8 @@ app.post( '/register', checkAjax, function( req, res ) {
   user.email        = req.body.email.toLowerCase();
   user.password     = req.body.password;
   user.session      = sid;
-  // If school is set to other, then fill in school as what the
-  // user entered
-  user.school				= req.body.school === 'Other' ? req.body.otherSchool : req.body.school;
+  // If school is set to other, then fill in school as what the user entered
+  user.school       = req.body.school === 'Other' ? req.body.otherSchool : req.body.school;
   user.name         = req.body.name;
   user.affil        = req.body.affil;
   user.activated    = false;
@@ -1225,7 +1343,7 @@ app.post( '/register', checkAjax, function( req, res ) {
   var hostname = user.email.split( '@' ).pop();
 
   // Check if email is from one of the special domains
-  if( /^(finalsclub.org|sleepless.com)$/.test( hostname ) ) {
+  if( /^(finalsclub.org)$/.test( hostname ) ) {
     user.admin = true;
   }
 
@@ -1423,8 +1541,8 @@ app.post( '/profile', checkAjax, loadUser, loggedIn, function( req, res ) {
     }
   }
 
-  user.major		= fields.major;
-  user.bio			= fields.bio;
+  user.major    = fields.major;
+  user.bio      = fields.bio;
 
   user.showName	= ( fields.showName ? true : false );
 
@@ -1819,6 +1937,8 @@ mongoose.connect( 'mongodb://localhost/fc' ); // FIXME: make relative to hostnam
 
 var mailer = new Mailer( app.set('awsAccessKey'), app.set('awsSecretKey') );
 
+everyauth.helpExpress(app);
+
 app.listen( serverPort, function() {
   console.log( "Express server listening on port %d in %s mode", app.address().port, app.settings.env );
 
@@ -1835,3 +1955,5 @@ function isValidEmail(email) {
   var re = /[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
   return email.match(re);
 }
+
+// Facebook connect

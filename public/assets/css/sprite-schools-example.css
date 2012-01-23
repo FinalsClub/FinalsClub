@@ -1,0 +1,72 @@
+.logo-brown {
+  display: block;
+  background: url(../img/sprite-schools.png) no-repeat -117px -78px;
+  width: 32px;
+  height: 37px;
+}
+.logo-california {
+  display: block;
+  background: url(../img/sprite-schools.png) no-repeat -53px -78px;
+  width: 46px;
+  height: 37px;
+}
+.logo-columbia {
+  display: block;
+  background: url(../img/sprite-schools.png) no-repeat 0px -78px;
+  width: 51px;
+  height: 37px;
+}
+.logo-cornell {
+  display: block;
+  background: url(../img/sprite-schools.png) no-repeat -117px 0px;
+  width: 38px;
+  height: 37px;
+}
+.logo-dartmouth {
+  display: block;
+  background: url(../img/sprite-schools.png) no-repeat 0px -117px;
+  width: 30px;
+  height: 37px;
+}
+.logo-harvard {
+  display: block;
+  background: url(../img/sprite-schools.png) no-repeat -72px -39px;
+  width: 39px;
+  height: 37px;
+}
+.logo-lock_haven {
+  display: block;
+  background: url(../img/sprite-schools.png) no-repeat -32px -117px;
+  width: 33px;
+  height: 37px;
+}
+.logo-mit {
+  display: block;
+  background: url(../img/sprite-schools.png) no-repeat 0px -39px;
+  width: 70px;
+  height: 37px;
+}
+.logo-penn {
+  display: block;
+  background: url(../img/sprite-schools.png) no-repeat 0px 0px;
+  width: 115px;
+  height: 37px;
+}
+.logo-shield {
+  display: block;
+  background: url(../img/sprite-schools.png) no-repeat -67px -117px;
+  width: 36px;
+  height: 37px;
+}
+.logo-texas {
+  display: block;
+  background: url(../img/sprite-schools.png) no-repeat -105px -117px;
+  width: 29px;
+  height: 37px;
+}
+.logo-yale {
+  display: block;
+  background: url(../img/sprite-schools.png) no-repeat -117px -39px;
+  width: 38px;
+  height: 37px;
+}

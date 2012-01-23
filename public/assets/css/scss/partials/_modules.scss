@@ -1,0 +1,46 @@
+.link-bar {
+    margin-left: $base/-4;
+
+    li {
+        display: block;
+        float: left;
+
+        &.last {
+            a {
+                border: 0;
+
+            }
+        }
+    }
+
+    a {
+        display: block;
+        padding: 0 $base/4;
+        border-right: 1px solid $gold;
+        color: $mustard;
+        @extend .small;
+        @extend .futura-bold;
+    }
+}
+
+.video-wrapper {
+  @include rounded();
+  padding: 5px;
+  background-color: #f5f5f5;
+  text-align: center;
+  line-height: 0;
+}
+
+.schools {
+  ul {
+    @extend .group;
+  }
+  li {
+    float: left;
+    width: 25%;
+    height: 100px;
+  }
+  em {
+    margin: 0 auto;
+  }
+}

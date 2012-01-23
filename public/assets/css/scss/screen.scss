@@ -1,234 +1,363 @@
-/*
-Title:	Master styles for screen media
-Author: Jordan Cooperman, jordan@vectormediagroup.com
-Year: 2011
+/* ----------------------------------------------------------------
 
-Welcome, thou wanderer of the interwebs!
-If you have any questions, Don't be shy. Send me a line!
-================================================================
+Title: Master styles for screen media
+Author: Jordan Cooperman, jordan@vectormediagroup.com
+Year: 2012
+
 ----------------------------------------------------------------
 
-[Table of contents]
+Oh, I didn't see you there, friend.
 
- 0.General
- 1.Layout
- 2.Navigation
- 3.Header
- 4.Footer
- 5.Pages
-     i.
- 6.Modules
- 7.Forms
- 8.Sprites
- *.User Defined
+Please have a look around, I hope you enjoy your stay.
 
-----------------------------------------------------------------*/
+----------------------------------------------------------------
 
-$gold: #f2b83b;
-$blue: #367da9;
-$dark-blue: #16567e;
-$green: #78b343;
-$dark-green: #4f901b;
+[Table of contents] - a map of our grounds.
 
-@import "includes/mixins.scss";
-@import "includes/grid.scss";
-@import "includes/type.scss";
+    0.General
+        a.elements
+        b.classes
 
-/*
- * media queries included
- * at end of document
- */
+    1.Layout
+        a.header
+        b.content
+        c.footer
+
+    2.Extensible Classes
 
 
-/* 0.`general
-============================================== */
+    *.Pages, modules, sprites and media queries imported at end
+
+----------------------------------------------------------------
+
+[Prefixes] - some patterns that you may observe.
+
+    g: global
+    s: state
+
+---------------------------------------------------------------- */
+
+$blue: #0ca6ff;
+$dark: #1f1e1c;
+$gold: #ffcd58;
+$mustard: #e8a200;
+
+@import "partials/mixins";
+@import "partials/grid";
+@import "partials/type";
+
+
+/* 0.`General
+---------------------------------------------- */
+
+
+/* a.`elements
+-------------------------- */
+
+h1, h2, h3, h4, h5, h6 { margin: 0; margin-bottom: $base/4; }
+
+h1 {
+    @extend .gigantic;
+    @extend .futura-light;
+}
+
+h2 {
+    @extend .huge;
+}
+
+h3 {
+    @extend .large;
+}
+
+a {
+    @include transition( color );
+    color: $mustard;
+
+    &:hover {
+        color: $mustard;
+    }
+}
+
+p {
+    @extend .futura;
+    @extend .big;
+    margin: 0;
+    margin-bottom: $base/2;
+    color: #444;
+}
+
+img {
+    max-width: 100%;
+}
 
 ::-moz-selection { background: #44a1dd; color: #fff; text-shadow: none; }
 ::selection { background: #44a1dd; color: #fff; text-shadow: none; }
 
 
-hr {
-  &.stripes {
-    margin: 0;
-    height: 16px;
-    clear: both;
-    border-top: 1px solid #e5e5e5;
-    border-bottom: 1px solid #fff;
-    background-image: url("../img/bg-stripes.png");
-    background-repeat: repeat;
-    background-color: #fff;
-  }
-  &.spacer {
-    padding: 0;
-    margin : 10px 0 30px 0;
-  }
-  &.heading {
-    margin-bottom: 16px;
-  }
-  &.bordered {
-    border-bottom: 2px solid $gold;
-  }
+/* b.`classes
+-------------------------- */
+
+// for asychronous typekit loading
+@each $element in h1, h2, h3, h4, h5, h6, p, li {
+    .wf-loading #{$element} {
+        opacity: 0;
+    }
+
+    #{$element} {
+        @include transition( opacity );
+        opacity: 1;
+    }
 }
 
-button {
-  @include rounded;
-  padding: 8px 24px;
-  border: 0;
-  background-image: url("../img/button-bg.png");
-  background-repeat: repeat-x;
-  background-position: left bottom;
 
-  &.blue {
-    background-color: $blue;
-    border: 1px solid $dark-blue;
-    color: #fff;
-  }
-  &.green {
-    background-color: $green;
-    border: 1px solid $dark-green;
-    color: #fff;
-  }
-  &.three-dim.blue {
-    @include drop-shadow(2px, 2px, 0, $dark-blue);
-  }
-  &.three-dim.green {
-    @include drop-shadow(2px, 2px, 0, $dark-green);
-  }
-}
-
-h3.heading {
-  margin-bottom: 16px;
-  padding-left: 12px;
-}
-
-em {
-  font-family: "Georgia", "serif";
-}
-
-/* 1.`layout
-============================================== */
+/* 1.`Layout
+---------------------------------------------- */
 
 html,
 body {
-  height : 100%;
+  height: 100%;
   margin: 0;
 }
 
 body {
-    background-image: url("../img/bg-black-noise.gif");
-    background-repeat: repeat;
+    // background-color: #262626;
+    background-position: 20% 0;
+    border-top: 3px solid $dark;
 }
 
-.header {
-  @include drop-shadow(0, 1px, 1px, #888);
-  border-top: 1px solid $gold;
-  position: relative;
-  z-index: 10;
-  border-bottom: 2px solid #333;
 
-  .container-#{$cols} {
-    > div {
-      margin-top: 0;
-      margin-bottom: 0;
+
+/* a.`header
+-------------------------- */
+
+#g-masthead {
+    @extend .futura;
+    background-color: #262626;
+
+    .wrapper {
+        background-color: #262626;
     }
-  }
 }
-.content { background-color: #fff; }
 
-
-/* 2.`navigation
-============================================== */
-
-#user-nav {
-  @include rounded-side("left", "bottom");
-  @include rounded-side("right", "bottom");
-  float: right;
-  background-color: $gold;
-
-  li {
-    display: inline-block;
-    vertical-align: middle;
-    float: none;
-    padding: 3px 12px;
-    color: #fff;
+#g-logo {
+    @extend .grid-3;
 
     a {
-      display: block;
-      color: #fff;
+        display: block;
     }
-  }
 }
 
-#main-nav {
-    @include group;
-    clear: both;
+#g-nav-user {
+    @extend .grid-8;
+    padding: $base/4 $base/2 $base/2;
+    text-align: right;
+    @extend .small;
 
     ul {
-      float: right;
+        @extend .tight-line-height;
     }
+
     li {
-        display: inline-block;
-        vertical-align: middle;
-        float: none;
+        display: inline;
 
-        a {
-          @include transition(color);
-          display: block;
-          padding: 10px;
-          padding-left: 20px;
-          text-transform: uppercase;
-          color: #aaa;
-
-          &.active {
-            position: relative;
-            color: #fff;
-
-            em {
-              position: absolute;
-              left: 0;
-              top: 50%;
-              margin-top: -8px;
-              background-position: 0 0;
-              width: 14px;
-              height: 14px;
-              background-repeat: no-repeat;
-            }
-          }
-          em {
-            text-transform: none;
-          }
-
-          &:hover {
-            color: #eee;
-          }
+        &.first, &.first a {
+            border: 0;
         }
     }
+
+    a {
+        padding: 0 $base/2;
+        color: $gold;
+    }
+}
+
+#g-nav-main {
+    @extend .grid-5;
+    @extend .group;
+
+    ul {
+        float: right;
+        padding: $base/4 0;
+    }
+
+    li { @include inline-block; }
+
+    a {
+        position: relative;
+        display: block;
+        padding: $base/4 0;
+        margin-left: $base;
+        @extend .big;
+        color: #fff;
+
+        &:hover {
+            color: $gold;
+        }
+
+        .icon {
+            position: absolute;
+            left: 0;
+        }
+    }
+
+    #school_link {
+        padding-left: $base*1.4;
+
+        &:hover .icon { @extend .paperclip-active; }
+
+        .icon {
+            @extend .paperclip;
+            top: 50%;
+            margin-top: -10px;
+        }
+    }
+
+    #blog_link {
+        padding-left: $base*1.3;
+
+        &:hover .icon { @extend .align-lines-active; }
+
+        .icon {
+            top: 50%;
+            margin-top: -9px;
+            @extend .align-lines;
+        }
+    }
+
+    #archive_link {
+        padding-left: $base*1.2;
+
+        &:hover {
+
+            .icon { @extend .book-active; }
+        }
+
+        .icon { @extend .book; }
+    }
+}
+
+#g-masthead-hr {
+    position: absolute;
+    margin-top: 0;
+    margin-bottom: 0;
+    @extend .grid-8;
+    top: 100%;
+    height: 3px;
+    border: 0;
+    background-color: $gold;
 }
 
 
+/* b.`content
 
-/* 3.`header
-============================================== */
+-------------------------- */
 
-#logo {
-  float: left;
-  padding: 5px;
-  margin-left: 10px;
-  margin-top: 5px;
-}
-#header {
-    margin-top: 20px;
-}
-.highlight {
-  background-image: url("../img/logo-bg.png");
-  background-position: left bottom;
-  background-repeat: no-repeat;
+#g-page {
+    background-color: #fff;
+    margin-bottom: $base*2;
 }
 
+.page {
+    display: none;
+    @extend .group;
+    margin-bottom: $base;
+    margin-top: 3px;
+    color: #333;
+}
 
-/* 4.`footer
-============================================== */
+.breadcrumb {
+    @extend .grid-8;
+    @extend .big;
+    @extend .group;
+    border-bottom: 1px solid #f5f5f5;
+    background-color: #fafafa;
 
+    a {
+        display: block;
+        float: left;
+        padding: $base/4;
+
+        &:hover {
+
+            .action {
+                color: $mustard;
+            }
+
+            .location {
+                color: #666;
+            }
+        }
+
+        span {
+            @include transition( color );
+        }
+    }
+
+    .action {
+        color: #666;
+    }
+
+    .location {
+        @extend .futura-oblique;
+        color: #bbb;
+    }
+}
+
+.subheader {
+    @extend .grid-8;
+    padding: $base*2 0;
+
+    h1, h3 {
+        margin: 0;
+        @extend .tight-line-height;
+    }
+
+    h1 {
+        color: #333;
+    }
+
+    h2 {
+        @extend .futura-light;
+    }
+}
+
+.main-content {
+    @extend .grid-8;
+}
+
+/* c.`footer
+-------------------------- */
+
+
+#g-footer {
+    @extend .grid-8;
+    text-align: center;
+}
+
+#g-nav-footer {
+    margin-bottom: $base/2;
+    text-align: center;
+
+    li {
+        display: inline;
+        text-align: center;
+        @extend .mini;
+    }
+
+    a {
+        padding: 0 $base/2;
+    }
+}
+
+#g-footer-copyright {
+    @extend .tiny;
+
+    img {
+        margin: 0 auto;
+        margin-bottom: $base/2;
+    }
+
+}
 .footer {
   color: #444;
   padding-top: 24px;
@@ -267,142 +396,33 @@ body {
   }
 }
 
-/* 6.`modules
-============================================== */
+/* 7.`Extensible Classes
+---------------------------------------------- */
 
-.padded-loose {
-  padding: 10px;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
-.button-set {
-  &.vertical {
-    button {
-      margin-bottom: 16px;
+.group {
+    &:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
     }
-  }
-  &.half-width-buttons {
-    button {
-      width: 48%;
-    }
-  }
-  &.centered {
-    text-align: center;
-  }
 }
 
-.video-wrapper {
-  @include rounded();
-  padding: 5px;
-  background-color: #f5f5f5;
-  text-align: center;
-}
-.schools {
-  ul {
-    @include group;
-  }
-  li {
-    float: left;
-    width: 25%;
-    height: 100px;
-  }
-  em {
-    margin: 0 auto;
-  }
-}
+.right { float: right !important; }
+.left { float: left !important; }
 
-/* 8.`sprites
-============================================== */
-
-.icon,
-.sprite,
-.sprite-school {
-    text-indent : -9999px;
-    line-height : 0;
-    font-size   : 0;
-    overflow    : hidden;
-    display     : block;
-}
-
-.sprite { background-image : url('../img/finalsclub-sprite-images.png'); }
-.icon { background-image   : url('../img/finalsclub-sprite-icons.png'); }
-.sprite-school { background-image : url("../img/finalsclub-sprite-schools.gif"); }
-
-.brown {
-  background-position: 0 0;
-  width: 61px;
-  height: 72px;
-}
-.columbia {
-  background-position: -62px 0;
-  width: 81px;
-  height: 61px;
-}
-.cornell {
-  background-position: -144px 0;
-  width: 71px;
-  height: 72px;
-}
-.dartmouth {
-  background-position: -216px 0;
-  width: 56px;
-  height: 71px;
-}
-.shield {
-  background-position: -273px 0;
-  width: 59px;
-  height: 60px;
-}
-.mit {
-  background-position: -333px 0;
-  width: 79px;
-  height: 41px;
-}
-.lock_haven {
-  background-position: -413px 0;
-  width: 61px;
-  height: 68px;
-}
-.cal {
-  background-position: -475px 0;
-  width: 91px;
-  height: 72px;
-}
-.texas {
-  background-position: -567px 0;
-  width: 54px;
-  height:68px;
-}
-.yale {
-  background-position: -622px 0;
-  width: 51px;
-  height: 50px;
-}
-.penn {
-  background-position: -674px 0;
-  width: 115px;
-  height:65px;
-}
-.harvard {
-  background-position: -790px 0;
-  width: 67px;
-  height: 65px;
-}
-/* media queries */
-
-@import "includes/media.scss";
-
-/* *.`user defined
-============================================== */
-
-.right { float: right !important;}
-.no-top-margin { margin-top: 0; }
 .spacer {
   padding-top: 16px;
   padding-bottom: 32px;
 }
-.yellow { color: $gold; }
+
 .half-width { width: 50%; }
 .centered { text-align: center;}
 .centered-rt-parent { margin: 0 auto;}
+
+
+@import "partials/sprites"; // A
+@import "partials/pages";   // B
+@import "partials/modules"; // C
+@import "partials/media";   // D

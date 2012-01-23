@@ -1,0 +1,113 @@
+/*----------------------------------------------------------------
+
+[Table of contents]
+
+ 0.Home
+ 1.Schools
+ 2.School
+
+----------------------------------------------------------------*/
+
+
+/* 0.`Home
+---------------------------------------------- */
+
+#pg_home {
+
+    .subheader {
+        text-align: center;
+    }
+
+    h1 {
+        @extend .futura;
+    }
+
+    .section-home {
+        margin-bottom: $base;
+    }
+}
+
+#intro-video {
+    @extend .grid-4;
+}
+
+#intro-text {
+    @extend .grid-4;
+}
+
+#intro-schools {
+    @extend .grid-8;
+
+    h4 {
+    }
+
+    li {
+        @include inline-block;
+        position: relative;
+        padding: $base/4 0;
+        padding-right: $base/2;
+        @extend .small;
+
+        &:after {
+            content: "";
+            position: absolute;
+            right: 3px;
+            top: 50%;
+            width: 3px;
+            height: 2px;
+            background-color: #999;
+        }
+    }
+}
+
+
+/* 1.`Schools
+---------------------------------------------- */
+
+#schools {
+
+    li {
+        @extend .group;
+    }
+
+    a {
+        display: block;
+        float: left;
+        clear: both;
+        padding: $base/4;
+
+        &:hover {
+
+            .school_name {
+                color: $mustard;
+            }
+
+            .number_of_courses, .number_of_notes {
+                color: #444;
+            }
+        }
+
+        span {
+            @include transition( color );
+        }
+    }
+
+    .icon-pair, .text-pair {
+        @include inline-block;
+    }
+
+    .icon-pair {
+        margin-right: $base/2;
+    }
+
+    .school_name {
+        @extend .large;
+        color: #555;
+    }
+
+    .number_of_courses, .number_of_notes {
+        @extend .futura-oblique;
+        color: #999;
+    }
+}
+
