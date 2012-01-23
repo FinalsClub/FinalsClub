@@ -563,16 +563,28 @@ app.get( '/schools', checkAjax, loadUser, function( req, res ) {
   // XXX mongoose's documentation on sort is extremely poor, tread carefully
   School.find( {} ).sort( 'name', '1' ).run( function( err, schools ) {
     if( schools ) {
-    	
       // If schools are found, loop through them gathering any courses that are
       // associated with them and then render the page with that information.
       var schools_todo = schools.length;
-      schools.each(function (school) {
+      schools.map(function (school) {
+        sys.puts("making course query");
       	Course.find( { 'school': school.id } ).run(function (err, courses) {
       		school.courses_length = courses.length
       		schools_todo -= 1;
       		if (schools_todo <= 0) {
-      			sendJson(res, { 'user': user.sanitized, 'schools': schools });
+      			sendJson(res, { 'user': user.sanitized, 'schools': schools.map( function(s) {
+                        sys.puts("here");
+                        var school = {
+                            _id: s._id,
+                            name: s.name,
+                            description: s.description,
+                            url: s.url,
+                            slug: s.slug,
+                            courses: s.courses_length
+                        };
+                        return school;
+                    })
+                });
       		} 
     	});
       });
