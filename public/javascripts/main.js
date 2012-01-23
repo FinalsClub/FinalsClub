@@ -145,8 +145,8 @@ router.add('schools', function(data, cb) {
   }
 
   $('#pg_schools').fadeIn(function() {
-		$('#g-footer').fadeIn();
-	});
+      $('#g-footer').fadeIn();
+  });
   $('#schoolTmpl').tmpl( data.schools ).appendTo("#pg_schools #schools");
 });
 
@@ -156,11 +156,15 @@ router.add('school', function(data, cb) {
   $('.sub_menu').hide();
   //$('#new_course').unbind();
   $('#form_course').hide().unbind();
-  var response = {
+
+  response = {
     id: 'course',
     data: data.school.courses
   }
 
+  $('#pg_courses').fadeIn(function() {
+      $('#g-footer').fadeIn();
+  });
   $("#school_name").html(data.school.name);
 
   if (data.school.authorized) {
@@ -183,7 +187,8 @@ router.add('school', function(data, cb) {
       });
     })
   }
-  cb("courses", response)
+
+  $('#courseTmpl').tmpl( data.school.courses ).appendTo("#pg_courses #courselist");
 });
 
 // go to the page that lists the lectures for a specific course

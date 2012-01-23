@@ -357,20 +357,21 @@ function loadUser( req, res, next ) {
 // loadSchool is used to load a school by it's id
 function loadSchool( req, res, next ) {
   var user			= req.user;
-  var schoolId	= req.params.id;
+  var schoolName	= req.params.name;
   console.log( 'loading a school by id' );
 
-  School.findById( schoolId, function( err, school ) {
+  School.findOne({'name': schoolName}).run( function( err, school ) {
+    //sys.puts(school);
     if( school ) {
       req.school = school;
+      //req.school.authorized = authorized;
 
       // If a school is found, the user is checked to see if they are
       // authorized to see or interact with anything related to that
       // school.
-      school.authorize( user, function( authorized ){
-        req.school.authorized = authorized;
-        next();
-      });
+      //school.authorize( user, function( authorized ){
+      //});
+      next();
     } else {
       // If no school is found, display an appropriate error.
       sendJson(res,  {status: 'not_found', message: 'Invalid school specified!'} );
@@ -567,26 +568,24 @@ app.get( '/schools', checkAjax, loadUser, function( req, res ) {
       // associated with them and then render the page with that information.
       var schools_todo = schools.length;
       schools.map(function (school) {
-        sys.puts("making course query");
-      	Course.find( { 'school': school.id } ).run(function (err, courses) {
-      		school.courses_length = courses.length
-      		schools_todo -= 1;
-      		if (schools_todo <= 0) {
-      			sendJson(res, { 'user': user.sanitized, 'schools': schools.map( function(s) {
-                        sys.puts("here");
-                        var school = {
-                            _id: s._id,
-                            name: s.name,
-                            description: s.description,
-                            url: s.url,
-                            slug: s.slug,
-                            courses: s.courses_length
-                        };
-                        return school;
-                    })
-                });
-      		} 
-    	});
+        Course.find( { 'school': school.id } ).run(function (err, courses) {
+          school.courses_length = courses.length
+          schools_todo -= 1;
+          if (schools_todo <= 0) {
+            sendJson(res, { 'user': user.sanitized, 'schools': schools.map( function(s) {
+                var school = {
+                  _id: s._id,
+                  name: s.name,
+                  description: s.description,
+                  url: s.url,
+                  slug: s.slug,
+                  courses: s.courses_length
+                };
+                return school;
+              })
+            });
+          }
+        });
       });
     } else {
       // If no schools have been found, display none
@@ -596,35 +595,46 @@ app.get( '/schools', checkAjax, loadUser, function( req, res ) {
   });
 });
 
-app.get( '/school/:slug', checkAjax, loadUser, loadSchoolSlug, function( req, res ) {
+app.get( '/school/:name', checkAjax, loadUser, loadSchool, function( req, res ) {
   var school = req.school;
   var user = req.user;
-  console.log( 'loading a school by school/:id now slug' );
+  var courses;
+  console.log( 'loading a school by school/:id now name' );
 
-  school.authorize( user, function( authorized ) {
+  //school.authorize( user, function( authorized ) {
     // This is used to display interface elements for those users
     // that are are allowed to see th)m, for instance a 'New Course' button.
-    var sanitizedSchool = school.sanitized;
-    sanitizedSchool.authorized = authorized;
+    //var sanitizedSchool = school.sanitized;
+    var sanitizedSchool = {
+      _id: school.id,
+      name: school.name,
+      description: school.description,
+      url: school.url
+    };
+    //sanitizedSchool.authorized = authorized;
     // Find all courses for school by it's id and sort by name
     Course.find( { 'school' : school._id } ).sort( 'name', '1' ).run( function( err, courses ) {
       // If any courses are found, set them to the appropriate school, otherwise
       // leave empty.
+      sys.puts(courses);
       if( courses.length > 0 ) {
-        sanitizedSchool.courses = courses.filter(function(course) {
+        courses = courses.filter(function(course) {
           if (!course.deleted) return course;
         }).map(function(course) {
           return course.sanitized;
         });
       } else {
-        sanitizedSchool.courses = [];
+        school.courses = [];
       }
+      sanitizedSchool.courses = courses;
+      sys.puts(courses);
+
       // This tells async (the module) that each iteration of forEach is
       // done and will continue to call the rest until they have all been
       // completed, at which time the last function below will be called.
       sendJson(res, { 'school': sanitizedSchool, 'user': user.sanitized })
     });
-  });
+  //});
 });
 
 // FIXME: version of the same using school slugs instead of ids

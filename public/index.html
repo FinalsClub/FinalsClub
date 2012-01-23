@@ -165,7 +165,7 @@
 
                 <script id="schoolTmpl" type="text/x-jquery-tmpl">
                     <li>
-                        <a href="school/${_id}" class="school">
+                        <a href="school/${name}" class="school">
                             <img class="icon-pair" src="/assets/img/avatar-univerisity-generic.gif" alt="" />
                             <div class="text-pair">
                                 <span class="school_name">${name}</span>
@@ -193,9 +193,29 @@
                     </header>
 
                     <div class="main-content">
+                        <div id="courselist">
+                        </div>
 
                         <span class="sub_menu" style="display:none;"></span>
 
+                        <script id="courseTmpl" type="text/x-jquery-tmpl">
+                        <div class="course">
+                            <a class="course-name" href="/course/${_id}">
+                                ${number}: ${name}
+                            </a>
+                            <p class="course-description">
+                                ${description}
+                            </p>
+                            <div class="dept">${department}</div>
+                            <aside class="course-data">
+                                <div class="course-data-item">
+                                    <div class="course-data-number">${lectures}</div>
+                                    <div class="course-data-description">lectures</div>
+                                </div>
+                            </aside>
+                        </div> <!-- .course -->
+                        </script>
+                        <!--
                         <div class="proto course" id=PROTO_course>
                             <div class="course-content">
                                 <a class="course-name" href="/course/___id__">__number__: __name__</a>
@@ -210,6 +230,7 @@
                                 </div>
                             </aside>
                         </div>
+                        -->
 
                     </div>
 										<div class="sidebar">
