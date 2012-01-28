@@ -36,8 +36,8 @@ everyauth.everymodule.logoutPath('/bye');
 
 // configure facebook authentication
 everyauth.facebook
-    .appId('118001624986867')
-    .appSecret('c74910f00dea3d083a00572a445af3ae')
+    .appId('foobieblechreplacethisXXX')
+    .appSecret('foobiederpreplacethisXXX')
     .myHostname('http://localhost:8000')
     .scope( 'email')
     .entryPath('/fbauth')
