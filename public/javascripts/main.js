@@ -207,7 +207,7 @@ router.add('school', function(data, cb) {
     })
   }
 
-  $('#courseTmpl').tmpl( data.school.courses ).appendTo("#pg_courses #courselist");
+  $('#courseTmpl').tmpl( data.school.courses ).appendTo("#pg_courses #main-content");
 });
 
 // go to the page that lists the lectures for a specific course

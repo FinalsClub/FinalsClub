@@ -192,24 +192,23 @@
                         <h1><span id=school_name></span> Courses</h1>
                     </header>
 
-                    <div class="main-content">
-                        <div id="courselist">
-                        </div>
-
+                    <div id="main-content">
                         <span class="sub_menu" style="display:none;"></span>
 
                         <script id="courseTmpl" type="text/x-jquery-tmpl">
                         <div class="course">
-                            <a class="course-name" href="/course/${_id}">
-                                ${number}: ${name}
-                            </a>
-                            <p class="course-description">
-                                ${description}
-                            </p>
-                            <div class="dept">${department}</div>
+                            <div class="course-content">
+                                <a class="course-name" href="/course/${_id}">
+                                    ${number}: ${name}
+                                </a>
+                                <p class="course-description">
+                                    This is placeholder description text, an intro to description in the nature of things that is quite and very and yes!
+                                </p>
+                                <div class="dept">${department}</div>
+                            </div>
                             <aside class="course-data">
                                 <div class="course-data-item">
-                                    <div class="course-data-number">${lectures}</div>
+                                    <div class="course-data-number">100${lectures}</div>
                                     <div class="course-data-description">lectures</div>
                                 </div>
                             </aside>
