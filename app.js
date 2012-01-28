@@ -1844,6 +1844,7 @@ io.set('authorization', function ( handshake, next ) {
 });
 
 var backchannel = new Backchannel(app, io.of('/backchannel'), {
+  // TODO: if lecture belongs to course (find pinker's courseId) pass a 'no-answers' true/false
   subscribe: function(lecture, send) {
     Post.find({'lecture': lecture}, function(err, posts) {
       send(posts);
