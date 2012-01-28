@@ -59,7 +59,24 @@ router = {
     }
 }
 
+function tmpl_render() {
+  if (user.name) {
+    $('.username').text(user.name).attr('href', '/profile');
+    $("#login_status").show();
+    $('#login_link').text('Logout').attr('href', '/logout');
+    $('#register_link').hide();
+		$('#sign_up-link').hide();
+  } else {
+    $('.username').text('Guest');
+    $("#login_status").hide();
+    $('#login_link').text('Login').attr('href', '/login');
+    $('#register_link').show();
+		$('#sign_up-link').show();
+  }
+};
+
 function render(pageId, response) {
+  console.log(user);
   if (user.name) {
     $('.username').text(user.name).attr('href', '/profile');
     $("#login_status").show();
@@ -98,6 +115,7 @@ function message(type, msg) {
 
 function checkUser(cb) {
   $.get('/checkuser', function(data) {
+    console.log(data);
     if (data.user) {
       user = data.user;
     } else {
@@ -138,6 +156,7 @@ router.add('home', false, function(cb) {
 router.add('schools', function(data, cb) {
 
   $('#school_link').addClass('active');
+  tmpl_render();
 
   var response = {
     id: 'school',
@@ -145,8 +164,8 @@ router.add('schools', function(data, cb) {
   }
 
   $('#pg_schools').fadeIn(function() {
-		$('#g-footer').fadeIn();
-	});
+      $('#g-footer').fadeIn();
+  });
   $('#schoolTmpl').tmpl( data.schools ).appendTo("#pg_schools #schools");
 });
 
@@ -156,11 +175,15 @@ router.add('school', function(data, cb) {
   $('.sub_menu').hide();
   //$('#new_course').unbind();
   $('#form_course').hide().unbind();
-  var response = {
+
+  response = {
     id: 'course',
     data: data.school.courses
   }
 
+  $('#pg_courses').fadeIn(function() {
+      $('#g-footer').fadeIn();
+  });
   $("#school_name").html(data.school.name);
 
   if (data.school.authorized) {
@@ -183,7 +206,8 @@ router.add('school', function(data, cb) {
       });
     })
   }
-  cb("courses", response)
+
+  $('#courseTmpl').tmpl( data.school.courses ).appendTo("#pg_courses #main-content");
 });
 
 // go to the page that lists the lectures for a specific course

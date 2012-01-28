@@ -1,0 +1,97 @@
+script
+	var lectureID = '#{lecture._id}';
+	var noteID    = '#{note._id}';
+	var userName  = '#{user.displayName}';
+	var userID    = '#{user._id}';
+	var userAffil = '#{user.affil}';
+	var public    = false;
+	var RO        = #{RO};
+	var rourl     = 'http://#{ host }:9001/ro/#{ roID }';
+	var roID      = '#{roID}';
+
+div#wrapper
+	div#header
+		div.fleft
+			a(href="/")
+				img.lilogo(src="/images/finals-club-wht.png")
+		div.fleft
+			div
+				b Lecture: 
+				a( href = '/lecture/#{lecture._id}' )= lecture.name
+			div
+				!=partial( 'dropdown' )
+		div.fright.rcol
+			// a( href = '/note/#{note._id}', class = 'readonlylink') Read-Only Version
+			button#toggleBC Discussion
+			button#togglePad Notes
+		div.clear
+
+	div#sidebar
+		div.container
+			div.userBox
+				h3 Post Your Own Question
+				div#enterPost
+					form#enterPostForm
+						input#hostMeetingId( type = 'hidden', name = 'data[Post][meeting_id]', value='926' )
+
+						textarea#enterPostTextarea( name = 'data[Post][body]', rows='3' )
+
+						input#submitPost( type = 'button', name = 'submitPost', value = 'Submit Post' )
+						input( type = 'checkbox', name = 'anonymous' )
+						span(class='anonpost') Anonymously
+						input( type = 'checkbox', name = 'private' )
+						span(class='anonpost') Private
+
+			div#posts
+				div#postsHeader
+					h1 Posts
+						select#sortPosts
+							option( value = 'votes' ) Sort by votes
+							option( value = 'created' ) Sort by time
+
+					//
+						| show:
+
+						select#amountPosts
+							option( value = '10' ) 10
+							option( value = '15' ) 15
+							option( value = '20' ) 20
+
+		script#postTemplate( type = 'text/x-jQuery-tmpl', src = '/javascripts/templates/post.js' )
+			div.postContainer( id = 'post-${_id}' )
+				div.postVoteContainer( data-postid = '${_id}' )
+					div.vote-tally-rect.vote-up ${ votes.length }
+					div.voteFlag FLAG
+					div.privacy
+				div.postDisplayContainer
+					div.postBody ${ body }
+					div.postFooter
+						span.userName ${ userName }
+						&mdash;
+						span.userAffil ${ userAffil }
+						div
+								a( href='#', id='post-${_id}' ).comments
+									span.commentAmt ${ comments.length } 
+									| Comments
+
+				div.commentContainer.hidden
+
+				form.commentForm.hidden
+					input( type = 'hidden', name = 'postid', value = '${_id}' )
+					textarea#commentText( name = 'commentText', disabled = 'disabled' )
+					input( type = 'submit', value = 'Submit Comment', disabled = 'disabled' )
+					input( type = 'checkbox', name = 'anonymous' )
+					span(class='anonpost') Anonymously
+
+		script#commentTemplate( type = 'text/x-jQuery-tmpl', src = '/javascripts/templates/comment.js' )
+			div.commentBody ${ body }
+
+			div.commentFooter
+				span.userName ${ userName }
+				&mdash;
+				span.userAffil ${ userAffil }
+
+	div#editor
+		iframe( id = 'epliframe', src = 'http://#{ host }:9001/p/#{ note._id }?userName=#{ user.name }', width = '100%', height = '100%', style = 'border: none;' )
+
+	div( style = 'clear: both; height: 1px;' )

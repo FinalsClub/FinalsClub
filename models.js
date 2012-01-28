@@ -138,18 +138,22 @@ var SchoolSchema = new Schema( {
 	description	: String,
 	url					: String,
 
-  created     : { type : Date, default : Date.now },
-	hostnames		: Array,
+  created       : { type : Date, default : Date.now },
+  hostnames     : Array,
 
-	users				: Array
+  users         : Array,
+
+  slug          : String
 });
+// slug is the url version of a school
 
 SchoolSchema.virtual( 'sanitized' ).get(function() {
   var school = {
     _id: this._id,
     name: this.name,
     description: this.description,
-    url: this.url
+    url: this.url,
+    slug: this.slug
   }
 
   return school;

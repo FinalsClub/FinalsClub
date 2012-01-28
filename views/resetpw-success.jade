@@ -1,0 +1,8 @@
+div.content
+	div.container1
+		h1 Password Reset
+		- if ( typeof(verify) != 'undefined' && verify )  	
+			P Your password has been reset.  You can login using your new password now.
+		- else 
+			P Your password has been reset.  An email has been sent to #{ email }.
+

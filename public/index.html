@@ -118,8 +118,8 @@
                             </p>
                             <nav class="link-bar">
                                 <ul>
-                                    <li><a href="/register" id="sign_up-link">Sign Up</a></li>
-                                    <li class="last"><a href="#">Learn Something</a></li>
+                                    <li><a href="/register">Sign Up</a></li>
+                                    <li class="last"><a href="/archive">Learn Something</a></li>
                                 </ul>
                             </nav>
                         </section>
@@ -165,12 +165,12 @@
 
                 <script id="schoolTmpl" type="text/x-jquery-tmpl">
                     <li>
-                        <a href="school/${_id}" class="school">
+                        <a href="school/${name}" class="school">
                             <img class="icon-pair" src="/assets/img/avatar-univerisity-generic.gif" alt="" />
                             <div class="text-pair">
                                 <span class="school_name">${name}</span>
                                 <!-- <h4>${description}</h4>-->
-                                <span class="number_of_courses">12 Courses, </span>
+                                <span class="number_of_courses">${courses} Courses, </span>
                                 <span class="number_of_notes">27 Notes</span>
                             </div>
                         </a>
@@ -192,10 +192,29 @@
                         <h1><span id=school_name></span> Courses</h1>
                     </header>
 
-                    <div class="main-content">
-
+                    <div id="main-content">
                         <span class="sub_menu" style="display:none;"></span>
 
+                        <script id="courseTmpl" type="text/x-jquery-tmpl">
+                        <div class="course">
+                            <div class="course-content">
+                                <a class="course-name" href="/course/${_id}">
+                                    ${number}: ${name}
+                                </a>
+                                <p class="course-description">
+                                    This is placeholder description text, an intro to description in the nature of things that is quite and very and yes!
+                                </p>
+                                <div class="dept">${department}</div>
+                            </div>
+                            <aside class="course-data">
+                                <div class="course-data-item">
+                                    <div class="course-data-number">100${lectures}</div>
+                                    <div class="course-data-description">lectures</div>
+                                </div>
+                            </aside>
+                        </div> <!-- .course -->
+                        </script>
+                        <!--
                         <div class="proto course" id=PROTO_course>
                             <div class="course-content">
                                 <a class="course-name" href="/course/___id__">__number__: __name__</a>
@@ -210,6 +229,7 @@
                                 </div>
                             </aside>
                         </div>
+                        -->
 
                     </div>
 										<div class="sidebar">

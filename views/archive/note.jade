@@ -1,0 +1,11 @@
+div.content
+	div.container1
+		- course.section = course.section.replace(/\)/, '')
+		h1 !{ course.section + " &mdash; " + course.name}
+		h2 Note: #{ note.topic || note.id }
+
+		div.staticNote
+			!{ note.text || 'This note is empty.' }
+
+		div( style = 'clear: both; height: 1px;' )
+
