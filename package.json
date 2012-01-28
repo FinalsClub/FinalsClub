@@ -13,6 +13,7 @@
       "express": "2.5.2",
       "facebook-client": "1.5.2",
       "hat": "0.0.3",
+      "jade":               "0.20.0",
       "mongodb": "0.9.7-2-5",
       "mongoose": "2.4.8",
       "socket.io": "0.8.7"
