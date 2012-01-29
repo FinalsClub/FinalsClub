@@ -17,21 +17,24 @@ helping college students collaborate, learn, and share their knowledge freely on
 
 Requirements:
 
-- A typical Linux server (circa 2011)
-- Node.js (Version 0.4.10 or later) [More ...](http://nodejs.org)
-- MongoDB (Version  1.8.2 or later) [More ...](http://mongodb.org)
+- Debian/ubuntu-server GNU/Linux Box with a modern kernel (2.6.39 <)
+- 1 GB (idealy) 512MB min.
+- Node.js (Version 0.6.1 or later) [More ...](http://nodejs.org)
+- MongoDB (Version  2.0.2 or later) [More ...](http://mongodb.org)
 - forever 
 
-	$ pwd
-	/home/you
-	$ install git
-	$ install node
-	$ git clone git@github.com:/finalsclubdev/FinalsClub fc
-	$ cd fc
-	$ git submodule init
-	$ git submodule update
+Deployment:
 
-	[[ flesh this out with correct commands - reference util scripts - fix util scripts ]]
+1. Copy setup.sh to home directory.
+
+2. REVIEW setup.sh BEFORE RUNNING!!!!
+
+3. run: sudo setup.sh
+
+4. mongorestore any back-up databases that you may have.
+
+5. Copy "start" to home directory and run.
+
 
 
 # System components
@@ -43,7 +46,6 @@ The system consists of these main parts:
 - The back channel
 
 Most of the system is written in Javascript and executed by the Node.js runtime.
-
 
 
 # Source Code

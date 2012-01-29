@@ -54,10 +54,6 @@ cd ~/
 
 export PATH="/usr/local/bin:$PATH"
 
-cd ~
-rm -rf bc
-git clone git://github.com/finalsclubdev/bc.git
-cd ~/bc
 npm install connect
 npm install socket.io
 npm install express-messages

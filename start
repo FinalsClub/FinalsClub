@@ -1,52 +1,29 @@
 #!/bin/bash
 
-# TODO update this with the contents of new.sh
-exit # This breaks the script before it does anything else
+# Start Script for running app.js and Etherpad-lite
 
-export PATH="/usr/local/bin:$PATH"
+# Kill all node instances
+killall node
 
-cd ~
-rm -rf bc
-git clone git://github.com/finalsclubdev/bc.git
-cd ~/bc
-npm install connect
-npm install socket.io
-npm install express-messages
-npm install jade
-
-cd ~
-rm -rf FinalsClub
-git clone git://github.com/finalsclubdev/FinalsClub.git
-ln -sf FinalsClub fc
-
-cd ~/fc
-git checkout master
-git submodule init && git submodule update
-npm install
-cd etherpad-lite
-npm install
-
-# install some dependencies
-cd ~/fc
-npm install connect
-npm install socket.io
-npm install express-messages
-npm install jade
+# Set Env. Vars.
+export NODE_PATH=/home/risci_atom/fc/etherpad-lite/node_modules:$NODE_MODULES
+export MONGO_HOST_URI=mongodb://localhost/fc
+export MONGO_HOST=localhost
+export SERVER_HOST=www.finalsclub.org
+export SERVER_PORT=80
+export NODE_ENV=production
 
 
-## init fcbackup 
-cd ~/fc/fcbackups
-chmod 775 fcbackup_init.sh
-./fcbackup_init.sh
+ps waux | grep node | grep -v grep
 
+echo "starting ..."
 
-## start the server
-cd ~/fc
-./restart
-
-
-
-
-
-
-
+cd fc/etherpad-lite/node
+forever server.js &> log.txt &
+cd ../../
+if [ "$(id -u)" != "0" ]; then
+        ## note: start as root, pass env vars to sudo param, this app will downgrade itself onc$
+        sudo -E forever app.js &> log.txt &
+else
+        forever app.js &> log.txt &
+fi
