@@ -755,6 +755,7 @@ form .row {
 ---------------------------------------------- */
 #pg_courses .course {
   position: relative;
+  clear: both;
   margin-bottom: 0.75em; }
   #pg_courses .course .course-name {
     display: block;
