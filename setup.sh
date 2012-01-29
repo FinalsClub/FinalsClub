@@ -18,15 +18,22 @@
 # TODO: create separate deploy script for EPL
 # should involve 'npm install ./'
 
+sudo apt-get install git-core g++ libssl-dev curl make haproxy ruby rubygems mongodb-server
 
-exit
+# install mongo_db
+# Please change if running app on another arch!!!!
 
-sudo apt-get install mongodb git-core g++ libssl-dev curl make haproxy mysql-server ruby rubygems
+wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.0.2.tgz
+tar -xvvf mongodb-linux-x86_64-2.0.2.tgz
+cd mongodb-linux-x86_64-2.0.2
+cp bin/* /usr/bin/*
+
+cd ../
 
 # Install node.js
-curl http://nodejs.org/dist/node-v0.4.10.tar.gz > node-v0.4.10.tar.gz
-tar xzvf node-v0.4.10.tar.gz
-cd node-v0.4.10
+curl http://nodejs.org/dist/node-v0.6.1.tar.gz > node-v0.6.1.tar.gz
+tar xzvf node-v0.6.1.tar.gz
+cd node-v0.6.1
 sudo ./configure
 sudo make
 sudo make install
@@ -39,10 +46,42 @@ sudo make install
 sudo npm install nodemon -g
 sudo npm install forever -g
 cd /usr/bin
-#ln -sf /usr/local/bin/node .
-#sudo ln -sf /usr/local/bin/node .
-#sudo ln -sf /usr/local/bin/forever .
+ln -sf /usr/local/bin/node .
+sudo ln -sf /usr/local/bin/node .
+sudo ln -sf /usr/local/bin/forever .
 
 cd ~/
-sudo ./start.sh
+
+export PATH="/usr/local/bin:$PATH"
+
+cd ~
+rm -rf bc
+git clone git://github.com/finalsclubdev/bc.git
+cd ~/bc
+npm install connect
+npm install socket.io
+npm install express-messages
+npm install jade
+
+cd ~
+rm -rf FinalsClub
+git clone git://github.com/finalsclubdev/FinalsClub.git
+ln -sf FinalsClub fc
+
+cd ~/fc
+git checkout devel
+git submodule init && git submodule update
+npm install
+cd etherpad-lite
+npm install
+
+# install some dependencies
+cd ~/fc
+npm install connect
+npm install socket.io
+npm install express-messages
+npm install jade
+
+echo "Please re-deploy DB backup before starting :)"
+
 exit
