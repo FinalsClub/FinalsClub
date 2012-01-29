@@ -1,20 +1,52 @@
 #!/bin/bash
 
-ps waux | grep node | grep -v grep
+# TODO update this with the contents of new.sh
+exit # This breaks the script before it does anything else
 
-echo "starting ..."
+export PATH="/usr/local/bin:$PATH"
 
-if [ "$(id -u)" != "0" ]; then
-	## note: start as root, pass env vars to sudo param, this app will downgrade itself once it has initialized
-	sudo -E forever app.js &> log.txt &
-else
-	forever app.js &> log.txt &
-fi
+cd ~
+rm -rf bc
+git clone git://github.com/finalsclubdev/bc.git
+cd ~/bc
+npm install connect
+npm install socket.io
+npm install express-messages
+npm install jade
 
-cd etherpad-lite/node
-forever server.js &> log.txt &
-cd ../..
+cd ~
+rm -rf FinalsClub
+git clone git://github.com/finalsclubdev/FinalsClub.git
+ln -sf FinalsClub fc
 
-sleep 3
-ps waux | grep node | grep -v grep
+cd ~/fc
+git checkout master
+git submodule init && git submodule update
+npm install
+cd etherpad-lite
+npm install
+
+# install some dependencies
+cd ~/fc
+npm install connect
+npm install socket.io
+npm install express-messages
+npm install jade
+
+
+## init fcbackup 
+cd ~/fc/fcbackups
+chmod 775 fcbackup_init.sh
+./fcbackup_init.sh
+
+
+## start the server
+cd ~/fc
+./restart
+
+
+
+
+
+
 
