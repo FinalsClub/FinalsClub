@@ -23,12 +23,12 @@ sudo apt-get install git-core g++ libssl-dev curl make haproxy ruby rubygems mon
 # install mongo_db
 # Please change if running app on another arch!!!!
 
-wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.0.2.tgz
-tar -xvvf mongodb-linux-x86_64-2.0.2.tgz
-cd mongodb-linux-x86_64-2.0.2
-cp bin/* /usr/bin/*
+# wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.0.2.tgz
+# tar -xvvf mongodb-linux-x86_64-2.0.2.tgz
+# cd mongodb-linux-x86_64-2.0.2
+# cp bin/* /usr/bin/*
 
-cd ../
+# cd ../
 
 # Install node.js
 curl http://nodejs.org/dist/node-v0.6.1.tar.gz > node-v0.6.1.tar.gz
