@@ -6,7 +6,7 @@
 killall node
 
 # Set Env. Vars.
-export NODE_PATH=/home/risci_atom/fc/etherpad-lite/node_modules:$NODE_MODULES
+export NODE_PATH=/home/risci_atom/fc/node_modules/:/home/risci_atom/fc/etherpad-lite/node_modules:$NODE_PATH
 export MONGO_HOST_URI=mongodb://localhost/fc
 export MONGO_HOST=localhost
 export SERVER_HOST=www.finalsclub.org

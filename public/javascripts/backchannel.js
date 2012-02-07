@@ -60,6 +60,10 @@ function renderPosts(fresh, post) {
         $post.addClass('instructor');
       }
 
+      if (commentToggle === '4f1efbb248dc57ba43000075') {
+        $('.commenttoggle').empty();
+      }
+
       if (public) {
         $post.find('.voteFlag').css({
           'cursor': 'default',
@@ -305,8 +309,10 @@ $(document).ready(function(){
   // arrays with updated vote counts and refrain from sending vote message.
   var messagesArrived = 0;
   socket.on('connect', function(){
-    socket.emit('subscribe', lectureID, function(_posts) {
-      posts = _posts;
+    socket.emit('subscribe', lectureID, function(_packet) {
+      posts = _packet.posts;
+      //posts = _posts;
+      commentToggle = _packet.toggle;
       renderPosts(true);
     });
   });
