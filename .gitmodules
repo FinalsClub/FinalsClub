@@ -3,4 +3,4 @@
 	url = https://github.com/sethwoodworth/epl-fork.git
 [submodule "bc"]
 	path = bc
-	url = https://github.com/finalsclubdev/bc.git
+	url = https://github.com/sethwoodworth/bc.git
