@@ -6,7 +6,7 @@ script
 	var userAffil = '#{user.affil}';
 	var public    = false;
 	var RO        = #{RO};
-	var rourl     = 'http://#{ host }:9001/ro/#{ roID }';
+	var rourl     = 'http://finalsclub.org:9001/ro/#{ roID }';
 	var roID      = '#{roID}';
 
 div#wrapper
@@ -69,7 +69,7 @@ div#wrapper
 						span.userName ${ userName }
 						&mdash;
 						span.userAffil ${ userAffil }
-						div
+						div.commenttoggle
 								a( href='#', id='post-${_id}' ).comments
 									span.commentAmt ${ comments.length } 
 									| Comments

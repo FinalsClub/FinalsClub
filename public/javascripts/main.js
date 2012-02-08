@@ -133,6 +133,28 @@ router.add('404', false, function() {
   window.scroll(0, 0)
 });
 
+// Legal page
+router.add('legal', false, function() {
+  $("#pg_legal").fadeIn(100);
+});
+
+
+// Team Page
+router.add('team', false, function() {
+  $("#pg_team").fadeIn(100);
+});
+
+// Contact Page
+
+router.add('contact', false, function() {
+  $("#pg_contact").fadeIn(100);
+});
+
+// About Page
+router.add('about', false, function() {
+  $("#pg_about").fadeIn(100);
+});
+
 router.add('home', false, function(cb) {
   $('#learnsomething').unbind();
   $('.nav').removeClass('active');

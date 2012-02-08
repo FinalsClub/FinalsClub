@@ -480,7 +480,10 @@ function loadNote( req, res, next ) {
         } else if ( note.public ) {
           // If not authorized, but the note is public, then
           // designate the note read only (RO) and store req.note
-          req.RO = true;
+          // FIXME: this should be req.RO = true, disabled due to auth issues
+          // TODO: ^^^ Important
+          //req.RO = true;
+          req.RO = false;
           req.note = note;
 
           next();
