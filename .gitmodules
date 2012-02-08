@@ -1,0 +1,6 @@
+[submodule "bc"]
+	path = bc
+	url = https://github.com/sethwoodworth/bc.git
+[submodule "etherpad-lite"]
+	path = etherpad-lite
+	url = https://github.com/sethwoodworth/epl-fork.git
