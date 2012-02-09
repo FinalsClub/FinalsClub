@@ -370,13 +370,13 @@ function loadSchool( req, res, next ) {
     //sys.puts(school);
     if( school ) {
       req.school = school;
-      //req.school.authorized = authorized;
 
       // If a school is found, the user is checked to see if they are
       // authorized to see or interact with anything related to that
       // school.
-      //school.authorize( user, function( authorized ){
-      //});
+      school.authorize( user, function( authorized ){
+          req.school.authorized = authorized;
+      });
       next();
     } else {
       // If no school is found, display an appropriate error.
