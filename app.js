@@ -24,51 +24,6 @@ var Session			= connect.middleware.session.Session;
 var parseCookie = connect.utils.parseCookie;
 var Backchannel = require('./bc/backchannel');
 
-// ********************************
-// For facebook oauth and connect
-// ********************************
-var everyauth = require('everyauth');
-var FacebookClient = require('facebook-client').FacebookClient;
-var facebook = new FacebookClient();
-
-everyauth.debug = true;
-everyauth.everymodule.logoutPath('/bye');
-
-// configure facebook authentication
-everyauth.facebook
-    .appId('foobieblechreplacethisXXX')
-    .appSecret('foobiederpreplacethisXXX')
-    .myHostname('http://localhost:8000')
-    .scope( 'email')
-    .entryPath('/fbauth')
-    .redirectPath('/schools')
-    .findOrCreateUser(function(session, accessToken, accessTokExtra, fbUserMetadata, req) {
-        console.log('req.session');
-        console.log(req.session);
-        var userPromise = this.Promise();
-        User.findOne( {'email': fbUserMetadata.email }, function( err, euser ) {
-            console.log("Found a fc user for this fb email");
-            if (err) return userPromise.fail(err);
-            // if a user exists with that email, call them logged in
-            // FIXME: change this to different query on 'fbid'
-            if(euser) {
-                //hsession = new Session( handshake, session );
-                // save thhat this cookie/session-id is right for this user
-                req.session.regenerate( function() {
-                  euser.session = req.sessionID;
-                  euser.save( );
-                  console.log( req.sessionID );
-                  req.user = euser;
-                });
-            }
-            if (euser) return userPromise.fulfill(euser);
-        });
-        return userPromise;
-    });
-    //.callbackPath('/fbsucc')
-
-
-
 
 // Depracated
 // Used for initial testing
@@ -207,9 +162,6 @@ app.configure(function(){
   app.use( express.methodOverride() );
   // Static files are loaded when no dynamic views match.
   app.use( express.static( __dirname + '/public' ) );
-
-  // EveryAuth fb connect
-  app.use( everyauth.middleware() );
 
   // Sets the routers middleware to load after everything set
   // before it, but before static files.
@@ -1968,8 +1920,6 @@ process.on('uncaughtException', function (e) {
 mongoose.connect( 'mongodb://localhost/fc' ); // FIXME: make relative to hostname
 
 var mailer = new Mailer( app.set('awsAccessKey'), app.set('awsSecretKey') );
-
-everyauth.helpExpress(app);
 
 app.listen( serverPort, function() {
   console.log( "Express server listening on port %d in %s mode", app.address().port, app.settings.env );
