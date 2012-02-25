@@ -76,7 +76,6 @@ function tmpl_render() {
 };
 
 function render(pageId, response) {
-  console.log(user);
   if (user.name) {
     $('.username').text(user.name).attr('href', '/profile');
     $("#login_status").show();
@@ -115,7 +114,6 @@ function message(type, msg) {
 
 function checkUser(cb) {
   $.get('/checkuser', function(data) {
-    console.log(data);
     if (data.user) {
       user = data.user;
     } else {

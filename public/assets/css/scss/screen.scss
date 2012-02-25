@@ -169,25 +169,35 @@ body {
 
 #g-nav-user {
     @extend .grid-8;
-    padding: $base/4 $base/2 $base/2;
+    padding: 0 0 $base/2;
     text-align: right;
     @extend .small;
 
-    ul {
+    > ul {
         @extend .tight-line-height;
-    }
 
-    li {
-        display: inline;
+				> li {
+					float: right;
 
-        &.first, &.first a {
-            border: 0;
-        }
-    }
+						&.first, &.first a {
+								border: 0;
+						}
 
-    a {
-        padding: 0 $base/2;
-        color: $gold;
+						> a {
+								display: block;
+								padding: $base/4 $base/2;
+								color: $gold;
+
+								&#live-courses-link {
+									padding-right: $base;
+									color: #fff;
+
+									&.s-active {
+										background-color: #333333;
+									}
+								}
+						}
+				}
     }
 }
 
@@ -258,6 +268,7 @@ body {
 
 #g-masthead-hr {
     position: absolute;
+		z-index: 10;
     margin-top: 0;
     margin-bottom: 0;
     @extend .grid-8;

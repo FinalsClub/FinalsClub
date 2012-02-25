@@ -181,7 +181,7 @@ body {
 .tiny-line-height {
   line-height: 0.5em; }
 
-.tight-line-height, #g-nav-user ul, .subheader h1, .subheader h3 {
+.tight-line-height, #g-nav-user > ul, .subheader h1, .subheader h3 {
   line-height: 1em; }
 
 /* a.`elements
@@ -340,15 +340,21 @@ body {
   display: block; }
 
 #g-nav-user {
-  padding: 0.375em 0.75em 0.75em;
+  padding: 0 0 0.75em;
   text-align: right; }
-  #g-nav-user li {
-    display: inline; }
-    #g-nav-user li.first, #g-nav-user li.first a {
+  #g-nav-user > ul > li {
+    float: right; }
+    #g-nav-user > ul > li.first, #g-nav-user > ul > li.first a {
       border: 0; }
-  #g-nav-user a {
-    padding: 0 0.75em;
-    color: #ffcd58; }
+    #g-nav-user > ul > li > a {
+      display: block;
+      padding: 0.375em 0.75em;
+      color: #ffcd58; }
+      #g-nav-user > ul > li > a#live-courses-link {
+        padding-right: 1.5em;
+        color: #fff; }
+        #g-nav-user > ul > li > a#live-courses-link.s-active {
+          background-color: #333333; }
 
 #g-nav-main ul {
   float: right;
@@ -366,17 +372,17 @@ body {
   color: #fff; }
   #g-nav-main a:hover {
     color: #ffcd58; }
-  #g-nav-main a .icon {
+  #g-nav-main a .icon, #g-nav-main a #live-courses-link .indicator, #live-courses-link #g-nav-main a .indicator {
     position: absolute;
     left: 0; }
 #g-nav-main #school_link {
   padding-left: 1.65em; }
-  #g-nav-main #school_link .icon {
+  #g-nav-main #school_link .icon, #g-nav-main #school_link #live-courses-link .indicator, #live-courses-link #g-nav-main #school_link .indicator {
     top: 50%;
     margin-top: -10px; }
 #g-nav-main #blog_link {
   padding-left: 1.8em; }
-  #g-nav-main #blog_link .icon {
+  #g-nav-main #blog_link .icon, #g-nav-main #blog_link #live-courses-link .indicator, #live-courses-link #g-nav-main #blog_link .indicator {
     top: 50%;
     margin-top: -9px; }
 #g-nav-main #archive_link {
@@ -384,6 +390,7 @@ body {
 
 #g-masthead-hr {
   position: absolute;
+  z-index: 10;
   margin-top: 0;
   margin-bottom: 0;
   top: 100%;
@@ -520,7 +527,8 @@ form .row {
 
 /* 3.`Extensible Classes
 ---------------------------------------------- */
-.group:after, .wrapper:after, #g-nav-main:after, .page:after, .breadcrumb:after, #schools li:after, .schools ul:after {
+.group:after, .wrapper:after, #g-nav-main:after, .page:after, .breadcrumb:after, #schools li:after, .schools ul:after, #g-nav-user .live-course:after,
+.live-course > a:after {
   content: ".";
   display: block;
   height: 0;
@@ -566,7 +574,7 @@ form .row {
 ---------------------------------------------------------------- */
 /* A1.`Setup
 ---------------------------------------------- */
-.icon,
+.icon, #live-courses-link .indicator,
 .sprite {
   text-indent: -9999px;
   line-height: 0;
@@ -577,34 +585,54 @@ form .row {
 .sprite {
   background-image: url("../img/finalsclub-sprite-images.png"); }
 
-.icon {
+.icon, #live-courses-link .indicator {
   background-image: url("../img/finalsclub-sprite-icons.png"); }
 
 /* A2.`Sprites
 ---------------------------------------------- */
-.paperclip, #g-nav-main #school_link .icon, .paperclip-active, #g-nav-main #school_link:hover .icon {
+.paperclip, #g-nav-main #school_link .icon, #g-nav-main #school_link #live-courses-link .indicator, #live-courses-link #g-nav-main #school_link .indicator, .paperclip-active, #g-nav-main #school_link:hover .icon, #g-nav-main #school_link:hover #live-courses-link .indicator, #live-courses-link #g-nav-main #school_link:hover .indicator {
   background-position: 0 0;
   width: 22px;
   height: 20px; }
 
-.paperclip-active, #g-nav-main #school_link:hover .icon {
+.paperclip-active, #g-nav-main #school_link:hover .icon, #g-nav-main #school_link:hover #live-courses-link .indicator, #live-courses-link #g-nav-main #school_link:hover .indicator {
   background-position: -24px 0; }
 
-.align-lines, #g-nav-main #blog_link .icon {
+.align-lines, #g-nav-main #blog_link .icon, #g-nav-main #blog_link #live-courses-link .indicator, #live-courses-link #g-nav-main #blog_link .indicator {
   background-position: 0 -25px;
   width: 24px;
   height: 17px; }
 
-.align-lines-active, #g-nav-main #blog_link:hover .icon {
+.align-lines-active, #g-nav-main #blog_link:hover .icon, #g-nav-main #blog_link:hover #live-courses-link .indicator, #live-courses-link #g-nav-main #blog_link:hover .indicator {
   background-position: -27px -25px; }
 
-.book, #g-nav-main #archive_link .icon, .book-active, #g-nav-main #archive_link:hover .icon {
+.book, #g-nav-main #archive_link .icon, #g-nav-main #archive_link #live-courses-link .indicator, #live-courses-link #g-nav-main #archive_link .indicator, .book-active, #g-nav-main #archive_link:hover .icon, #g-nav-main #archive_link:hover #live-courses-link .indicator, #live-courses-link #g-nav-main #archive_link:hover .indicator {
   background-position: 0 -46px;
   width: 19px;
   height: 26px; }
 
-.book-active, #g-nav-main #archive_link:hover .icon {
+.book-active, #g-nav-main #archive_link:hover .icon, #g-nav-main #archive_link:hover #live-courses-link .indicator, #live-courses-link #g-nav-main #archive_link:hover .indicator {
   background-position: -24px -46px; }
+
+.larrow-circle {
+  background-position: 0px -78px;
+  width: 24px;
+  height: 24px; }
+
+.rarrow-circle {
+  background-position: -26px -78px;
+  width: 24px;
+  height: 24px; }
+
+.dtriangle-small-white, #live-courses-link.s-active .indicator {
+  background-position: -2px -129px;
+  width: 8px;
+  height: 6px; }
+
+.rtriangle-small-white, #live-courses-link .indicator {
+  background-position: -12px -129px;
+  width: 6px;
+  height: 8px; }
 
 .logo-brown {
   display: block;
@@ -804,6 +832,16 @@ form .row {
 
 /* 5.`Notes
 ---------------------------------------------- */
+/* ----------------------------------------------------------------
+
+[Table of contents] - modules.
+
+	0.General
+	1.Overlays
+
+---------------------------------------------------------------- */
+/* 0.`General
+---------------------------------------------- */
 .link-bar {
   margin-left: -0.375em; }
   .link-bar li {
@@ -831,6 +869,119 @@ form .row {
   height: 100px; }
 .schools em {
   margin: 0 auto; }
+
+/* 1.`Overlays
+---------------------------------------------- */
+.live-course-slide {
+  width: 450px;
+  float: left; }
+
+#live-courses {
+  position: relative;
+  z-index: 20; }
+
+#live-courses-link {
+  display: block;
+  position: relative;
+  z-index: 50; }
+  #live-courses-link.s-active .indicator {
+    margin-top: -2px; }
+  #live-courses-link .indicator {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    margin-top: -2px; }
+
+#live-courses-overlay {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  padding: 25px 75px 10px;
+  background-color: #323232;
+  -moz-box-shadow: 0 1px 4px black;
+  -webkit-box-shadow: 0 1px 4px black;
+  box-shadow: 0 1px 4px black; }
+
+#g-nav-user .live-course,
+.live-course > a {
+  position: relative;
+  z-index: 30;
+  display: block; }
+
+.live-course > a p {
+  color: #aaa;
+  -webkit-transition: color 0.25s ease-in-out;
+  -moz-transition: color 0.25s ease-in-out;
+  -o-transition: color 0.25s ease-in-out;
+  -ms-transition: color 0.25s ease-in-out;
+  transition: color 0.25s ease-in-out; }
+.live-course > a:hover p {
+  color: #fff; }
+
+.live-course-info {
+  width: 30%;
+  margin-right: 3%;
+  float: left;
+  line-height: 1.28571428571429em;
+  /* 18 / 14 */ }
+
+.live-course-description {
+  width: 66.667%;
+  float: left; }
+  .live-course-description p {
+    text-align: left;
+    color: #fff; }
+
+.live-feed-hours,
+.live-feed-days {
+  color: #666; }
+
+#live-feed-modal-pag-controls {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0; }
+  #live-feed-modal-pag-controls .pag {
+    opacity: 0.4; }
+    #live-feed-modal-pag-controls .pag:hover {
+      opacity: 0.7; }
+    #live-feed-modal-pag-controls .pag.s-disabled {
+      opacity: 0.05; }
+  #live-feed-modal-pag-controls .pag-left,
+  #live-feed-modal-pag-controls .pag-right {
+    position: absolute;
+    top: 50%;
+    margin-top: -12px; }
+  #live-feed-modal-pag-controls .pag-left {
+    left: 20px; }
+  #live-feed-modal-pag-controls .pag-right {
+    right: 20px; }
+
+.modal-footer-controls {
+  position: absolute;
+  z-index: 10;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 6px 20px;
+  background-color: #2a2a2a; }
+  .modal-footer-controls li {
+    float: left; }
+
+.modal-carousel-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  width: 450px;
+  height: 240px; }
+
+.modal-carousel {
+  width: 10000px;
+  height: 100%; }
+  .modal-carousel li {
+    width: 450px; }
 
 /* media queries
 ============================================== */
