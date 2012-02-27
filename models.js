@@ -134,18 +134,17 @@ var User = mongoose.model( 'User', UserSchema );
 // schools
 
 var SchoolSchema = new Schema( {
-	name				: { type : String, required : true },
-	description	: String,
-	url					: String,
+  name          : { type : String, required : true },
+  description   : String,
+  url           : String,
 
   created       : { type : Date, default : Date.now },
   hostnames     : Array,
 
   users         : Array,
 
-  slug          : String
+  courseNum     : Number
 });
-// slug is the url version of a school
 
 SchoolSchema.virtual( 'sanitized' ).get(function() {
   var school = {
@@ -153,7 +152,7 @@ SchoolSchema.virtual( 'sanitized' ).get(function() {
     name: this.name,
     description: this.description,
     url: this.url,
-    slug: this.slug
+    coursesNum: this.courseNum
   }
 
   return school;
@@ -216,7 +215,8 @@ var CourseSchema = new Schema( {
   deleted     : Boolean,
 
 	// many users may subscribe to a course
-	users				: Array
+	users				: Array,
+  lectureNum  : Number
 });
 
 CourseSchema.virtual( 'sanitized' ).get(function() {
@@ -226,7 +226,8 @@ CourseSchema.virtual( 'sanitized' ).get(function() {
     number: this.number || 'None',
     description: this.description || 'None',
     subject: this.subject || 'None',
-    department: this.department || 'None'
+    department: this.department || 'None',
+    lectureNum: this.lecturenum
   }
 
   return course;
