@@ -337,33 +337,6 @@ function loadSchool( req, res, next ) {
   });
 }
 
-function loadSchoolSlug( req, res, next ) {
-  var user    = req.user;
-  var schoolSlug = req.params.slug;
-
-  console.log("loading a school by slug");
-  //console.log(schoolSlug);
-
-  School.findOne({ 'slug': schoolSlug }, function( err, school ) {
-    console.log( school );
-    if( school ) {
-      req.school = school;
-
-      // If a school is found, the user is checked to see if they are
-      // authorized to see or interact with anything related to that
-      // school.
-      next()
-      //school.authorize( user, function( authorized ){
-        //req.school.authorized = authorized;
-        //next();
-      //});
-    } else {
-      // If no school is found, display an appropriate error.
-      sendJson(res,  {status: 'not_found', message: 'Invalid school specified!'} );
-    }
-  });
-}
-
 // loadSchool is used to load a course by it's id
 function loadCourse( req, res, next ) {
   var user			= req.user;
@@ -515,8 +488,6 @@ app.get( '/', loadUser, function( req, res ) {
 // in those schools.
 // Public with some private information
 app.get( '/schools', checkAjax, loadUser, function( req, res ) {
-  sys.puts('loading schools');
-  console.log(req.user);
   var user = req.user;
 
   var schoolList = [];
@@ -539,7 +510,8 @@ app.get( '/schools', checkAjax, loadUser, function( req, res ) {
                   description: s.description,
                   url: s.url,
                   slug: s.slug,
-                  courses: s.courses_length
+                  courses: s.courses_length,
+                  courseNum: s.courseNum
                 };
                 return school;
               })
@@ -559,7 +531,6 @@ app.get( '/school/:name', checkAjax, loadUser, loadSchool, function( req, res ) 
   var school = req.school;
   var user = req.user;
   var courses;
-  console.log( 'loading a school by school/:id now name' );
 
   //school.authorize( user, function( authorized ) {
     // This is used to display interface elements for those users
