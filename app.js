@@ -455,6 +455,7 @@ app.dynamicHelpers( {
   // during rendering, this allows you to use the
   // user object if available in views.
   'user' : function( req, res ) {
+    console.log("When the fuck is a dynamic helper used?");
     return req.user;
   },
 
@@ -469,23 +470,9 @@ function sendJson( res, obj ) {
   res.json(obj);
 }
 
-// Routes
-// The following are the main CRUD routes that are used
-// to make up this web app.
-
-// Homepage
-// Public
-/*
-app.get( '/', loadUser, function( req, res ) {
-  log3("get / page");
-
-  res.render( 'index' );
-});
-*/
 
 // Schools list
-// Used to display all available schools and any courses
-// in those schools.
+// Used to display all available schools
 // Public with some private information
 app.get( '/schools', checkAjax, loadUser, function( req, res ) {
   var user = req.user;
@@ -530,60 +517,24 @@ app.get( '/schools', checkAjax, loadUser, function( req, res ) {
 app.get( '/school/:name', checkAjax, loadUser, loadSchool, function( req, res ) {
   var school = req.school;
   var user = req.user;
-  var courses;
 
-  //school.authorize( user, function( authorized ) {
-    // This is used to display interface elements for those users
-    // that are are allowed to see th)m, for instance a 'New Course' button.
-    //var sanitizedSchool = school.sanitized;
-    var sanitizedSchool = {
-      _id: school.id,
-      name: school.name,
-      description: school.description,
-      url: school.url
-    };
-    //sanitizedSchool.authorized = authorized;
-    // Find all courses for school by it's id and sort by name
-    Course.find( { 'school' : school._id } ).sort( 'name', '1' ).run( function( err, courses ) {
-      // If any courses are found, set them to the appropriate school, otherwise
-      // leave empty.
-      sys.puts(courses);
-      if( courses.length > 0 ) {
-        courses = courses.filter(function(course) {
-          if (!course.deleted) return course;
-        }).map(function(course) {
-          return course.sanitized;
-        });
-      } else {
-        school.courses = [];
-      }
-      sanitizedSchool.courses = courses;
-      sys.puts(courses);
-
-      // This tells async (the module) that each iteration of forEach is
-      // done and will continue to call the rest until they have all been
-      // completed, at which time the last function below will be called.
-      sendJson(res, { 'school': sanitizedSchool, 'user': user.sanitized })
-    });
-  //});
-});
-
-// FIXME: version of the same using school slugs instead of ids
-// TODO: merge this with the :id funciton or depricate it
-app.get( '/schoolslug/:slug', checkAjax, loadUser, loadSchoolSlug, function( req, res ) {
-  var school = req.school;
-  var user = req.user;
-  console.log( 'loading a schoolslug/:slug' );
-
+  console.log("Loading a school");
   school.authorize( user, function( authorized ) {
     // This is used to display interface elements for those users
     // that are are allowed to see th)m, for instance a 'New Course' button.
     var sanitizedSchool = school.sanitized;
+    //var sanitizedSchool = {
+    //  _id: school.id,
+    //  name: school.name,
+    //  description: school.description,
+    //  url: school.url
+    //};
     sanitizedSchool.authorized = authorized;
     // Find all courses for school by it's id and sort by name
     Course.find( { 'school' : school._id } ).sort( 'name', '1' ).run( function( err, courses ) {
       // If any courses are found, set them to the appropriate school, otherwise
       // leave empty.
+
       if( courses.length > 0 ) {
         sanitizedSchool.courses = courses.filter(function(course) {
           if (!course.deleted) return course;
@@ -591,8 +542,9 @@ app.get( '/schoolslug/:slug', checkAjax, loadUser, loadSchoolSlug, function( req
           return course.sanitized;
         });
       } else {
-        sanitizedSchool.courses = [];
+        school.courses = [];
       }
+
       // This tells async (the module) that each iteration of forEach is
       // done and will continue to call the rest until they have all been
       // completed, at which time the last function below will be called.
