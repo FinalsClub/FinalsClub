@@ -191,12 +191,14 @@ router.add('schools', function(data, cb) {
 
 // go to the page that lists the courses for a specific school
 router.add('school', function(data, cb) {
+  console.log(data);
   $('#school_link').addClass('active');
-  $('.sub_menu').hide();
+  tmpl_render();
+  //$('.sub_menu').hide();
   //$('#new_course').unbind();
   $('#form_course').hide().unbind();
 
-  response = {
+  var response = {
     id: 'course',
     data: data.school.courses
   }
@@ -205,12 +207,14 @@ router.add('school', function(data, cb) {
       $('#g-footer').fadeIn();
   });
   $("#school_name").html(data.school.name);
+  $('#courseTmpl').tmpl( data.school.courses ).appendTo("#pg_courses .main-content");
 
   if (data.school.authorized) {
-    $('.sub_menu').show();
+    console.log("data school is authorized partner!");
+    //$('.sub_menu').show();
     var form = $('#form_course');
 
-    form.toggle();
+    form.show();
 
     form.submit(function(e) {
       e.preventDefault();
@@ -227,7 +231,6 @@ router.add('school', function(data, cb) {
     })
   }
 
-  $('#courseTmpl').tmpl( data.school.courses ).appendTo("#pg_courses #main-content");
 });
 
 // go to the page that lists the lectures for a specific course
