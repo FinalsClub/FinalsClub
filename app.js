@@ -161,7 +161,7 @@ app.configure(function(){
   // requests that otherwise aren't handled by default.
   app.use( express.methodOverride() );
   // Static files are loaded when no dynamic views match.
-  app.use( express.static( __dirname + '/public' ) );
+  app.use( express.static( __dirname + '/public', {maxAge: 900000} ) );
 
   // Sets the routers middleware to load after everything set
   // before it, but before static files.
@@ -441,7 +441,11 @@ function checkAjax( req, res, next ) {
   if ( req.xhr ) {
     next();
   } else {
-    res.sendfile( 'public/index.html' );
+    res.sendfile( 'public/index.html', function(err){
+      if(err){
+        console.log(err);
+      }
+    });
   }
 }
 
@@ -455,7 +459,6 @@ app.dynamicHelpers( {
   // during rendering, this allows you to use the
   // user object if available in views.
   'user' : function( req, res ) {
-    console.log("When the fuck is a dynamic helper used?");
     return req.user;
   },
 
