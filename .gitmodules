@@ -3,4 +3,4 @@
 	url = https://github.com/chapel/etherpad-lite
 [submodule "bc"]
 	path = bc
-	url = https://github.com/finalsclubdev/bc.git
+	url = https://github.com/FinalsClub/bc.git
